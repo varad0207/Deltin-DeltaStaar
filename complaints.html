@@ -1,0 +1,182 @@
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  
+    <title>Complaint form</title>
+  </head> 
+    
+  <body class="container bg-light">
+    <!-- Start Header form -->
+    <div class="text-center pt-5">
+      <img src="logo.jpeg" alt="network-logo" width="120" height="120" />
+      <h2>Complaints form</h2>
+    </div>
+    <!-- End Header form -->
+  
+    <!-- Start Card -->
+    <div class="card">
+      <!-- Start Card Body -->
+      <div class="card-body">
+        <!-- Start Form -->
+        <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
+          <!-- Start Input Name -->
+          <div class="form-group">
+            <label for="inputId">Id</label>
+            <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
+            <small class="form-text text-muted">Please fill your Id</small>
+          </div> 
+          <div class="form-group">
+            <label for="inputId">Complaint Code</label>
+            <input type="text" class="form-control" id="inputcode" name="code" placeholder="Your code" required />
+            <small class="form-text text-muted">Please fill your Complaint code</small>
+          </div>
+          <li class="form-line jf-required allowTime" data-type="control_datetime" id="id_22">
+            <label class="form-label form-label-left" id="label_22" for="lite_mode_22">
+             Complaint raise Timestamp
+              <span class="form-required">
+                *
+              </span>
+            </label>
+            <div id="cid_22" class="form-input jf-required" data-layout="full">
+              <div data-wrapper-react="true" class="extended">
+                <div style="display:none">
+                  <span class="form-sub-label-container" style="vertical-align:top">
+                    <input type="tel" class="form-textbox validate[required, limitDate]" id="month_22" name="q22_arrivalDate[month]" size="2" data-maxlength="2" data-age="" maxlength="2" value="04" required="" autocomplete="section-input_22 off" aria-labelledby="label_22 sublabel_22_month" inputmode="numeric">
+                    <span class="date-separate" aria-hidden="true">
+                      &nbsp;-
+                    </span>
+                    <br>
+                    <label class="form-sub-label" for="month_22" id="sublabel_22_month" style="min-height:13px" aria-hidden="false"> Month </label>
+                  </span>
+                  <span class="form-sub-label-container" style="vertical-align:top">
+                    <input type="tel" class="form-textbox validate[required, limitDate]" id="day_22" name="q22_arrivalDate[day]" size="2" data-maxlength="2" data-age="" maxlength="2" value="17" required="" autocomplete="section-input_22 off" aria-labelledby="label_22 sublabel_22_day" inputmode="numeric">
+                    <span class="date-separate" aria-hidden="true">
+                      &nbsp;-
+                    </span>
+                    <label class="form-sub-label" for="day_22" id="sublabel_22_day" style="min-height:13px" aria-hidden="false"> Day </label>
+                  </span>
+                  <span class="form-sub-label-container" style="vertical-align:top">
+                    <input type="tel" class="form-textbox validate[required, limitDate]" id="year_22" name="q22_arrivalDate[year]" size="4" data-maxlength="4" data-age="" maxlength="4" value="2020" required="" autocomplete="section-input_22 off" aria-labelledby="label_22 sublabel_22_year">
+                    <label class="form-sub-label" for="year_22" id="sublabel_22_year" style="min-height:13px" aria-hidden="false"> Year </label>
+                  </span>
+                </div>
+                <span class="form-sub-label-container" style="vertical-align:top">
+                  <input type="text" class="form-textbox validate[required, limitDate, validateLiteDate]" id="lite_mode_22" size="12" data-maxlength="12" data-age="" value="04-17-2020" required="" data-format="mmddyyyy" data-seperator="-" placeholder="MM-DD-YYYY" autocomplete="section-input_22 off" aria-labelledby="label_22 sublabel_22_litemode" inputmode="numeric">
+                  <img class=" newDefaultTheme-dateIcon icon-liteMode" alt="Pick a Date" id="input_22_pick" src="https://cdn.jotfor.ms/images/calendar.png" data-component="datetime" aria-hidden="true" data-allow-time="Yes" data-version="v2">
+                  <label class="form-sub-label" for="lite_mode_22" id="sublabel_22_litemode" style="min-height:13px" aria-hidden="false"> Date </label>
+                </span>
+                <span class="allowTime-container timeAMPM">
+                  <div data-wrapper-react="true">
+                    <span class="form-sub-label-container hasAMPM" style="vertical-align:top">
+                      <input type="text" class="currentTime time-dropdown form-textbox validate[required]" id="input_22_timeInput" name="q22_arrivalDate[timeInput]" required="" placeholder="HH : MM" aria-labelledby="label_22 sublabel_22_hour" data-mask="hh:MM" value="07:10" data-version="v2" inputmode="numeric">
+                      <input type="hidden" class="form-hidden-time" id="input_22_hourSelect" name="q22_arrivalDate[hour]" value="04">
+                      <input type="hidden" class="form-hidden-time" id="input_22_minuteSelect" name="q22_arrivalDate[min]" value="40">
+                      <label data-seperate-translate="true" class="form-sub-label" for="input_22_timeInput" id="sublabel_22_hour" style="min-height:13px" aria-hidden="false"> Hour Minutes </label>
+                    </span>
+                    <span class="form-sub-label-container" style="vertical-align:top">
+                      <br>
+                      <select class="time-dropdown form-dropdown validate[required] is-active" id="input_22_ampm" name="q22_arrivalDate[ampm]" data-component="time-ampm" required="" aria-labelledby="label_22 sublabel_22_ampm">
+                        <option selected="" value="AM"> AM </option>
+                        <option value="PM"> PM </option>
+                      </select>
+                      <label class="form-sub-label" for="input_22_ampm" id="sublabel_22_ampm" style="border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap" aria-hidden="false"> AM/PM Option </label>
+                    </span>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </li>
+          
+          <div class="form-group">
+            <label for="inputcat">Complaint Category: </label>
+            <select id="category" name="category"> 
+              <option>Select Category of complaint</option>
+              <option value="Electrician">Electrician</option>
+              <option value="Plumber">Plumber</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Others">Others</option>  </select> </div>
+              <div class="form-group">
+                <label for="inputdes">Complaint description</label>
+                <textarea id="inputdes" class="form-control"  name="desc" placeholder="Your complaint description" col="30" row="40" required>
+                </textarea>
+                <small class="form-text text-muted">Please type complaint description</small>
+              </div> 
+              <div class="form-group">
+                <label for="inputstatus">Status </label>
+                <select id="category" name="category"> 
+                  <option>Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="In-Progress">In-Progress</option>
+                  <option value="Closed">Closed</option></select>
+                  <br>
+                  <div class="form-group">
+                    <label for="inputId">Technician Closure Timestamp</label>
+                    <input type="text" class="currentTime time-dropdown form-textbox validate[required]" id="input_22_timeInput" name="q22_arrivalDate[timeInput]" required="" aria-labelledby="label_22 sublabel_22_hour" data-mask="hh:MM" value="07:10" data-version="v2" inputmode="numeric" placeholder="HH : MM">
+                  <select class="time-dropdown form-dropdown validate[required] is-active" id="input_22_ampm" name="q22_arrivalDate[ampm]" data-component="time-ampm" required="" aria-labelledby="label_22 sublabel_22_ampm">
+                    <option selected="" value="AM"> AM </option>
+                    <option value="PM"> PM </option>
+                    <small class="form-text text-muted">Please fill closure timestamp</small> </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputId">Security Closure Timestamp</label>
+                    <input type="text" class="currentTime time-dropdown form-textbox validate[required]" id="input_22_timeInput" name="q22_arrivalDate[timeInput]" required="" aria-labelledby="label_22 sublabel_22_hour" data-mask="hh:MM" value="07:10" data-version="v2" inputmode="numeric" placeholder="HH : MM">
+                  <select class="time-dropdown form-dropdown validate[required] is-active" id="input_22_ampm" name="q22_arrivalDate[ampm]" data-component="time-ampm" required="" aria-labelledby="label_22 sublabel_22_ampm">
+                    <option selected="" value="AM"> AM </option>
+                    <option value="PM"> PM </option>
+                    <small class="form-text text-muted">Please fill closure timestamp</small> </select>
+                  </div>
+                 <div class="form-group">
+                  <label for="inputId">Warden Closure Timestamp</label>
+                  <input type="text" class="currentTime time-dropdown form-textbox validate[required]" id="input_22_timeInput" name="q22_arrivalDate[timeInput]" required="" aria-labelledby="label_22 sublabel_22_hour" data-mask="hh:MM" value="07:10" data-version="v2" inputmode="numeric" placeholder="HH : MM">
+                <select class="time-dropdown form-dropdown validate[required] is-active" id="input_22_ampm" name="q22_arrivalDate[ampm]" data-component="time-ampm" required="" aria-labelledby="label_22 sublabel_22_ampm">
+                  <option selected="" value="AM"> AM </option>
+                  <option value="PM"> PM </option>
+                  <small class="form-text text-muted">Please fill closure timestamp</small> </select>
+                </div> 
+                <div class="form-group">
+                  <label for="inputrem">Remarks</label>
+                  <input type="text" class="form-control" id="inputr" name="remarks" placeholder="Your remarks" required />
+                  <small class="form-text text-muted">Please type in the remarks</small>
+                </div>
+                  <!-- Start Submit Button -->
+         <button class="btn btn-primary btn-block col-lg-2" type="submit">Submit</button>
+         <!-- End Submit Button --> 
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="emp.js"></script>
+    <!-- Start Scritp for Form -->
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>
+    <!-- End Scritp for Form -->
+    <footer>
+        <div class="my-4 text-muted text-center">
+          <p>© deltinconnect</p>
+        </div>
+      </footer>
+  </body> 

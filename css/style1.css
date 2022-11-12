@@ -7,12 +7,23 @@
     color: white;
 }
 
-.spr, .active {
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active:hover {
     background: -webkit-linear-gradient(#FEBE10, #F0E68C);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.spr {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .containeer {
     display: grid;
@@ -32,6 +43,6 @@ a:link {
 }
 
 .containeer-items:hover {
-    transition: all 1s ease-out;
+    transition: all 0.7s ease-out;
     transform: scale(1.2);
 }

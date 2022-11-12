@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.bgcolor {
+    font-family: 'Bungee Spice', cursive;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    color: white;
+}
+
+.active {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active1 {
+    background: white;
+    color: black;
+    border-radius: 10px;
+}
+
+.container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+}
+
+.child1 {
+    grid-column: span 2;
+}
+
+.child2 {
+    grid-column: span 3;
+}
+
+.child2 > img {
+    border-radius: 30px;
+    width: 100%;
+}
+
+
+/* .portal{
+    width: 100%;
+    background-color:black;
+}
+.portal h1{
+    text-align: center;
+    color: #ceaa6d;
+    margin: 20px 0px;
+}
+
+.containeer{
+    width: 1170px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 50px;
+}
+
+.containeer-items{
+    flex-basis: 23%;
+    margin: 10px 0px;
+  
+    text-align: center;
+    padding: 20px 0px;
+ 
+
+}
+.containeer-items img{
+    border-radius: 100px;
+}
+
+.containeer-items h3{
+    padding: 15px 0px;
+}
+
+.containeer-items img:hover{
+    box-shadow: 0px 0px 30px 8px lightgray;
+}
+
+.containeer-items a{
+    text-decoration: none;
+    color: #ceaa6d;
+}
+
+@media (max-width:952px){
+    nav ul li a{
+        font-size: 16px;
+    }
+}
+
+@media (max-width:858px){
+    .checkbtn{
+        display: block;
+    }
+    ul{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background:black;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all .3s;
+    }
+    nav ul li{
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+
+    }
+    nav ul li a{
+        font-size: 20px;
+    }
+    a:hover,a.active{
+        background: none;
+        color: #ceaa6d;
+    }
+    #check:checked ~ ul{
+        left: 0;
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:767px){
+    .containeer{
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (max-width: 300px) {
+    
+} */

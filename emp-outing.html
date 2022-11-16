@@ -5,15 +5,15 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  
+    <link rel="stylesheet" href="emp.css">
     <title>EMP-Outing form</title>
   </head> 
     
   <body class="container bg-light">
     <!-- Start Header form -->
     <div class="text-center pt-5">
-      <img src="logo.jpeg" alt="network-logo" width="140" height="140" />
-      <h2>Employee-outing form</h2>
+      <img src="" alt="network-logo" width="140" height="140" />
+      <h2 font-family="Lobster">Employee-outing form</h2>
     </div>
     <!-- End Header form -->
   
@@ -24,6 +24,7 @@
         <!-- Start Form -->
         <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
           <!-- Start Input Name -->
+      <div class="row">
           <div class="form-group col-md-4">
               
             <label for="inputId">Employee-Id</label>
@@ -32,11 +33,12 @@
           </div> 
           <div class="form-group col-md-4">
             <label for="inputId">Approval:</label>
+            <br>
             <select id="approval" name="app"> 
             <option>Approval(Yes/No)</option>
             <option value="Electrician">Yes</option>
-            <option value="Plumber">No</option></select></div>
-            
+            <option value="Plumber">No</option></select></div></div>
+            <div class="row">
             <div class="form-group col-md-4">
               <label for="inputDate">Outing Date</label>
               <input type="date" class="form-control" id="inputDate" name="date" required />
@@ -47,16 +49,19 @@
               <input type="date" class="form-control" id="inputDate" name="date" required />
               <small class="form-text text-muted">Please choose Arrival Date</small>
             </div> 
-         
+          
             <div class="form-group col-md-4">
               
                 <label for="inputcate">Category:</label>
+                <br>
                 <select id="cate" name="cate"> 
                 <option>Select Category</option>
                 <option value="Normal Outing">Normal Outing</option>
                 <option value="Permanently Left">Permanently Left</option>
                 <option value="Home Outing">Home Outing</option>
-                <option value="Others">Others</option></select> </div>
+          </div>
+          <option value="Others">Others</option></select> </div></div>
+          
          <!-- Start Submit Button -->
          <button class="btn btn-primary btn-block col-lg-2" type="submit">Submit</button>
          <!-- End Submit Button -->

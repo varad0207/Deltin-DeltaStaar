@@ -5,7 +5,7 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  
+    <link rel="stylesheet" href="emp.css">
     <title>Vaccination form</title>
   </head> 
     
@@ -24,22 +24,25 @@
         <!-- Start Form -->
         <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
           <!-- Start Input Name -->
-          <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-4">
             <label for="inputId">Vaccination Id</label>
             <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
             <small class="form-text text-muted">Please fill your Vaccination-Id</small>
           </div> 
-          <div class="form-group">
+          
+            <div class="form-group col-md-4">
             <label for="inputId">Employee-Id</label>
             <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
             <small class="form-text text-muted">Please fill your Employee-Id</small>
           </div>
-          <div>
-            <div class="form-group">
+  
+            <div class="form-group col-md-4">
                 <label for="inputId">Category-Id</label>
                 <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
                 <small class="form-text text-muted">Please fill your Category-Id</small>
-              </div>
+              </div></div>
+              <div class="row">
               <div class="form-group col-md-4">
                 <label for="inputDate">Date of Administration</label>
                 <input type="date" class="form-control" id="inputDate" name="date" required />
@@ -49,12 +52,13 @@
                 <label for="inputDate">Date of Next Dose</label>
                 <input type="date" class="form-control" id="inputDate" name="date" required />
                 <small class="form-text text-muted">Please choose date of Next dose</small>
-              </div> 
-          <div class="form-group">
+              </div>
+              
+                <div class="form-group col-md-4">
             <label for="inputloc">Location</label>
             <input type="text" class="form-control" id="loc" name="loc" placeholder="Location" required />
             <small class="form-text text-muted">Please fill your Category-Id</small>
-          </div>
+          </div></div>
          <!-- Start Submit Button -->
          <button class="btn btn-primary btn-block col-lg-2" type="submit">Submit</button>
          <!-- End Submit Button -->

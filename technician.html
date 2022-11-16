@@ -5,16 +5,16 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  
+    <link rel="stylesheet" href="emp.css">
     <title>Technician form</title>
   </head> 
-    
+    <header>
   <body class="container bg-light">
     <!-- Start Header form -->
     <div class="text-center pt-5">
       <img src="logo.jpeg" alt="network-logo" width="140" height="140" />
       <h2>Technician Log In form</h2>
-    </div>
+    </div></header>
     <!-- End Header form -->
   
     <!-- Start Card -->
@@ -24,24 +24,26 @@
         <!-- Start Form -->
         <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
           <!-- Start Input Name -->
-          <div class="form-group">
+          <div class="row">
+          <div class="form-group col-md-4">
             <label for="inputId">Id</label>
             <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
             <small class="form-text text-muted">Please fill your Id</small>
           </div> 
-          <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="inputId">Employee-Id</label>
             <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
             <small class="form-text text-muted">Please fill your Employee-Id</small>
           </div>
-          <div>
-              <select id="role" name="role"> 
-                <label for="inputrole">
+          <div class="form-group col-md-4">
+          
+                <label for="inputId">Role:</label>
+                <br><select id="role" name="role"> 
                 <option>Select Role</option>
                 <option value="Electrician">Electrician</option>
                 <option value="Plumber">Plumber</option>
                 <option value="Furniture">Furniture</option>
-                <option value="Others">Others</option>  </select> </label> </div>
+                <option value="Others">Others</option>  </select> </label> </div></div>
              <br>
          <!-- Start Submit Button -->
          <button class="btn btn-primary btn-block col-lg-2" type="submit">Submit</button>

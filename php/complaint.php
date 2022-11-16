@@ -23,7 +23,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>DeltinConnect|Complaint</title>
     <meta name="description" content="Complaint submission portal for deltin employees">
-    <link rel="stylesheet" href="css/complaint.css">
+    <link rel="stylesheet" href="../css/complaint.css">
 </head>
 
 <body>
@@ -35,7 +35,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 
     <body class="container bg-light">
         <div class="text-center pt-5">
-            <img src="logo.jpeg" alt="network-logo" width="120" height="120" />
+            <img src="../images/logo.jpeg" alt="network-logo" width="120" height="120" />
             <h2>Lodge A Complaint</h2>
         </div>
 

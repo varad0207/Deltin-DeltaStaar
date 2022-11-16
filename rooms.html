@@ -5,16 +5,16 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-     
+    <link rel="stylesheet" href="emp.css">
     <title>Rooms</title>
   </head> 
-    
+    <header>
   <body class="container bg-light">
     <!-- Start Header form -->
     <div class="text-center pt-5">
       <img src="logo.jpeg" alt="network-logo" width="120" height="120" />
       <h2>Rooms form</h2>
-    </div>
+    </div></header>
     <!-- End Header form -->
   
     <!-- Start Card -->
@@ -24,23 +24,25 @@
         <!-- Start Form -->
         <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
           <!-- Start Input Name -->
-          <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-4">
             <label for="inputId">Accomodation-id</label>
             <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
             <small class="form-text text-muted">Please fill your Accommodation Id</small>
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="inputrn">Room no.</label>
             <input type="number" class="form-control" id="inputr" name="rno" placeholder="Your room no." required />
             <small class="form-text text-muted">Please fill your room no.</small>
           </div> 
-          <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="inputrc">Room Capacity</label>
             <input type="number" class="form-control" id="inputrc" name="rc" placeholder="Your room capacity" required />
             <small class="form-text text-muted">Please fill room capacity</small>
-          </div>
-          <div>
-            <select id="status" name="status"> 
+          </div></div>
+          <div class="row">
+          <div class="form-group col-md-4">
+           <br> <select id="status" name="status"> 
               <label for="inputsts">
               <option>Select Status</option>
               <option value="Active">Active</option>
@@ -49,11 +51,11 @@
           <!-- End Input Name -->
     <br>
           <!-- Start Input Email -->
-          <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="inputcro">Current Room Occupancy</label>
             <input type="number" class="form-control" id="inputcro" name="cro" placeholder="Enter current room occupancy" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
           </div>
-
+          </div>
          
          <!-- Start Submit Button -->
          <button class="btn btn-primary btn-block col-lg-2" type="submit">Submit</button>

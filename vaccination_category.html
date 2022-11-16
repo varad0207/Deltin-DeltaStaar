@@ -5,7 +5,7 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  
+    <link rel="stylesheet" href="emp.css">
     <title>Vaccination Category</title>
   </head> 
     
@@ -24,20 +24,23 @@
         <!-- Start Form -->
         <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
           <!-- Start Input Name -->
-          <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-4">
             <label for="inputcat">Vaccination Category: </label>
             <select id="category" name="category"> 
               <option>Select Category of Vaccination</option>
               <option value="first ">1st dose taken</option>
               <option value="sec dose">Yet to take 2nd dose</option>
               <option value="Fully">Fully vaccinated</option>
-              <option value="Nodose">Not taken both doses</option>
-               </select> </div>
-          <div class="form-group">
+              <option value="Nodose">Not taken both doses</option></select> 
+              <small class="form-text text-muted">Please select vaccination Category</small>
+               </div>
+               
+                <div class="form-group col-md-4">
             <label for="inputId">Category Id</label>
             <input type="number" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
             <small class="form-text text-muted">Please fill your Category Id</small>
-          </div>
+          </div></div>
          
           
          <!-- Start Submit Button -->

@@ -2,18 +2,21 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  
+   <link rel="stylesheet" href="emp.css">
     <title>EMP form</title>
-  </head>
-  
+  </head> 
+    <header>
   <body class="container bg-light">
     <!-- Start Header form -->
     <div class="text-center pt-5">
-      <img src="logo.jpeg" alt="network-logo" width="120" height="120" />
-      <h2>Employee Log In form</h2>
+      <img src="logo.jpeg" alt="network-logo" width="140" height="140" />
+    <header>
+      <h2>Employee Log In form</h2></header>
     </div>
     <!-- End Header form -->
   
@@ -24,55 +27,62 @@
         <!-- Start Form -->
         <form id="LoginForm" action="#" method="" class="needs-validation" novalidate autocomplete="off">
           <!-- Start Input Name -->
-          <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-4">
             <label for="inputId">Emp-id</label>
             <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
-            <small class="form-text text-muted">Please fill your Id</small>
+            <small class="form-text text-muted" color="white">Please fill your Id</small>
           </div>
-          <div class="form-group">  
+            
+          <div class="form-group col-md-4">
             <label for="inputName">First Name</label>
             <input type="text" class="form-control" id="inputf" name="fname" placeholder="Your First name" required />
             <small class="form-text text-muted">Please fill your First Name</small>
           </div> 
-          <div class="form-group">
+          
+            <div class="form-group col-md-4">
             <label for="inputName">Middle name</label>
             <input type="text" class="form-control" id="inputm" name="minit" placeholder="Your Middle name" required />
             <small class="form-text text-muted">Please fill your middlename</small>
-          </div>
-          <div class="form-group">
+          </div> 
+          <div class="form-group col-md-4">
             <label for="inputName">Last Name</label>
             <input type="text" class="form-control" id="inputl" name="lname" placeholder="Your LastName" required />
             <small class="form-text text-muted">Please fill your LastName</small>
           </div>
           <!-- End Input Name -->
   
-          <!-- Start Input Email -->
-          <div class="form-group">
+          <!-- Start Input Email --> 
+          <div class="form-group col-md-4">
             <label for="inputEmail">Email</label>
             <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Enter email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
             <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
+          </div> 
           <!-- End Input Email -->
   
           <!-- Start Input Telephone -->
-          <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="inputPhone">Phone 1</label>
             <input type="tel" class="form-control" id="inputPhone" name="phone" placeholder="099xxxxxxx" pattern="\d{3}\d{3}\d{4}" required />
             <small class="form-text text-muted">We'll never share your phone number with anyone else.</small>
-          </div> 
+          </div> </div>
           <!-- End Input Telephone -->
-          <div class="form-group">
+          <div class="row">
+          <div class="form-group col-md-4">
             <label for="inputPhone">Phone 2</label>
             <input type="tel" class="form-control" id="inputPhone" name="phone" placeholder="099xxxxxxx" pattern="\d{3}\d{3}\d{4}" required />
             <small class="form-text text-muted">We'll never share your phone number with anyone else.</small>
           </div> 
           <div class="form-group col-md-4">
+          
             <label for="inputDate">Date of Birth</label>
             <input type="date" class="form-control" id="inputDate" name="date" required />
             <small class="form-text text-muted">Please choose date of Birth</small>
           </div> 
-        <div>
-          <select id="country" name="country"> 
+          <div class="form-group col-md-4">
+            <br>
+          <select id="country" name="country" height="20px"> 
+            
             <label for="inputcountry">
             <option>Select Country</option>
             <option value="Afghanistan">Afghanistan</option>
@@ -119,8 +129,12 @@
             <option value="Hungary">Hungary</option>
             <option value="Iceland">Iceland</option>
             <option value="India">India</option>  
-        </select> </label> 
+        </select> </label> </div></div> 
+        <div class="row">
+            <div class="form-group col-md-4">
+              <br>
         <select id="state" name="state">
+          
             <label for="inputstate">
             <option>Select state</option>
             <option value="Maharastra">Maharastra</option>
@@ -130,49 +144,51 @@
             <option value="Assam">Assam</option>
             <option value="West Bengal">West Bengal</option></select>
             <small class="form-text text-muted">Please choose country and state</small>
-        </div>
-            <div class="form-group">
+        </div> 
+        <div class="form-group col-md-4">
+            <span class="form-group">
                 <label for="inputPincode">PinCode</label>
                 <input type="number" class="form-control" id="inputPincode" name="pin" placeholder="403707" pattern="\d{3}\d{3}\d{4}" required />
-                 <small class="form-text text-muted">Please fill pincode</small>
-              </div> 
+                 <small class="form-text text-muted">Please fill pincode</small></span></div>
+                 <div class="form-group col-md-4">
+                  <label for="inputBldgrp">Blood Group</label>
+                  <input type="text" class="form-control" id="inputbldgrp" name="BldGrp" placeholder="Enter Blood Group" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
+                 </span>
+                </div> </div>
           <div class="form-group">
             <label for="inputAddress">Address</label>
             <input type="text" class="form-control" id="inputaddress" name="address" placeholder="Enter address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
             <small class="form-text text-muted">We'll never share your address with anyone else.</small>
           </div> 
-          <div class="form-group">
-            <label for="inputBldgrp">Blood Group</label>
-            <input type="text" class="form-control" id="inputbldgrp" name="BldGrp" placeholder="Enter Blood Group" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
-
-          </div>  
-          <div class="form-group">
+          <div class="row">
+          <div class="form-group col-md-4">
             <label for="inputdept">Department</label>
             <input type="Department" class="form-control" id="inputdept" name="dept" placeholder="Enter your Department" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
           </div> 
-             <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="inputdes">Designation</label>
             <input type="Designation" class="form-control" id="inputdes" name="designation" placeholder="Enter your Department" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
-          </div>
+          </div> 
           <div class="form-group col-md-4">
             <label for="inputDate">Joining Date</label>
             <input type="date" class="form-control" id="inputDate" name="date" required />
             <small class="form-text text-muted">Please choose your joining date.</small>
-          </div> 
-          <div class="form-group">
+          </div> </div> 
+          <div class="row">
+          <div class="form-group col-md-4">
             <label for="inputaadh">Aadhar Number</label>
             <input type="Aadhar" class="form-control" id="inputAadhar" name="aadhar" placeholder="Enter your Aadhar Number" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
             <small class="form-text text-muted">We'll never share your aadhar number with anyone else.</small>
         </div> 
-        <div class="form-group">
+        <div class="form-group col-md-4">
             <label for="inputaadh">Salary</label>
             <input type="Salary" class="form-control" id="inputsal" name="salary" placeholder="Enter your Salary" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
             <small class="form-text text-muted">We'll never share your salary with anyone else.</small>
-        </div> 
+        </div>   </div> 
          <!-- Start Submit Button -->
          <button class="btn btn-primary btn-block col-lg-2" type="submit">Submit</button>
-         <!-- End Submit Button -->
-
+         <!-- End Submit Button --> 
+        
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

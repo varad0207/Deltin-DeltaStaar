@@ -25,6 +25,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     <meta name="description" content="Complaint submission portal for deltin employees">
     <link rel="stylesheet" href="../css/complaint.css">
 </head>
+<!--  -->
 
 <body>
     <header>

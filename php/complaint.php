@@ -23,7 +23,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>DeltinConnect|Complaint</title>
     <meta name="description" content="Complaint submission portal for deltin employees">
-    <link rel="stylesheet" href="../css/complaint.css">
+    <link rel="stylesheet" href="emp.css">
 </head>
 <!--  -->
 

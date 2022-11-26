@@ -13,7 +13,7 @@ header img{
 }
    
 .card-body{
-    background: url("bg1.jpg");
+    background: url("../images/bg1.jpg");
     background-size: cover;
     backdrop-filter: blur(12px);
   opacity:0.9;}
@@ -25,7 +25,7 @@ header img{
 color: white;
 }
 body{
-background-image: url("bg.jpg");
+background-image: url("../images/bg.jpg");
 background-size: cover;
 }
 .text-center pt-5{

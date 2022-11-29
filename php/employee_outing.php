@@ -1,8 +1,6 @@
 <?php
 require "includes/common.php";
-// echo "Hii";
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-    // echo "HELLO";
     $emp_code = mysqli_real_escape_string($conn, $_POST['emp_code']);
     $outing_date = $_POST['start_date'];
     $arrival_date = $_POST['arrival_date'];

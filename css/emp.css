@@ -1,36 +1,44 @@
-h2{
-    color:black;
-    text-align:center;  
-    
+h2 {
+    color: black;
+    text-align: center;
+
 }
-header img{
+
+header img {
     padding: 5px;
     width: 350;
     height: 100px;
 }
-.text-center pt-5{
+
+.text-center pt-5 {
     image-rendering: 20px;
 }
-   
-.card-body{
+
+.card-body {
     background: url("../images/bg1.jpg");
     background-size: cover;
     backdrop-filter: blur(12px);
-  opacity:0.9;}
-.form-group label{
+    opacity: 0.9;
+}
+
+.form-group label {
 
     color: white;
-} 
-.form-text text-muted{
-color: white;
 }
-body{
-background-image: url("../images/bg.jpg");
-background-size: cover;
+
+.form-text text-muted {
+    color: white;
 }
-.text-center pt-5{
+
+body {
+    background-image: url("../images/bg.jpg");
+    background-size: cover;
+}
+
+.text-center pt-5 {
     color: crimson;
-} 
+}
+
 .form-line {
-color:white;
-} 
+    color: white;
+}

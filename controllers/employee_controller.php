@@ -1,6 +1,11 @@
-<?php  include('includes/common.php'); ?>
+<?php  include('../controllers/includes/common.php'); ?>
 <?php 
-	session_start();
+	
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+
 
 	// initialize variables
 	$emp_code = "";
@@ -17,10 +22,10 @@
     $blood_group = "";
     $department = "";
     $joining_date = "";
-    $aadhar_number = "";
+    $aadhaar_number = "";
     $salary = "";
     $acc_id = "";
-    $role_id = "";
+    
 	$update = false;
 
 	if (isset($_POST['save'])) {
@@ -34,16 +39,16 @@
         $state = $_POST['state'];
         $country = $_POST['country'];
         $pincode = $_POST['pincode'];
-        $email = $_POST['emial'];
+        $email = $_POST['email'];
         $blood_group = $_POST['blood_group'];
         $department = $_POST['department'];
         $joining_date = $_POST['joining_date'];
-        $aadhar_number = $_POST['aadhar_number'];
+        $aadhaar_number = $_POST['aadhaar_number'];
         $salary = $_POST['salary'];
         $acc_id = $_POST['acc_id'];
-        $role_id = $_POST['role_id'];
+        
 
-		mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,address,state,country,pincode,email,blood_group,department,joining_date,aadhar_number,salary,acc_id,role_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$address','$state','$country','$pincode','$email','$blood_group','$department','$joining_date','$aadhar_number','$salary','$acc_id','$role_id')"); 
+		mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,address,state,country,pincode,email,blood_group,department,joining_date,aadhaar_number,salary,acc_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$address','$state','$country','$pincode','$email','$blood_group','$department','$joining_date','$aadhaar_number','$salary','$acc_id')"); 
 		$_SESSION['message'] = "employee details saved"; 
 		header('location: ../views/employee.php');
 	}
@@ -59,16 +64,16 @@
         $state = $_POST['state'];
         $country = $_POST['country'];
         $pincode = $_POST['pincode'];
-        $email = $_POST['emial'];
+        $email = $_POST['email'];
         $blood_group = $_POST['blood_group'];
         $department = $_POST['department'];
         $joining_date = $_POST['joining_date'];
-        $aadhar_number = $_POST['aadhar_number'];
+        $aadhaar_number = $_POST['aadhaar_number'];
         $salary = $_POST['salary'];
         $acc_id = $_POST['acc_id'];
-        $role_id = $_POST['role_id'];
+        
     
-        mysqli_query($conn, "UPDATE employee SET fname='$fname', mname='$mname',lname='$lname',designation='$designation',dob='$dob',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',blood_group='$blood_group',department='$department',joining_date='$joining_date',aadhar_number='$aadhar_number',salary='$salary',acc_id='$acc_id',role_id='$role_id' WHERE emp_code=$emp_code");
+        mysqli_query($conn, "UPDATE employee SET fname='$fname', mname='$mname',lname='$lname',designation='$designation',dob='$dob',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',blood_group='$blood_group',department='$department',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',acc_id='$acc_id' WHERE emp_code=$emp_code");
         $_SESSION['message'] = "employee Info updated!"; 
         header('location: ../views/employee.php');
     }

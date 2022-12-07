@@ -8,5 +8,5 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $insert = "insert into complaints(emp_code, category, description) values ('$emp_code','$category','$description')";
     echo mysqli_error($conn);
     $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
-    header("location: index.php");
+    header("location: ../index.html");
 }

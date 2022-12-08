@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 28, 2022 at 04:45 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1
+-- Generation Time: Dec 07, 2022 at 05:33 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `deltinconnect1.1`
+-- Database: `deltinconnect1_1`
 --
 
 -- --------------------------------------------------------
@@ -29,18 +30,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accomodation` (
   `acc_id` int(11) NOT NULL,
-  `acc_code` varchar(10) NOT NULL,
-  `acc_name` varchar(20) NOT NULL,
-  `bldg_status` varchar(10) NOT NULL,
-  `location` varchar(30) NOT NULL,
-  `gender` enum('Male','Female','Unisex') NOT NULL,
+  `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `acc_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bldg_status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('Male','Female','Unisex') COLLATE utf8mb4_unicode_ci NOT NULL,
   `tot_capacity` int(11) NOT NULL,
   `no_of_rooms` int(11) NOT NULL,
   `occupied_rooms` int(11) DEFAULT NULL,
   `available_rooms` int(11) DEFAULT NULL,
-  `owner` varchar(20) NOT NULL,
-  `remark` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `owner` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -51,15 +52,15 @@ CREATE TABLE `accomodation` (
 CREATE TABLE `complaints` (
   `id` int(11) NOT NULL,
   `raise_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `category` varchar(20) NOT NULL,
-  `description` text NOT NULL,
-  `status` varchar(10) DEFAULT NULL,
+  `category` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tech_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `sec_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `warden_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `remarks` text DEFAULT NULL,
-  `emp_code` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `remarks` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `complaints`
@@ -69,7 +70,16 @@ INSERT INTO `complaints` (`id`, `raise_timestamp`, `category`, `description`, `s
 (2, '2022-11-09 18:02:15', 'Electrical', 'bulb replacement', NULL, '2022-11-09 18:02:15', '2022-11-09 18:02:15', '2022-11-09 18:02:15', NULL, 'ABCD1234'),
 (9, '2022-11-16 14:34:24', 'Plumbing', 'flush', NULL, '2022-11-16 14:34:24', '2022-11-16 14:34:24', '2022-11-16 14:34:24', NULL, 'ABCD1234'),
 (10, '2022-11-17 10:07:35', 'Carpentary', 'table broken', NULL, '2022-11-17 10:07:35', '2022-11-17 10:07:35', '2022-11-17 10:07:35', NULL, 'ABCD1234'),
-(11, '2022-11-26 11:05:50', 'Others', 'testing the form', NULL, '2022-11-26 11:05:50', '2022-11-26 11:05:50', '2022-11-26 11:05:50', NULL, 'ABCD1234');
+(12, '2022-12-07 07:21:15', 'Plumbing', 'ASQqe', NULL, '2022-12-07 07:21:15', '2022-12-07 07:21:15', '2022-12-07 07:21:15', NULL, 'ABCD1234'),
+(13, '2022-12-07 07:47:42', 'Electrical', 'dzfsfas', NULL, '2022-12-07 07:47:42', '2022-12-07 07:47:42', '2022-12-07 07:47:42', NULL, 'ABCD1234'),
+(14, '2022-12-07 07:48:31', 'Carpentary', 'chair broken', NULL, '2022-12-07 07:48:31', '2022-12-07 07:48:31', '2022-12-07 07:48:31', NULL, 'ABCD1234'),
+(15, '2022-12-07 09:20:04', 'Others', 'dfAS', NULL, '2022-12-07 09:20:04', '2022-12-07 09:20:04', '2022-12-07 09:20:04', NULL, 'ABCD1234'),
+(16, '2022-12-07 09:22:04', 'Others', 'xfgsd', NULL, '2022-12-07 09:22:04', '2022-12-07 09:22:04', '2022-12-07 09:22:04', NULL, 'ABCD1234'),
+(18, '2022-12-07 13:27:31', 'other', 'sdfa', NULL, '2022-12-07 13:27:31', '2022-12-07 13:27:31', '2022-12-07 13:27:31', NULL, 'ABCD1234'),
+(19, '2022-12-07 13:31:57', 'Plumbing', 'asfa', NULL, '2022-12-07 13:31:57', '2022-12-07 13:31:57', '2022-12-07 13:31:57', NULL, 'ABCD1234'),
+(20, '2022-12-07 13:33:27', 'Others', 'hello world', NULL, '2022-12-07 13:33:27', '2022-12-07 13:33:27', '2022-12-07 13:33:27', NULL, 'ABCD1234'),
+(21, '2022-12-07 13:38:43', 'Others', 'other', NULL, '2022-12-07 13:38:43', '2022-12-07 13:38:43', '2022-12-07 13:38:43', NULL, 'ABCD1234'),
+(22, '2022-12-07 15:06:15', 'Carpentary', 'asdf', NULL, '2022-12-07 15:06:15', '2022-12-07 15:06:15', '2022-12-07 15:06:15', NULL, 'ABCD1234');
 
 -- --------------------------------------------------------
 
@@ -80,7 +90,7 @@ INSERT INTO `complaints` (`id`, `raise_timestamp`, `category`, `description`, `s
 CREATE TABLE `contact` (
   `emp_id` int(11) NOT NULL,
   `contact` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -90,32 +100,34 @@ CREATE TABLE `contact` (
 
 CREATE TABLE `employee` (
   `emp_id` int(11) NOT NULL,
-  `emp_code` varchar(10) NOT NULL,
-  `fname` varchar(10) NOT NULL,
-  `mname` varchar(10) NOT NULL,
-  `lname` varchar(10) NOT NULL,
-  `designation` varchar(20) NOT NULL,
+  `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designation` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dob` date NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `state` varchar(10) NOT NULL,
-  `country` varchar(10) NOT NULL,
+  `address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pincode` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `blood_group` varchar(4) DEFAULT NULL,
-  `department` varchar(15) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `blood_group` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `department` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
   `aadhaar_number` int(11) NOT NULL,
   `salary` float DEFAULT NULL,
-  `acc_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `acc_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role_id`) VALUES
-(1, 'ABCD1234', 'Chinmay', 'Umesh', '', 'Team Lead', '2002-07-05', 'Flat rt6 Fonseca Arcade tisk ponda', 'Goa', 'India', 403401, 'chinmayjoshi5702@gmail.com', NULL, 'IT', NULL, 1234567890, NULL, NULL, NULL);
+INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`) VALUES
+(1, 'ABCD1234', 'Chinmay', 'Umesh', '', 'Team Lead', '2002-07-05', 'Flat rt6 Fonseca Arcade tisk ponda', 'Goa', 'India', 403401, 'chinmayjoshi5702@gmail.com', NULL, 'IT', NULL, 1234567890, NULL, NULL),
+(6, 'qwer1234', 'Ivan', 'William', 'Azim', 'manager', '0000-00-00', 'sanvordem', 'goa', 'india', 403706, 'iaxivanazim@gmail.com', 'B+', 'IT', '0000-00-00', 12345, 50000, NULL),
+(11, 'gf2341', 'Ivan', 'William', 'Azim', 'Manager', '2019-06-05', 'sanvordem', 'Goa', 'India', 403706, 'iaxivanazim@gmail.com', 'B+', 'IT', '2022-12-01', 1234567, 500000, 0),
+(12, 'grsdf23', 'Ivan', 'William', 'Azim', 'Manager', '2022-12-05', 'sanvordem', 'Goa', 'India', 403706, 'iaxivanazim@gmail.com', 'B+', 'IT', '2022-12-01', 1234567, 500000, 0);
 
 -- --------------------------------------------------------
 
@@ -125,21 +137,11 @@ INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `design
 
 CREATE TABLE `employee_outing` (
   `emp_id` int(11) NOT NULL,
-  `approval` enum('Yes','No') DEFAULT NULL,
+  `approval` enum('Yes','No') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `outing_date` date NOT NULL,
   `arrival_date` date NOT NULL,
-  `category` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `employee_outing`
---
-
-INSERT INTO `employee_outing` (`emp_id`, `approval`, `outing_date`, `arrival_date`, `category`) VALUES
-(1, NULL, '2022-11-26', '2022-11-27', 'normal'),
-(1, NULL, '2022-11-12', '2022-11-26', 'home'),
-(1, NULL, '2022-11-12', '2022-11-26', 'home'),
-(1, NULL, '2022-11-12', '2022-11-24', '');
+  `category` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -149,10 +151,10 @@ INSERT INTO `employee_outing` (`emp_id`, `approval`, `outing_date`, `arrival_dat
 
 CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
-  `role_name` varchar(20) NOT NULL,
-  `rights` varchar(20) NOT NULL,
+  `role_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rights` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `emp_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -163,11 +165,11 @@ CREATE TABLE `roles` (
 CREATE TABLE `rooms` (
   `acc_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
-  `room_no` varchar(20) NOT NULL,
+  `room_no` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `room_capacity` int(11) NOT NULL,
-  `status` varchar(10) NOT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `current_room_occupancy` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -178,7 +180,7 @@ CREATE TABLE `rooms` (
 CREATE TABLE `security` (
   `emp_id` int(11) NOT NULL,
   `acc_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -190,13 +192,14 @@ CREATE TABLE `tankers` (
   `id` int(11) NOT NULL,
   `acc_id` int(11) NOT NULL,
   `security_emp_id` int(11) NOT NULL,
-  `location` varchar(20) NOT NULL,
-  `quality_check` enum('Yes','No') NOT NULL,
+  `tanker_id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quality_check` enum('Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL,
   `qty` int(11) NOT NULL,
   `bill_no` int(11) NOT NULL,
-  `vendor_name` varchar(30) NOT NULL,
+  `vendor_name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -207,8 +210,8 @@ CREATE TABLE `tankers` (
 CREATE TABLE `technician` (
   `id` int(11) NOT NULL,
   `emp_id` int(11) NOT NULL,
-  `role` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -221,9 +224,9 @@ CREATE TABLE `vaccination` (
   `emp_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `date_of_administration` date NOT NULL,
-  `location` varchar(50) NOT NULL,
+  `location` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_of_next_dose` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -232,9 +235,9 @@ CREATE TABLE `vaccination` (
 --
 
 CREATE TABLE `vaccination_category` (
-  `category_name` varchar(20) NOT NULL,
+  `category_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -246,14 +249,14 @@ CREATE TABLE `visitor_log` (
   `id` int(11) NOT NULL,
   `emp_id` int(11) DEFAULT NULL,
   `security_emp_id` int(11) NOT NULL,
-  `visitor_name` varchar(20) DEFAULT NULL,
+  `visitor_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vehicle_no` int(11) DEFAULT NULL,
-  `type` varchar(20) DEFAULT NULL,
+  `type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `check_in` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `check_out` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `purpose` varchar(100) NOT NULL,
+  `purpose` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_no` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -284,9 +287,7 @@ ALTER TABLE `contact`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`emp_id`),
-  ADD UNIQUE KEY `emp_code` (`emp_code`),
-  ADD KEY `role_id` (`role_id`),
-  ADD KEY `acc_id` (`acc_id`);
+  ADD UNIQUE KEY `emp_code` (`emp_code`);
 
 --
 -- Indexes for table `employee_outing`
@@ -320,6 +321,7 @@ ALTER TABLE `security`
 --
 ALTER TABLE `tankers`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tanker_id` (`tanker_id`),
   ADD KEY `security_emp_id` (`security_emp_id`),
   ADD KEY `acc_id` (`acc_id`);
 
@@ -366,13 +368,13 @@ ALTER TABLE `accomodation`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -425,13 +427,6 @@ ALTER TABLE `complaints`
 --
 ALTER TABLE `contact`
   ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
-
---
--- Constraints for table `employee`
---
-ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`),
-  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`acc_id`) REFERENCES `accomodation` (`acc_id`);
 
 --
 -- Constraints for table `employee_outing`

@@ -1,36 +1,57 @@
-h2{
-    color:black;
-    text-align:center;  
-    
+@font-face {
+    font-family: theSeasons;
+    src: url(Fontspring-DEMO-theseasons-bd.otf);
 }
-header img{
-    padding: 5px;
-    width: 350;
-    height: 100px;
+
+h2 {
+    color: white;
+    text-align: center;
+    font-family: theSeasons;
+    padding: 20px;
 }
-.text-center pt-5{
+
+header img {
+    padding: 2px;
+    width: 200px;
+    height: 200px;
+}
+
+.text-center pt-5 {
     image-rendering: 20px;
 }
-   
-.card-body{
-    background: url("../images/bg1.jpg");
-    background-size: cover;
-    backdrop-filter: blur(12px);
-  opacity:0.9;}
-.form-group label{
 
+.card {
+    background-color: beige;
+    /*background-size: cover;*/
+    /*backdrop-filter: blur(120px);*/
+    /*opacity: 0.9;*/
+    width: 50%;
+    padding: 25px;
+    margin-left: 25%;
+}
+
+/*#form {
+    width: 40%;
+}*/
+
+.form-group label {
+
+    color: black;
+}
+
+.form-text text-muted {
     color: white;
-} 
-.form-text text-muted{
-color: white;
 }
-body{
-background-image: url("../images/bg.jpg");
-background-size: cover;
+
+body {
+    background-color: #1b1c1e;
+    /*background-size: cover;*/
 }
-.text-center pt-5{
+
+.text-center pt-5 {
     color: crimson;
-} 
+}
+
 .form-line {
-color:white;
-} 
+    color: white;
+}

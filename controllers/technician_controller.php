@@ -50,7 +50,7 @@
 
 		mysqli_query($conn, "INSERT INTO technician (emp_id,role) VALUES ('$emp_id', '$role')"); 
 		$_SESSION['message'] = "employee details saved"; 
-		header('location: ../views/technician.php');
+		header('location: ../index.html');
 	}
 
     if (isset($_POST['update'])) {

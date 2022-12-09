@@ -1,5 +1,9 @@
+<?php include('../controllers/includes/common.php'); ?>
 <?php
-    $conn=mysqli_connect("localhost","root","","deltin_connect");
+
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_id= $_POST['emp_id'];
@@ -8,10 +12,9 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $nextdose=date('Y-m-d',strtotime($_POST['dond']));
     $location=$_POST['loc'];
     //echo $nextdose;
-    echo $location;
 
     echo "<script>console.log('1')</script>";
-    $insert = "insert into vaccination(emp_id,category_id,date_of_administration,location,date_of_next_dose) values ('$emp_id','$category','$dateofadministration','$location','$nextdose',)";
+    $insert = "insert into vaccination(emp_id,category_id,date_of_administration,location,date_of_next_dose) values ('$emp_id','$category','$dateofadministration','$location','$nextdose')";
     $submit = mysqli_query($conn, $insert); //or die(mysqli_error($conn));
 
     if($submit){
@@ -20,7 +23,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
      }
      else{
         $_SESSION['status']="insertion not succesful";
-        header("location:/Applications/XAMPP/xamppfiles/htdocs/frontend-main/index.html");
+        header("location:../views/vaccination.php");
      }
     
 }

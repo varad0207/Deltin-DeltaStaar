@@ -37,11 +37,21 @@
 }
 
 .txt {
-    color: white;
+    color: white; 
+}
+
+.txt a{
+    color: white; 
+    text-decoration: none;
 }
 
 a:link {
     text-decoration: none;
+}
+.txt a:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
 }
 
 .containeer-items:hover {

@@ -62,7 +62,7 @@ if (isset($_GET['edit'])) {
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
 
-				<table>
+				<!-- <table>
 	<thead>
 		<tr>
 		<th>emp_code </th>
@@ -115,7 +115,7 @@ if (isset($_GET['edit'])) {
 			</td>
 		</tr>
 	<?php } ?>
-</table>
+</table> -->
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/employee_controller.php">

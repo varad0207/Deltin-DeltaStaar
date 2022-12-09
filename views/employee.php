@@ -26,7 +26,7 @@ if (isset($_GET['edit'])) {
 	$aadhaar_number = $n['aadhaar_number'];
 	$salary = $n['salary'];
 	$acc_id = $n['acc_id'];
-	
+
 	// }
 }
 ?>
@@ -62,7 +62,7 @@ if (isset($_GET['edit'])) {
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
 
-				<!-- <table>
+				<table>
 	<thead>
 		<tr>
 		<th>emp_code </th>
@@ -115,108 +115,121 @@ if (isset($_GET['edit'])) {
 			</td>
 		</tr>
 	<?php } ?>
-</table> -->
+</table>
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/employee_controller.php">
 					<input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code
-						<?php if ($update == true): ?>
-						<input class="form-control" disabled type="text" name="emp_code" value="<?php echo $emp_code; ?>">
-						<?php else: ?>
-						<input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code; ?>">
-						<?php endif ?>
+								<?php if ($update == true): ?>
+								<input class="form-control" disabled type="text" name="emp_code"
+									value="<?php echo $emp_code; ?>">
+								<?php else: ?>
+								<input class="form-control" type="text" name="emp_code"
+									value="<?php echo $emp_code; ?>">
+								<?php endif ?>
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">First Name <span></span>
-						<input class="form-control" type="text" name="fname" value="<?php echo $fname; ?>">
+								<input class="form-control" type="text" name="fname" value="<?php echo $fname; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Middle Name <span>
-						<input class="form-control" type="text" name="mname" value="<?php echo $mname; ?>">
+									<input class="form-control" type="text" name="mname" value="<?php echo $mname; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Last Name <span>
-						<input class="form-control" type="text" name="lname" value="<?php echo $lname; ?>">
+									<input class="form-control" type="text" name="lname" value="<?php echo $lname; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Designation <span>
-						<input class="form-control" type="text" name="designation" value="<?php echo $designation; ?>">
+									<input class="form-control" type="text" name="designation"
+										value="<?php echo $designation; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Date of Birth <span>
-						<input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>">
+									<input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Address <span>
-						<input class="form-control" type="text" name="address" value="<?php echo $address; ?>">
+									<input class="form-control" type="text" name="address"
+										value="<?php echo $address; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">State <span>
-						<input class="form-control" type="text" name="state" value="<?php echo $state; ?>">
+									<input class="form-control" type="text" name="state" value="<?php echo $state; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Country <span>
-						<input class="form-control" type="text" name="country" value="<?php echo $country; ?>">
+									<input class="form-control" type="text" name="country"
+										value="<?php echo $country; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Pincode <span>
-						<input class="form-control" type="number" name="pincode" value="<?php echo $pincode; ?>">
+									<input class="form-control" type="number" name="pincode"
+										value="<?php echo $pincode; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Email <span>
-						<input class="form-control" type="email" name="email" value="<?php echo $email; ?>">
+									<input class="form-control" type="email" name="email" value="<?php echo $email; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Blood Group <span>
-						<input class="form-control" type="text" name="blood_group" value="<?php echo $blood_group; ?>">
+									<input class="form-control" type="text" name="blood_group"
+										value="<?php echo $blood_group; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Department <span>
-						<input class="form-control" type="text" name="department" value="<?php echo $department; ?>">
+									<input class="form-control" type="text" name="department"
+										value="<?php echo $department; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Joining Date <span>
-						<input class="form-control" type="date" name="joining_date" value="<?php echo $joining_date; ?>">
+									<input class="form-control" type="date" name="joining_date"
+										value="<?php echo $joining_date; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Aadhaar Number <span>
-						<input class="form-control" type="text" name="aadhaar_number" value="<?php echo $aadhaar_number; ?>">
+									<input class="form-control" type="text" name="aadhaar_number"
+										value="<?php echo $aadhaar_number; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Salary <span>
-						<input class="form-control" type="text" name="salary" value="<?php echo $salary; ?>">
+									<input class="form-control" type="text" name="salary"
+										value="<?php echo $salary; ?>">
 					</div>
-						</label>
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Accomodation Id <span>
-						<input class="form-control" type="text" name="acc_id" value="<?php echo $acc_id; ?>">
+									<input class="form-control" type="text" name="acc_id"
+										value="<?php echo $acc_id; ?>">
 					</div>
-						</label>
-					
-						</label>
+					</label>
+
+					</label>
 					<div class="mb-3 tc">
 						<?php if ($update == true): ?>
 						<button class="btnn" type="submit" name="update" value="update"
 							style="background: #556B2F;">update</button>
 						<?php else: ?>
-						<button class="btn btn-dark px-3" class="btnn" type="submit" name="save" value="save">Save</button>
+						<button class="btn btn-dark px-3" class="btnn" type="submit" name="save"
+							value="save">Save</button>
 						<?php endif ?>
 					</div>
 				</form>

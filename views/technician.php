@@ -106,7 +106,7 @@ if (isset($_GET['edit'])) {
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/technician_controller.php">
 					<input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
-					<div class="input-group">
+					<!--<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code
 						<?php if ($update == true): ?>
 						<input class="form-control" disabled type="text" name="emp_code" value="<?php echo $emp_code; ?>">
@@ -114,7 +114,7 @@ if (isset($_GET['edit'])) {
 						<input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code; ?>">
 						<?php endif ?>
 					</div>
-					</label>
+					</label>-->
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>
 						<input class="form-control" type="text" name="eId" value="<?php echo $emp_id; ?>">

@@ -1,5 +1,5 @@
-<?php include('../controllers/includes/common.php'); ?>
-<?php include('../controllers/employee_controller.php'); ?>
+<?php include('../../controllers/includes/common.php'); ?>
+<?php include('../../controllers/employee_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
 	$emp_code = $_GET['edit'];
@@ -39,7 +39,7 @@ if (isset($_GET['edit'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Delta@STAAR | Add Employees</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/forms.css">
+	<link rel="stylesheet" href="../../css/forms.css">
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -108,17 +108,17 @@ if (isset($_GET['edit'])) {
 			<td><?php echo $row['acc_id']; ?></td>
 			
 			<td>
-				<a href="employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="hrm/employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
-				<a href="../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+				<a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>
 </table> -->
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
-					action="../controllers/employee_controller.php">
+					action="../../controllers/employee_controller.php">
 					<input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code

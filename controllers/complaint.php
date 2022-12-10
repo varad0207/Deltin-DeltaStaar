@@ -1,5 +1,5 @@
 <?php
-require "includes/common.php";
+require "../../controllers/includes/common.php";
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_code = mysqli_real_escape_string($conn, $_POST['emp_code']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);

@@ -1,4 +1,4 @@
-<?php include('../controllers/includes/common.php'); ?>
+<?php include('../../controllers/includes/common.php'); ?>
 <?php
 
 if (!isset($_SESSION)) {
@@ -23,7 +23,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
      }
      else{
         $_SESSION['status']="insertion not succesful";
-        header("location:../views/vaccination.php");
+        header("location:../views/hrm/vaccination.php");
      }
     
 }

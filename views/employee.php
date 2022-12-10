@@ -37,7 +37,7 @@ if (isset($_GET['edit'])) {
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Delta@STAAR | Employees</title>
+	<title>Delta@STAAR | Add Employees</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
 	<link rel="stylesheet" href="../css/forms.css">
 	<!-- CSS only -->
@@ -62,7 +62,7 @@ if (isset($_GET['edit'])) {
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
 
-				<table>
+				<!-- <table>
 	<thead>
 		<tr>
 		<th>emp_code </th>
@@ -115,7 +115,7 @@ if (isset($_GET['edit'])) {
 			</td>
 		</tr>
 	<?php } ?>
-</table>
+</table> -->
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/employee_controller.php">

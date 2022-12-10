@@ -1,5 +1,5 @@
 <?php
-require "includes/common.php";
+require "../../controllers/includes/common.php";
 
 /*if (!isset($_SESSION['emp_id']))
     header("location:../html/login.html");*/

@@ -1,5 +1,5 @@
-<?php include('../controllers/includes/common.php'); ?>
-<?php include('../controllers/employee_controller.php'); ?>
+<?php include('../../controllers/includes/common.php'); ?>
+<?php include('../../controllers/employee_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
 	$emp_code = $_GET['edit'];
@@ -37,9 +37,9 @@ if (isset($_GET['edit'])) {
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Delta@STAAR | Employees</title>
+	<title>Delta@STAAR | Add Employees</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/forms.css">
+	<link rel="stylesheet" href="../../css/forms.css">
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -94,7 +94,7 @@ if (isset($_GET['edit'])) {
 			<td><?php echo $row['mname']; ?></td>
 			<td><?php echo $row['lname']; ?></td>
 			<td><?php echo $row['designation']; ?></td>
-			<td><?php echo $row['dob']; ?></td>
+			<td><?php echo date('d-m-Y',strtotime($row['dob'])); ?></td>
 			<td><?php echo $row['address']; ?></td>
 			<td><?php echo $row['state']; ?></td>
 			<td><?php echo $row['country']; ?></td>
@@ -102,23 +102,23 @@ if (isset($_GET['edit'])) {
 			<td><?php echo $row['email']; ?></td>
 			<td><?php echo $row['blood_group']; ?></td>
 			<td><?php echo $row['department']; ?></td>
-			<td><?php echo $row['joining_date']; ?></td>
+			<td><?php echo date('d-m-Y',strtotime($row['joining_date'])); ?></td>
 			<td><?php echo $row['aadhaar_number']; ?></td>
 			<td><?php echo $row['salary']; ?></td>
 			<td><?php echo $row['acc_id']; ?></td>
 			
 			<td>
-				<a href="employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="hrm/employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
-				<a href="../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+				<a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>
 </table> -->
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
-					action="../controllers/employee_controller.php">
+					action="../../controllers/employee_controller.php">
 					<input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code
@@ -133,50 +133,50 @@ if (isset($_GET['edit'])) {
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">First Name <span></span>
-								<input class="form-control" type="text" name="fname" value="<?php echo $fname; ?>">
+								<input class="form-control" type="text" required name="fname" value="<?php echo $fname; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Middle Name <span>
-									<input class="form-control" type="text" name="mname" value="<?php echo $mname; ?>">
+									<input class="form-control" type="text" required name="mname" value="<?php echo $mname; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Last Name <span>
-									<input class="form-control" type="text" name="lname" value="<?php echo $lname; ?>">
+									<input class="form-control" type="text" required name="lname" value="<?php echo $lname; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Designation <span>
-									<input class="form-control" type="text" name="designation"
+									<input class="form-control" type="text" required name="designation"
 										value="<?php echo $designation; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Date of Birth <span>
-									<input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>">
+									<input class="form-control" type="date" required name="dob" value="<?php echo $dob; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Address <span>
-									<input class="form-control" type="text" name="address"
+									<input class="form-control" type="text" required name="address"
 										value="<?php echo $address; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">State <span>
-									<input class="form-control" type="text" name="state" value="<?php echo $state; ?>">
+									<input class="form-control" type="text" required name="state" value="<?php echo $state; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Country <span>
-									<input class="form-control" type="text" name="country"
+									<input class="form-control" type="text" required name="country"
 										value="<?php echo $country; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Pincode <span>
-									<input class="form-control" type="number" name="pincode"
+									<input class="form-control" type="number" required name="pincode"
 										value="<?php echo $pincode; ?>">
 					</div>
 					</label>
@@ -205,7 +205,7 @@ if (isset($_GET['edit'])) {
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Aadhaar Number <span>
-									<input class="form-control" type="text" name="aadhaar_number"
+									<input class="form-control" type="text" required name="aadhaar_number"
 										value="<?php echo $aadhaar_number; ?>">
 					</div>
 					</label>

@@ -31,7 +31,7 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     /* grid-template-rows: repeat(auto-fill, minmax(50%, 1fr));*/
     align-content: stretch;
-    align-items: center;
+    /* align-items: center; */
     justify-content: stretch;
     justify-items: center;
 }
@@ -52,6 +52,14 @@ a:link {
     background: -webkit-linear-gradient(#FEBE10, #F0E68C);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
+}
+
+.bi{
+    color: #FEBE10 !important;
+}
+
+.bi:hover{
+    color: #fff !important;
 }
 
 .containeer-items:hover {

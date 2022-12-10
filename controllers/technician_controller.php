@@ -49,8 +49,8 @@
         
 
 		mysqli_query($conn, "INSERT INTO technician (emp_id,role) VALUES ('$emp_id', '$role')"); 
-		$_SESSION['message'] = "employee details saved"; 
-		header('location: ../index.html');
+		$_SESSION['message'] = "technician details saved"; 
+		header('location: ../views/technician.php');
 	}
 
     if (isset($_POST['update'])) {

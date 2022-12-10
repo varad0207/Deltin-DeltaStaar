@@ -33,7 +33,7 @@ if (isset($_POST['save'])) {
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
     $designation = $_POST['designation'];
-    $dob = $_POST['dob'];
+    $dob = date('Y-m-d',strtotime($_POST['dob']));
     $address = $_POST['address'];
     $state = $_POST['state'];
     $country = $_POST['country'];
@@ -41,7 +41,7 @@ if (isset($_POST['save'])) {
     $email = $_POST['email'];
     $blood_group = $_POST['blood_group'];
     $department = $_POST['department'];
-    $joining_date = $_POST['joining_date'];
+    $joining_date = date('Y-m-d',strtotime($_POST['joining_date']));
     $aadhaar_number = $_POST['aadhaar_number'];
     $salary = $_POST['salary'];
     $acc_id = $_POST['acc_id'];

@@ -2,9 +2,9 @@
 <?php include('../controllers/technician_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
-	$emp_code = $_GET['edit'];
+	$id = $_GET['edit'];
 	$update = true;
-	$record = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code=$emp_code");
+	$record = mysqli_query($conn, "SELECT * FROM technician WHERE id=$id");
 
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
@@ -60,7 +60,7 @@ if (isset($_GET['edit'])) {
 				</div>
 				<?php endif ?>
 
-				<?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
+				<?php $results = mysqli_query($conn, "SELECT * FROM technician"); ?>
 
 				<!-- <table>
 	<thead>
@@ -94,10 +94,10 @@ if (isset($_GET['edit'])) {
 			
 			
 			<td>
-				<a href="employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="employee.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
-				<a href="../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+				<a href="../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>
@@ -105,16 +105,16 @@ if (isset($_GET['edit'])) {
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/technician_controller.php">
-					<input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
-					<!--<div class="input-group">
+					<input type="hidden" name="eId" value="<?php echo $emp_id; ?>">
+					<!-- <div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code
 						<?php if ($update == true): ?>
 						<input class="form-control" disabled type="text" name="emp_code" value="<?php echo $emp_code; ?>">
 						<?php else: ?>
 						<input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code; ?>">
 						<?php endif ?>
-					</div>
-					</label>-->
+					</div> -->
+					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>
 						<input class="form-control" type="text" name="eId" value="<?php echo $emp_id; ?>">

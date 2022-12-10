@@ -1,8 +1,8 @@
 <?php include('../controllers/includes/common.php'); ?>
-<?php include('../controllers/security_controllers.php'); ?>
+<?php include('../controllers/security_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
-	$emp_code = $_GET['edit'];
+	$emp_id = $_GET['edit'];
 	$update = true;
 	$record = mysqli_query($conn, "SELECT * FROM employee WHERE emp_id=$emp_id");
 
@@ -89,7 +89,7 @@ if (isset($_GET['edit'])) {
 </table> -->
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
-					action="../controllers/security_controllers.php">
+					action="../controllers/security_controller.php">
 					<input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 					<!--<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code

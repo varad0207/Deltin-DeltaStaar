@@ -1,4 +1,10 @@
-<?php require "../../controllers/includes/common.php"; ?>
+<?php
+if (isset($_POST['save'])|| isset($_POST['update'])||isset($_GET['del'])) {
+    include('../controllers/includes/common.php');
+}else{
+    include('../../controllers/includes/common.php');
+}
+?>
 <?php
 
 if (!isset($_SESSION)) {

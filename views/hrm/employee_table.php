@@ -113,7 +113,7 @@
                         </td>
 
                         <td>
-                            <a href="hrm/employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn">Edit</a>
                         </td>
                         <td>

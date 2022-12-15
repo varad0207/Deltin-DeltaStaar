@@ -1,1 +1,48 @@
-<!-- login page goes here -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+
+            margin-top: 100px;
+            margin-bottom: 100px;
+            margin-right: 150px;
+            margin-left: 80px;
+            background-color: white;
+            color: #BD3232;
+            font-family: verdana;
+            font-size: 100%
+        }
+
+
+        h1 {
+            color: #BD3232;
+            font-family: verdana;
+            font-size: 200%;
+        }
+
+        h3 {
+            color: #BD3232;
+            font-family: verdana;
+            font-size: 200%;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1>LOG-IN HERE</h1>
+    </center>
+    <!-- <p><a href="register.php">Register</a> | <a href="login.php">Login</a> | <a href="index.html">Home</a> </p> -->
+    <h3>Login</h3>
+    <form action="..//controllers/login_script.php" method="POST">
+        Username: <input type="text" name="user"><br /> <br />
+        Password: <input type="password" name="pass"><br /> <br />
+        <input type="submit" value="Login" name="submit" />
+    </form>
+    
+</body>
+
+</html>

@@ -9,11 +9,11 @@ if (isset($_GET['edit'])) {
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
 
-	  $emp_id= $n['emp_id'];
-    $category=$n['cat_id'];
-    $dateofadministration=date('Y-m-d',strtotime($n['doa']));
-    $nextdose=date('Y-m-d',strtotime($n['dond']));
-    $location=$n['loc'];
+	$emp_id = $n['emp_id'];
+	$category = $n['cat_id'];
+	$dateofadministration = date('Y-m-d', strtotime($n['doa']));
+	$nextdose = date('Y-m-d', strtotime($n['dond']));
+	$location = $n['loc'];
 
 	// }
 }
@@ -101,8 +101,7 @@ if (isset($_GET['edit'])) {
 								<input class="form-control" disabled type="text" name="emp_id"
 									value="<?php echo $emp_id; ?>">
 								<?php else: ?>
-								<input class="form-control" type="text" name="emp_id"
-									value="<?php echo $emp_id; ?>">
+								<input class="form-control" type="text" name="emp_id" value="<?php echo $emp_id; ?>">
 								<?php endif ?>
 					</div>
 					</label>
@@ -123,11 +122,10 @@ if (isset($_GET['edit'])) {
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Location <span>
-									<input class="form-control" type="text" name="loc"
-										value="<?php echo $loc; ?>">
+									<input class="form-control" type="text" name="loc" value="<?php echo $loc; ?>">
 					</div>
 					</label>
-          
+
 					<div class="mb-3 tc">
 						<?php if ($update == true): ?>
 						<button class="btnn" type="submit" name="update" value="update"

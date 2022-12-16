@@ -3,7 +3,7 @@
 <?php
 if (isset($_GET['edit'])) {
 	$emp_code = $_GET['edit'];
-	$update = true;
+	$update =true;
 	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE emp_id=$emp_id");
 
 	// if (count($record) == 1 ) {
@@ -28,6 +28,7 @@ if (isset($_GET['edit'])) {
 	<title>Delta@STAAR | Vaccination</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
 	<link rel="stylesheet" href="../css/forms.css">
+	<!-- <link rel="stylesheet" href="../css/style.css"> -->
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -50,7 +51,7 @@ if (isset($_GET['edit'])) {
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
 
-				<!-- <table>
+				<table>
 	<thead>
 		<tr>
 		<th>emp_code </th>
@@ -90,7 +91,7 @@ if (isset($_GET['edit'])) {
 			</td>
 		</tr>
 	<?php } ?>
-</table> -->
+</table>
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/vaccination_controller.php">
@@ -129,7 +130,7 @@ if (isset($_GET['edit'])) {
 					<div class="mb-3 tc">
 						<?php if ($update == true): ?>
 						<button class="btnn" type="submit" name="update" value="update"
-							style="background: #556B2F;">update</button>
+							style="background: #556B2F;">Update</button>
 						<?php else: ?>
 						<button class="btn btn-dark px-3" class="btnn" type="submit" name="save"
 							value="save">Save</button>

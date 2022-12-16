@@ -1,0 +1,53 @@
+body {
+    background-color: antiquewhite;
+}
+
+@font-face {
+    font-family: theSeasons;
+    src: url(../css/Fontspring-DEMO-theseasons-bd.otf);
+
+}
+
+@font-face {
+    font-family: poppins;
+    src: url(../css/Poppins-Regular.ttf);
+
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-family: theSeasons;
+}
+th {
+    border: 2px solid black;
+    background-color: #ceaa6d;
+    
+}
+
+table {
+    color: black;
+    text-align: center;
+    font-family: poppins;
+
+}
+
+.table-div{
+    margin: 0% 5%;
+
+}
+
+/*.container{
+    margin: 0%;
+    padding: 0%;
+    border: 0%;
+    
+}*/
+thead tr th, tbody tr td{
+    border: 2px solid black;
+    
+}
+
+body{
+    background: #1b1c1e;
+}

@@ -1,103 +1,142 @@
+<?php include('../controllers/includes/common.php'); ?>
+<?php include('../controllers/vaccination_controller.php'); ?>
 <?php
-session_start();?>
+if (isset($_GET['edit'])) {
+	$emp_code = $_GET['edit'];
+	$update =true;
+	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE emp_id=$emp_id");
+	// if (count($record) == 1 ) {
+	$n = mysqli_fetch_array($record);
+	$emp_id = $n['emp_id'];
+	$category = $n['cat_id'];
+	$dateofadministration = date('Y-m-d', strtotime($n['doa']));
+	$location = $n['loc'];
+	$nextdose = date('Y-m-d', strtotime($n['dond']));
+	
+
+	// }
+}
+?>
+<!DOCTYPE html>
+<html>
+
 <head>
-  
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Delta@STAAR | Vaccination</title>
+	<meta name="description" content="Employee Addition portal for deltin employees">
+	<link rel="stylesheet" href="../css/forms.css">
+	<!-- <link rel="stylesheet" href="../css/style.css"> -->
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+</head>
 
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <!-- <link rel="stylesheet" href="../css/emp.css"> -->
-  <title>Vaccination form</title>
-</head> 
-  
-<body class="container bg-light">
- 
-  <div class="text-center pt-5">
-    <img src="https://cdn-icons-png.flaticon.com/512/2138/2138347.png" alt="vaccination-logo" width="140" height="140" />
-    <h2>Vaccination form</h2>
-  </div>
-  
+<body>
+	<div class="container">
+		<h1 class="tc f1 lh-title">Vaccination Form</h1>
+		<div class="row mx-0 justify-content-center">
+			<div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
+				<?php if (isset($_SESSION['message'])): ?>
+				<div class="msg">
+					<?php
+	                echo $_SESSION['message'];
+	                unset($_SESSION['message']);
+                    ?>
+				</div>
+				<?php endif ?>
 
-  
-  <div class="card">
-    
-    <div class="card-body">
-      
-      <form id="LoginForm" action="../../controllers/vaccination_controller.php " method="POST" class="needs-validation" novalidate autocomplete="off">
-        
-        <div class="row">
-          
-          <!-- <div class="form-group col-md-4">
-          <label for="inputId">Vaccination Id</label>
-          <input type="text" class="form-control" id="inputid" name="Id" placeholder="Your Id" required />
-          <small class="form-text text-muted">Please fill your Vaccination-Id</small>
-          </div>  -->
-        
-          <div class="form-group col-md-4">
-          <label for="inputId">Employee-Id</label>
-          <input type="text" class="form-control" id="inputid" name="emp_id" placeholder="Your employee Id" required />
-          <small class="form-text text-muted">Please fill your Employee-Id</small>
-          </div>
+				<?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
 
-          <div class="form-group col-md-4">
-          <label for="inputId">Category-Id</label>
-          <input type="text" class="form-control" id="inputid" name="cat_id" placeholder="Your category Id" required />
-          <small class="form-text text-muted">Please fill your Category-Id</small>
-          </div>
-          
-          <div class="form-group col-md-4">
-          <label for="inputDate">Date of Administration</label>
-          <input type="date" class="form-control" id="inputDatee" name="doa" placeholder="Date of vaccine taken" required />
-          <small class="form-text text-muted">Please choose date of Administration</small>
-          </div>  
+				<!-- <table>
+	<thead>
+		<tr>
+		<th>Employee ID</th>
+		<th>Category </th>
+		<th>Date of Administration </th>
+		<th>Location </th>
+		<th>Date of next dose </th>
+		<th colspan="2">Action</th>
+		</tr>
+	</thead>
+	
+	<?php //while ($row = mysqli_fetch_array($results)) { ?>
+		<tr>
+			<td><//?php echo $row['emp_id']; ?></td>
+			<td><//?php echo $row['cat_id']; ?></td>
+			<td><//?php echo $row['doa']; ?></td>
+			<td><//?php echo $row['loc']; ?></td>
+			<td><//?php echo $row['dond']; ?></td>
+			<td>
+				<a href="vaccination.php?edit=<//?php echo '%27' ?><//?php echo $row['emp_id']; ?><?//php echo '%27' ?>" class="edit_btn" >Edit</a>
+			</td>
+			<td>
+				<a href="../controllers/vaccination_controller.php?del=<?php //echo '%27' ?><?php //echo $row['emp_id']; ?><?php //echo '%27' ?>" class="del_btn">Delete</a>
+			</td>
+		</tr>
+	
+</table> -->
 
-          <div class="form-group col-md-4">
-          <label for="inputDate">Date of Next Dose</label>
-          <input type="date" class="form-control" id="inputDate" name="dond" placeholder="Date of next dose"required />
-          <small class="form-text text-muted">Please choose date of Next dose</small>
-          </div>
+				<form method="post" class="w-100 rounded p-4 border bg-white" action="../controllers/vaccination_controller.php">
+					<input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Employee-Id :-
+								<?php if ($update == true): ?>
+								<input class="form-control" disabled type="text" name="emp_id" value="<?php echo $emp_id; ?>"> <?php else: ?>
+								<input class="form-control" type="text" name="emp_id" value="<?php echo $emp_id; ?>">
+								<?php endif ?>
+					</div>
+					</label>
+					<div class="input-group">
+						<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Category :- <span></span>
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+    					<option selected>Choose...</option>
+    					
+							<?php
+								$vac_cat=mysqli_query($conn, "SELECT * FROM vaccination_category");
+								
+								while ($r=mysqli_fetch_array($vac_cat)){ ?>
+								<option value=""><?php echo $r['category_name'];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
+					</div>
+					</label>
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Date of Administration<span>
+									<input class="form-control" type="date" name="doa" value="<?php echo $doa; ?>">
+					</div>
+					</label>
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Date of Next Dose<span>
+									<input class="form-control" type="date" name="dond" value="<?php echo $dond; ?>">
+					</div>
+					</label>
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Location <span>
+									<input class="form-control" type="text" name="loc" value="<?php echo $location; ?>">
+					</div>
+					</label>
 
-          <div class="form-group col-md-4">
-          <label for="inputloc">Location</label>
-          <input type="text" class="form-control" id="loc" name="loc" placeholder="Location" required />
-          <small class="form-text text-muted">Please fill your Category-Id</small>
-          </div>
+					<div class="mb-3 tc">
+						<?php if ($update == true): ?>
+						<button class="btnn" type="submit" name="update" value="update"
+							style="background: #556B2F;">Update</button>
+						<?php else: ?>
+						<button class="btn btn-dark px-3" class="btnn" type="submit" name="save"
+							value="save">Save</button>
+						<?php endif ?>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
 
-        </div>
-       <button class="btn btn-primary btn-block col-lg-2" type="submit" value="submit" name="submit">Submit</button>
-      
-      </form>
-      </div>
-      </div>
-  
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <script src="../../js/emp.js"></script>
-  
-  <script>
-    
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-  </script>
-  <!-- End Scritp for Form -->
-  <footer>
-      <div class="my-4 text-muted text-center">
-        <p>© deltinconnect</p>
-      </div>
-    </footer>
-</body> 
+</html>

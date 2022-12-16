@@ -4,13 +4,13 @@
 if (isset($_GET['edit'])) {
 	$emp_id = $_GET['edit'];
 	$update = true;
-	$record = mysqli_query($conn, "SELECT * FROM employee WHERE emp_id=$emp_id");
+	$record = mysqli_query($conn, "SELECT * FROM security WHERE emp_id=$emp_id");
 
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
 
 	$emp_id = $n['emp_id'];
-	$acc_id = $n['$acc_id'];
+	$acc_id = $n['acc_id'];
 	
 	// }
 }
@@ -24,7 +24,7 @@ if (isset($_GET['edit'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Delta@STAAR | Security</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/forms.css">
+	<link rel="stylesheet" href="../css/form.css">
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -34,7 +34,7 @@ if (isset($_GET['edit'])) {
 <body> <center>
 	<h3>Security Log In</h3></center>
 	<div class="container">
-		<!--<h1 class="tc f1 lh-title">Add New Employee</h1>-->
+		<!-- <h1 class="tc f1 lh-title">Add New Security</h1> -->
 		<div class="row mx-0 justify-content-center">
 			<div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
 				<?php if (isset($_SESSION['message'])): ?>
@@ -46,27 +46,13 @@ if (isset($_GET['edit'])) {
 				</div>
 				<?php endif ?>
 
-				<?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
+				<?php $results = mysqli_query($conn,"SELECT * FROM security"); ?>
 
-				<!-- <table>
+				<table>
 	<thead>
 		<tr>
-		<th>emp_code </th>
-		<th>fname </th>
-		<th>mname </th>
-		<th>lname </th>
-		<th>designation </th>
-		<th>dob </th>
-		<th>address </th>
-		<th>state </th>
-		<th>country </th>
-		<th>pincode </th>
-		<th>email </th>
-		<th>blood_group </th>
-		<th>department </th>
-		<th>joining_date </th>
-		<th>aadhaar_number </th>
-		<th>salary </th>
+		<th>emp-id </th>
+		
 		<th>acc_id </th>
 		
 			<th colspan="2">Action</th>
@@ -79,26 +65,26 @@ if (isset($_GET['edit'])) {
 			<td><?php echo $row['acc_id']; ?></td>
 			
 			<td>
-				<a href="employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
-				<a href="../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+				<a href="../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>
-</table> -->
+</table>
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/security_controller.php">
 					<input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
-					<!--<div class="input-group">
+					<!-- <div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code
 						<?php if ($update == true): ?>
 						<input class="form-control" disabled type="text" name="emp_code" value="<?php echo $emp_code; ?>">
 						<?php else: ?>
 						<input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code; ?>">
 						<?php endif ?>
-					</div>-->
+					</div> -->
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>

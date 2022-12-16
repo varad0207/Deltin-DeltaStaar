@@ -4,7 +4,7 @@
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$update = true;
-	$record = mysqli_query($conn, "SELECT * FROM technician WHERE id=$id");
+	$record = mysqli_query($conn, "SELECT * FROM technician WHERE emp_id=$id");
 
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
@@ -39,7 +39,7 @@ if (isset($_GET['edit'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Delta@STAAR | Technician</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/forms.css">
+	<link rel="stylesheet" href="../css/form.css">
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -62,26 +62,12 @@ if (isset($_GET['edit'])) {
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM technician"); ?>
 
-				<!-- <table>
+				<table>
 	<thead>
 		<tr>
-		<th>emp_code </th>
-		<th>fname </th>
-		<th>mname </th>
-		<th>lname </th>
-		<th>designation </th>
-		<th>dob </th>
-		<th>address </th>
-		<th>state </th>
-		<th>country </th>
-		<th>pincode </th>
-		<th>email </th>
-		<th>blood_group </th>
-		<th>department </th>
-		<th>joining_date </th>
-		<th>aadhaar_number </th>
-		<th>salary </th>
-		<th>acc_id </th>
+		<th>Emp-id </th>
+		<th>Role </th>
+	
 		
 			<th colspan="2">Action</th>
 		</tr>
@@ -94,14 +80,14 @@ if (isset($_GET['edit'])) {
 			
 			
 			<td>
-				<a href="employee.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="technician.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
-				<a href="../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+				<a href="../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>
-</table> -->
+</table>
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/technician_controller.php">

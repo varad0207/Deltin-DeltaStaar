@@ -31,7 +31,7 @@
             <div class="col-9">
                 <h1 class="text-center">Accommodation</h1>
             </div>
-            <div class="col ml-5">
+            <div class="col ml-5 sort">
                 <a class="button" role="button" href="#">
                     <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
                 </a>

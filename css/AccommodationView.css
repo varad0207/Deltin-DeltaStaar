@@ -51,3 +51,9 @@ thead tr th, tbody tr td{
 body{
     background: #1b1c1e;
 }
+
+.sort>a{
+    padding: 7px 15px; 
+    border: 2px solid white;
+    border-radius: 10px;
+}

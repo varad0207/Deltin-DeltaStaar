@@ -22,7 +22,7 @@ h1 {
 th {
     border: 2px solid black;
     background-color: #ceaa6d;
-    
+    font-size: 12px;
 }
 
 table {
@@ -45,9 +45,12 @@ table {
 }*/
 thead tr th, tbody tr td{
     border: 2px solid black;
-    
+
 }
 
+td{
+    font-size: 10px;
+}
 body{
     background: #1b1c1e;
 }

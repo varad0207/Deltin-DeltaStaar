@@ -54,8 +54,8 @@
 	}
 
     if (isset($_POST['update'])) {
-        $emp_code = $_POST['Id'];
-		$fname = $_POST['acId'];
+        $emp_id = $_POST['Id'];
+		$acc_id = $_POST['acId'];
         /*$mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $designation = $_POST['designation'];
@@ -79,8 +79,9 @@
     }
 
     if (isset($_GET['del'])) {
-        $emp_code = $_GET['del'];
-        mysqli_query($conn, "DELETE FROM employee WHERE emp_code=$emp_code");
-        $_SESSION['message'] = "employee deleted!"; 
+        $emp_id = $_GET['del'];
+        
+        mysqli_query($conn, "DELETE FROM security WHERE emp_id=$emp_id");
+        $_SESSION['message'] = "security deleted!"; 
         header('location: ../views/security.php');
     }

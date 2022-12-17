@@ -2,14 +2,14 @@
 <?php include('../controllers/technician_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
-	$id = $_GET['edit'];
+	$emp_id = $_GET['edit'];
 	$update = true;
-	$record = mysqli_query($conn, "SELECT * FROM technician WHERE emp_id=$id");
+	$record = mysqli_query($conn, "SELECT * FROM technician WHERE emp_id=$emp_id");
 
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
 
-	$emp_id = $n['eId'];
+	$emp_id = $n['emp_id'];
 	$role = $n['role'];
 	/*$mname = $n['mname'];
 	$lname = $n['lname'];
@@ -80,7 +80,7 @@ if (isset($_GET['edit'])) {
 			
 			
 			<td>
-				<a href="technician.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="../views/technician.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
 				<a href="../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>

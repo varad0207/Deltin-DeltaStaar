@@ -79,8 +79,8 @@
     }
 
     if (isset($_GET['del'])) {
-        $emp_code = $_GET['del'];
-        mysqli_query($conn, "DELETE FROM employee WHERE emp_code=$emp_code");
-        $_SESSION['message'] = "employee deleted!"; 
+        $id = $_GET['del'];
+        mysqli_query($conn, "DELETE FROM `technician` WHERE `id`=$id");
+        $_SESSION['message'] = "technician deleted!"; 
         header('location: ../views/technician.php');
     }

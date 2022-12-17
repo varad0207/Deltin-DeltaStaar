@@ -83,4 +83,4 @@
         mysqli_query($conn, "DELETE FROM `technician` WHERE `id`=$id");
         $_SESSION['message'] = "technician deleted!"; 
         header('location: ../views/technician.php');
-    }
+    } 

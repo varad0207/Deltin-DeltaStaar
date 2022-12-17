@@ -5,5 +5,5 @@
    
     if(isset($_SESSION['emp_id'])){
         session_start();
-    }
+    } 
 ?>

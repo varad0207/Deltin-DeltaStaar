@@ -46,23 +46,23 @@ if (isset($_GET['edit'])) {
 				</div>
 				<?php endif ?>
 
-<<<<<<< HEAD
+
 				<?php $results = mysqli_query($conn,"SELECT * FROM security"); ?>
-=======
+
 				<?php $results = mysqli_query($conn, "SELECT * FROM security"); ?>
->>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
+
 
 				<table>
 	<thead>
 		<tr>
-<<<<<<< HEAD
+
 		<th>emp-id </th>
 		
 		<th>acc_id </th>
-=======
+
 		<th>Employee code </th>
 		<th>Accommodation name </th>
->>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
+
 		
 			<th colspan="2">Action</th>
 		</tr>
@@ -82,11 +82,10 @@ if (isset($_GET['edit'])) {
 			<td><?php echo $AccomodationName_row['acc_name']; ?></td>
 			
 			<td>
-<<<<<<< HEAD
+ 
 				<a href="../views/security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
-=======
+
 				<a href="security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
->>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
 			</td>
 			<td>
 				<a href="../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>

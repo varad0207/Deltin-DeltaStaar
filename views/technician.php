@@ -65,14 +65,13 @@ if (isset($_GET['edit'])) {
 				<table>
 	<thead>
 		<tr>
-<<<<<<< HEAD
+ 
 		<th>Emp-id </th>
 		<th>Role </th>
 	
-=======
+
 		<th>emp_code </th>
 		<th>Role </th>
->>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
 		
 			<th colspan="2">Action</th>
 		</tr>

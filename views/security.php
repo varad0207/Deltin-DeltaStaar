@@ -32,7 +32,7 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body> <center>
-	<h3>Security Log In</h3></center>
+	<h3>Define Security</h3></center>
 	<div class="container">
 		<!-- <h1 class="tc f1 lh-title">Add New Security</h1> -->
 		<div class="row mx-0 justify-content-center">
@@ -46,26 +46,47 @@ if (isset($_GET['edit'])) {
 				</div>
 				<?php endif ?>
 
+<<<<<<< HEAD
 				<?php $results = mysqli_query($conn,"SELECT * FROM security"); ?>
+=======
+				<?php $results = mysqli_query($conn, "SELECT * FROM security"); ?>
+>>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
 
 				<table>
 	<thead>
 		<tr>
+<<<<<<< HEAD
 		<th>emp-id </th>
 		
 		<th>acc_id </th>
+=======
+		<th>Employee code </th>
+		<th>Accommodation name </th>
+>>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
 		
 			<th colspan="2">Action</th>
 		</tr>
 	</thead>
 	
 	<?php while ($row = mysqli_fetch_array($results)) { ?>
+		<?php 		$employeeid = $row['emp_id'];
+                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
+                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
+
+					$accomodationid = $row['acc_id'];
+                    $queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
+                    $AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
+					?>
 		<tr>
-			<td><?php echo $row['emp_id']; ?></td>
-			<td><?php echo $row['acc_id']; ?></td>
+			<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
+			<td><?php echo $AccomodationName_row['acc_name']; ?></td>
 			
 			<td>
+<<<<<<< HEAD
 				<a href="../views/security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+=======
+				<a href="security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+>>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
 			</td>
 			<td>
 				<a href="../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
@@ -88,12 +109,38 @@ if (isset($_GET['edit'])) {
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>
-						<input class="form-control" type="text" name="Id" value="<?php echo $emp_id; ?>">
+
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
 					</div>
 						</label>
 					<div class="input-group">
-						<label class="d-block mb-4"> <span class="d-block mb-2">Accomodation Id <span>
-						<input class="form-control" type="text" name="acId" value="<?php echo $acc_id; ?>">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Accomodation Name <span>
+
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="acId">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM accomodation");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["acc_id"]?>"><?= $row["acc_name"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
 					</div>
 						</label>
 					

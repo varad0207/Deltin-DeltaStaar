@@ -48,7 +48,7 @@ if (isset($_GET['edit'])) {
 
 <body>
 	<div class="container">
-		<h1 class="tc f1 lh-title">Technician Log In</h1>
+		<h1 class="tc f1 lh-title">Add/Define Technician</h1>
 		<div class="row mx-0 justify-content-center">
 			<div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
 				<?php if (isset($_SESSION['message'])): ?>
@@ -65,17 +65,26 @@ if (isset($_GET['edit'])) {
 				<table>
 	<thead>
 		<tr>
+<<<<<<< HEAD
 		<th>Emp-id </th>
 		<th>Role </th>
 	
+=======
+		<th>emp_code </th>
+		<th>Role </th>
+>>>>>>> 730b03032d76189936f48d699b6cd9b90f12cabd
 		
 			<th colspan="2">Action</th>
 		</tr>
 	</thead>
 	
 	<?php while ($row = mysqli_fetch_array($results)) { ?>
+		<?php $employeeid = $row['emp_id'];
+                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
+                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
+					?>
 		<tr>
-			<td><?php echo $row['emp_id']; ?></td>
+			<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
 			<td><?php echo $row['role']; ?></td>
 			
 			
@@ -103,7 +112,20 @@ if (isset($_GET['edit'])) {
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>
-						<input class="form-control" type="text" name="eId" value="<?php echo $emp_id; ?>">
+
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="eId">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
 					</div>
 						</label>
 					<div class="input-group">

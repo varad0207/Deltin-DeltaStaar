@@ -26,7 +26,7 @@ if (isset($_GET['edit'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Delta@STAAR | Vaccination</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/forms.css">
+	<link rel="stylesheet" href="../../css/forms.css">
 	<!-- <link rel="stylesheet" href="../css/style.css"> -->
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -68,7 +68,7 @@ if (isset($_GET['edit'])) {
 								$vac_cat=mysqli_query($conn, "SELECT * FROM vaccination_category");
 								
 								while ($r=mysqli_fetch_array($vac_cat)){ ?>
-								<option value=""><?php echo $r['category_name'];?></option>	
+								<option value="<?php $r['category_id']?>"><?php echo $r['category_name'];?></option>	
 								<?php
 								}
 								

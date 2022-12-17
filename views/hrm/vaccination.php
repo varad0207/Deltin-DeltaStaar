@@ -1,17 +1,17 @@
-<?php include('../controllers/includes/common.php'); ?>
-<?php include('../controllers/vaccination_controller.php'); ?>
+<?php include('../../controllers/includes/common.php'); ?>
+<?php include('../../controllers/vaccination_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
 	$emp_code = $_GET['edit'];
 	$update =true;
 	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE emp_id=$emp_id");
 	// if (count($record) == 1 ) {
-	$n = mysqli_fetch_array($record);
+	$n=mysqli_fetch_array($record);
 	$emp_id = $n['emp_id'];
-	$category = $n['cat_id'];
-	$dateofadministration = date('Y-m-d', strtotime($n['doa']));
-	$location = $n['loc'];
-	$nextdose = date('Y-m-d', strtotime($n['dond']));
+	$category = $n['category_id'];
+	$dateofadministration = date('Y-m-d', strtotime($n['date_of_administration']));
+	$location = $n['location'];
+	$nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
 	
 
 	// }
@@ -49,36 +49,6 @@ if (isset($_GET['edit'])) {
 				<?php endif ?>
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
-
-				<!-- <table>
-	<thead>
-		<tr>
-		<th>Employee ID</th>
-		<th>Category </th>
-		<th>Date of Administration </th>
-		<th>Location </th>
-		<th>Date of next dose </th>
-		<th colspan="2">Action</th>
-		</tr>
-	</thead>
-	
-	<?php //while ($row = mysqli_fetch_array($results)) { ?>
-		<tr>
-			<td><//?php echo $row['emp_id']; ?></td>
-			<td><//?php echo $row['cat_id']; ?></td>
-			<td><//?php echo $row['doa']; ?></td>
-			<td><//?php echo $row['loc']; ?></td>
-			<td><//?php echo $row['dond']; ?></td>
-			<td>
-				<a href="vaccination.php?edit=<//?php echo '%27' ?><//?php echo $row['emp_id']; ?><?//php echo '%27' ?>" class="edit_btn" >Edit</a>
-			</td>
-			<td>
-				<a href="../controllers/vaccination_controller.php?del=<?php //echo '%27' ?><?php //echo $row['emp_id']; ?><?php //echo '%27' ?>" class="del_btn">Delete</a>
-			</td>
-		</tr>
-	
-</table> -->
-
 				<form method="post" class="w-100 rounded p-4 border bg-white" action="../controllers/vaccination_controller.php">
 					<input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 					<div class="input-group">

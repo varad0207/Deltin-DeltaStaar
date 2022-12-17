@@ -57,3 +57,14 @@ body{
     border: 2px solid white;
     border-radius: 10px;
 }
+
+.sort>a:hover{
+    background-color:#ceaa6d;
+    color:#ceaa6d;
+    border: 2px solid black;
+    
+}
+
+
+
+

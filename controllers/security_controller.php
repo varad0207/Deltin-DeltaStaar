@@ -1,4 +1,4 @@
-<?php  include('../../controllers/includes/common.php'); ?>
+<?php  include('../controllers/includes/common.php'); ?>
 <?php 
 	
     if(!isset($_SESSION)) 
@@ -54,8 +54,8 @@
 	}
 
     if (isset($_POST['update'])) {
-        $emp_code = $_POST['Id'];
-		$fname = $_POST['acId'];
+        $emp_id = $_POST['Id'];
+		$acc_id = $_POST['acId'];
         /*$mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $designation = $_POST['designation'];

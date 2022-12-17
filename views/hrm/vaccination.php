@@ -2,9 +2,9 @@
 <?php include('../../controllers/vaccination_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
-	$emp_code = $_GET['edit'];
+	$vaccination_id = $_GET['edit'];
 	$update =true;
-	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE emp_id=$emp_id");
+	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE vaccination_id=$vaccination_id");
 	// if (count($record) == 1 ) {
 	$n=mysqli_fetch_array($record);
 	$emp_id = $n['emp_id'];
@@ -49,26 +49,46 @@ if (isset($_GET['edit'])) {
 				<?php endif ?>
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
-				<form method="post" class="w-100 rounded p-4 border bg-white" action="../controllers/vaccination_controller.php">
-					<input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
+				<form method="post" class="w-100 rounded p-4 border bg-white" action="../../controllers/vaccination_controller.php">
+					<input type="hidden" name="vaccination_id" value="<?php echo $vaccination_id; ?>">
 					<div class="input-group">
-						<label class="d-block mb-4"> <span class="d-block mb-2">Employee-Id :-
-								<?php if ($update == true): ?>
-								<input class="form-control" disabled type="text" name="emp_id" value="<?php echo $emp_id; ?>"> <?php else: ?>
+						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code :-
+
+
+
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="emp_id">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
+
+
+
+								<!-- <?php if ($update == true): ?>
+								<input class="form-control" disabled type="text" name="emp_id" value="<?php echo $emp_id; ?>"> 
+								<?php else: ?>
 								<input class="form-control" type="text" name="emp_id" value="<?php echo $emp_id; ?>">
-								<?php endif ?>
+								<?php endif ?> -->
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Category :- <span></span>
-						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-    					<option selected>Choose...</option>
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="cat_id">
+    					<option name="category_name" selected>Choose...</option>
     					
 							<?php
 								$vac_cat=mysqli_query($conn, "SELECT * FROM vaccination_category");
 								
-								while ($r=mysqli_fetch_array($vac_cat)){ ?>
-								<option value="<?php $r['category_id']?>"><?php echo $r['category_name'];?></option>	
+								foreach ($vac_cat as $row1){ ?>
+								<option name="category_name" value="<?= $row1["category_id"]?>"><?= $row1["category_name"];?></option>	
 								<?php
 								}
 								
@@ -78,12 +98,12 @@ if (isset($_GET['edit'])) {
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Date of Administration<span>
-									<input class="form-control" type="date" name="doa" value="<?php echo $doa; ?>">
+									<input class="form-control" type="date" name="doa" value="<?php echo $dateofadministration; ?>">
 					</div>
 					</label>
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Date of Next Dose<span>
-									<input class="form-control" type="date" name="dond" value="<?php echo $dond; ?>">
+									<input class="form-control" type="date" name="dond" value="<?php echo $nextdose; ?>">
 					</div>
 					</label>
 					<div class="input-group">

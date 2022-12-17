@@ -2,7 +2,7 @@
 <?php include('../controllers/vaccination_category_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
-	$emp_code = $_GET['edit'];
+	$category_id = $_GET['edit'];
 	$update = true;
 	$record = mysqli_query($conn, "SELECT * FROM vaccination_category WHERE category_id=$category_id");
 
@@ -78,7 +78,7 @@ if (isset($_GET['edit'])) {
 			<td><?php echo $row['category_name']; ?></td>
 			<td><?php echo $row['category_id']; ?></td>
 			<td>
-				<a href="vaccination_category.php?edit=<?php echo '%27' ?><?php echo $row['category_name']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+				<a href="vaccination_category.php?edit=<?php echo '%27' ?><?php echo $row['category_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
 				<a href="../controllers/vaccination_category_controller.php?del=<?php echo '%27' ?><?php echo $row['category_id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
@@ -101,10 +101,10 @@ if (isset($_GET['edit'])) {
                     </select>
                     </label>
                     </div>
-					<div class="input-group">
+					<!-- <div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Category Id <span>
 						<input class="form-control" type="text" name="category_id" value="<?php echo $category_id; ?>">
-					</div>
+					</div> -->
 						</label>
 					
 						</label>

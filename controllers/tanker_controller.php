@@ -1,7 +1,6 @@
 <?php
-require "../../controllers/includes/common.php";
-// if (!isset($_SESSION['emp_id']))
-//     header("location:../views/login.html");
+require "includes/common.php";
+
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_id = $_SESSION['emp_id'];
     $get_accomodation_id = "select acc_id from security where emp_id='{$emp_id}'";

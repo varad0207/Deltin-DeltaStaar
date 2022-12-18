@@ -60,24 +60,25 @@
 
                     <tr>
                         <td>
-                            Sample Data 1
+                            1
                         </td>
                         <td>
-                            Sample Data 1
+                            Madhuban
                         </td>
                         <td>
-                            Sample Data 1
+                            Panjim
                         </td>
                         <td>
-                            Sample Data 1
+                            Varad Kelkar
                         </td>
                         <td>
-                            Sample Data 1
+                            Sanketh Shenoy
                         </td>
                         <td>
-                            <a class="button" role="button" href="#">
-                                <i class="bi bi-circle-fill" style="font-size: 1.2rem; color: lightgreen;"></i>
-                            </a>
+                            <!--Green Circle-->
+                            <!--if else lagao available/not-->
+                            <i class="bi bi-circle-fill" style="font-size: 1.2rem; color: lightgreen;"></i>
+
                         </td>
                         <td>
                             <a class="button" role="button" href="#">
@@ -89,162 +90,62 @@
 
                     <tr>
                         <td>
-                            Sample Data 2
+                            2
                         </td>
                         <td>
-                            Sample Data 1
+                            Soccer
                         </td>
                         <td>
-                            Sample Data 1
+                            Miramar
                         </td>
                         <td>
-                            Sample Data 1
+                            Vadiraj Inamdar
                         </td>
                         <td>
-                            Sample Data 1
+                            Shubham Tendulkar
                         </td>
                         <td>
-                        <a class="button" role="button" href="#">
-                                <i class="bi bi-circle-fill" style="font-size: 1.2rem; color: red;"></i>
-                            </a>
+                            <!--Red Circle-->
+                            <i class="bi bi-circle-fill" style="font-size: 1.2rem; color: red;"></i>
+
                         </td>
                         <td>
-                            Sample Data 1
+
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            Sample Data 2
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Sample Data 2
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Sample Data 2
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Sample Data 2
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Sample Data 2
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                        <td>
-                            Sample Data 1
-                        </td>
-                    </tr>
+
 
 
                 </tbody>
             </table>
         </div>
+        <br>
 
 
     </div>
     <div class="" style="margin:2% 5%;">
         <div class="row">
-            <div class="col-2">
+            <div class="col-2 sort">
+                
                 <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
                 <a role="button" href="#" target="_blank" rel="noopener noreferrer">
                     <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
                 </a>
             </div>
             <div class="col-8">
-
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <div class="col-2">
 

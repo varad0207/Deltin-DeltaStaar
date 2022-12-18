@@ -1,4 +1,4 @@
-<?php  include('../controllers/includes/common.php'); ?>
+<?php  include('includes/common.php'); ?>
 <?php 
 	
     if(!isset($_SESSION)) 

@@ -107,7 +107,7 @@ if (isset($_GET['edit'])) {
 					</div> -->
 					</label>
 					<div class="input-group">
-						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>
+						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code <span></span>
 
 						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
     					<option name="employee_code" selected>Choose...</option>

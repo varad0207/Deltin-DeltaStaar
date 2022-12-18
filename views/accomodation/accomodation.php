@@ -1,30 +1,6 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/accomodation_controller.php'); ?>
 <?php
-if (isset($_POST['submit']) && !empty($_POST['submit']))
-{
-    $acode = mysqli_real_escape_string($conn, $_POST['code']);
-    $aname = mysqli_real_escape_string($conn, $_POST['name']);
-    $bldg = mysqli_real_escape_string($conn, $_POST['bldg']);
-    $loc = mysqli_real_escape_string($conn, $_POST['loc']);
-    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-    $tot_capacity = mysqli_real_escape_string($conn, $_POST['cap']);
-    $rooms = mysqli_real_escape_string($conn, $_POST['rooms']);
-    $arooms = mysqli_real_escape_string($conn, $_POST['arooms']);
-    $orooms = mysqli_real_escape_string($conn, $_POST['orooms']);
-    $owner = mysqli_real_escape_string($conn, $_POST['owner']);
-    $remark = mysqli_real_escape_string($conn, $_POST['remark']);
-
-    echo "<script>console.log('1')</script>";
-
-    $insert = "insert into accomodation (acc_id, acc_code, acc_name, bldg_status, location, gender, tot_capacity, no_of_rooms, occupied_rooms, available_rooms, owner, remark) values ('', '$acode', '$aname', '$bldg', '$loc', '$gender', '$tot_capacity', '$rooms', '$arooms', '$orooms', '$owner', '$remark')";
-
-    echo mysqli_error($conn);
-    $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
-    header("location: ../index.html");
-}
-?>
-<?php
 if (isset($_GET['edit'])) {
 	$acc_code = $_GET['edit'];
 	$update = true;
@@ -66,7 +42,7 @@ if (isset($_GET['edit'])) {
             <div class="form-content">
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Enter Accomodation Details</h1>
-                    <form class="requires-validation f3 lh-copy" novalidate action="../controllers/accomodation.php" method="post">
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/accomodation_controller.php" method="post">
                       
                         <div class="col-md-12 pa2">
                           <label for="acc_code">Accomodation Code</label>
@@ -85,9 +61,10 @@ if (isset($_GET['edit'])) {
                        <div class="col-md-12 pa2">
                         <label for="bldg_status">Building Status</label>
                             <select class="form-select mt-3" name="bldg" required>
-                                  <option selected disabled value="">Select status</option>
-                                  <option value="Full">Full</option>
-                                  <option value="Not Full">Not Full</option>
+                                <option selected disabled value="">Select status</option>
+                                <option value="Active">Active</option>
+								<option value="Permanently Closed">Permanently Closed</option>
+								<option value="Temporarily Closed">Temporarily Closed</option>
                            </select>
                             <!-- <div class="valid-feedback">You selected a position!</div> -->
                             <div class="invalid-feedback">Please select an option!</div>
@@ -106,7 +83,7 @@ if (isset($_GET['edit'])) {
                                   <option selected disabled value="">Select Gender</option>
                                   <option value="Male">Male</option>
                                   <option value="Female">Femlae</option>
-                                  <option value="Other">Other</option>
+                                  <option value="Unisex">Unisex</option>
                            </select>
                             <!-- <div class="valid-feedback">You selected a position!</div> -->
                             <div class="invalid-feedback">Please select a gender!</div>
@@ -162,7 +139,7 @@ if (isset($_GET['edit'])) {
         </div>
     </div>
   </div>
-    <script src="../js/form.js"></script>
+    <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>

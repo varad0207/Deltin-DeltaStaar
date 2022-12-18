@@ -1,3 +1,5 @@
+<?php include('../controllers/includes/common.php'); ?>
+<?php include('../controllers/tanker_controller.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +21,13 @@
             <div class="form-content">
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Tanker Entry</h1>
-                    <form class="requires-validation f3 lh-copy" novalidate action="../controllers/tanker.php" method="post">
-                        <!-- <div class="col-md-12 pa2">
-                            <label for="quantity">Employee ID</label>
-                              <input class="form-control" type="number" name="emp_id" placeholder="Employee ID" required>
-                              <div class="valid-feedback">Username field is valid!</div>
-                              <div class="invalid-feedback">Username field cannot be blank!</div>
-                          </div> -->
+                    <form class="requires-validation f3 lh-copy" novalidate action="../controllers/tanker_controller.php" method="post">
 
                         <div class="col-md-12 pa2">
                           <label for="vendorname">Vendor Name</label>
                             <input class="form-control" type="text" name="vname" placeholder="Vendor Name" required>
-                            <div class="valid-feedback">Username field is valid!</div>
-                            <div class="invalid-feedback">Username field cannot be blank!</div>
+                            <div class="valid-feedback">field is valid!</div>
+                            <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
                       
                        <div class="col-md-12 pa2">
@@ -41,22 +37,21 @@
                                   <option value="ok">Ok</option>
                                   <option value="not ok">Not Ok</option>
                            </select>
-                            <div class="valid-feedback">You selected a position!</div>
-                            <div class="invalid-feedback">Please select a position!</div>
+                            
                        </div>
 
                        <div class="col-md-12 pa2">
                         <label for="quantity">Quantity</label>
                           <input class="form-control" type="number" name="qty" placeholder="7000" required>
-                          <div class="valid-feedback">Username field is valid!</div>
-                          <div class="invalid-feedback">Username field cannot be blank!</div>
+                          <div class="valid-feedback">field is valid!</div>
+                          <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="billno">Bill Number</label>
                           <input class="form-control" type="number" name="billno" placeholder="Bill Number" required>
-                          <div class="valid-feedback">Username field is valid!</div>
-                          <div class="invalid-feedback">Username field cannot be blank!</div>
+                          <div class="valid-feedback">field is valid!</div>
+                          <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
                        
 

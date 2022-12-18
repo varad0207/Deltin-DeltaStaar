@@ -1,3 +1,6 @@
+<?php include('../../controllers/includes/common.php'); ?>
+<?php include('../../controllers/complaint_controller.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +22,7 @@
             <div class="form-content">
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Raise a Complain</h1>
-                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/complaint.php" method="post">
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/complaint_controller.php" method="post">
                       
                         <div class="col-md-12 pa2">
                           <label for="empcode">Employee Code</label>

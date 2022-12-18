@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['save'])|| isset($_POST['update'])||isset($_GET['del'])) {
+if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     include('includes/common.php');
 }else{
     include('includes/common.php');
@@ -44,6 +44,7 @@ if (isset($_POST['save'])|| isset($_POST['update'])||isset($_GET['del'])) {
 
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+        $_SESSION['message'] = "Accomodation Info Added!";
         header("location: ../index.html");
     }
 	$update = false;
@@ -73,3 +74,5 @@ if (isset($_POST['save'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $_SESSION['message'] = "Accomodation deleted!"; 
         header('location: ../index.html');
     }
+
+?>

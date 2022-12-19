@@ -1,8 +1,6 @@
-<?php //include('../../controllers/includes/common.php'); ?>
-<?php //include('../../controllers/complaint_controller.php'); ?>
 <?php
-require 'controllers/includes/common.php';
-require 'controllers/complaint_controller.php';
+require '/Applications/XAMPP/xamppfiles/htdocs/deltinconnect/controllers/includes/common.php';
+require '/Applications/XAMPP/xamppfiles/htdocs/deltinconnect/controllers/complaint_controller.php';
 
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
@@ -45,7 +43,7 @@ if (isset($_GET['edit'])) {
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
-                    <h1 class="f2 lh-copy tc" style="color: white;">Raise a Complain</h1>
+                    <h1 class="f2 lh-copy tc" style="color: white;">Raise a Complaint</h1>
                     <?php if (isset($_SESSION['message'])): ?>
 				<div class="msg">
 					<?php
@@ -68,10 +66,10 @@ if (isset($_GET['edit'])) {
                        <div class="col-md-12 pa2">
                         <label for="category">Category</label>
                             <select class="form-select mt-3" name="category" value="<?php echo $category; ?>" required>
-                                  <option selected disabled value="">Select a category of complain</option>
-                                  <option value="Electrical">Electrical</option>
-                                  <option value="Plumbing">Plumbing</option>
-                                  <option value="Carpentary">Carpentary</option>
+                                  <option selected disabled value="">Select a category of complaint</option>
+                                  <option value="1">Electrical</option>
+                                  <option value="2">Plumbing</option>
+                                  <option value="3">Carpentary</option>
                                   <option value="Others">Others</option>
                            </select>
                             <div class="valid-feedback">You selected a position!</div>

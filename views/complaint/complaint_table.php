@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Delta@STAAR | Complaints</title>
@@ -50,9 +50,9 @@
 
                 <?php 
                 if (isset($_POST['save'])) {
-                    $emp_code = $_POST['Id'];
+                    $emp_id = $_POST['Id'];
                     echo "<script>console.log('$emp_code')</script>";
-                $results = mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'"); ?>
+                $results = mysqli_query($conn, "SELECT * FROM complaints join employee where employee.emp_id='$emp_id'"); ?>
 
                 <table>
                     <thead>

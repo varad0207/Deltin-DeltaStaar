@@ -59,6 +59,14 @@
                     </thead>
 
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
+                        <?php 		$employeedesig = $row['designation'];
+                    $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where id=$employeedesig");
+                    $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
+
+                    $accomodationId = $row['acc_id'];
+                    $queryAccomodationId = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationId");
+                    $AccomodationId_row = mysqli_fetch_assoc($queryAccomodationId);
+                    ?>
                     <tr>
                         <td>
                             <?php echo $row['emp_code']; ?>
@@ -73,7 +81,7 @@
                             <?php echo $row['lname']; ?>
                         </td>
                         <td>
-                            <?php echo $row['designation']; ?>
+                            <?php echo $EmployeeDesig_row['designation']; ?>
                         </td>
                         <td>
                             <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
@@ -109,7 +117,7 @@
                             <?php echo $row['salary']; ?>
                         </td>
                         <td>
-                            <?php echo $row['acc_id']; ?>
+                            <?php echo $AccomodationId_row['acc_name']; ?>
                         </td>
 
                         <td>

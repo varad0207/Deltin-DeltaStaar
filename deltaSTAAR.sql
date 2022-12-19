@@ -586,8 +586,8 @@ ALTER TABLE `complaints`
 --
 -- Constraints for table `complaint_type`
 --
-ALTER TABLE `complaint_type`
-  ADD CONSTRAINT `fk_comp_type_id` FOREIGN KEY (`id`) REFERENCES `complaints` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- ALTER TABLE `complaint_type`
+--  ADD CONSTRAINT `fk_comp_type_id` FOREIGN KEY (`id`) REFERENCES `complaints` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contact`
@@ -605,8 +605,8 @@ ALTER TABLE `employee`
 --
 -- Constraints for table `employee_designation`
 --
-ALTER TABLE `employee_designation`
-  ADD CONSTRAINT `fk_empdesig_id` FOREIGN KEY (`id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- ALTER TABLE `employee_designation`
+--  ADD CONSTRAINT `fk_empdesig_id` FOREIGN KEY (`id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `employee_outing`
@@ -656,8 +656,8 @@ ALTER TABLE `tankers`
 --
 -- Constraints for table `tanker_vendors`
 --
-ALTER TABLE `tanker_vendors`
-  ADD CONSTRAINT `fk_tanker_vendor_id` FOREIGN KEY (`id`) REFERENCES `tankers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- ALTER TABLE `tanker_vendors`
+--  ADD CONSTRAINT `fk_tanker_vendor_id` FOREIGN KEY (`id`) REFERENCES `tankers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `technician`

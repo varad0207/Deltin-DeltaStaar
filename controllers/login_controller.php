@@ -17,7 +17,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     else
     {
 
-        $fetch1 = "select e.emp_id from employee e join login_credentials c on e.emp_id=c.emp_id where e.emp_code = '$emp_code' c.pass='$safe_pass'";
+        $fetch1 = "select e.emp_id from employee e join login_credentials c on e.emp_id=c.emp_id where e.emp_code = '$emp_code' && c.pass='$safe_pass'";
         $check1 = mysqli_query($conn,$fetch1) or die(mysqli_error($conn));
         if(mysqli_num_rows($check1) == 0)
         {
@@ -32,7 +32,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;
             $_SESSION['login_time'] = time();
-            // header("location:dashboard.php");
+            header("location:../views/superadmin.html");
         } 
     }								
 }

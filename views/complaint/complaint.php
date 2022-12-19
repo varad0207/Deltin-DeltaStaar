@@ -1,6 +1,9 @@
-<?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/complaint_controller.php'); ?>
+<?php //include('../../controllers/includes/common.php'); ?>
+<?php //include('../../controllers/complaint_controller.php'); ?>
 <?php
+require 'controllers/includes/common.php';
+require 'controllers/complaint_controller.php';
+
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$update = true;

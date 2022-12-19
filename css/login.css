@@ -1,0 +1,11 @@
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+
+
+    /* Gradient BG */
+    /*background: linear-gradient(to left, #fcbb58,#ceac6d,#1b1c1e);*/
+
+    background: url(https://img.freepik.com/premium-photo/abstract-fluid-art-background-light-golden-yellow-colors-liquid-marble-acrylic-painting-with-gradient-splash-watercolor-backdrop-with-wavy-pattern-stone-marbled-section_113767-5081.jpg?w=2000);
+}
+

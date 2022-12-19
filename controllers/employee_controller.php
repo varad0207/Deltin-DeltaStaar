@@ -51,9 +51,9 @@ if (isset($_POST['submit'])) {
     $aadhaar_number = $_POST['aadhaar_number'];
     $salary = $_POST['salary'];
     $acc_id = $_POST['acc_id'];
-    $desig_id = $_POST['desig_id'];
+    // $desig_id = $_POST['desig_id'];
 
-    mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,address,state,country,pincode,email,blood_group,department,joining_date,aadhaar_number,salary,acc_id,desig_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$address','$state','$country','$pincode','$email','$blood_group','$department','$joining_date','$aadhaar_number','$salary','$acc_id','$desig_id')");
+    mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,address,state,country,pincode,email,blood_group,department,joining_date,aadhaar_number,salary,acc_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$address','$state','$country','$pincode','$email','$blood_group','$department','$joining_date','$aadhaar_number','$salary','$acc_id')");
     $_SESSION['message'] = "Employee Details Saved";
     header('location: ../views/hrm/employee_table.php');
 }

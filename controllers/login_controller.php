@@ -1,6 +1,6 @@
 <?php
 require 'includes/common.php';
-
+date_default_timezone_set('Asia/Calcutta');
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_code = $_POST['user'];
     $password =$_POST['pass'];
@@ -26,8 +26,8 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         }
         $row = mysqli_fetch_array($check1);
         $emp_id = $row['emp_id'];
-        $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
-        $submit = mysqli_query($conn,$insert) or die(mysqli_error($conn));
+        // $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
+        // $submit = mysqli_query($conn,$insert) or die(mysqli_error($conn));
         if(!isset($_SESSION['emp_id'])){
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;

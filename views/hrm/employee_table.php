@@ -1,28 +1,51 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/employee_controller.php'); ?>
-
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Delta@STAAR | Employees</title>
-    <meta name="description" content="Employee Addition portal for deltin employees">
-    <link rel="stylesheet" href="../../css/forms.css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DELTA@STAAR | Employees</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+   
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="tc f1 lh-title">All Employee</h1>
-        <div class="row mx-0 justify-content-center">
-            <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
-                <?php if (isset($_SESSION['message'])): ?>
+    <div style="color:white;">Add Navbar</div>
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+            <div class="col-1">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
+                </a>
+            </div>
+            <div class="col-9">
+                <h1 class="text-center">All Employees</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+        <?php if (isset($_SESSION['message'])): ?>
                 <div class="msg">
                     <?php
                     echo $_SESSION['message'];
@@ -33,10 +56,10 @@
 
                 <?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>emp_code </th>
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                    <th>emp_code </th>
                             <th>fname </th>
                             <th>mname </th>
                             <th>lname </th>
@@ -55,18 +78,11 @@
                             <th>acc_id </th>
 
                             <th colspan="2">Action</th>
-                        </tr>
-                    </thead>
+                    <tr>
+                </thead>
+                <tbody>
 
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
-                        <?php 		$employeedesig = $row['designation'];
-                    $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where id=$employeedesig");
-                    $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
-
-                    $accomodationId = $row['acc_id'];
-                    $queryAccomodationId = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationId");
-                    $AccomodationId_row = mysqli_fetch_assoc($queryAccomodationId);
-                    ?>
+                <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
                         <td>
                             <?php echo $row['emp_code']; ?>
@@ -81,7 +97,7 @@
                             <?php echo $row['lname']; ?>
                         </td>
                         <td>
-                            <?php echo $EmployeeDesig_row['designation']; ?>
+                            <?php echo $row['designation']; ?>
                         </td>
                         <td>
                             <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
@@ -117,21 +133,57 @@
                             <?php echo $row['salary']; ?>
                         </td>
                         <td>
-                            <?php echo $AccomodationId_row['acc_name']; ?>
+                            <?php echo $row['acc_id']; ?>
                         </td>
 
                         <td>
                             <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
-                                class="edit_btn">Edit</a>
-                        </td>
-                        <td>
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                        &nbsp;
                             <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
-                                class="del_btn">Delete</a>
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
                 </table>
+                </tbody>
+            </table>
+        </div>
 
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="../../form templates//emp.html">
+                    Add Employee
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

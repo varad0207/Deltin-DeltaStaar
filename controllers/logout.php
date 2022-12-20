@@ -1,14 +1,14 @@
 <?php
 require 'includes/common.php';
-echo $_SESSION['emp_id'] . " " . $_SESSION['login_time'];
-
+$dt = new DateTime($_SESSION['login_time']);
+// echo $dt->format('Y-m-d H:i:s');
+$insert = "insert into login_history(emp_id,login_time) values ('ABCD1234','{$dt->format('Y-m-d H:i:s')}')";
+$submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
     if(isset($_SESSION["emp_id"]))
     {
-        $dt = new DateTime($_SESSION['login_time']);
-        $insert = "insert into login_history(emp_id) values ('{$_SESSION['emp_id']}')";
-        $submit = mysqli_query($conn,$insert) or die(mysqli_error($conn));
+
         session_unset();
         session_destroy();
     }
-    header("location: ..//index.html");
+header("location: ..//index.html");
 ?>

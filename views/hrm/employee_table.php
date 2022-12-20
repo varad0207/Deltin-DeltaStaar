@@ -54,7 +54,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php $results = mysqli_query($conn, "SELECT * FROM employee"); ?>
+                <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation"); ?>
 
             <table class="table table-hover m-0">
                 <thead style="border: 2px solid black;">
@@ -83,6 +83,10 @@
                 <tbody>
 
                 <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php $desigid = $row['designation'];
+                    $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where designation='$desigid'");
+                    $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
+					?>
                     <tr>
                         <td>
                             <?php echo $row['emp_code']; ?>
@@ -97,7 +101,7 @@
                             <?php echo $row['lname']; ?>
                         </td>
                         <td>
-                            <?php echo $row['designation']; ?>
+                            <?php echo $EmployeeDesig_row['designation']; ?>
                         </td>
                         <td>
                             <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
@@ -165,7 +169,7 @@
             </div>
             <div class="col-2">
 
-                <a role="button" class="btn btn-light" href="../../form templates//emp.html">
+                <a role="button" class="btn btn-light" href="employee.php">
                     Add Employee
                 </a>
 

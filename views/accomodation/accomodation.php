@@ -98,23 +98,23 @@ if (isset($_GET['edit'])) {
 
                       <div class="col-md-12 pa2">
                         <label for="no_of_rooms">Number of Rooms</label>
-                          <input class="form-control" type="number" name="rooms" placeholder="Number of Rooms" required>
+                          <input class="form-control" type="number" id="nor" name="rooms" placeholder="Number of Rooms" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="occupied_rooms">Occupied Rooms</label>
-                          <input class="form-control" type="number" name="orooms" placeholder="Number of Rooms Occupied" required>
+                          <input class="form-control" type="number" id="occnor" name="orooms" placeholder="Number of Rooms Occupied" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="available_rooms">Available Number of Rooms</label>
-                          <input class="form-control" type="number" name="arooms" placeholder="Availabe number of Rooms" required>
-                          <div class="valid-feedback">field is valid!</div>
-                          <div class="invalid-feedback">field cannot be blank!</div>
+                          <input class="form-control" type="number" id="avr" name="arooms" placeholder="Availabe number of Rooms" onclick="calc()" required>
+                          <p id="avrp" style="display: none;color:red;">Invalid Input!</p>
+                          
                       </div>
 
                        <div class="col-md-12 pa2">
@@ -140,6 +140,19 @@ if (isset($_GET['edit'])) {
     </div>
   </div>
     <script src="../../js/form.js"></script>
+    <script>
+		function calc(){
+		var nor=document.getElementById("nor").value;
+		var occnor=document.getElementById("occnor").value;
+		var roomsum=parseInt(nor)-parseInt(occnor);
+		 if(parseInt(roomsum)>0){
+			document.getElementById("avr").value=roomsum;
+			document.getElementById("avrp").style.display="none";
+		 }else{
+		 	document.getElementById("avrp").style.display="block";
+		 }
+		}
+	</script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>

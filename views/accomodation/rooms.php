@@ -27,10 +27,15 @@
                         <label for="accomodation">Accomodation</label>
                             <select class="form-select mt-3" name="acc" required>
                                 <option selected disabled value="">Select Accomodation</option>
-                                <option value="1">1</option>
-								<option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                                <?php
+								$acc_code=mysqli_query($conn, "SELECT * FROM accomodation");
+								
+								foreach ($acc_code as $row){ ?>
+								<option name="acc" value="<?= $row["acc_id"]?>"><?= $row["acc_code"];?></option>	
+								<?php
+								}
+								
+							?>
                            </select>
                             
                             <div class="invalid-feedback">Please select an option!</div>

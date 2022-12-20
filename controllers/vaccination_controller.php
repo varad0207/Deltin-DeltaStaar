@@ -29,7 +29,7 @@ if (isset($_POST['save'])) {
 
     mysqli_query($conn, "INSERT INTO vaccination(emp_id,category_id,date_of_administration,location,date_of_next_dose) VALUES ('$emp_id','$category','$dateofadministration','$location','$nextdose')");
     $_SESSION['message'] = "vaccination details saved";
-    header('location: ../views/hrm/vaccination.php');
+    header('location: ../views/hrm/vaccination_table.php');
 }
 
 if (isset($_POST['update'])) {

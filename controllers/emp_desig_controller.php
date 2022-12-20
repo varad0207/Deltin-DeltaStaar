@@ -17,7 +17,7 @@
     {
         $designation = mysqli_real_escape_string($conn, $_POST['designation']);
 
-        $insert = "insert into employee_designation (desig_id, designation) values ('', '$designation')";
+        $insert = "insert into employee_designation (id, designation) values ('', '$designation')";
 
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));

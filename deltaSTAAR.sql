@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2022 at 07:18 PM
+-- Generation Time: Dec 18, 2022 at 04:07 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `deltinSTAAR`
+-- Database: `deltaSTAAR`
 --
 
 -- --------------------------------------------------------
@@ -52,13 +52,25 @@ INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `lo
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `audits`
+--
+
+CREATE TABLE `audits` (
+  `login_id` int(11) NOT NULL,
+  `table_affected` varchar(255) NOT NULL,
+  `changes` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `complaints`
 --
 
 CREATE TABLE `complaints` (
   `id` int(11) NOT NULL,
   `raise_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `category` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` int(11) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tech_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -68,26 +80,17 @@ CREATE TABLE `complaints` (
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `complaints`
+-- Table structure for table `complaint_type`
 --
 
-INSERT INTO `complaints` (`id`, `raise_timestamp`, `category`, `description`, `status`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`) VALUES
-(2, '2022-11-09 18:02:15', 'Electrical', 'bulb replacement', NULL, '2022-11-09 18:02:15', '2022-11-09 18:02:15', '2022-11-09 18:02:15', NULL, 'ABCD1234'),
-(9, '2022-11-16 14:34:24', 'Plumbing', 'flush', NULL, '2022-11-16 14:34:24', '2022-11-16 14:34:24', '2022-11-16 14:34:24', NULL, 'ABCD1234'),
-(10, '2022-11-17 10:07:35', 'Carpentary', 'table broken', NULL, '2022-11-17 10:07:35', '2022-11-17 10:07:35', '2022-11-17 10:07:35', NULL, 'ABCD1234'),
-(12, '2022-12-07 07:21:15', 'Plumbing', 'ASQqe', NULL, '2022-12-07 07:21:15', '2022-12-07 07:21:15', '2022-12-07 07:21:15', NULL, 'ABCD1234'),
-(13, '2022-12-07 07:47:42', 'Electrical', 'dzfsfas', NULL, '2022-12-07 07:47:42', '2022-12-07 07:47:42', '2022-12-07 07:47:42', NULL, 'ABCD1234'),
-(14, '2022-12-07 07:48:31', 'Carpentary', 'chair broken', NULL, '2022-12-07 07:48:31', '2022-12-07 07:48:31', '2022-12-07 07:48:31', NULL, 'ABCD1234'),
-(15, '2022-12-07 09:20:04', 'Others', 'dfAS', NULL, '2022-12-07 09:20:04', '2022-12-07 09:20:04', '2022-12-07 09:20:04', NULL, 'ABCD1234'),
-(16, '2022-12-07 09:22:04', 'Others', 'xfgsd', NULL, '2022-12-07 09:22:04', '2022-12-07 09:22:04', '2022-12-07 09:22:04', NULL, 'ABCD1234'),
-(18, '2022-12-07 13:27:31', 'other', 'sdfa', NULL, '2022-12-07 13:27:31', '2022-12-07 13:27:31', '2022-12-07 13:27:31', NULL, 'ABCD1234'),
-(19, '2022-12-07 13:31:57', 'Plumbing', 'asfa', NULL, '2022-12-07 13:31:57', '2022-12-07 13:31:57', '2022-12-07 13:31:57', NULL, 'ABCD1234'),
-(20, '2022-12-07 13:33:27', 'Others', 'hello world', NULL, '2022-12-07 13:33:27', '2022-12-07 13:33:27', '2022-12-07 13:33:27', NULL, 'ABCD1234'),
-(21, '2022-12-07 13:38:43', 'Others', 'other', NULL, '2022-12-07 13:38:43', '2022-12-07 13:38:43', '2022-12-07 13:38:43', NULL, 'ABCD1234'),
-(22, '2022-12-07 15:06:15', 'Carpentary', 'asdf', NULL, '2022-12-07 15:06:15', '2022-12-07 15:06:15', '2022-12-07 15:06:15', NULL, 'ABCD1234'),
-(23, '2022-12-10 13:41:11', 'Plumbing', 'tap leaking', NULL, '2022-12-10 13:41:11', '2022-12-10 13:41:11', '2022-12-10 13:41:11', NULL, 'ABCD1234'),
-(24, '2022-12-10 13:41:55', 'Plumbing', 'cuahkjsh', NULL, '2022-12-10 13:41:55', '2022-12-10 13:41:55', '2022-12-10 13:41:55', NULL, 'ABCD1234');
+CREATE TABLE `complaint_type` (
+  `id` int(11) NOT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,7 @@ CREATE TABLE `employee` (
   `fname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designation` int(11) NOT NULL,
   `dob` date NOT NULL,
   `address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -124,17 +127,20 @@ CREATE TABLE `employee` (
   `joining_date` date DEFAULT NULL,
   `aadhaar_number` int(11) NOT NULL,
   `salary` float DEFAULT NULL,
-  `acc_id` int(11) DEFAULT NULL
+  `acc_id` int(11) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `employee`
+-- Table structure for table `employee_designation`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`) VALUES
-(1, 'ABCD1234', 'Chinmay', 'Umesh', '', 'Team Lead', '2002-07-05', 'Flat rt6 Fonseca Arcade tisk ponda', 'Goa', 'India', 403401, 'chinmayjoshi5702@gmail.com', NULL, 'IT', NULL, 1234567890, NULL, NULL),
-(6, 'qwer1234', 'Ivan', 'William', 'Azim', 'manager', '0000-00-00', 'sanvordem', 'goa', 'india', 403706, 'iaxivanazim@gmail.com', 'B+', 'IT', '0000-00-00', 12345, 50000, NULL),
-(11, 'gf2341', 'Ivan', 'William', 'Azim', 'Admin', '2019-06-05', 'sanvordem', 'Goa', 'India', 403706, 'iaxivanazim@gmail.com', 'A+', 'IT', '2022-12-01', 1234567, 500000, 0);
+CREATE TABLE `employee_designation` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -171,14 +177,47 @@ INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `login_history`
+--
+
+CREATE TABLE `login_history` (
+  `emp_id` int(11) NOT NULL,
+  `login_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `logout_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rights`
+--
+
+CREATE TABLE `rights` (
+  `id` int(11) NOT NULL,
+  `accomodation` enum('0','1','2','4','7') NOT NULL,
+  `complaints` enum('0','1','2','4','7') NOT NULL,
+  `employee_details` enum('0','1','2','4','7') NOT NULL,
+  `employee_outing` enum('0','1','2','4','7') NOT NULL,
+  `roles` enum('0','1','2','4','7') NOT NULL,
+  `rooms` enum('0','1','2','4','7') NOT NULL,
+  `tankers` enum('0','1','2','4','7') NOT NULL,
+  `jobs` enum('0','1','2','4','7') NOT NULL,
+  `vaccination` enum('0','1','2','4','7') NOT NULL,
+  `vaccination_category` enum('0','1','2','4','7') NOT NULL,
+  `visitor_log` enum('0','1','2','4','7') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
   `role_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rights` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `emp_id` int(11) NOT NULL
+  `rights` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -227,9 +266,23 @@ CREATE TABLE `tankers` (
   `quality_check` enum('Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL,
   `qty` int(11) NOT NULL,
   `bill_no` int(11) NOT NULL,
-  `vendor_name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vendor_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tanker_vendors`
+--
+
+CREATE TABLE `tanker_vendors` (
+  `id` int(11) NOT NULL,
+  `vname` varchar(20) DEFAULT NULL,
+  `company_name` varchar(20) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -311,7 +364,14 @@ ALTER TABLE `accomodation`
 --
 ALTER TABLE `complaints`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `emp_code` (`emp_code`);
+  ADD KEY `emp_code` (`emp_code`),
+  ADD KEY `type` (`type`);
+
+--
+-- Indexes for table `complaint_type`
+--
+ALTER TABLE `complaint_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `contact`
@@ -324,7 +384,15 @@ ALTER TABLE `contact`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`emp_id`),
-  ADD UNIQUE KEY `emp_code` (`emp_code`);
+  ADD UNIQUE KEY `emp_code` (`emp_code`),
+  ADD KEY `role` (`role`),
+  ADD KEY `designation` (`designation`);
+
+--
+-- Indexes for table `employee_designation`
+--
+ALTER TABLE `employee_designation`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `employee_outing`
@@ -339,11 +407,24 @@ ALTER TABLE `login_credentials`
   ADD KEY `emp_id` (`emp_id`);
 
 --
+-- Indexes for table `login_history`
+--
+ALTER TABLE `login_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `emp_id` (`emp_id`);
+
+--
+-- Indexes for table `rights`
+--
+ALTER TABLE `rights`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`role_id`),
-  ADD KEY `emp_id` (`emp_id`);
+  ADD KEY `rights` (`rights`);
 
 --
 -- Indexes for table `rooms`
@@ -365,7 +446,14 @@ ALTER TABLE `security`
 ALTER TABLE `tankers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `security_emp_id` (`security_emp_id`),
-  ADD KEY `acc_id` (`acc_id`);
+  ADD KEY `acc_id` (`acc_id`),
+  ADD KEY `vendor_id` (`vendor_id`);
+
+--
+-- Indexes for table `tanker_vendors`
+--
+ALTER TABLE `tanker_vendors`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `technician`
@@ -410,13 +498,37 @@ ALTER TABLE `accomodation`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `complaint_type`
+--
+ALTER TABLE `complaint_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employee_designation`
+--
+ALTER TABLE `employee_designation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `login_history`
+--
+ALTER TABLE `login_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rights`
+--
+ALTER TABLE `rights`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -428,6 +540,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tankers`
 --
 ALTER TABLE `tankers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tanker_vendors`
+--
+ALTER TABLE `tanker_vendors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -462,13 +580,33 @@ ALTER TABLE `visitor_log`
 -- Constraints for table `complaints`
 --
 ALTER TABLE `complaints`
-  ADD CONSTRAINT `complaints_ibfk_1` FOREIGN KEY (`emp_code`) REFERENCES `employee` (`emp_code`);
+  ADD CONSTRAINT `complaints_ibfk_1` FOREIGN KEY (`emp_code`) REFERENCES `employee` (`emp_code`),
+  ADD CONSTRAINT `complaints_ibfk_2` FOREIGN KEY (`type`) REFERENCES `complaint_type` (`id`);
+
+--
+-- Constraints for table `complaint_type`
+--
+-- ALTER TABLE `complaint_type`
+--  ADD CONSTRAINT `fk_comp_type_id` FOREIGN KEY (`id`) REFERENCES `complaints` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contact`
 --
 ALTER TABLE `contact`
   ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+
+--
+-- Constraints for table `employee`
+--
+ALTER TABLE `employee`
+  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`),
+  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`);
+
+--
+-- Constraints for table `employee_designation`
+--
+-- ALTER TABLE `employee_designation`
+--  ADD CONSTRAINT `fk_empdesig_id` FOREIGN KEY (`id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `employee_outing`
@@ -483,10 +621,16 @@ ALTER TABLE `login_credentials`
   ADD CONSTRAINT `login_credentials_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
 
 --
+-- Constraints for table `login_history`
+--
+ALTER TABLE `login_history`
+  ADD CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+
+--
 -- Constraints for table `roles`
 --
 ALTER TABLE `roles`
-  ADD CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+  ADD CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`rights`) REFERENCES `rights` (`id`);
 
 --
 -- Constraints for table `rooms`
@@ -506,7 +650,14 @@ ALTER TABLE `security`
 --
 ALTER TABLE `tankers`
   ADD CONSTRAINT `tankers_ibfk_1` FOREIGN KEY (`security_emp_id`) REFERENCES `employee` (`emp_id`),
-  ADD CONSTRAINT `tankers_ibfk_2` FOREIGN KEY (`acc_id`) REFERENCES `accomodation` (`acc_id`);
+  ADD CONSTRAINT `tankers_ibfk_2` FOREIGN KEY (`acc_id`) REFERENCES `accomodation` (`acc_id`),
+  ADD CONSTRAINT `tankers_ibfk_3` FOREIGN KEY (`vendor_id`) REFERENCES `tanker_vendors` (`id`);
+
+--
+-- Constraints for table `tanker_vendors`
+--
+-- ALTER TABLE `tanker_vendors`
+--  ADD CONSTRAINT `fk_tanker_vendor_id` FOREIGN KEY (`id`) REFERENCES `tankers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `technician`

@@ -84,12 +84,19 @@ if (isset($_GET['edit'])) {
 						<div class="col-md-12 pa2">
                         <label for="designation">Designation</label>
                             <select class="form-select mt-3" name="designation" required>
-                                <option selected disabled value="">Select Designation</option>
-                                <option value="dummy">Dummy</option>
+                                <option name="employee_desig" selected disabled value="">Select Designation</option>
+                                <?php
+								$emp_desig=mysqli_query($conn, "SELECT * FROM employee_designation");
+								
+								foreach ($emp_desig as $row){ ?>
+								<option name="employee_desig" value="<?= $row["id"]?>"><?= $row["designation"];?></option>	
+								<?php
+								}
+								
+							?>
                            </select>
                             <div class="invalid-feedback">Please select an option!</div>
                        </div>
-
 						<div class="col-md-12 pa2">
                             <label for="dob">Date of Birth</label>
                               <input class="form-control" type="date" name="dob" required>
@@ -166,7 +173,7 @@ if (isset($_GET['edit'])) {
 
                        <div class="col-md-12 pa2">
                         <label for="aadhar_no">Aadhar Number</label>
-                          <input class="form-control" type="number" name="aadhar_number" placeholder="Aadhar Number" required>
+                          <input class="form-control" type="number" name="aadhaar_number" placeholder="Aadhar Number" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
@@ -179,18 +186,31 @@ if (isset($_GET['edit'])) {
                       </div>
 
                       <div class="col-md-12 pa2">
-                        <label for="acc_id">Accomodation ID</label>
-                          <input class="form-control" type="number" name="acc_id" placeholder="Accomodation ID" required>
-                          <div class="valid-feedback">field is valid!</div>
-                          <div class="invalid-feedback">field cannot be blank!</div>
+                        <label for="acc_id">Accomodation</label>
+
+
+                        <select class="form-select mt-3" name="acc_id">
+                                <option name="employee_accomodation" selected disabled value="">Select Accomodattion</option>
+                                <?php
+								$emp_acc=mysqli_query($conn, "SELECT * FROM accomodation");
+								
+								foreach ($emp_acc as $row){ ?>
+								<option name="employee_accomodation" value="<?= $row["acc_id"]?>"><?= $row["acc_name"];?></option>	
+								<?php
+								}
+								
+							?>
+                           </select>
+
+                           <div class="invalid-feedback">Please select an option!</div>
                       </div>
 
-					  <div class="col-md-12 pa2">
+					  <!-- <div class="col-md-12 pa2">
                         <label for="desig_id">Designation ID</label>
                           <input class="form-control" type="number" name="desig_id" placeholder="Designation ID" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
-                      </div>
+                      </div> -->
 
                         <div class="form-button mt-3 tc">
                             <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>

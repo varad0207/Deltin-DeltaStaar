@@ -1,6 +1,6 @@
 <?php
 require 'includes/common.php';
-
+date_default_timezone_set('Asia/Calcutta');
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_code = $_POST['user'];
     $password =$_POST['pass'];
@@ -17,7 +17,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     else
     {
 
-        $fetch1 = "select e.emp_id from employee e join login_credentials c on e.emp_id=c.emp_id where e.emp_code = '$emp_code'";
+        $fetch1 = "select e.emp_id from employee e join login_credentials c on e.emp_id=c.emp_id where e.emp_code = '$emp_code' && c.pass='$safe_pass'";
         $check1 = mysqli_query($conn,$fetch1) or die(mysqli_error($conn));
         if(mysqli_num_rows($check1) == 0)
         {
@@ -26,19 +26,14 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         }
         $row = mysqli_fetch_array($check1);
         $emp_id = $row['emp_id'];
-        $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
-        $submit = mysqli_query($conn,$insert) or die(mysqli_error($conn));
+        // $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
+        // $submit = mysqli_query($conn,$insert) or die(mysqli_error($conn));
         if(!isset($_SESSION['emp_id'])){
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;
             $_SESSION['login_time'] = time();
-            echo ("Logged in");
-
-            // header("location:dashboard.php");
-        } else
-        echo ("Logged in");
-        // header("location:dashboard.php");
-        
+            header("location:../views/superadmin.html");
+        } 
     }								
 }
 ?>

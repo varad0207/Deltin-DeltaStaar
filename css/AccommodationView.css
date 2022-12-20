@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
 body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
     background-color: antiquewhite;
 }
 
-@font-face {
+/* @font-face {
     font-family: theSeasons;
     src: url(../css/Fontspring-DEMO-theseasons-bd.otf);
 
@@ -12,7 +19,7 @@ body {
     font-family: poppins;
     src: url(../css/Poppins-Regular.ttf);
 
-}
+} */
 
 h1 {
     color: white;

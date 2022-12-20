@@ -1,6 +1,5 @@
 <?php
 require "../controllers/includes/common.php";
-<<<<<<<< HEAD:views/dashboard.php
 if (!isset($_SESSION["emp_id"]))
     header("location:login.php");
 
@@ -24,10 +23,6 @@ if (
     $superadmin = 1;
 }
 ?>
-========
-if(!isset($_SESSION["emp_id"])) header("location:login.php");
-    ?>
->>>>>>>> upstream/main:views/superadmin.php
 
 <!DOCTYPE html>
 <html lang="en">

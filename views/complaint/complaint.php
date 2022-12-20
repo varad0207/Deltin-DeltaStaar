@@ -7,18 +7,12 @@ if(!isset($_SESSION['emp_id'])){
 // not logged in
 }
 
-
-
-
-
-
 $update = "";
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$update = true;
 	$record = mysqli_query($conn, "SELECT * FROM complaints WHERE id=$id");
 
-	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
 
 	$raise_timestamp = $n['raise_timestamp'];
@@ -31,7 +25,6 @@ if (isset($_GET['edit'])) {
 	$remarks = $n['remarks'];
 	$emp_code = $n['emp_code'];
 
-	// }
 }
 ?>
 <!DOCTYPE html>
@@ -68,8 +61,8 @@ if (isset($_GET['edit'])) {
                         <div class="col-md-12 pa2">
                           <label for="empcode">Employee Code</label>
                             <input class="form-control" value="" type="text" name="emp_code" placeholder="eg.HV1234" required>
-                            <div class="valid-feedback">Username field is valid!</div>
-                            <div class="invalid-feedback">Username field cannot be blank!</div>
+                            <div class="valid-feedback">field is valid!</div>
+                            <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
                       
                         
@@ -83,8 +76,8 @@ if (isset($_GET['edit'])) {
                                   <option value="3">Carpentary</option>
                                   <option value="Others">Others</option>
                            </select>
-                            <div class="valid-feedback">You selected a position!</div>
-                            <div class="invalid-feedback">Please select a position!</div>
+                            <div class="valid-feedback">You selected an option!</div>
+                            <div class="invalid-feedback">Please select an option!</div>
                        </div>
 
 
@@ -105,11 +98,11 @@ if (isset($_GET['edit'])) {
 						<?php endif ?>
                         </div>
                     </form>
+                 </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

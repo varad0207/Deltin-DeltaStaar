@@ -1,3 +1,8 @@
+<?php
+require "../controllers/includes/common.php";
+if(!isset($_SESSION["emp_id"])) header("location:login.php");
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +25,7 @@
     <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                 ̰ <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+                 <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">

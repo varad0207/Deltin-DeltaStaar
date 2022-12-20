@@ -1,6 +1,17 @@
 <?php
 require '../../controllers/includes/common.php';
 require '../../controllers/complaint_controller.php';
+
+// raise complaint --no login
+if(!isset($_SESSION['emp_id'])){
+// not logged in
+}
+
+
+
+
+
+
 $update = "";
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];

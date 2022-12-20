@@ -31,7 +31,7 @@ if (isset($_GET['edit'])) {
 	<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 </head>
 
-<body> <center>
+<body class="b ma2"> <center>
 	<h3>Define Security</h3></center>
 	<div class="container">
 		<!-- <h1 class="tc f1 lh-title">Add New Security</h1> -->

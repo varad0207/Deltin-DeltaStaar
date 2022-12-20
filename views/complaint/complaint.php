@@ -1,7 +1,7 @@
 <?php
-require '/Applications/XAMPP/xamppfiles/htdocs/deltinconnect/controllers/includes/common.php';
-require '/Applications/XAMPP/xamppfiles/htdocs/deltinconnect/controllers/complaint_controller.php';
-
+require '../../controllers/includes/common.php';
+require '../../controllers/complaint_controller.php';
+$update = "";
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$update = true;

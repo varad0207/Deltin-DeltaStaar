@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Delta@STAAR | Complaints</title>

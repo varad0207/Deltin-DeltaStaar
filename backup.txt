@@ -458,3 +458,12 @@ if (isset($_GET['edit'])) {
 </body>
 
 </html>
+
+navbars to all
+roles
+room_table, update del
+complaint emp_code, complaint_table
+jobs
+vendor
+
+locations - accomodation location 

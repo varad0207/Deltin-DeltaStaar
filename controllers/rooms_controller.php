@@ -26,7 +26,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
         $_SESSION['message'] = "Room Info Added!";
-        header("location: ../index.html");
+        header("location: ../views/superadmin.html");
     }
 
 

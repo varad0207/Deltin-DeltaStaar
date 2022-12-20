@@ -24,9 +24,66 @@ if(isset($_SESSION["emp_id"]))
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- Tachyons -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+
+
 </head>
 
 <body style="background: url(../images/bg-dark.png) center no-repeat;">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                    <a class="nav-link active" href="#" >Rooms</a>
+                </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Locations</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                    <a class="nav-link active" href="#" >Tankers</a>
+                </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
+                        </li>
+                        <!-- <li class="nav-item pr5">
+                    <a class="nav-link active" href="#" >Contact Us</a>
+                </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active1" href="../index.html">Back</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- <p><a href="register.php">Register</a> | <a href="login.php">Login</a> | <a href="index.html">Home</a> </p> -->
 
@@ -41,19 +98,20 @@ if(isset($_SESSION["emp_id"]))
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
 
-                <div class="card rounded-3 gradient-custom-2 p-md-5" style="width: 35%;">
+                <div class="card rounded-3 gradient-custom-2 p-md-5" style="width: 30%; height:90%">
 
                     <div class="text-center">
-                        <img src="../images/logo.png" style="width: 70%;" alt="logo">
 
-                        <h4 class="mt-1 mb-5 pt-1">Login to your account</h4>
+                        <img src="../images/logo.png" style="width: 60%;" alt="logo">
+
+                        <h3 class="mt-1 mb-4 pt-3">Login to your account</h3>
                     </div>
 
                     <form action="../controllers/login_controller.php" method="POST">
 
                         <div class="form-outline mb-4">
                             <i class="bi bi-person-circle" style="font-size: 1rem; color: #1b1c1e;"></i>
-                            <label class="form-label" for="empcode">Employee Code:</label>
+                            <label class="form-label" for="empcode">Employee Code</label>
 
 
                             <input type="text" name="user" id="empcode" class="form-control"
@@ -72,8 +130,8 @@ if(isset($_SESSION["emp_id"]))
                         </div>
 
                         <div class="text-center pt-1">
-                            <button class="btn btn-dark btn-block fa-lg mb-3" type="submit" value="Login"
-                                name="submit">Log in</button>
+                            <button class="btn btn-dark btn-block fa-lg" type="submit" value="Login" name="submit">Log
+                                in</button>
 
                         </div>
                     </form>

@@ -1,3 +1,10 @@
+<?php 
+if(isset($_SESSION["emp_id"]))
+{
+    session_unset();
+    session_destroy();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

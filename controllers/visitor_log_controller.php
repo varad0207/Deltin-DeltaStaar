@@ -29,13 +29,13 @@ if (isset($_POST['save'])) {
     $vehicle_no=$_POST['vehicle_no'];
     $purpose=$_POST['purpose'];
     $phone_no=$_POST['phone_no'];
-    $check_in="";
+    $check_in=time();
     $check_out="";
 
 
-    mysqli_query($conn, "INSERT INTO visitor_log(emp_id,security_emp_id,visitor_name,vehicle_no,type,check_in,check_out,puspose,phone_no) VALUES ('$emp_id','$security_emp_id','$visitor_name','$cat_id','$vehicle_no','$purpose','$phone_no')");
+    mysqli_query($conn, "INSERT INTO visitor_log(emp_id,security_emp_id,visitor_name,vehicle_no,type,check_in,check_out,puspose,phone_no) VALUES ('$emp_id','$security_emp_id','$visitor_name','$vehicle_no','$cat_id','$purpose','$phone_no')");
     $_SESSION['message'] = "vaccination details saved";
-    header('location: ../views/hrm/vaccination.php');
+    header('location: ../views/hrm/visitor_log.php');
 }
 
 if (isset($_POST['update'])) {
@@ -48,16 +48,16 @@ if (isset($_POST['update'])) {
     $purpose=$_POST['purpose'];
     $phone_no=$_POST['phone_no'];
     $check_in="";
-    $check_out="";
+    $check_out=time();
 
-    mysqli_query($conn, "UPDATE visitor_log SET emp_id='$emp_id', category_id='$category',date_of_administration='$dateofadministration',location='$location',date_of_next_dose='$nextdose' WHERE vaccination_id='$vaccination_id'");
+    mysqli_query($conn, "UPDATE visitor_log SET emp_id='$emp_id', emp_id='$emp_id',security_emp_id='$security_emp_id',visitor_name='$visitor_name',vehicle_no='$vehicle_no',type='$cat_id',check_out='$check_out',puspose='$purpose',phone_no='$phone_no'");
     $_SESSION['message'] = "Log Info updated!";
-    header('location: ../views/hrm/vaccination_table.php');
+    header('location: ../views/hrm/visitor_log_table.php');
 }
 
 if (isset($_GET['del'])) {
     $vaccination_id = $_GET['del'];
     mysqli_query($conn, "DELETE FROM vaccination WHERE vaccination_id=$vaccination_id");
     $_SESSION['message'] = "Vaccination deleted!";
-    header('location: ../views/hrm/vaccination_table.php');
+    header('location: ../views/hrm/visitor_log_table.php');
 }

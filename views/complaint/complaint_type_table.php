@@ -49,7 +49,7 @@ require '../../controllers/complaint_type_controller.php';
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active1" href="../index.html">Back</a>
+                            <a class="nav-link active1" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
                         </li>
                     </ul>
                     </div>

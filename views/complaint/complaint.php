@@ -2,9 +2,10 @@
 require '../../controllers/includes/common.php';
 require '../../controllers/complaint_controller.php';
 
-// raise complaint --no login
-if(!isset($_SESSION['emp_id'])){
-// not logged in
+// raise complaint if logged in
+if(isset($_SESSION['emp_id'])){
+    // $_SESSION['emp_code']
+    //  display this emp code directly in the form below
 }
 
 $update = "";
@@ -73,7 +74,9 @@ if (isset($_GET['edit'])) {
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a>
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
                         </li>
                     </ul>
                 </div>

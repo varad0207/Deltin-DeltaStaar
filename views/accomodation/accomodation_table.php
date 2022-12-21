@@ -146,10 +146,10 @@
                             <?php echo $row['remark']; ?>
                         </td>
                         <td>
-                            <a href="accomodation.php?edit=<?php echo '%27' ?><?php echo $row['acc_id']; ?><?php echo '%27' ?>"
+                            <a href="accomodation.php?update=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
                         &nbsp;
-                            <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['acc_id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                     </tr>

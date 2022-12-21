@@ -1,26 +1,6 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/accomodation_controller.php'); ?>
-<?php
-if (isset($_GET['edit'])) {
-	$acc_code = $_GET['edit'];
-	$update = true;
-	$record = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_code=$acc_code");
 
-	$n = mysqli_fetch_array($record);
-
-	$acc_code =  $n['acc_code'];
-    $acc_name = $n['acc_name'];
-    $bldg_status = $n['bldg_status'];
-    $location =  $n['location'];
-    $gender = $n['gender'];
-    $tot_capacity = $n['tot_capacity'];
-    $no_of_rooms = $n['no_of_rooms'];
-    $occupied_rooms = $n['occupied_rooms'];
-    $available_rooms = $n['available_rooms'];
-    $owner = $n['owner'];
-    $remark = $n['remark'];
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

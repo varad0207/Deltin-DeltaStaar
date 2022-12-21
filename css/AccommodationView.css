@@ -67,3 +67,38 @@ body{
     border: 2px solid white;
     border-radius: 10px;
 }
+
+nav{
+    font-family: poppins;
+    font-size: 16px !important;
+}
+
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.active:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* transition: all 0.5s ease-in-out;
+    transform: scale(1.2); */
+}
+
+.active1 {
+    /* background: white; */
+    color: black;
+    border-radius: 10px;
+}
+
+.txtgold {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+

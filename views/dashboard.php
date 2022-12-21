@@ -2,27 +2,6 @@
 require "../controllers/includes/common.php";
 if (!isset($_SESSION["emp_id"]))
     header("location:login.php");
-
-$superadmin = 0;
-$sql = "select rights.* from employee join roles on employee.role=roles.role_id join rights on roles.rights=rights.id";
-$submit = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-$rights_table = mysqli_fetch_array($submit);
-if (
-    $rights_table['accomodation'] == 7 &&
-    $rights_table['complaints'] == 7 &&
-    $rights_table['employee_details'] == 7 &&
-    $rights_table['employee_outing'] == 7 &&
-    $rights_table['roles'] == 7 &&
-    $rights_table['rooms'] == 7 &&
-    $rights_table['tankers'] == 7 &&
-    $rights_table['jobs'] == 7 &&
-    $rights_table['vaccination'] == 7 &&
-    $rights_table['vaccination_category'] == 7 &&
-    $rights_table['visitor_log'] == 7
-) {
-    $superadmin = 1;
-}
-$_SESSION['is_superadmin'] = $superadmin;
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +39,7 @@ $_SESSION['is_superadmin'] = $superadmin;
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <!-- only superadmin will see the configure button -->
-                        <?php if($superadmin==1){ ?>
+                        <?php if($_SESSION['is_superadmin']==1){ ?>
                         <li class="nav-item">
                             <div class="dropdown">
                                 <a class="nav-link active " id="dropdownMenuButton" aria-haspopup="true"
@@ -115,7 +94,7 @@ $_SESSION['is_superadmin'] = $superadmin;
 
     <!-- CARDS -->
     <div class="portal">
-        <?php if ($superadmin) { ?>
+        <?php if ($_SESSION['is_superadmin']==1) { ?>
         <h1 class="tc f-subheadline lh-title spr">Super Admin Portal</h1>
         <?php } else { ?>
         <h1 class="tc f-subheadline lh-title spr">Dashboard</h1>
@@ -154,9 +133,9 @@ $_SESSION['is_superadmin'] = $superadmin;
             <div class="containeer-items tc">
                 <a>
                     <img class="rounded-circle" src="../images/tanker.png" alt="SECURITY">
-                    <p class="f4 lh-copy txt"><a href="./security/employee_outing.html">Outing</a></p>
+                    <p class="f4 lh-copy txt"><a href="./security/employee_outing.php">Outing</a></p>
                     <p class="f4 lh-copy txt"><a href="./security/tanker.php">Tankers</a></p>
-                    <p class="f4 lh-copy txt"><a href="./security/employee.php">Visitors</a></p>
+                    <p class="f4 lh-copy txt"><a href="./security/visitor_log.php">Visitors</a></p>
                 </a>
             </div>
         </div>

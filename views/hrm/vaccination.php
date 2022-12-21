@@ -1,6 +1,8 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/vaccination_controller.php'); ?>
 <?php
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+
 if (isset($_GET['edit'])) {
 	$vaccination_id = $_GET['edit'];
 	$update =true;
@@ -48,7 +50,7 @@ if (isset($_GET['edit'])) {
 				<?php endif ?>
 
 				<?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
-				<form method="post" class="w-100 rounded p-4 border bg-white" action="../../controllers/vaccination_controller.php">
+				<form method="post" class="w-100 rounded p-4 border" style="color: white;" action="../../controllers/vaccination_controller.php">
 					<input type="hidden" name="vaccination_id" value="<?php echo $vaccination_id; ?>">
 					<div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code :-

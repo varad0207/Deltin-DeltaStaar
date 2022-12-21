@@ -31,7 +31,7 @@
 								$acc_code=mysqli_query($conn, "SELECT * FROM accomodation");
 								
 								foreach ($acc_code as $row){ ?>
-								<option name="acc" value="<?= $row["acc_id"]?>"><?= $row["acc_code"];?></option>	
+								<option name="acc" value="<?= $row["acc_id"]?>"><?= $row["acc_name"];?></option>	
 								<?php
 								}
 								
@@ -57,7 +57,7 @@
 
                         <div class="col-md-12 pa2">
                             <label for="curr_room_cap">Current Room Occupancy</label>
-                              <input class="form-control" type="number" name="curr_room_cap" placeholder="Room Capacity" required>
+                              <input class="form-control" type="number" name="curr_room_cap" placeholder="Room Occupancy" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>

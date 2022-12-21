@@ -130,13 +130,13 @@ if (isset($_GET['edit'])) {
 					<input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
 					<div class="input-group">
                     <label class="d-block mb-4" for="inputbstatus"> <span class="d-block mb-2">Vaccination Category <span>
-                    <br><select class="form-control" id="category_name" name="category_name">
-                    <option>Select Category of Vaccination</option>
+                    <br><input type="text" class="form-control" required id="category_name" name="category_name">
+                    <!-- <option>Select Category of Vaccination</option>
                     <option value="first ">1st dose taken</option>
                     <option value="sec dose">Yet to take 2nd dose</option>
                     <option value="Fully">Fully vaccinated</option>
                     <option value="Nodose">Not taken both doses</option>
-                    </select>
+                    </select> -->
                     </label>
                     </div>
 					<!-- <div class="input-group">

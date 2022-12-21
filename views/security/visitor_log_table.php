@@ -2,7 +2,7 @@
 <?php include('../../controllers/vaccination_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
-    $vaccination_id = $_GET['edit'];
+    $id = $_GET['edit'];
     $update = true;
     $record = mysqli_query($conn, "SELECT * FROM visitor_log WHERE id=$id");
     // if (count($record) == 1 ) {

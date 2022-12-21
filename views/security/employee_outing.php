@@ -1,3 +1,9 @@
+<?php
+include('../../controllers/includes/common.php');
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+
+?>
+<html>
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8" />
@@ -103,3 +109,4 @@
     </div>
   </footer>
 </body>
+</html>

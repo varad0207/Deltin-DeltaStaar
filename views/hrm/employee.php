@@ -1,6 +1,9 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/employee_controller.php'); ?>
 <?php
+
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+
 if (isset($_GET['edit'])) {
 	$emp_code = $_GET['edit'];
 	$update = true;

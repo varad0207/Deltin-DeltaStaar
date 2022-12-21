@@ -10,7 +10,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_code = $_POST['user'];
     $password = $_POST['pass'];
     $safe_pass = md5($password);
-    $fetch = "select e.emp_id from employee e join login_credentials c on e.emp_id=c.emp_id where e.emp_code = '$emp_code'";
+    $fetch = "select e.emp_id from employee e join login_credentials c on e.emp_id=c.emp_id where e.emp_code = '$emp_code' and e.role is not null";
 
     $check = mysqli_query($conn, $fetch) or die(mysqli_error($conn));
 

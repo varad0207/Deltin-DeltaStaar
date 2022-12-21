@@ -7,18 +7,12 @@ if(!isset($_SESSION['emp_id'])){
 // not logged in
 }
 
-
-
-
-
-
 $update = "";
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$update = true;
 	$record = mysqli_query($conn, "SELECT * FROM complaints WHERE id=$id");
 
-	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
 
 	$raise_timestamp = $n['raise_timestamp'];
@@ -31,7 +25,6 @@ if (isset($_GET['edit'])) {
 	$remarks = $n['remarks'];
 	$emp_code = $n['emp_code'];
 
-	// }
 }
 ?>
 <!DOCTYPE html>
@@ -43,11 +36,50 @@ if (isset($_GET['edit'])) {
     <title>Delta@STAAR | Report Complaint</title>
     <meta name="description" content="Complaint submission portal for deltin employees">
     <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/style1.css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 </head>
 <body class="b ma2">
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
   <img src="" alt="logo" class="center">
   <div class="form-body">
     <div class="row">
@@ -68,8 +100,8 @@ if (isset($_GET['edit'])) {
                         <div class="col-md-12 pa2">
                           <label for="empcode">Employee Code</label>
                             <input class="form-control" value="" type="text" name="emp_code" placeholder="eg.HV1234" required>
-                            <div class="valid-feedback">Username field is valid!</div>
-                            <div class="invalid-feedback">Username field cannot be blank!</div>
+                            <div class="valid-feedback">field is valid!</div>
+                            <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
                       
                         
@@ -83,8 +115,8 @@ if (isset($_GET['edit'])) {
                                   <option value="3">Carpentary</option>
                                   <option value="Others">Others</option>
                            </select>
-                            <div class="valid-feedback">You selected a position!</div>
-                            <div class="invalid-feedback">Please select a position!</div>
+                            <div class="valid-feedback">You selected an option!</div>
+                            <div class="invalid-feedback">Please select an option!</div>
                        </div>
 
 
@@ -105,11 +137,11 @@ if (isset($_GET['edit'])) {
 						<?php endif ?>
                         </div>
                     </form>
+                 </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

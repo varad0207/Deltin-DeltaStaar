@@ -1,15 +1,15 @@
-<?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/employee_controller.php'); ?>
-<!doctype html>
+<?php
+require '../../controllers/includes/common.php';
+require '../../controllers/complaint_type_controller.php';
+?>
+
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>DELTA@STAAR | Securities</title>
-
-    <!-- Bootstrap CSS -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta@STAAR | Complaint Type</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -17,9 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
-   
 </head>
-
 <body>
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
@@ -59,6 +57,7 @@
             </div>
         </div>
     </nav>
+
     <div class="" style="margin: 0% 5.1%;">
         <div class="row">
             <div class="col-1">
@@ -67,8 +66,8 @@
                     <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
                 </a>
             </div>
-            <div class="col-9">
-                <h1 class="text-center">All Securities</h1>
+            <div class="col-8">
+                <h1 class="text-center">Complaint Types</h1>
             </div>
             <div class="col ml-5 sort">
                 <a class="button" role="button" href="#">
@@ -91,34 +90,33 @@
                 </div>
                 <?php endif ?>
 
-                <?php $results = mysqli_query($conn, "SELECT * FROM security"); ?>
+                <?php $results = mysqli_query($conn, "SELECT * FROM complaint_type"); ?>
 
             <table class="table table-hover m-0">
                 <thead style="border: 2px solid black;">
                     <tr>
-                            <th>Emp-Id </th>
-                            <th>Acc-Id</th>
-                            <th colspan="2">Action</th>
+                    <th>Complaint Type</th>
+                    <th>Complaint Description</th>
+                    <th colspan="2">Action</th>
                     <tr>
                 </thead>
                 <tbody>
 
                 <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
-                    <td>
-                            <?php echo $row['emp_id']; ?>
-                        </td>
                         <td>
-                            <?php echo $row['acc_id']; ?>
-                        </td>
-
+                            <?php echo $row['type']; ?>
+                        </td> 
                         <td>
-                        <a href="../views/security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
-                                class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
-                        
+                            <?php echo $row['description']; ?>
+                        </td>
+    
+                        <td>
+                            <a href="complaint_type.php?update=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
                         &nbsp;
-                        <a href="../../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
-                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></a>
+                            <a href="../../controllers/complaint_type_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -142,8 +140,8 @@
             </div>
             <div class="col-2">
 
-                <a role="button" class="btn btn-light" href="../../form templates//emp.html">
-                    Add Employee
+                <a role="button" class="btn btn-light" href="complaint_type.php">
+                    Add Complaint Type
                 </a>
 
             </div>
@@ -162,5 +160,4 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
-
 </html>

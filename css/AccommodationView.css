@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
 body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
     background-color: antiquewhite;
 }
 
-@font-face {
+/* @font-face {
     font-family: theSeasons;
     src: url(../css/Fontspring-DEMO-theseasons-bd.otf);
 
@@ -12,7 +19,7 @@ body {
     font-family: poppins;
     src: url(../css/Poppins-Regular.ttf);
 
-}
+} */
 
 h1 {
     color: white;
@@ -32,6 +39,11 @@ table {
 
 }
 
+table td{
+    padding: 0px !important;
+    vertical-align: middle !important;
+}
+
 .table-div{
     margin: 0% 5%;
 
@@ -45,11 +57,10 @@ table {
 }*/
 thead tr th, tbody tr td{
     border: 2px solid black;
-
 }
 
 td{
-    font-size: 10px;
+    font-size: 14px;
 }
 body{
     background: #1b1c1e;
@@ -60,3 +71,38 @@ body{
     border: 2px solid white;
     border-radius: 10px;
 }
+
+nav{
+    font-family: poppins;
+    font-size: 16px !important;
+}
+
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.active:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* transition: all 0.5s ease-in-out;
+    transform: scale(1.2); */
+}
+
+.active1 {
+    /* background: white; */
+    color: black;
+    border-radius: 10px;
+}
+
+.txtgold {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+

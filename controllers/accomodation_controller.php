@@ -11,6 +11,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     { 
         session_start(); 
         // initialize variables
+        $acc_id = "";
         $acc_code = "";
         $acc_name = "";
         $bldg_status =  "";
@@ -45,7 +46,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
         $_SESSION['message'] = "Accomodation Info Added!";
-        header("location: ../views/superadmin.html");
+        header("location: ../views/accomodation/accomodation_table.php");
     }
 	$update = false;
 
@@ -65,14 +66,14 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     
         mysqli_query($conn, "UPDATE accomodation SET acc_code='$acc_code', acc_name='$acc_name',bldg_status='$bldg_status',location='$location',gender='$gender',tot_capacity='$tot_capacity',no_of_rooms='$no_of_rooms',occupied_rooms='$occupied_rooms',available_rooms='$available_rooms',owner='$owner',remark='$remark' WHERE acc_code='$acc_code'");
         $_SESSION['message'] = "Accomodation Info updated!"; 
-        header('location: ../views/superadmin.html');
+        header('location: ../views/accomodation/accomodation_table.php');
     }
 
     if (isset($_GET['del'])) {
-        $emp_code = $_GET['del'];
+        $acc_code = $_GET['del'];
         mysqli_query($conn, "DELETE FROM accomodation WHERE acc_code='$acc_code'");
         $_SESSION['message'] = "Accomodation deleted!"; 
-        header('location: ../views/superadmin.html');
+        header('location: ../views/accomodation/accomodation_table.php');
     }
 
 ?>

@@ -35,7 +35,7 @@ if (isset($_GET['edit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Delta@STAAR | Visitor Log Entry</title>
     <meta name="description" content="Vaccination records of the employees">
-    <!-- <link rel="stylesheet" href="../../css/forms.css"> -->
+    <link rel="stylesheet" href="../../css/forms.css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -43,6 +43,44 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body>
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                
+                <div class="offcanvas-body">
+                    <div class="nb">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active1" href="../index.html">Back</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h1 class="tc f1 lh-title">Visitor Log</h1>
         <div class="row mx-0 justify-content-center">

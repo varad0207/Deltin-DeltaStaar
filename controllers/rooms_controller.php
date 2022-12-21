@@ -26,8 +26,32 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
         $_SESSION['message'] = "Room Info Added!";
-        header("location: ../views/superadmin.html");
+        header("location: ../views/accomodation/room_table.php");
     }
 
+    if(isset($_POST['update']))
+    {
+    $id = $_GET['update'];
+        $acc_code = $_POST['acc'];
+        $room_no = $_POST['room_no'];
+        $room_cap = $_POST['room_cap'];
+        $curr_room_cap = $_POST['curr_room_cap'];
+        $status = $_POST['status'];
 
+        $update = "update rooms set acc_id = '$acc_code', room_no = '$room_no', room_capacity = '$room_cap', status = '$status', current_room_occupancy = '$curr_room_cap' where id=$id";
+
+        mysqli_query($conn, $update);
+
+        $_SESSION['message'] = "Room Info Updated!";
+        header("location: ../views/accomodation/room_table.php");
+    }
+
+    if(isset($_GET['del']))
+    {
+        $id = $_GET['del'];
+        mysqli_query($conn, "delete from rooms where id = $id");
+
+        $_SESSION['message'] = "Room Deleted!";
+        header("location: ../views/accomodation/room_table.php");
+    }
 ?>

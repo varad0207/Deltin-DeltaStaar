@@ -1,33 +1,13 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/accomodation_controller.php'); ?>
-<?php
-if (isset($_GET['edit'])) {
-	$acc_code = $_GET['edit'];
-	$update = true;
-	$record = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_code=$acc_code");
 
-	$n = mysqli_fetch_array($record);
-
-	$acc_code =  $n['acc_code'];
-    $acc_name = $n['acc_name'];
-    $bldg_status = $n['bldg_status'];
-    $location =  $n['location'];
-    $gender = $n['gender'];
-    $tot_capacity = $n['tot_capacity'];
-    $no_of_rooms = $n['no_of_rooms'];
-    $occupied_rooms = $n['occupied_rooms'];
-    $available_rooms = $n['available_rooms'];
-    $owner = $n['owner'];
-    $remark = $n['remark'];
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeltinConnect | Accomodation</title>
+    <title>Delta@STAAR | Accomodation</title>
     <meta name="description" content="Complaint submission portal for deltin employees">
     <link rel="stylesheet" href="../../css/form.css">
     <!-- CSS only -->
@@ -35,6 +15,44 @@ if (isset($_GET['edit'])) {
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 </head>
 <body class="b ma2">
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                
+                <div class="offcanvas-body">
+                    <div class="nb">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active1" href="../index.html">Back</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
   <img src="" alt="logo" class="center">
   <div class="form-body">
     <div class="row">

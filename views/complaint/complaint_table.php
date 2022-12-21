@@ -9,15 +9,55 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Delta@STAAR | Complaints</title>
-    <meta name="description" content="Employee Addition portal for deltin employees">
-    <link rel="stylesheet" href="../../css/forms.css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <!-- <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css"> -->
 </head>
 
 <body>
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                
+                <div class="offcanvas-body">
+                    <div class="nb">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active1" href="../index.html">Back</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h1 class="tc f1 lh-title">All Complaints</h1>
         <div class="row mx-0 justify-content-center">
@@ -59,7 +99,7 @@
                         <tr>
                             <th>Complaint Id </th>
                             <th>Raised Time </th>
-                            <th>Complainti Category </th>
+                            <th>Complaint Category </th>
                             <th>Description </th>
                             <th>Status </th>
                             <th>Closure Time<br>(Technician)</th> </th>
@@ -75,66 +115,66 @@
                     </thead>
 
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
+                        <?php
+                        $emp_code = $row['emp_code'];
+                        $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
+                        $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                        $acc_name = $EmpName_row['acc_id'];
+                        $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_name'");
+                        $AccName_row = mysqli_fetch_assoc($queryAccName);
+                        ?>
+                        <?php
+                        $comp_type = $row['type'];
+                        $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type where id='$comp_type'");
+                        $CompType_row = mysqli_fetch_assoc($queryCompType);
+                        ?>
+                        
                     <tr>
                         <td>
-                            <?php $testid=$row['category']; echo $row['id']; 
-                            echo "<script>console.log(' $testid')</script>";?>
+                            <?php echo $row['id']; ?>
                         </td>
                         <td>
-                            <?php echo $row['category']; ?>
+                            <?php echo $row['raise_timestamp']; ?>
+                        </td>
+                        <!-- fetch complaint category -->
+                        <td>
+                            <?php echo $CompType_row['type']; ?> 
                         </td>
                         <td>
-                            <?php echo $row['mname']; ?>
+                            <?php echo $row['description']; ?>
                         </td>
                         <td>
-                            <?php echo $row['lname']; ?>
+                            <?php echo $row['status']; ?>
                         </td>
                         <td>
-                            <?php echo $row['designation']; ?>
+                            <?php echo $row['tech_closure_timestamp']; ?>
                         </td>
                         <td>
-                            <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
+                            <?php echo $row['sec_closure_timestamp']; ?>
                         </td>
                         <td>
-                            <?php echo $row['address']; ?>
+                            <?php echo $row['warden_closure_timestamp']; ?>
                         </td>
                         <td>
-                            <?php echo $row['state']; ?>
+                            <?php echo $row['remarks']; ?>
+                        </td>
+                        <!-- fetch emp name -->
+                        <td>
+                            <?php echo $EmpName_row['fname']; ?>
                         </td>
                         <td>
-                            <?php echo $row['country']; ?>
+                            <?php echo $row['emp_code']; ?>
+                        </td>
+                        <!-- fetch acc name -->
+                        <td>
+                            <?php echo $AccName_row['acc_name']; ?>
                         </td>
                         <td>
-                            <?php echo $row['pincode']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['email']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['blood_group']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['department']; ?>
-                        </td>
-                        <td>
-                            <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
-                        </td>
-                        <td>
-                            <?php echo $row['aadhaar_number']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['salary']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['acc_id']; ?>
-                        </td>
-
-                        <td>
-                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                            <a href="complaint.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="edit_btn">Raise Job</a>
                         </td>
                         <td>
-                            <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/complaint_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn">Delete</a>
                         </td>
                     </tr>

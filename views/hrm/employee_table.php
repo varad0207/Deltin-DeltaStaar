@@ -1,5 +1,5 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/employee_controller.php'); ?>
+<?php include('../../controllers/employee_controller.php'); ?> 
 <!doctype html>
 <html lang="en">
 
@@ -15,21 +15,53 @@
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
     <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
    
 </head>
 
 <body>
-    <div style="color:white;">Add Navbar</div>
+    
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                
+                <div class="offcanvas-body">
+                    <div class="nb">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active1" href="../index.html">Back</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="" style="margin: 0% 5.1%;">
         <div class="row">
-            <div class="col-1">
-                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
-                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
-                </a>
-            </div>
+            
             <div class="col-9">
                 <h1 class="text-center">All Employees</h1>
             </div>

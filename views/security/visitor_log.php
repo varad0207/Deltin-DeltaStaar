@@ -1,5 +1,7 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/visitor_log_controller.php'); ?>
+<?php include('../../controllers/visitor_log_controller.php');
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+?>
 <?php
 if (isset($_GET['edit'])) {
 	$vaccination_id = $_GET['edit'];

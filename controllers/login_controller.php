@@ -34,7 +34,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;
             $_SESSION['login_history_id'] = $last_insert_id;
-            header("location:../views/superadmin.php");
+            header("location:../views/dashboard.php");
         }
     }
 }

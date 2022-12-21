@@ -95,9 +95,9 @@ if (isset($_GET['edit'])) {
 	<thead>
 		<tr>
 
-		<th>emp-id </th>
+		<!-- <th>emp-id </th>
 		
-		<th>acc_id </th>
+		<th>acc_id </th> -->
 
 		<th>Employee code </th>
 		<th>Accommodation name </th>
@@ -122,7 +122,6 @@ if (isset($_GET['edit'])) {
 			
 			<td>
  
-				<a href="../views/security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 
 				<a href="security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>

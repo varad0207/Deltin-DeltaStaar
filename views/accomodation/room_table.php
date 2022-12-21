@@ -63,7 +63,7 @@
                     <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
                 </a>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 <h1 class="text-center">All Rooms</h1>
             </div>
             <div class="col ml-5 sort">
@@ -87,7 +87,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php $results = mysqli_query($conn, "SELECT * FROM rooms JOIN accomodation ON rooms.acc_id = accomodation.acc_name"); ?>
+                <?php $results = mysqli_query($conn, "SELECT * FROM rooms JOIN accomodation ON rooms.acc_id = accomodation.acc_id"); ?>
 
             <table class="table table-hover m-0">
                 <thead style="border: 2px solid black;">
@@ -103,13 +103,13 @@
                 <tbody>
 
                 <?php while ($row = mysqli_fetch_array($results)) { ?>
-                    <?php $acc_name = $row['acc_id'];
-                    $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_name='$acc_name'");
+                    <?php $acc_id = $row['acc_id'];
+                    $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_id'");
                     $AccName_row = mysqli_fetch_assoc($queryAccName);
 					?>
                     <tr>
                         <td>
-                            <?php echo $AccName_row['acc_id']; ?>
+                            <?php echo $AccName_row['acc_name']; ?>
                         </td> 
                         
                         <td>

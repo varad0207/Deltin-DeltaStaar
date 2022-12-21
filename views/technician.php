@@ -103,9 +103,7 @@ if (isset($_GET['edit'])) {
 				<table>
 	<thead>
 		<tr>
- 
-		<th>Emp-id </th>
-		<th>Role </th>
+
 	
 
 		<th>emp_code </th>
@@ -148,7 +146,7 @@ if (isset($_GET['edit'])) {
 					</div> -->
 					</label>
 					<div class="input-group">
-						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Id <span></span>
+						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code <span></span>
 
 						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="eId">
     					<option name="employee_code" selected>Choose...</option>

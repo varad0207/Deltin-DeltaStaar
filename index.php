@@ -1,7 +1,7 @@
 <?php
-require '/Applications/XAMPP/xamppfiles/htdocs/deltinconnect/controllers/includes/common.php'; //for chinmay only
+// require '/Applications/XAMPP/xamppfiles/htdocs/deltinconnect/controllers/includes/common.php'; //for chinmay only
 
-// require '../controllers/includes/common.php'; // for others
+require './controllers/includes/common.php'; // for others
 
 if(isset($_SESSION["emp_id"]))
 {

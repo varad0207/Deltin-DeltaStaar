@@ -39,6 +39,11 @@ table {
 
 }
 
+table td{
+    padding: 0px !important;
+    vertical-align: middle !important;
+}
+
 .table-div{
     margin: 0% 5%;
 
@@ -52,11 +57,10 @@ table {
 }*/
 thead tr th, tbody tr td{
     border: 2px solid black;
-
 }
 
 td{
-    font-size: 10px;
+    font-size: 14px;
 }
 body{
     background: #1b1c1e;

@@ -1,5 +1,8 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/complaint_controller.php'); ?>
+<?php include('../../controllers/complaint_controller.php');
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+// check rights
+?>
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +53,7 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active1" href="../index.html">Back</a>
+                            <a class="nav-link active1" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
                         </li>
                     </ul>
                     </div>

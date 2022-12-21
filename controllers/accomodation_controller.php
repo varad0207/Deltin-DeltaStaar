@@ -11,6 +11,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     { 
         session_start(); 
         // initialize variables
+        $acc_id = "";
         $acc_code = "";
         $acc_name = "";
         $bldg_status =  "";
@@ -69,7 +70,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     }
 
     if (isset($_GET['del'])) {
-        $emp_code = $_GET['del'];
+        $acc_code = $_GET['del'];
         mysqli_query($conn, "DELETE FROM accomodation WHERE acc_code='$acc_code'");
         $_SESSION['message'] = "Accomodation deleted!"; 
         header('location: ../views/accomodation/accomodation_table.php');

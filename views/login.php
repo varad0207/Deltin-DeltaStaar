@@ -77,7 +77,7 @@ if(isset($_SESSION["emp_id"]))
                     <a class="nav-link active" href="#" >Contact Us</a>
                 </li> -->
                         <li class="nav-item">
-                            <a class="nav-link active1" href="../index.html">Back</a>
+                            <a class="nav-link active1" href="../index.php">Back</a>
                         </li>
                     </ul>
                 </div>

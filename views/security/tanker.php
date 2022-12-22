@@ -66,7 +66,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
             <div class="form-content">
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Tanker Entry</h1>
-                    <form class="requires-validation f3 lh-copy" novalidate action="../controllers/tanker_controller.php" method="post">
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/tanker_controller.php" method="post">
 
                         <div class="col-md-12 pa2">
                           <label for="accid">Accomodation ID</label>

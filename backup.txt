@@ -459,6 +459,54 @@ if (isset($_GET['edit'])) {
 
 </html>
 
+
+forms
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(RGB(237, 130, 7),RGB(235, 218, 36)); 
+    padding: 2rem 0; 
+}
+
+.bg-white {
+    /* background: linear-gradient(#FEBE10, #F0E68C); */
+}
+nav{
+    font-family: poppins;
+}
+
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* transition: all 0.5s ease-in-out;
+    transform: scale(1.2); */
+}
+
+.active1 {
+    /* background: white; */
+    color: black;
+    border-radius: 10px;
+}
+
+.txtgold {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+
+
+
 timeline
 navbars to all
 roles

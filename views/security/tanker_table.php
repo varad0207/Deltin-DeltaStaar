@@ -132,7 +132,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                         </td>
                         <td>
                             <?php 
-                            $time = date('Gi.s', $timestamp);
+                            $time = date('H:i:s', $timestamp);
 
                             echo $time; ?>
                         </td>

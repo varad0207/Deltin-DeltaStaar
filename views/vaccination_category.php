@@ -20,13 +20,13 @@ if (isset($_GET['edit'])) {
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Delta@STAAR | Vaccination Category</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
 	<link rel="stylesheet" href="../css/form.css">
-	<link rel="stylesheet" href="../../css/style1.css">
+	<!-- <link rel="stylesheet" href="../../css/style1.css"> -->
 
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"

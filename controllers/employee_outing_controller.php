@@ -6,6 +6,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
 }
 ?>
 <?php
+    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     if(!isset($_SESSION))
     {
         session_start();

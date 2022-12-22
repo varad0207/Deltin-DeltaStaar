@@ -101,7 +101,7 @@ if (!isset($_SESSION["emp_id"]))
                     <img class="rounded-circle" src="../images/emp.png" alt="EMPLOYEE">
                     <p class="f4 lh-copy txt"><a href="./hrm/employee_table.php" >Employee</a></p>
                     <!-- style="pointer-events: none;color:#a0a6ab;" onMouseOver="this.style.color='red'" -->
-                    <p class="f4 lh-copy txt"><a href="./hrm/vaccination.php">Vaccination</a></p>
+                    <p class="f4 lh-copy txt"><a href="./hrm/vaccination_table.php">Vaccination</a></p>
                     <p class="f4 lh-copy txt"><a href="./hrm/roles.php">Roles</a></p>
                 </a>
             </div>

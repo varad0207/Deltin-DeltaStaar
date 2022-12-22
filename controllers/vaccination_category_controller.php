@@ -20,7 +20,7 @@
 
 		mysqli_query($conn, "INSERT INTO vaccination_category( category_name, category_id) values ( '$category_name', '$category_id')"); 
 		$_SESSION['message'] = "Vaccination Category details saved"; 
-		header('location: ../views/superadmin.html');
+		header('location: ../dashboard.php');
 	}
 
     if (isset($_POST['update'])) {
@@ -29,12 +29,12 @@
     
         mysqli_query($conn, "UPDATE vaccination_category SET category_name='$category_name', category_id='$category_id' WHERE category_id=$category_id");
         $_SESSION['message'] = "Vaccination Category Info updated!"; 
-        header('location: ../views/superadmin.html');
+        header('location: ../dashboard.php');
     }
 
     if (isset($_GET['del'])) {
         $emp_code = $_GET['del'];
         mysqli_query($conn, "DELETE FROM vaccination_category WHERE category_id=$category_id");
         $_SESSION['message'] = "Vaccination Category deleted!"; 
-        header('location: ../views/superadmin.html');
+        header('location: ../dashboard.php');
     }

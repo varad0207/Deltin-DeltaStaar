@@ -48,7 +48,7 @@ if (isset($_GET['edit'])) {
 	<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 </head>
 
-<body>
+<body style="background-color: black; color:#fff;">
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="../dashboard.php">

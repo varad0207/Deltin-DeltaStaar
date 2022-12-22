@@ -24,7 +24,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     <!-- <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css"> -->
 </head>
 
-<body>
+<body style="background-color: black; color:#fff;">
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="../dashboard.php">

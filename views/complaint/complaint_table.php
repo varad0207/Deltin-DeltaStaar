@@ -86,7 +86,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
 								
 								foreach ($emp_det as $row){ ?>
-								<option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+								<option name="employee_code" value="<?= $row["emp_code"]?>"><?= $row["emp_code"];?></option>	
 								<?php
 								}
 								
@@ -97,9 +97,9 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 
                 <?php 
                 if (isset($_POST['save'])) {
-                    $emp_id = $_POST['Id'];
+                    $emp_code = $_POST['Id'];
                     echo "<script>console.log('$emp_code')</script>";
-                $results = mysqli_query($conn, "SELECT * FROM complaints join employee where employee.emp_id='$emp_id'"); ?>
+                $results = mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'"); ?>
 
                 <table>
                     <thead>

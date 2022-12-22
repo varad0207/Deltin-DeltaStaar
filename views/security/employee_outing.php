@@ -1,5 +1,6 @@
 <?php
 include('../../controllers/includes/common.php');
+include('../../controllers/employee_outing_controller.php');
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 
 ?>
@@ -13,7 +14,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="../../css/emp.css">
-  <link rel="stylesheet" href="../../css/style1.css">
+  <link rel="stylesheet" href="../../css/form.css">
 
   <title>DeltinConnect | EMP-Outing</title>
 </head>
@@ -30,11 +31,6 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel">
-                <!-- <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div> -->
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         

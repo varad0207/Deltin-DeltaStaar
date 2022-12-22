@@ -201,7 +201,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="blood_group">Blood Group</label>
-                                <select class="form-select mt-3" name="blood_group" required>
+                                <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>" required>
                                     <option selected disabled value="">Select Blood Group</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -218,7 +218,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="dept">Department</label>
                                 <input class="form-control" type="text" name="department" placeholder="Department"
- value="<?php echo $department; ?>"
+                                value="<?php echo $department; ?>"
                                 value="??php echo $department; ??" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>

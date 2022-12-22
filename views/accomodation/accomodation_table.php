@@ -117,6 +117,9 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                 <tbody>
 
                 <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php
+
+                    ?>
                     <tr>
                         <td>
                             <?php echo $row['acc_code']; ?>
@@ -152,7 +155,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                             <?php echo $row['remark']; ?>
                         </td>
                         <td>
-                            <a href="accomodation.php?update=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
+                            <a href="accomodation.php?edit=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
                         &nbsp;
                             <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
@@ -181,7 +184,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
             <div class="col-2">
 
                 <a role="button" class="btn btn-light" href="accomodation.php">
-                    Add Room
+                    Add Accommodation
                 </a>
 
             </div>

@@ -1,8 +1,28 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/accomodation_controller.php'); 
-if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+?>
+<?php
+    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (isset($_GET['edit'])) 
+    {
+        $acc_code = $_GET['edit'];
+        $update = true;
+        $record = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_code=$acc_code");
 
+        $n = mysqli_fetch_array($record);
 
+        $acc_code =  $n['acc_code'];
+        $acc_name = $n['acc_name'];
+        $bldg_status = $n['bldg_status'];
+        $location =  $n['location'];
+        $gender = $n['gender'];
+        $tot_capacity = $n['tot_capacity'];
+        $no_of_rooms = $n['no_of_rooms'];
+        $occupied_rooms = $n['occupied_rooms'];
+        $available_rooms = $n['available_rooms'];
+        $owner = $n['owner'];
+        $remark = $n['remark'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -68,21 +88,21 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                       
                         <div class="col-md-12 pa2">
                           <label for="acc_code">Accomodation Code</label>
-                            <input class="form-control" type="text" name="code" placeholder="Accomodation Code" required>
+                            <input class="form-control" type="text" name="code" value="<?php echo $acc_code ?>" placeholder="Accomodation Code" required>
                             <div class="valid-feedback">field is valid!</div>
                             <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="acc_name">Accomodation Name</label>
-                              <input class="form-control" type="text" name="name" placeholder="Accomodation Name" required>
+                              <input class="form-control" type="text" name="name" value="<?php echo $acc_name ?>"placeholder="Accomodation Name" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                           </div>
 
                        <div class="col-md-12 pa2">
                         <label for="bldg_status">Building Status</label>
-                            <select class="form-select mt-3" name="bldg" required>
+                            <select class="form-select mt-3" name="bldg" value="<?php echo $bldg_status ?>" required>
                                 <option selected disabled value="">Select status</option>
                                 <option value="Active">Active</option>
 								<option value="Permanently Closed">Permanently Closed</option>
@@ -94,66 +114,72 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 
                        <div class="col-md-12 pa2">
                         <label for="location">Location</label>
-                          <input class="form-control" type="text" name="loc" placeholder="Location " required>
+                          <input class="form-control" type="text" name="loc" value="<?php echo $location ?>" placeholder="Location " required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                        <div class="col-md-12 pa2">
                         <label for="gender">Gender</label>
-                            <select class="form-select mt-3" name="gender" required>
+                            <select class="form-select mt-3" name="gender" value="<?php echo $gender ?>" required>
                                   <option selected disabled value="">Select Gender</option>
                                   <option value="Male">Male</option>
                                   <option value="Female">Femlae</option>
                                   <option value="Unisex">Unisex</option>
                            </select>
-                            <!-- <div class="valid-feedback">You selected a position!</div> -->
+
                             <div class="invalid-feedback">Please select a gender!</div>
                        </div>
 
                        <div class="col-md-12 pa2">
                         <label for="tot_capacity">Total Capacity</label>
-                          <input class="form-control" type="number" name="cap" placeholder="Total Capacity" required>
+                          <input class="form-control" type="number" name="cap" value="<?php echo $tot_capacity ?>" placeholder="Total Capacity" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="no_of_rooms">Number of Rooms</label>
-                          <input class="form-control" type="number" id="nor" name="rooms" placeholder="Number of Rooms" required>
+                          <input class="form-control" type="number" id="nor" name="rooms" value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="occupied_rooms">Occupied Rooms</label>
-                          <input class="form-control" type="number" id="occnor" name="orooms" placeholder="Number of Rooms Occupied" required>
+                          <input class="form-control" type="number" id="occnor" name="orooms" value="<?php echo $occupied_rooms ?>" placeholder="Number of Rooms Occupied" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="available_rooms">Available Number of Rooms</label>
-                          <input class="form-control" type="number" id="avr" name="arooms" placeholder="Availabe number of Rooms" onclick="calc()" required>
+                          <input class="form-control" type="number" id="avr" name="arooms" value="<?php echo $available_rooms ?>" placeholder="Availabe number of Rooms" onclick="calc()" required>
                           <p id="avrp" style="display: none;color:red;">Invalid Input!</p>
                           
                       </div>
 
                        <div class="col-md-12 pa2">
                         <label for="owner">Owner</label>
-                          <input class="form-control" type="text" name="owner" placeholder="Owner" required>
+                          <input class="form-control" type="text" name="owner" value="<?php echo $owner ?>" placeholder="Owner" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
 
                        <div class="col-md-12 pa2">
                         <label for="description">Remark</label>
-                        <textarea name="remark" placeholder="Enter remark if any" cols="30" rows="10"></textarea>
+                        <textarea name="remark" value="<?php echo $remark ?>" placeholder="Enter remark if any" cols="30" rows="10"></textarea>
                        </div>
                        
 
                         <div class="form-button mt-3 tc">
-                            <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                        <?php if ($update == true): ?>
+                                <button id="submit" name="update" value="update" type="submit"
+                                    class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                                <?php else: ?>
+                                <button id="submit" name="submit" value="sumbit" type="submit"
+                                    class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+						        <?php endif ?>
                         </div>
                     </form>
                 </div>

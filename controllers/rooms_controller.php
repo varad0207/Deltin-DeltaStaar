@@ -31,14 +31,13 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
 
     if(isset($_POST['update']))
     {
-    $id = $_GET['update'];
         $acc_code = $_POST['acc'];
         $room_no = $_POST['room_no'];
         $room_cap = $_POST['room_cap'];
         $curr_room_cap = $_POST['curr_room_cap'];
-        $status = $_POST['status'];
+        $status = $_POST['room_stat'];
 
-        $update = "update rooms set acc_id = '$acc_code', room_no = '$room_no', room_capacity = '$room_cap', status = '$status', current_room_occupancy = '$curr_room_cap' where id=$id";
+        $update = "update rooms set acc_id = '$acc_code', room_capacity = '$room_cap', status = '$status', current_room_occupancy = '$curr_room_cap' where room_no=$room_no";
 
         mysqli_query($conn, $update);
 

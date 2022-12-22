@@ -1,10 +1,22 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/rooms_controller.php');
+<?php include('../../controllers/rooms_controller.php'); ?>
+<?php
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (isset($_GET['edit'])) 
+    {
+        $room_id = $_GET['edit'];
+        $update = true;
+        $record = mysqli_query($conn, "SELECT * FROM rooms WHERE id=$room_id");
 
+        $n = mysqli_fetch_array($record);
 
+        $acc_id = $n['acc_id'];
+        $room_no = $n['room_no'];
+        $room_cap = $n['room_capacity'];
+        $status = $n['status'];
+        $curr_room_cap = $n['current_room_occupancy'];
+    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,28 +59,28 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 
                         <div class="col-md-12 pa2">
                             <label for="room_no">Room Number</label>
-                              <input class="form-control" type="number" name="room_no" placeholder="Room Number" required>
+                              <input class="form-control" type="number" name="room_no" value="<?php echo $room_no ?>" placeholder="Room Number" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="room_cap">Room Capacity</label>
-                              <input class="form-control" type="number" name="room_cap" placeholder="Room Capacity" required>
+                              <input class="form-control" type="number" name="room_cap" value="<?php echo $room_cap ?>" placeholder="Room Capacity" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="curr_room_cap">Current Room Occupancy</label>
-                              <input class="form-control" type="number" name="curr_room_cap" placeholder="Room Occupancy" required>
+                              <input class="form-control" type="number" name="curr_room_cap" value="<?php echo $curr_room_cap ?>" placeholder="Room Occupancy" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                        <div class="col-md-12 pa2">
                         <label for="room_status">Room Status</label>
-                            <select class="form-select mt-3" name="room_stat" required>
+                            <select class="form-select mt-3" name="room_stat" value="<?php echo $status ?>" required>
                                 <option selected disabled value="">Select status</option>
                                 <option value="Occupied">Occupied</option>
 								<option value="Available">Available</option>
@@ -78,7 +90,13 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                        </div>
 
                         <div class="form-button mt-3 tc">
-                            <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                            <?php if ($update == true): ?>
+                                <button id="submit" name="update" value="update" type="submit"
+                                    class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                            <?php else: ?>
+                                <button id="submit" name="submit" value="sumbit" type="submit"
+                                    class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+						    <?php endif ?>
                         </div>
                     </form>
                 </div>

@@ -8,8 +8,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
-    <link rel="stylesheet" href="../../css/style1.css">
+    
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +20,8 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
-    <!-- <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css"> -->
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <!-- <link rel="stylesheet" href="../../css/style1.css"> -->
 </head>
 
 <body style="background-color: black; color:#fff;">
@@ -65,20 +65,9 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h1 class="tc f1 lh-title">All Complaints</h1>
-        <div class="row mx-0 justify-content-center">
-            <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
-                <?php if (isset($_SESSION['message'])): ?>
-                <div class="msg">
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                    ?>
-                </div>
-                <?php endif ?>
-
-                <form class="requires-validation f3 lh-copy" novalidate action="complaint_table.php" method="post">
+    <h1 class="tc f1 lh-title">All Complaints</h1>
+    
+    <form class="requires-validation f3 lh-copy" novalidate action="complaint_table.php" method="post">
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
     					<option name="employee_code" selected>Choose...</option>
     					
@@ -94,15 +83,28 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 						</select>
                         <button class="btn btn-dark px-3" class="btnn" type="submit" name="save" value="save">Save</button>
                 </form>
+                <div class="table-div">
+        <div class="row mx-0 justify-content-center">
+            <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
+                <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+               
 
                 <?php 
                 if (isset($_POST['save'])) {
                     $emp_code = $_POST['Id'];
                     echo "<script>console.log('$emp_code')</script>";
                 $results = mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'"); ?>
-
-                <table>
-                    <thead>
+            <div class="table-responsive bg-white">
+                <table class="table table-hover m-0">
+                    <thead style="border: 2px solid black;">
                         <tr>
                             <th>Complaint Id </th>
                             <th>Raised Time </th>
@@ -188,7 +190,10 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                     <?php } ?>
                 </table>
                 <?php } ?>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

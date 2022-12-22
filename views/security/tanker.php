@@ -67,6 +67,8 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Tanker Entry</h1>
                     <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/tanker_controller.php" method="post">
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/tanker_controller.php" method="post">
+
                         <div class="col-md-12 pa2">
                           <label for="accid">Accomodation ID</label>
                           <select class="form-select mt-3" name="acc" required>
@@ -91,6 +93,22 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                                   
                                   foreach ($sec_id as $row){ ?>
                                   <option name="sec" value="<?= $row["emp_id"]?>"><?= $row["acc_id"];?></option>	
+                                  <?php
+                                  }
+                                  
+                                ?>
+                           </select>
+                        </div>
+
+                        <div class="col-md-12 pa2">
+                          <label for="vendorid">Vendor ID</label>
+                          <select class="form-select mt-3" name="ven" required>
+                                <option selected disabled value="">Select Vendor</option>
+                                <?php
+                                  $vendor_id = mysqli_query($conn, "SELECT * FROM tanker_vendors");
+                                  
+                                  foreach ($vendor_id as $row){ ?>
+                                  <option name="ven" value="<?= $row["id"]?>"><?= $row["id"];?></option>	
                                   <?php
                                   }
                                   
@@ -124,20 +142,6 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>
                        
-                      <div class="col-md-12 pa2">
-                          <label for="vid">Vendor ID</label>
-                          <select class="form-select mt-3" name="vendor" required>
-                                <option selected disabled value="">Select Vendor</option>
-                                <?php
-                                  $vendor = mysqli_query($conn, "SELECT * FROM vendor");
-                                  
-                                  foreach ($vendor as $row){ ?>
-                                  <option name="vendor" value="<?= $row["id"]?>"><?= $row["vname"];?></option>	
-                                  <?php
-                                  }
-                                ?>
-                           </select>
-                        </div>
                         
                         <div class="form-button mt-3 tc">
                             <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>

@@ -18,7 +18,8 @@ $location="";
 
 $update = false;
 
-if (isset($_POST['save'])) {
+if (isset($_POST['submit'])) {
+    
     $vaccination_id = $_POST['vaccination_id'];
     $emp_id= $_POST['emp_id'];
     $category=$_POST['cat_id'];

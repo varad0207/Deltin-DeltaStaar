@@ -24,7 +24,11 @@ if (isset($_GET['edit'])) {
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Favicon link-->
+    <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
 	<title>Delta@STAAR | Add Vaccination</title>
+    
 	<meta name="description" content="Employee Addition portal for deltin employees">
 	<link rel="stylesheet" href="../../css/form.css">
 	<!-- CSS only -->

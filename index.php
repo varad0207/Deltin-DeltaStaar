@@ -3,8 +3,7 @@
 
 require './controllers/includes/common.php'; // for others
 
-if(isset($_SESSION["emp_id"]))
-{
+if (isset($_SESSION["emp_id"])) {
 	session_unset();
 	session_destroy();
 }
@@ -16,6 +15,9 @@ if(isset($_SESSION["emp_id"]))
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--Favicon link-->
+	<link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
 	<title>Delta@STAAR | HOME</title>
 	<link rel="stylesheet" href="./css/style.css">
 	<!-- Bootstrap -->
@@ -30,9 +32,9 @@ if(isset($_SESSION["emp_id"]))
 	<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
-                <img src="images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
-                    style="border-radius: 50px;">
-            </a>
+				<img src="images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+					style="border-radius: 50px;">
+			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 				aria-controls="offcanvasNavbar">
 				<span class="navbar-toggler-icon"></span>

@@ -3,10 +3,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Favicon link-->
+    <link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Vaccination Category</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,8 +22,9 @@
     <link rel="stylesheet" href="../css/style1.css">
 
 </head>
+
 <body>
-<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="../dashboard.php">
                 <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
@@ -37,21 +42,22 @@
                 </div> -->
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
-                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
+                                onclick=history.back()>Back</a>
 
                         </li>
                     </ul>
@@ -82,47 +88,48 @@
     <div class="table-div">
 
         <div class="table-responsive bg-white">
-        <?php if (isset($_SESSION['message'])): ?>
-                <div class="msg">
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
+            <?php if (isset($_SESSION['message'])): ?>
+            <div class="msg">
+                <?php
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
                     ?>
-                </div>
-                <?php endif ?>
+            </div>
+            <?php endif ?>
 
-                <?php $results = mysqli_query($conn, "SELECT * FROM vaccination_category "); ?>
+            <?php $results = mysqli_query($conn, "SELECT * FROM vaccination_category "); ?>
 
             <table class="table table-hover m-0">
                 <thead style="border: 2px solid black;">
                     <tr>
-                    <th>Vaccination Category</th>
-                
-                    <th colspan="2">Action</th>
+                        <th>Vaccination Category</th>
+
+                        <th colspan="2">Action</th>
                     <tr>
                 </thead>
                 <tbody>
 
-                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
-                         
-                        
+
+
                         <td>
                             <?php echo $row['category_name']; ?>
                         </td>
-                        
+
 
                         <td>
                             <a href="vaccination_category.php?edit=<?php echo '%27' ?><?php echo $row['category_id']; ?><?php echo '%27' ?>"
-                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
-                        &nbsp;
+                                class="edit_btn"> <i class="bi bi-pencil-square"
+                                    style="font-size: 1.2rem; color: black;"></i></a>
+                            &nbsp;
                             <a href="../../controllers/vaccination_category_controller.php?del=<?php echo '%27' ?><?php echo $row['category_id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
-                </table>
-                </tbody>
+            </table>
+            </tbody>
             </table>
         </div>
 
@@ -161,4 +168,5 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

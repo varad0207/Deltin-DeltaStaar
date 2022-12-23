@@ -15,7 +15,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" type="text/css" href="../css/AccommodationView.css">
+
+    <!--Favicon link-->
+    <link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
     <title>Accommodation View</title>
+
 </head>
 
 <body>
@@ -126,7 +130,7 @@
     <div class="" style="margin:2% 5%;">
         <div class="row">
             <div class="col-2 sort">
-                
+
                 <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
                 <a role="button" href="#" target="_blank" rel="noopener noreferrer">
                     <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>

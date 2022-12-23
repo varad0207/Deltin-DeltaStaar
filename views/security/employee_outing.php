@@ -8,7 +8,11 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
   <!-- Required meta tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!--Favicon link-->
+  <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
   <title>Delta@STAAR | Employee Outing</title>
+  
   <link rel="stylesheet" href="../../css/form.css">
   <link rel="stylesheet" href="../../css/style1.css">
   <!-- Bootstrap CSS -->

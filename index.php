@@ -29,9 +29,10 @@ if(isset($_SESSION["emp_id"]))
 	<!-- Navigation Bar -->
 	<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
 		<div class="container-fluid">
-			<span class="navbar-brand">
-				<img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
-			</span>
+			<a class="navbar-brand" href="#">
+                <img src="images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
+            </a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 				aria-controls="offcanvasNavbar">
 				<span class="navbar-toggler-icon"></span>

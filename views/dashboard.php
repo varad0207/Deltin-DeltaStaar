@@ -26,7 +26,8 @@ if (!isset($_SESSION["emp_id"]))
     <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+                <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -69,18 +70,13 @@ if (!isset($_SESSION["emp_id"]))
                         <li class="nav-item">
                             <a class="nav-link active" href="./aboutus.html" target="_blank">About Us</a>
                         </li>
-                        <!-- <li class="nav-item">
-                        <a class="nav-link active" href="#" target="_blank">Rooms</a>
-                    </li> -->
+
                         <li class="nav-item">
                             <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
-                        <!-- <li class="nav-item">
-						<a class="nav-link active" href="#" target="_blank">Tankers</a>
-					</li> -->
-                        <!-- <li class="nav-item pr5">
-                            <a class="nav-link active" href="#" target="_blank">Contact Us</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="complaint/complaint.php" target="_blank">Complain+</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active1" id="adminlogin" href="../controllers/logout.php">Log Out</a>
                         </li>
@@ -102,7 +98,7 @@ if (!isset($_SESSION["emp_id"]))
                     <p class="f4 lh-copy txt"><a href="./hrm/employee_table.php" >Employee</a></p>
                     <!-- style="pointer-events: none;color:#a0a6ab;" onMouseOver="this.style.color='red'" -->
                     <p class="f4 lh-copy txt"><a href="./hrm/vaccination_table.php">Vaccination</a></p>
-                    <p class="f4 lh-copy txt"><a href="./hrm/roles.php">Roles</a></p>
+                    <p class="f4 lh-copy txt"><a href="./hrm/roles_table.php">Roles</a></p>
                 </a>
             </div>
 
@@ -128,7 +124,7 @@ if (!isset($_SESSION["emp_id"]))
             <div class="containeer-items tc">
                 <a>
                     <img class="rounded-circle" src="../images/tanker.png" alt="SECURITY">
-                    <p class="f4 lh-copy txt"><a href="./security/employee_outing.php">Outing</a></p>
+                    <p class="f4 lh-copy txt"><a href="./security/employee_outing_table.php">Outing</a></p>
                     <p class="f4 lh-copy txt"><a href="./security/tanker_table.php">Tankers</a></p>
                     <p class="f4 lh-copy txt"><a href="./security/visitor_log_table.php">Visitors</a></p>
                 </a>

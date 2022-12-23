@@ -47,8 +47,9 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy fw5">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <ul class="navbar-nav justify-content-end">    
                 <li class="nav-item">
@@ -139,11 +140,11 @@
                             <?php $time = date('H:i:s', $timestamp); echo $time; ?>
                         </td>
                         <td>
-                            <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['entry_id']; ?><?php echo '%27' ?>"
+                            <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             &nbsp;
-                            <a href="../../controllers/tanker_controller.php?del=<?php echo '%27' ?><?php echo $row['entry_id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/tanker_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                         </td>

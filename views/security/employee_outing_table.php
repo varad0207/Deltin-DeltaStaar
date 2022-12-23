@@ -1,14 +1,7 @@
-<?php 
-    include('../../controllers/includes/common.php'); 
-    include('../../controllers/role_controller.php');
-    if (!isset($_SESSION["emp_id"]))
-        header("location:../../views/login.php");
-
-    //only superadmin can view and assign roles
-    if ($_SESSION['is_superadmin'] == 0)
-        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
-    // check rights
+<?php
+include('../../controllers/includes/common.php');
+include('../../controllers/employee_outing_controller.php');
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DELTA@STAAR | Roles</title>
+    <title>DELTA@STAAR | Employee Outing</title>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
@@ -67,12 +60,12 @@
 
     
     <div class="table-header">
-    <h1 class="tc f1 lh-title spr">All Roles</h1>
-    <!-- <div class="fl w-75 form-outline srch">
+    <h1 class="tc f1 lh-title spr">Employee Outing Details</h1>
+    <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
-    </div> -->
-    <div class="tr">
+    </div>
+    <div class="fl w-25 tr">
         <button class="btn btn-dark">
             <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
         </button>
@@ -91,76 +84,46 @@
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT * FROM roles JOIN rights ON rights = id"); ?>
-
+        <?php $results = mysqli_query($conn, "SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_id = employee.emp_id"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
-                    <th scope="col" rowspan="2">Role Name</th>
-                    <th scope="col" colspan="12">Rights</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Outing Date</th>
+                    <th scope="col">Arrival Date</th>
+                    <th scope="col">Purpose of Outing</th>
+                    <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th></th>
-                        <th>Accommodation</th>
-                        <th>Complaints</th>
-                        <th>Employee</th>
-                        <th>Employee Outing</th>
-                        <th>Roles</th>
-                        <th>Tankers</th>
-                        <th>Jobs</th>
-                        <th>Vaccination</th>
-                        <th>Vaccination Category</th>
-                        <th>Visitor Log</th>
-                        <th colspan="2">Action</th>
-                    </tr>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php
+                    $empid = $row['emp_id'];
+                    $queryEmpID = mysqli_query($conn, "SELECT * FROM employee where emp_id='$empid'");
+                    $EmpID_row = mysqli_fetch_assoc($queryEmpID);
+                    ?>
                     <tr>
+                    <th scope="row">
+                        <?php echo $EmpID_row['fname']; ?>
+                        <?php echo $EmpID_row['lname']; ?>
+                    </th>
                         <td>
-                            <?php echo $row['role_name']; ?>
+                            <?php echo $row['outing_date']; ?>
                         </td>
                         <td>
-                            <?php echo $row['accomodation']; ?>
+                            <?php echo $row['arrival_date']; ?>
                         </td>
                         <td>
-                            <?php echo $row['complaints']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['employee_details']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['employee_outing']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['roles']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['tankers']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['jobs']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['vaccination']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['vaccination_category']; ?>
-                        </td>
-                        <td>
-                        <?php echo $row['visitor_log']; ?>
+                            <?php echo $row['category']; ?>
                         </td>
                         
                         <td>
-                            <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
-                            class="edit_btn"> <i class="bi bi-pencil-square"
-                            style="font-size: 1.2rem; color: black;"></i>
-                            </a>
-                            &nbsp;
-                            <a href="../../controllers/role_controller.php?del=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
-                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
-                            </a>
+                            <a href="./employee_outing.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                        &nbsp;
+                            <a href="../../controllers/employee_outing_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -177,7 +140,7 @@
         </div>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
-                <h4><a href="roles.php">Add Role</a></h4>
+                <h4><a href="employee_outing.php">Add Outing</a></h4>
             </button>   
         </div>
     </div>

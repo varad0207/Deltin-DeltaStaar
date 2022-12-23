@@ -53,11 +53,11 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body class="b ma2">
-    <img src="" alt="logo" class="center">
     <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -77,15 +77,7 @@ if (isset($_GET['edit'])) {
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" target="_blank">Locations</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+
                             <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
 
                         </li>
@@ -94,6 +86,7 @@ if (isset($_GET['edit'])) {
             </div>
         </div>
     </nav>
+    <!-- <img src="../../images/logo-no-name.png" alt="logo" class="center"> -->
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
@@ -108,7 +101,7 @@ if (isset($_GET['edit'])) {
                                 <label for="acc_code">Employee Code</label>
 
                                 <input class="form-control" type="text" name="emp_code" placeholder="Employee Code"
- value="<?php echo $emp_code; ?>"
+                                value="<?php echo $emp_code; ?>"
                                 value="??php echo $emp_code; ??" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
@@ -282,8 +275,6 @@ if (isset($_GET['edit'])) {
                       </div> -->
 
                             <div class="form-button mt-3 tc">
-
-
                                 <?php if ($update == true): ?>
                                 <button id="submit" name="update" value="update" type="submit"
                                     class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
@@ -298,6 +289,8 @@ if (isset($_GET['edit'])) {
             </div>
         </div>
     </div>
+    <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

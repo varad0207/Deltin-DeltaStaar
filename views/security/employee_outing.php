@@ -2,28 +2,27 @@
 include('../../controllers/includes/common.php');
 include('../../controllers/employee_outing_controller.php');
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
-
 ?>
 <html>
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../../css/emp.css">
+  <title>Delta@STAAR | Employee Outing</title>
   <link rel="stylesheet" href="../../css/form.css">
-
-  <title>DeltinConnect | EMP-Outing</title>
+  <link rel="stylesheet" href="../../css/style1.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
+    
 </head>
 
-<body class="container">
+<body class="b ma2">
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -31,80 +30,77 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
                 <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">             
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" target="_blank">Locations</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
                             <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
-
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-  <!-- Start Header form -->
-  <div class="text-center">
-    <img src="../../images/logo.png" alt="network-logo" width="200" height="200" />
-    <h2>Employee Outing Form</h2>
+  
+    <div class="form-body">
+    <div class="row">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h1 class="f2 lh-copy tc" style="color: white;">Employee Outing Details</h1>
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_outing.php" method="post">
+                    
+
+                    <div class="col-md-12 pa2">
+                        <label for="empcode">Employee Code</label>
+                            <select class="form-select mt-3" name="emp_code" required>
+                                <option selected disabled value="" name="employee_code">Select Employee Code</option>
+                                <?php
+                                  $emp_code=mysqli_query($conn, "SELECT * FROM employee");
+                                  
+                                  foreach ($emp_code as $row){ ?>
+                                  <option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+                                  <?php } ?>
+                           </select>
+                            
+                            <div class="invalid-feedback">Please select an option!</div>
+                        </div>
+
+
+                      <div class="col-md-12 pa2">
+                        <label for="quantity">Outing Start Date</label>
+                          <input class="form-control" type="date" name="start_date" required>
+                      </div>
+
+                      <div class="col-md-12 pa2">
+                        <label for="quantity">Arrival Date</label>
+                          <input class="form-control" type="date" name="arrival_date">
+                      </div>
+
+                      <div class="col-md-12 pa2">
+                        <label for="description">Purpose</label>
+                        <textarea name="category"  placeholder="Enter the purpose of outing" cols="30" rows="10"></textarea>
+                       </div>
+                        <div class="form-button mt-3 tc">
+                        <div class="form-button mt-3 tc">
+                            <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-  <!-- End Header form -->
 
-  <!-- Start Card -->
-  <div class="card" id="card">
-    <!-- Start Form -->
-    <form id="form" method="post" action="../../controllers/employee_outing.php" class="needs-validation" novalidate
-      autocomplete="off">
-      <!-- Start Input Name -->
-
-      <div class="form-group">
-        <label for="inputId">Employee Code</label>
-        <input type="text" class="form-control" id="inputid" name="emp_code" placeholder="Code" required />
-        <small class="form-text text-muted">Please fill your employee code</small>
-
-      </div>
-
-      <div class="form-group">
-        <label for="inputDate">Outing Start Date</label>
-        <input type="date" class="form-control" id="inputDate" name="start_date" required />
-        <small class="form-text text-muted">Please choose Outing Date</small>
-      </div>
-
-      <div class="form-group">
-        <label for="inputDate">Arrival Date</label>
-        <input type="date" class="form-control" id="inputDate" name="arrival_date" required />
-        <small class="form-text text-muted">Please choose Arrival Date</small>
-      </div>
-
-      <div class="form-group">
-        <label for="inputcate">Category:</label>
-        <br>
-        <select id="cate" name="category">
-          <option selected disabled>Select Category</option>
-          <option value="normal">One Day Outing</option>
-          <option value="permanent">Permanently Leaving</option>
-          <option value="home">Home Outing</option>
-          <option value="others">Others</option>
-        </select>
-      </div>
-      <!-- Start Submit Button -->
-      <input class="btn btn-primary btn-block" type="submit" name="submit"></input>
-      <!-- End Submit Button -->
-    </form>
-  </div>
-
+  <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -118,7 +114,6 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script src="../../js/emp.js"></script>
-  <!-- Start Scritp for Form -->
   <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
@@ -139,11 +134,6 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
       }, false);
     })();
   </script>
-  <!-- End Scritp for Form -->
-  <footer>
-    <div class="my-4 text-muted text-center">
-      <p>© deltaSTAAR</p>
-    </div>
-  </footer>
+  
 </body>
 </html>

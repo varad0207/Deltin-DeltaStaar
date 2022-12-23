@@ -48,8 +48,9 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy fw5">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <ul class="navbar-nav justify-content-end">    
                 <li class="nav-item">

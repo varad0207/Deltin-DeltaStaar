@@ -70,11 +70,13 @@ if (!isset($_SESSION["emp_id"]))
                         <li class="nav-item">
                             <a class="nav-link active" href="./aboutus.html" target="_blank">About Us</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="complaint/complaint.php" target="_blank">Complain+</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active1" id="adminlogin" href="../controllers/logout.php">Log Out</a>
                         </li>
@@ -122,7 +124,7 @@ if (!isset($_SESSION["emp_id"]))
             <div class="containeer-items tc">
                 <a>
                     <img class="rounded-circle" src="../images/tanker.png" alt="SECURITY">
-                    <p class="f4 lh-copy txt"><a href="./security/employee_outing.php">Outing</a></p>
+                    <p class="f4 lh-copy txt"><a href="./security/employee_outing_table.php">Outing</a></p>
                     <p class="f4 lh-copy txt"><a href="./security/tanker_table.php">Tankers</a></p>
                     <p class="f4 lh-copy txt"><a href="./security/visitor_log_table.php">Visitors</a></p>
                 </a>

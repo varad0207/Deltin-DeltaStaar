@@ -66,3 +66,7 @@ a:link {
     transition: all 0.7s ease-out;
     transform: scale(1.2);
 }
+
+footer {
+    color: whitesmoke;
+}

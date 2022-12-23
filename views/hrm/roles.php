@@ -38,11 +38,11 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body class="b ma2">
-    <img src="" alt="logo" class="center">
     <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -62,15 +62,6 @@ if (isset($_GET['edit'])) {
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" target="_blank">Locations</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
                             <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
                                 onclick=history.back()>Back</a>
 
@@ -118,25 +109,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_acc" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_acc" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_acc" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_acc" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_acc" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                                 <fieldset style="color:white;">
@@ -144,25 +135,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_room" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_room" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_room" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_room" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_room" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                             </div>
@@ -182,25 +173,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_employee_details" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_employee_details" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_employee_details" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_employee_details" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_employee_details" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                                 <fieldset style="color:white;">
@@ -208,25 +199,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_vaccination_details" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_vaccination_details" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_vaccination_details" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_vaccination_details" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_vaccination_details" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                             </div>
@@ -245,25 +236,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_tankers" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_tankers" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_tankers" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_tankers" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_tankers" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                                 <fieldset style="color:white;">
@@ -271,25 +262,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_employee_outing" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_employee_outing" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_employee_outing" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_employee_outing" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_employee_outing" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                                 <fieldset style="color:white;">
@@ -297,25 +288,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_visitors" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_visitors" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_visitors" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_visitors" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_visitors" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                             </div>
@@ -335,25 +326,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_complaints" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_complaints" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_complaints" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_complaints" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_complaints" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                                 <fieldset style="color:white;">
@@ -361,25 +352,25 @@ if (isset($_GET['edit'])) {
 
                                     <div>
                                         <input type="radio" id="none" name="rights_jobs" value="0" checked>
-                                        <label for="none">none</label>
+                                        <label for="none">None</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="read" name="rights_jobs" value="1">
-                                        <label for="read">read</label>
+                                        <label for="read">Read</label>
                                     </div>
 
                                     <div>
                                         <input type="radio" id="write_update" name="rights_jobs" value="2">
-                                        <label for="write_update">write+update</label>
+                                        <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="delete" name="rights_jobs" value="4">
-                                        <label for="delete">delete</label>
+                                        <label for="delete">Delete</label>
                                     </div>
                                     <div>
                                         <input type="radio" id="all" name="rights_jobs" value="7">
-                                        <label for="all">all</label>
+                                        <label for="all">All</label>
                                     </div>
                                 </fieldset>
                             </div>
@@ -401,6 +392,8 @@ if (isset($_GET['edit'])) {
             </div>
         </div>
     </div>
+    <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

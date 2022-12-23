@@ -3,6 +3,7 @@
 ?>
 <?php
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    $acc_code = $acc_name = $bldg_status = $location = $gender = $tot_capacity = $no_of_rooms = $occupied_rooms = $available_rooms = $owner = $remark = "";
     if (isset($_GET['edit'])) 
     {
         $acc_code = $_GET['edit'];
@@ -31,7 +32,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delta@STAAR | Accomodation</title>
+    <title>Delta@STAAR | Add Accommodation</title>
     <meta name="description" content="Complaint submission portal for deltin employees">
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
@@ -43,8 +44,9 @@
 <body class="b ma2">
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -58,30 +60,18 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">             
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" target="_blank">Locations</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
                             <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
-
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-  <img src="" alt="logo" class="center">
   <div class="form-body">
     <div class="row">
         <div class="form-holder">
@@ -177,7 +167,7 @@
                        
 
                         <div class="form-button mt-3 tc">
-                        <?php if ($update == true): ?>
+                            <?php if ($update == true): ?>
                                 <button id="submit" name="update" value="update" type="submit"
                                     class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
                                 <?php else: ?>
@@ -191,6 +181,7 @@
         </div>
     </div>
   </div>
+  <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
     <script src="../../js/form.js"></script>
     <script>
 		function calc(){

@@ -1,7 +1,6 @@
 <?php 
-    include('../../controllers/includes/common.php');
-    include('../../controllers/employee_controller.php'); 
-
+    include('../../controllers/includes/common.php'); 
+    include('../../controllers/accomodation_controller.php'); 
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     // check rights
 ?>
@@ -12,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DELTA@STAAR | Vaccination</title>
+    <title>DELTA@STAAR | Accommodations</title>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
@@ -48,7 +47,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy fw5">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#">
                 <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
                     style="border-radius: 50px;">
             </a>
@@ -62,7 +61,7 @@
 
     
     <div class="table-header">
-    <h1 class="tc f1 lh-title spr">Vaccination Details</h1>
+    <h1 class="tc f1 lh-title spr">Accommodation Details</h1>
     <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
@@ -86,50 +85,65 @@
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
+        <?php $results = mysqli_query($conn, "SELECT * FROM accomodation"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
-                    <th scope="col">Employee Code</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Date of Administration</th>
+                    <th scope="col">Accomodation Code</th>
+                    <th scope="col">Accomodation Name</th>
+                    <th scope="col">Building Status</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Date of Next Dose</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Total Capacity</th>
+                    <th scope="col">Number of Rooms</th>
+                    <th scope="col">Occupied Rooms</th>
+                    <th scope="col">Availabe Rooms</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Remark</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
-                    <?php $employeeid = $row['emp_id'];
-                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
-                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
-
-                    $categoryid = $row['category_id'];
-                    $queryCategory_name = mysqli_query($conn, "SELECT * FROM vaccination_category where category_id=$categoryid");
-                    $CategoryName_row = mysqli_fetch_assoc($queryCategory_name);
-                    ?>
                     <tr>
-                    <th scope="row"><?php echo $EmployeeCode_row['emp_code']; ?></th>
-                        
-                        <td>
-                            <?php echo $CategoryName_row['category_name']; ?>
+                    <th scope="row"><?php echo $row['acc_code']; ?></th>
+                    <td>
+                            <?php echo $row['acc_name']; ?>
                         </td>
                         <td>
-                            <?php echo $row['date_of_administration']; ?>
+                            <?php echo $row['bldg_status']; ?>
                         </td>
                         <td>
                             <?php echo $row['location']; ?>
                         </td>
                         <td>
-                            <?php echo $row['date_of_next_dose']; ?>
+                            <?php echo $row['gender']; ?>
                         </td>
                         <td>
-                            <a href="./vaccination.php?edit=<?php echo '%27' ?><?php echo $row['vaccination_id']; ?><?php echo '%27' ?>"
-                                class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
+                            <?php echo $row['tot_capacity']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['no_of_rooms']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['occupied_rooms']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['available_rooms']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['owner']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['remark']; ?>
+                        </td>
+                        <td>
+                            <a href="accomodation.php?edit=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
-                                &nbsp;
-                            <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['vaccination_id']; ?><?php echo '%27' ?>"
+                            &nbsp;
+                            <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                         </td>
@@ -148,7 +162,7 @@
         </div>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
-                <h4><a href="vaccination.php">Add Vaccination</a></h4>
+                <h4><a href="accomodation.php">Add Accommodation</a></h4>
             </button>   
         </div>
     </div>

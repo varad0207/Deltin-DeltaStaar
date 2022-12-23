@@ -458,3 +458,1639 @@ if (isset($_GET['edit'])) {
 </body>
 
 </html>
+
+
+forms
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(RGB(237, 130, 7),RGB(235, 218, 36)); 
+    padding: 2rem 0; 
+}
+
+.bg-white {
+    /* background: linear-gradient(#FEBE10, #F0E68C); */
+}
+nav{
+    font-family: poppins;
+}
+
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* transition: all 0.5s ease-in-out;
+    transform: scale(1.2); */
+}
+
+.active1 {
+    /* background: white; */
+    color: black;
+    border-radius: 10px;
+}
+
+.txtgold {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+employee table
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DELTA@STAAR | Employees</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
+   
+</head>
+
+<body>
+    
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+            
+            <div class="col-9">
+                <h1 class="text-center">All Employees</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+        <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+                <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation"); ?>
+
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                        <th>emp_code</th>
+                        <th>fname </th>
+                        <th>mname </th>
+                        <th>lname </th>
+                        <th>designation </th>
+                        <th>dob </th>
+                        <th>address </th>
+                        <th>state </th>
+                        <th>country </th>
+                        <th>pincode </th>
+                        <th>email </th>
+                        <th>blood_group </th>
+                        <th>department </th>
+                        <th>joining_date </th>
+                        <th>aadhaar_number </th>
+                        <th>salary </th>
+                        <th>acc_id </th>
+
+                        <th colspan="2">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+
+                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php $desigid = $row['designation'];
+                    $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where designation='$desigid'");
+                    $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
+					?>
+                    <tr>
+                        <td>
+                            <?php echo $row['emp_code']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['fname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['mname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['lname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $EmployeeDesig_row['designation']; ?>
+                        </td>
+                        <td>
+                            <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
+                        </td>
+                        <td>
+                            <?php echo $row['address']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['state']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['country']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['pincode']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['email']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['blood_group']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['department']; ?>
+                        </td>
+                        <td>
+                            <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
+                        </td>
+                        <td>
+                            <?php echo $row['aadhaar_number']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['salary']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['acc_id']; ?>
+                        </td>
+
+                        <td>
+                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                        &nbsp;
+                            <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="employee.php">
+                    Add Employee
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+accomodation table
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta@STAAR | Accomodation</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
+</head>
+<body class="b ma2 bgcolor">
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+            <div class="col-1">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
+                </a>
+            </div>
+            <div class="col-8">
+                <h1 class="text-center">All Accomodations</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+        <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+                <?php $results = mysqli_query($conn, "SELECT * FROM accomodation"); ?>
+
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                    <th>Accomodation Code</th>
+                    <th>Accomodation Name</th>
+                    <th>Building Status</th>
+                    <th>Location</th>
+                    <th>Gender</th>
+                    <th>Total Capacity</th>
+                    <th>Number of Rooms</th>
+                    <th>Occupied Rooms</th>
+                    <th>Availabe Rooms</th>
+                    <th>Owner</th>
+                    <th>Remark</th>
+                    <th colspan="2">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+
+                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php
+
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $row['acc_code']; ?>
+                        </td> 
+                        <td>
+                            <?php echo $row['acc_name']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['bldg_status']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['location']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['gender']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['tot_capacity']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['no_of_rooms']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['occupied_rooms']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['available_rooms']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['owner']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['remark']; ?>
+                        </td>
+                        <td>
+                            <a href="accomodation.php?edit=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                        &nbsp;
+                            <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="accomodation.php">
+                    Add Accommodation
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+vaccination table
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DELTA@STAAR | Vaccination</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
+   
+</head>
+
+<body>
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+            <div class="col-1">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
+                </a>
+            </div>
+            <div class="col-9">
+                <h1 class="text-center">Vaccination</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+        <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+                <?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
+
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                        <th scope="col">Employee Code</th>
+                            <th scope="col">Category </th>
+                            <th scope="col">Date of Administration </th>
+                            <th scope="col">Location </th>
+                            <th scope="col">Date of next dose </th>
+                            <th scope="col" colspan="2" align="center">Action</th>
+                        <tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php $employeeid = $row['emp_id'];
+                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
+                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
+
+                    $categoryid = $row['category_id'];
+                    $queryCategory_name = mysqli_query($conn, "SELECT * FROM vaccination_category where category_id=$categoryid");
+                    $CategoryName_row = mysqli_fetch_assoc($queryCategory_name);
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $EmployeeCode_row['emp_code']; ?>
+                        </td>
+                        <td>
+                            <?php echo $CategoryName_row['category_name']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['date_of_administration']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['location']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['date_of_next_dose']; ?>
+                        </td>
+                        <td><a href="./vaccination.php?edit=<?php echo '%27' ?><?php echo $row['vaccination_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                                &nbsp;
+                        <a href="../../controllers/vaccination_controller.php?del=<?php echo '%27' ?><?php echo $row['vaccination_id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></a></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="../../form templates//emp.html">
+                    Add Employee
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+rooms table
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta@STAAR | Rooms</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
+</head>
+<body>
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+            <div class="col-1">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
+                </a>
+            </div>
+            <div class="col-8">
+                <h1 class="text-center">All Rooms</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+        <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+                <?php $results = mysqli_query($conn, "SELECT * FROM rooms JOIN accomodation ON rooms.acc_id = accomodation.acc_id"); ?>
+
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                    <th>Accomodation Name</th>
+                    <th>Room Number</th>
+                    <th>Room Capacity</th>
+                    <th>Status</th>
+                    <th>Current Room Occupancy</th>
+                    <th colspan="2">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+
+                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php $acc_id = $row['acc_id'];
+                    $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_id'");
+                    $AccName_row = mysqli_fetch_assoc($queryAccName);
+					?>
+                    <tr>
+                        <td>
+                            <?php echo $AccName_row['acc_name']; ?>
+                        </td> 
+                        
+                        <td>
+                            <?php echo $row['room_no']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['room_capacity']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['status']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['current_room_occupancy']; ?>
+                        </td>
+
+                        <td>
+                            <a href="rooms.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                        &nbsp;
+                            <a href="../../controllers/rooms_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="rooms.php">
+                    Add Room
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+tanker table
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DELTA@STAAR | Tankers</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
+   
+</head>
+
+<body>
+    
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+            
+            <div class="col-9">
+                <h1 class="text-center">Tanker Entries</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+        <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+                <?php $results = mysqli_query($conn, "SELECT tanker_vendors.*,t.id entry_id,t.acc_id acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id"); ?>
+
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                            <th>Date </th>
+                            <th>Vendor </th>
+                            <th>Time </th>
+                            <th>Quantity </th>
+                            <th>Quality </th>
+                            <th>Bill no </th>
+
+                            <th colspan="2">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+
+                <?php while ($row = mysqli_fetch_array($results)) {
+                    ?>
+                    <?php $vendor_id = $row['vendor_id'];
+                    $queryvendorId = mysqli_query($conn, "SELECT * FROM tanker_vendors where id='$vendor_id'");
+                    $vendor = mysqli_fetch_assoc($queryvendorId);
+					?>
+                    <tr>
+                        <td>
+                            <?php 
+                            $timestamp = strtotime($row['timestamp']);                            
+                            $date = date('d-m-Y', $timestamp);
+                            echo $date; ?>
+                        </td>
+                        <td>
+                            <?php echo $vendor['vname']; ?>
+                        </td>
+                        <td>
+                            <?php 
+                            $time = date('H:i:s', $timestamp);
+
+                            echo $time; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['qty']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['quality_check']; ?>
+                        </td>
+                       
+                        <td>
+                            <?php echo $row['bill_no']; ?>
+                        </td>
+                        <td>
+                            <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['entry_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
+                        &nbsp;
+                            <a href="../../controllers/tanker_controller.php?del=<?php echo '%27' ?><?php echo $row['entry_id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="tanker.php">
+                    Add Tanker Entry
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+roles table 
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DELTA@STAAR | Roles</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
+
+</head>
+
+<body>
+
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
+                                onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="" style="margin: 0% 5.1%;">
+        <div class="row">
+
+            <div class="col-9">
+                <h1 class="text-center">All Saved Roles</h1>
+            </div>
+            <div class="col ml-5 sort">
+                <a class="button" role="button" href="#">
+                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-div">
+
+        <div class="table-responsive bg-white">
+            <?php if (isset($_SESSION['message'])): ?>
+            <div class="msg">
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
+            </div>
+            <?php endif ?>
+
+            <?php $results = mysqli_query($conn, "SELECT * FROM roles JOIN rights ON rights = id"); ?>
+
+            <table class="table table-hover m-0">
+                <thead style="border: 2px solid black;">
+                    <tr>
+                        <th align="center" rowspan="2">Role Name </th>
+                        <th colspan="12">Rights</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>accomodation</th>
+                        <th>complaints </th>
+                        <th>employee_details </th>
+                        <th>employee_outing </th>
+                        <th>roles </th>
+                        <th>tankers </th>
+                        <th>jobs </th>
+                        <th>vaccination </th>
+                        <th>vaccination_category </th>
+                        <th>visitor_log </th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <tr>
+                        <td>
+                            <?php echo $row['role_name']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['accomodation']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['complaints']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['employee_details']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['employee_outing']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['roles']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['tankers']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['jobs']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['vaccination']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['vaccination_category']; ?>
+                        </td>
+                        <td>
+                        <?php echo $row['visitor_log']; ?>
+                        </td>
+                        
+                        <td>
+                            <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square"
+                                    style="font-size: 1.2rem; color: black;"></i></a>
+                            &nbsp;
+                            <a href="../../controllers/role_controller.php?del=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+            </table>
+            </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="" style="margin:2% 5%;">
+        <div class="row">
+            <div class="col-2">
+                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
+                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
+                </a>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <a role="button" class="btn btn-light" href="roles.php">
+                    Add Role
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+complaint table
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Delta@STAAR | Complaints</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <!-- <link rel="stylesheet" href="../../css/style1.css"> -->
+</head>
+
+<body style="background-color: black; color:#fff;">
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <h1 class="tc f1 lh-title">All Complaints</h1>
+    
+    <form class="requires-validation f3 lh-copy" novalidate action="complaint_table.php" method="post">
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["emp_code"]?>"><?= $row["emp_code"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
+                        <button class="btn btn-dark px-3" class="btnn" type="submit" name="save" value="save">Save</button>
+                </form>
+                <div class="table-div">
+        <div class="row mx-0 justify-content-center">
+            <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
+                <?php if (isset($_SESSION['message'])): ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <?php endif ?>
+
+               
+
+                <?php 
+                if (isset($_POST['save'])) {
+                    $emp_code = $_POST['Id'];
+                    echo "<script>console.log('$emp_code')</script>";
+                $results = mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'"); ?>
+            <div class="table-responsive bg-white">
+                <table class="table table-hover m-0">
+                    <thead style="border: 2px solid black;">
+                        <tr>
+                            <th>Complaint Id </th>
+                            <th>Raised Time </th>
+                            <th>Complaint Category </th>
+                            <th>Description </th>
+                            <th>Status </th>
+                            <th>Closure Time<br>(Technician)</th> </th>
+                            <th>Closure Time<br>(Security) </th>
+                            <th>Closure Time<br>(Warden) </th>
+                            <th>Remarks </th>
+                            <th>Employee Name </th>
+                            <th>Employee Code </th>
+                            <th>accomodation Name </th>
+
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                        <?php
+                        $emp_code = $row['emp_code'];
+                        $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
+                        $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                        $acc_name = $EmpName_row['acc_id'];
+                        $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_name'");
+                        $AccName_row = mysqli_fetch_assoc($queryAccName);
+                        ?>
+                        <?php
+                        $comp_type = $row['type'];
+                        $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type where id='$comp_type'");
+                        $CompType_row = mysqli_fetch_assoc($queryCompType);
+                        ?>
+                        
+                    <tr>
+                        <td>
+                            <?php echo $row['id']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['raise_timestamp']; ?>
+                        </td>
+                        <!-- fetch complaint category -->
+                        <td>
+                            <?php echo $CompType_row['type']; ?> 
+                        </td>
+                        <td>
+                            <?php echo $row['description']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['status']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['tech_closure_timestamp']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['sec_closure_timestamp']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['warden_closure_timestamp']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['remarks']; ?>
+                        </td>
+                        <!-- fetch emp name -->
+                        <td>
+                            <?php echo $EmpName_row['fname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['emp_code']; ?>
+                        </td>
+                        <!-- fetch acc name -->
+                        <td>
+                            <?php echo $AccName_row['acc_name']; ?>
+                        </td>
+                        <td>
+                            <a href="complaint.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                class="edit_btn">Raise Job</a>
+                        </td>
+                        <td>
+                            <a href="../../controllers/complaint_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                class="del_btn">Delete</a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+login css
+/* @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: 'Bungee Spice', cursive;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1b1c1e;
+} */
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+
+
+    /* Gradient BG */
+    /*background: linear-gradient(to left, #fcbb58,#ceac6d,#1b1c1e);*/
+
+    background: url(https://img.freepik.com/premium-photo/abstract-fluid-art-background-light-golden-yellow-colors-liquid-marble-acrylic-painting-with-gradient-splash-watercolor-backdrop-with-wavy-pattern-stone-marbled-section_113767-5081.jpg?w=2000);
+}
+
+@font-face {
+    font-family: theSeasons;
+    src: url(../css/Fontspring-DEMO-theseasons-bd.otf);
+
+}
+
+@font-face {
+    font-family: poppins;
+    src: url(../css/Poppins-Regular.ttf);
+
+}
+
+h3{
+    font-family: theSeasons;
+}
+label{
+    font-family: poppins;
+}
+
+
+/*Login Page CSS for Navbar*/
+nav{
+    font-family: poppins;
+}
+
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* transition: all 0.5s ease-in-out;
+    transform: scale(1.2); */
+}
+
+.active1 {
+    /* background: white; */
+    color: black;
+    border-radius: 10px;
+}
+
+.txtgold {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+empouting form
+<div class="card" id="card">
+    <!-- Start Form -->
+    <form id="form" method="post" action="../../controllers/employee_outing.php" class="needs-validation" novalidate
+      autocomplete="off">
+      <!-- Start Input Name -->
+
+      <div class="form-group">
+        <label for="inputId">Employee Code</label>
+        <input type="text" class="form-control" id="inputid" name="emp_code" placeholder="Code" required />
+        <small class="form-text text-muted">Please fill your employee code</small>
+
+      </div>
+
+      <div class="form-group">
+        <label for="inputDate">Outing Start Date</label>
+        <input type="date" class="form-control" id="inputDate" name="start_date" required />
+        <small class="form-text text-muted">Please choose Outing Date</small>
+      </div>
+
+      <div class="form-group">
+        <label for="inputDate">Arrival Date</label>
+        <input type="date" class="form-control" id="inputDate" name="arrival_date" required />
+        <small class="form-text text-muted">Please choose Arrival Date</small>
+      </div>
+
+      <div class="form-group">
+        <label for="inputcate">Category:</label>
+        <br>
+        <select id="cate" name="category">
+          <option selected disabled>Select Category</option>
+          <option value="normal">One Day Outing</option>
+          <option value="permanent">Permanently Leaving</option>
+          <option value="home">Home Outing</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+      <!-- Start Submit Button -->
+      <input class="btn btn-primary btn-block" type="submit" name="submit"></input>
+      <!-- End Submit Button -->
+    </form>
+  </div>
+
+
+  style 1
+  @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.bgcolor{
+    font-family: 'Bungee Spice', cursive;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1b1c1e;
+    color: white;
+}
+
+.active {
+    background: -webkit-linear-gradient(#f5f5c4, #fdfff9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.spr {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.containeer {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* grid-template-rows: repeat(auto-fill, minmax(50%, 1fr));*/
+    align-content: stretch;
+    /* align-items: center; */
+    justify-content: stretch;
+    justify-items: center;
+}
+
+.txt {
+    color: white; 
+}
+
+.txt a{
+    color: white; 
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+.txt a:hover {
+    background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
+
+.bi{
+    color: #FEBE10 !important;
+}
+
+.bi:hover{
+    color: #fff !important;
+}
+
+.containeer-items:hover {
+    transition: all 0.7s ease-out;
+    transform: scale(1.2);
+}
+
+footer {
+    color: whitesmoke;
+}
+
+timeline
+navbars to all
+roles
+room_table, update del
+complaint emp_code, complaint_table
+jobs
+vendor
+
+locations - accomodation location 
+
+
+
+BACKUP TESTING!!!!!!!!!

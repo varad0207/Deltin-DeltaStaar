@@ -114,6 +114,34 @@ if (isset($_GET['edit'])) {
 						<tr>
 
 
+<<<<<<< HEAD
+		<th>emp_code </th>
+		<th>Role </th>
+		
+			<th colspan="2">Action</th>
+		</tr>
+	</thead>
+	
+	<?php while ($row = mysqli_fetch_array($results)) { ?>
+		<?php $employeeid = $row['emp_id'];
+                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
+                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
+					?>
+		<tr>
+			<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
+			<td><?php echo $row['role']; ?></td>
+			
+			
+			<td>
+				<a href="../views/technician.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
+			</td>
+			<td>
+				<a href="../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+			</td>
+		</tr>
+	<?php } ?>
+</table>
+=======
 
 							<th>emp_code </th>
 							<th>Role </th>
@@ -143,6 +171,7 @@ if (isset($_GET['edit'])) {
 					</tr>
 					<?php } ?>
 				</table>
+>>>>>>> 0e0b1c36b1f9bfa7062c58ab1e04c22dab778402
 
 				<form method="post" class="w-100 rounded p-4 border bg-white"
 					action="../controllers/technician_controller.php">

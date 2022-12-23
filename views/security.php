@@ -112,9 +112,23 @@ if (isset($_GET['edit'])) {
 							<th>Accommodation name </th>
 
 
+<<<<<<< HEAD
+					$accomodationid = $row['acc_id'];
+                    $queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
+                    $AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
+					?>
+		<tr>
+			<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
+			 <td><?php echo $AccomodationName_row['acc_name']; ?></td>  
+
+			
+			<td>
+ 
+=======
 							<th colspan="2">Action</th>
 						</tr>
 					</thead>
+>>>>>>> 0e0b1c36b1f9bfa7062c58ab1e04c22dab778402
 
 					<?php while ($row = mysqli_fetch_array($results)) { ?>
 					<?php $employeeid = $row['emp_id'];

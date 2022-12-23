@@ -1,10 +1,22 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/rooms_controller.php');
+<?php include('../../controllers/rooms_controller.php'); ?>
+<?php
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (isset($_GET['edit'])) 
+    {
+        $room_id = $_GET['edit'];
+        $update = true;
+        $record = mysqli_query($conn, "SELECT * FROM rooms WHERE id=$room_id");
 
+        $n = mysqli_fetch_array($record);
 
+        $acc_id = $n['acc_id'];
+        $room_no = $n['room_no'];
+        $room_cap = $n['room_capacity'];
+        $status = $n['status'];
+        $curr_room_cap = $n['current_room_occupancy'];
+    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +25,53 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delta@STAAR | Rooms</title>
     <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 </head>
 <body class="b ma2">
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../dashboard.php">
+                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 <img src="" alt="logo" class="center">
   <div class="form-body">
     <div class="row">
@@ -47,28 +101,28 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 
                         <div class="col-md-12 pa2">
                             <label for="room_no">Room Number</label>
-                              <input class="form-control" type="number" name="room_no" placeholder="Room Number" required>
+                              <input class="form-control" type="number" name="room_no" value="<?php echo $room_no ?>" placeholder="Room Number" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="room_cap">Room Capacity</label>
-                              <input class="form-control" type="number" name="room_cap" placeholder="Room Capacity" required>
+                              <input class="form-control" type="number" name="room_cap" value="<?php echo $room_cap ?>" placeholder="Room Capacity" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="curr_room_cap">Current Room Occupancy</label>
-                              <input class="form-control" type="number" name="curr_room_cap" placeholder="Room Occupancy" required>
+                              <input class="form-control" type="number" name="curr_room_cap" value="<?php echo $curr_room_cap ?>" placeholder="Room Occupancy" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
                        <div class="col-md-12 pa2">
                         <label for="room_status">Room Status</label>
-                            <select class="form-select mt-3" name="room_stat" required>
+                            <select class="form-select mt-3" name="room_stat" value="<?php echo $status ?>" required>
                                 <option selected disabled value="">Select status</option>
                                 <option value="Occupied">Occupied</option>
 								<option value="Available">Available</option>
@@ -78,7 +132,13 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                        </div>
 
                         <div class="form-button mt-3 tc">
-                            <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                            <?php if ($update == true): ?>
+                                <button id="submit" name="update" value="update" type="submit"
+                                    class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                            <?php else: ?>
+                                <button id="submit" name="submit" value="sumbit" type="submit"
+                                    class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+						    <?php endif ?>
                         </div>
                     </form>
                 </div>

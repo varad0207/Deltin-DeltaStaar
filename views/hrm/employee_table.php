@@ -1,82 +1,82 @@
-<?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/employee_controller.php'); ?> 
-<!doctype html>
+<?php 
+    include('../../controllers/includes/common.php'); 
+    include('../../controllers/employee_controller.php'); 
+
+    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    // check rights
+
+?>
+
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DELTA@STAAR | Employees</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
-   
+    <!-- Tachyons -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
+    <!-- CSS files -->
+    <link rel="stylesheet" href="../../css/table.css">
+    <!-- Live Search -->
+    <script type="text/javascript">
+		function search() {
+		    // Declare variables
+		    var input, filter, listing, i, txtValue;
+		    input = document.getElementById("form1");
+		    filter = input.value.toUpperCase();
+		    listing = document.getElementsByTagName("tr");
+		    // Loop through all 
+		    for (i = 0; i < listing.length; i++) {
+		      if (listing[i]) {
+		        txtValue = listing[i].textContent || listing[i].innerText;
+		        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		          listing[i].style.display = "";
+		        } else {
+		          listing[i].style.display = "none";
+                //   document.getElementById("demo").innerHTML = "No Results Found";
+		        }
+		      }
+		    }
+		 }
+	</script>
 </head>
-
-<body>
-    
-    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+<body class="bg">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy fw5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
-
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                
-                <div class="offcanvas-body">
-                    <div class="nb">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active" href="aboutus.html">About Us</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Locations</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active1" href="../index.html">Back</a>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-            </div>
+            <ul class="navbar-nav justify-content-end">    
+                <li class="nav-item">
+                    <a class="nav-link active" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick = "history.back()" >Back</a>
+                </li>
+            </ul>    
         </div>
     </nav>
-    <div class="" style="margin: 0% 5.1%;">
-        <div class="row">
-            
-            <div class="col-9">
-                <h1 class="text-center">All Employees</h1>
-            </div>
-            <div class="col ml-5 sort">
-                <a class="button" role="button" href="#">
-                    <i class="bi bi-sort-down-alt" style="font-size: 1.5rem; color: white;">Sort by</i>
-                </a>
 
-            </div>
-        </div>
+    
+    <div class="table-header">
+    <h1 class="tc f1 lh-title spr">Employee Details</h1>
+    <div class="fl w-75 form-outline srch">
+        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
+        <h4 id="demo"></h4>
+    </div>
+    <div class="fl w-25 tr">
+        <button class="btn btn-dark">
+            <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
+        </button>
+    </div>
     </div>
 
-    <div class="table-div">
+    <!-- Displaying Database Table -->
 
-        <div class="table-responsive bg-white">
+    <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
                 <div class="msg">
                     <?php
@@ -84,45 +84,47 @@
                     unset($_SESSION['message']);
                     ?>
                 </div>
-                <?php endif ?>
-
-                <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation"); ?>
-
-            <table class="table table-hover m-0">
-                <thead style="border: 2px solid black;">
+        <?php endif ?>
+        
+        <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation"); ?>
+        <div class="pa1 table-responsive">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                    <th>emp_code </th>
-                            <th>fname </th>
-                            <th>mname </th>
-                            <th>lname </th>
-                            <th>designation </th>
-                            <th>dob </th>
-                            <th>address </th>
-                            <th>state </th>
-                            <th>country </th>
-                            <th>pincode </th>
-                            <th>email </th>
-                            <th>blood_group </th>
-                            <th>department </th>
-                            <th>joining_date </th>
-                            <th>aadhaar_number </th>
-                            <th>salary </th>
-                            <th>acc_id </th>
-
-                            <th colspan="2">Action</th>
-                    <tr>
+                    <th scope="col">Employee Code</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Middle Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Date of Birth</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Blood Group</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Joining Date</th>
+                    <th scope="col">Aadhar Number</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Accommodation</th>
+                    <th scope="col" colspan="2">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-
-                <?php while ($row = mysqli_fetch_array($results)) { ?>
-                    <?php $desigid = $row['designation'];
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php 
+                    $desigid = $row['designation'];
                     $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where designation='$desigid'");
                     $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
 					?>
+                    <?php
+                    $accid = $row['acc_id'];
+                    $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
+                    $Acc_row = mysqli_fetch_assoc($queryAcc);
+                    ?>
                     <tr>
-                        <td>
-                            <?php echo $row['emp_code']; ?>
-                        </td>
+                    <th scope="row"><?php echo $row['emp_code']; ?></th>
                         <td>
                             <?php echo $row['fname']; ?>
                         </td>
@@ -169,9 +171,8 @@
                             <?php echo $row['salary']; ?>
                         </td>
                         <td>
-                            <?php echo $row['acc_id']; ?>
+                            <?php echo $Acc_row['acc_name']; ?>
                         </td>
-
                         <td>
                             <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
@@ -181,45 +182,25 @@
                         </td>
                     </tr>
                     <?php } ?>
-                </table>
                 </tbody>
             </table>
         </div>
-
-
     </div>
-    <div class="" style="margin:2% 5%;">
-        <div class="row">
-            <div class="col-2">
-                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
-                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-file-earmark-pdf" style="font-size: 1.5rem; color: white;">Export</i>
-                </a>
-            </div>
-            <div class="col-8">
 
-            </div>
-            <div class="col-2">
-
-                <a role="button" class="btn btn-light" href="employee.php">
-                    Add Employee
-                </a>
-
-            </div>
+    <div class="table-footer pa4">
+        <div class="fl w-75 tl">
+            <button class="btn btn-warning">
+                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
+            </button>
+        </div>
+        <div class="fl w-25 tr">
+            <button class="btn btn-light">
+                <h4><a href="employee.php">Add Employee</a></h4>
+            </button>   
         </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    
+    <!-- Footer -->
+    <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 </body>
-
 </html>

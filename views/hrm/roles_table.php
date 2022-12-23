@@ -1,5 +1,17 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/employee_controller.php'); ?>
+<?php include('../../controllers/role_controller.php');
+if (!isset($_SESSION["emp_id"]))
+    header("location:../../views/login.php");
+
+//only superadmin can view and assign roles
+if ($_SESSION['is_superadmin'] == 0)
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
+
+
+// check rights
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -7,7 +19,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>DELTA@STAAR | Technicians</title>
+    <title>DELTA@STAAR | Roles</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
@@ -15,15 +27,15 @@
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
     <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
     <link rel="stylesheet" href="../../css/style1.css">
 
-   
+
 </head>
 
 <body>
-<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+
+    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="../dashboard.php">
                 <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
@@ -41,21 +53,22 @@
                 </div> -->
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
-                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
+                                onclick=history.back()>Back</a>
 
                         </li>
                     </ul>
@@ -65,14 +78,9 @@
     </nav>
     <div class="" style="margin: 0% 5.1%;">
         <div class="row">
-            <div class="col-1">
-                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
-                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
-                </a>
-            </div>
+
             <div class="col-9">
-                <h1 class="text-center">All Technicians</h1>
+                <h1 class="text-center">All Saved Roles</h1>
             </div>
             <div class="col ml-5 sort">
                 <a class="button" role="button" href="#">
@@ -86,53 +94,87 @@
     <div class="table-div">
 
         <div class="table-responsive bg-white">
-        <?php if (isset($_SESSION['message'])): ?>
-                <div class="msg">
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                    ?>
-                </div>
-                <?php endif ?>
+            <?php if (isset($_SESSION['message'])): ?>
+            <div class="msg">
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
+            </div>
+            <?php endif ?>
 
-                <?php $results = mysqli_query($conn, "SELECT * FROM technician"); ?>
+            <?php $results = mysqli_query($conn, "SELECT * FROM roles JOIN rights ON rights = id"); ?>
 
             <table class="table table-hover m-0">
                 <thead style="border: 2px solid black;">
-                        <tr>
-                            <th>emp_id</th>
-                            <th>Role</th>
-                           
-
-                            <th colspan="2">Action</th>
-                        </tr>
+                    <tr>
+                        <th align="center" rowspan="2">Role Name </th>
+                        <th colspan="12">Rights</th>
+                    <tr>
                 </thead>
                 <tbody>
-
-                <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
-                    <td>
-                            <?php echo $row['emp_id']; ?>
+                        <th></th>
+                        <th>accomodation</th>
+                        <th>complaints </th>
+                        <th>employee_details </th>
+                        <th>employee_outing </th>
+                        <th>roles </th>
+                        <th>tankers </th>
+                        <th>jobs </th>
+                        <th>vaccination </th>
+                        <th>vaccination_category </th>
+                        <th>visitor_log </th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <tr>
+                        <td>
+                            <?php echo $row['role_name']; ?>
                         </td>
                         <td>
-                            <?php echo $row['role']; ?>
+                            <?php echo $row['accomodation']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['complaints']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['employee_details']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['employee_outing']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['roles']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['tankers']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['jobs']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['vaccination']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['vaccination_category']; ?>
+                        </td>
+                        <td>
+                        <?php echo $row['visitor_log']; ?>
                         </td>
                         
-
-                        <td> <!--this td part is showing error-->
-                            <a href="../technician.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
-                                class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
-                                
-                        &nbsp;
-                            <a href="../../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
-                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></a>
+                        <td>
+                            <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square"
+                                    style="font-size: 1.2rem; color: black;"></i></a>
+                            &nbsp;
+                            <a href="../../controllers/role_controller.php?del=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
-
-                        
                     </tr>
                     <?php } ?>
-                </table>
-                </tbody>
+            </table>
+            </tbody>
             </table>
         </div>
 
@@ -151,8 +193,8 @@
             </div>
             <div class="col-2">
 
-                <a role="button" class="btn btn-light" href="../../form templates//emp.html">
-                    Add Employee
+                <a role="button" class="btn btn-light" href="roles.php">
+                    Add Role
                 </a>
 
             </div>

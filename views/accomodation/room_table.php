@@ -1,5 +1,8 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/rooms_controller.php'); ?>
+<?php include('../../controllers/rooms_controller.php'); 
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+// check rights
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,13 +18,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <link rel="stylesheet" href="../../css/style1.css">
+
 </head>
 <body>
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="../dashboard.php">
                 <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
-
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -29,28 +33,31 @@
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel">
-                
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
                 <div class="offcanvas-body">
-                    <div class="nb">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         
                         <li class="nav-item">
-                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Locations</a>
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active1" href="../index.html">Back</a>
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
                         </li>
                     </ul>
-                    </div>
                 </div>
             </div>
         </div>

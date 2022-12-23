@@ -1,11 +1,15 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/complaint_controller.php'); ?>
+<?php include('../../controllers/complaint_controller.php');
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+// check rights
+?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Delta@STAAR | Complaints</title>
@@ -16,15 +20,15 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
-    <!-- <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css"> -->
+    <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
+    <!-- <link rel="stylesheet" href="../../css/style1.css"> -->
 </head>
 
-<body>
+<body style="background-color: black; color:#fff;">
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="../dashboard.php">
                 <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
-
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -32,34 +36,54 @@
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel">
-                
+                <!-- <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div> -->
                 <div class="offcanvas-body">
-                    <div class="nb">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         
                         <li class="nav-item">
-                            <a class="nav-link active" href="aboutus.html">About Us</a>
+                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Locations</a>
+                            <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link active1" href="../index.html">Back</a>
+                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+
                         </li>
                     </ul>
-                    </div>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h1 class="tc f1 lh-title">All Complaints</h1>
+    <h1 class="tc f1 lh-title">All Complaints</h1>
+    
+    <form class="requires-validation f3 lh-copy" novalidate action="complaint_table.php" method="post">
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["emp_code"]?>"><?= $row["emp_code"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
+                        <button class="btn btn-dark px-3" class="btnn" type="submit" name="save" value="save">Save</button>
+                </form>
+                <div class="table-div">
         <div class="row mx-0 justify-content-center">
             <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
                 <?php if (isset($_SESSION['message'])): ?>
@@ -71,31 +95,16 @@
                 </div>
                 <?php endif ?>
 
-                <form class="requires-validation f3 lh-copy" novalidate action="complaint_table.php" method="post">
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
-    					<option name="employee_code" selected>Choose...</option>
-    					
-							<?php
-								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
-								
-								foreach ($emp_det as $row){ ?>
-								<option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
-								<?php
-								}
-								
-							?>
-						</select>
-                        <button class="btn btn-dark px-3" class="btnn" type="submit" name="save" value="save">Save</button>
-                </form>
+               
 
                 <?php 
                 if (isset($_POST['save'])) {
-                    $emp_id = $_POST['Id'];
+                    $emp_code = $_POST['Id'];
                     echo "<script>console.log('$emp_code')</script>";
-                $results = mysqli_query($conn, "SELECT * FROM complaints join employee where employee.emp_id='$emp_id'"); ?>
-
-                <table>
-                    <thead>
+                $results = mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'"); ?>
+            <div class="table-responsive bg-white">
+                <table class="table table-hover m-0">
+                    <thead style="border: 2px solid black;">
                         <tr>
                             <th>Complaint Id </th>
                             <th>Raised Time </th>
@@ -181,7 +190,10 @@
                     <?php } ?>
                 </table>
                 <?php } ?>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

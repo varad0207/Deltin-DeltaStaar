@@ -1,5 +1,12 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/employee_controller.php'); ?>
+<?php include('../../controllers/employee_controller.php'); 
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+
+
+
+// check rights
+
+?> 
 <!doctype html>
 <html lang="en">
 
@@ -7,7 +14,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>DELTA@STAAR | Technicians</title>
+    <title>DELTA@STAAR | Tankers</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
@@ -15,7 +22,6 @@
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
     <link rel="stylesheet" type="text/css" href="../../css/AccommodationView.css">
     <link rel="stylesheet" href="../../css/style1.css">
 
@@ -23,6 +29,7 @@
 </head>
 
 <body>
+    
 <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="../dashboard.php">
@@ -65,14 +72,9 @@
     </nav>
     <div class="" style="margin: 0% 5.1%;">
         <div class="row">
-            <div class="col-1">
-                <!--Link back page, remmove target and rel if you dont want it to open the link in a new tab-->
-                <a role="button" href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem; color: white;"></i>
-                </a>
-            </div>
+            
             <div class="col-9">
-                <h1 class="text-center">All Technicians</h1>
+                <h1 class="text-center">Tanker Entries</h1>
             </div>
             <div class="col ml-5 sort">
                 <a class="button" role="button" href="#">
@@ -95,40 +97,62 @@
                 </div>
                 <?php endif ?>
 
-                <?php $results = mysqli_query($conn, "SELECT * FROM technician"); ?>
+                <?php $results = mysqli_query($conn, "SELECT tanker_vendors.*,t.id entry_id,t.acc_id acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id"); ?>
 
             <table class="table table-hover m-0">
                 <thead style="border: 2px solid black;">
-                        <tr>
-                            <th>emp_id</th>
-                            <th>Role</th>
-                           
+                    <tr>
+                            <th>Date </th>
+                            <th>Vendor </th>
+                            <th>Time </th>
+                            <th>Quantity </th>
+                            <th>Quality </th>
+                            <th>Bill no </th>
 
                             <th colspan="2">Action</th>
-                        </tr>
+                    <tr>
                 </thead>
                 <tbody>
 
-                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                <?php while ($row = mysqli_fetch_array($results)) {
+                    ?>
+                    <?php $vendor_id = $row['vendor_id'];
+                    $queryvendorId = mysqli_query($conn, "SELECT * FROM tanker_vendors where id='$vendor_id'");
+                    $vendor = mysqli_fetch_assoc($queryvendorId);
+					?>
                     <tr>
-                    <td>
-                            <?php echo $row['emp_id']; ?>
+                        <td>
+                            <?php 
+                            $timestamp = strtotime($row['timestamp']);                            
+                            $date = date('d-m-Y', $timestamp);
+                            echo $date; ?>
                         </td>
                         <td>
-                            <?php echo $row['role']; ?>
+                            <?php echo $vendor['vname']; ?>
                         </td>
-                        
+                        <td>
+                            <?php 
+                            $time = date('H:i:s', $timestamp);
 
-                        <td> <!--this td part is showing error-->
-                            <a href="../technician.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
-                                class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
-                                
+                            echo $time; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['qty']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['quality_check']; ?>
+                        </td>
+                       
+                        <td>
+                            <?php echo $row['bill_no']; ?>
+                        </td>
+                        <td>
+                            <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['entry_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
                         &nbsp;
-                            <a href="../../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
-                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></a>
+                            <a href="../../controllers/tanker_controller.php?del=<?php echo '%27' ?><?php echo $row['entry_id']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
-
-                        
                     </tr>
                     <?php } ?>
                 </table>
@@ -151,8 +175,8 @@
             </div>
             <div class="col-2">
 
-                <a role="button" class="btn btn-light" href="../../form templates//emp.html">
-                    Add Employee
+                <a role="button" class="btn btn-light" href="tanker.php">
+                    Add Tanker Entry
                 </a>
 
             </div>

@@ -18,7 +18,7 @@ if (!isset($_SESSION["emp_id"]))
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-    <title>Delta@STAAR | Admin Portal</title>
+    <title>Delta@STAAR | SuperAdmin Portal</title>
 </head>
 
 <body class="bgcolor">
@@ -39,7 +39,6 @@ if (!isset($_SESSION["emp_id"]))
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <!-- only superadmin will see the configure button -->
-                        <?php if($_SESSION['is_superadmin']==1){ ?>
                         <li class="nav-item">
                             <div class="dropdown">
                                 <a class="nav-link active " id="dropdownMenuButton" aria-haspopup="true"
@@ -64,9 +63,8 @@ if (!isset($_SESSION["emp_id"]))
                                 </div>
                             </div>
                         </li>
-                        <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./aboutus.html" target="_blank">About Us</a>
@@ -94,19 +92,16 @@ if (!isset($_SESSION["emp_id"]))
 
     <!-- CARDS -->
     <div class="portal">
-        <?php if ($_SESSION['is_superadmin']==1) { ?>
         <h1 class="tc f-subheadline lh-title spr">Super Admin Portal</h1>
-        <?php } else { ?>
-        <h1 class="tc f-subheadline lh-title spr">Dashboard</h1>
-        <?php } ?>
+       
         <div class="containeer ma4">
             <!-- FIRST ELEMENT -->
             <div class="containeer-items tc">
                 <a>
                     <img class="rounded-circle" src="../images/emp.png" alt="EMPLOYEE">
-                    <p class="f4 lh-copy txt"><a href="./hrm/employee.php" >Employee</a></p>
+                    <p class="f4 lh-copy txt"><a href="./hrm/employee_table.php" >Employee</a></p>
                     <!-- style="pointer-events: none;color:#a0a6ab;" onMouseOver="this.style.color='red'" -->
-                    <p class="f4 lh-copy txt"><a href="./hrm/vaccination.php">Vaccination</a></p>
+                    <p class="f4 lh-copy txt"><a href="./hrm/vaccination_table.php">Vaccination</a></p>
                     <p class="f4 lh-copy txt"><a href="./hrm/roles.php">Roles</a></p>
                 </a>
             </div>
@@ -115,8 +110,8 @@ if (!isset($_SESSION["emp_id"]))
             <div class="containeer-items tc">
                 <a>
                     <img class="rounded-circle" src="../images/acc.png" alt="ACCOMODATION">
-                    <p class="f4 lh-copy txt"><a href="./accomodation/accomodation.php">Accommodation</a></p>
-                    <p class="f4 lh-copy txt"><a href="./accomodation/rooms.php">Rooms</a></p>
+                    <p class="f4 lh-copy txt"><a href="./accomodation/accomodation_table.php">Accommodation</a></p>
+                    <p class="f4 lh-copy txt"><a href="./accomodation/room_table.php">Rooms</a></p>
                 </a>
             </div>
 
@@ -124,7 +119,7 @@ if (!isset($_SESSION["emp_id"]))
             <div class="containeer-items tc">
                 <a>
                     <img class="rounded-circle" src="../images/complaint.png" alt="COMPLAINT">
-                    <p class="f4 lh-copy txt"><a href="./complaint/complaint.php">Complaints</a></p>
+                    <p class="f4 lh-copy txt"><a href="./complaint/complaint_table.php">Complaints</a></p>
                     <p class="f4 lh-copy txt"><a href="./complaint/jobs.php">Jobs</a></p>
                 </a>
             </div>
@@ -134,8 +129,8 @@ if (!isset($_SESSION["emp_id"]))
                 <a>
                     <img class="rounded-circle" src="../images/tanker.png" alt="SECURITY">
                     <p class="f4 lh-copy txt"><a href="./security/employee_outing.php">Outing</a></p>
-                    <p class="f4 lh-copy txt"><a href="./security/tanker.php">Tankers</a></p>
-                    <p class="f4 lh-copy txt"><a href="./security/visitor_log.php">Visitors</a></p>
+                    <p class="f4 lh-copy txt"><a href="./security/tanker_table.php">Tankers</a></p>
+                    <p class="f4 lh-copy txt"><a href="./security/visitor_log_table.php">Visitors</a></p>
                 </a>
             </div>
         </div>
@@ -149,6 +144,15 @@ if (!isset($_SESSION["emp_id"]))
         crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

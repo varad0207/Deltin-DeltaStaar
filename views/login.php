@@ -13,34 +13,28 @@ if(isset($_SESSION["emp_id"]))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
-
+    <title>Delta@STAAR | Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
-
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-
-
+    <link rel="stylesheet" href="../css/logincss.css">
 </head>
 
 <body style="background: url(../images/bg-dark.png) center no-repeat;">
 
     <!-- Navigation Bar -->
-    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+    <!-- <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
-
+                <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -55,27 +49,15 @@ if(isset($_SESSION["emp_id"]))
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <!-- <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li> -->
                         <li class="nav-item">
                             <a class="nav-link active" href="aboutus.html">About Us</a>
                         </li>
-                        <!-- <li class="nav-item">
-                    <a class="nav-link active" href="#" >Rooms</a>
-                </li> -->
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Locations</a>
                         </li>
-                        <!-- <li class="nav-item">
-                    <a class="nav-link active" href="#" >Tankers</a>
-                </li> -->
                         <li class="nav-item">
                             <a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
                         </li>
-                        <!-- <li class="nav-item pr5">
-                    <a class="nav-link active" href="#" >Contact Us</a>
-                </li> -->
                         <li class="nav-item">
                             <a class="nav-link active1" href="../index.php">Back</a>
                         </li>
@@ -83,7 +65,7 @@ if(isset($_SESSION["emp_id"]))
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- <p><a href="register.php">Register</a> | <a href="login.php">Login</a> | <a href="index.html">Home</a> </p> -->
 
@@ -102,46 +84,31 @@ if(isset($_SESSION["emp_id"]))
 
                     <div class="text-center">
 
-                        <img src="../images/logo.png" style="width: 60%;" alt="logo">
+                        <img src="../images/logo-no-name.png" style="width: 60%;" alt="logo">
 
                         <h3 class="mt-1 mb-4 pt-3">Login to your account</h3>
                     </div>
 
                     <form action="../controllers/login_controller.php" method="POST">
-
                         <div class="form-outline mb-4">
                             <i class="bi bi-person-circle" style="font-size: 1rem; color: #1b1c1e;"></i>
                             <label class="form-label" for="empcode">Employee Code</label>
-
-
                             <input type="text" name="user" id="empcode" class="form-control"
                                 placeholder="Enter Employee Code">
                             </input>
-
-
                         </div>
-
                         <div class="form-outline mb-4">
                             <i class="bi bi-key-fill" style="font-size: 1rem; color: #1b1c1e;"></i>
                             <label class="form-label" for="password">Password</label>
                             <input type="password" name="pass" id="password" class="form-control"
                                 placeholder="Enter Password" />
-
                         </div>
-
                         <div class="text-center pt-1">
                             <button class="btn btn-dark btn-block fa-lg" type="submit" value="Login" name="submit">Log
                                 in</button>
-
                         </div>
                     </form>
-
                 </div>
-
-
-
-
-
             </div>
         </div>
     </section>

@@ -122,8 +122,8 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                         <label for="quality">Quality</label>
                             <select class="form-select mt-3" name="quality" required>
                                   <option selected disabled value="">Select Quality</option>
-                                  <option value="ok">Ok</option>
-                                  <option value="not ok">Not Ok</option>
+                                  <option value="Yes">Ok</option>
+                                  <option value="No">Not Ok</option>
                            </select>
                             
                        </div>

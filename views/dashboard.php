@@ -69,18 +69,11 @@ if (!isset($_SESSION["emp_id"]))
                         <li class="nav-item">
                             <a class="nav-link active" href="./aboutus.html" target="_blank">About Us</a>
                         </li>
-                        <!-- <li class="nav-item">
-                        <a class="nav-link active" href="#" target="_blank">Rooms</a>
-                    </li> -->
+                        
                         <li class="nav-item">
                             <a class="nav-link active" href="#" target="_blank">Locations</a>
                         </li>
-                        <!-- <li class="nav-item">
-						<a class="nav-link active" href="#" target="_blank">Tankers</a>
-					</li> -->
-                        <!-- <li class="nav-item pr5">
-                            <a class="nav-link active" href="#" target="_blank">Contact Us</a>
-                        </li> -->
+                        
                         <li class="nav-item">
                             <a class="nav-link active1" id="adminlogin" href="../controllers/logout.php">Log Out</a>
                         </li>
@@ -102,7 +95,7 @@ if (!isset($_SESSION["emp_id"]))
                     <p class="f4 lh-copy txt"><a href="./hrm/employee_table.php" >Employee</a></p>
                     <!-- style="pointer-events: none;color:#a0a6ab;" onMouseOver="this.style.color='red'" -->
                     <p class="f4 lh-copy txt"><a href="./hrm/vaccination_table.php">Vaccination</a></p>
-                    <p class="f4 lh-copy txt"><a href="./hrm/roles.php">Roles</a></p>
+                    <p class="f4 lh-copy txt"><a href="./hrm/roles_table.php">Roles</a></p>
                 </a>
             </div>
 

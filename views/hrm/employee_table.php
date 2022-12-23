@@ -88,7 +88,7 @@
         
         <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation"); ?>
         <div class="pa1 table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered tc">
                 <thead>
                     <tr>
                     <th scope="col">Employee Code</th>

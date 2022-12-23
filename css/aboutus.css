@@ -83,17 +83,17 @@ body {
 
 .card-image {
   max-height: 50vh;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .card-image img {
   max-width: 100%;
   height: auto;
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 .card-title span {
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 .yellow-surname {
@@ -101,11 +101,11 @@ body {
 }
 
 .card-description span {
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 .card-mediaIcons a i {
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 .card-info {

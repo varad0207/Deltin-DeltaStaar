@@ -83,7 +83,7 @@ if (isset($_GET['edit'])) {
                     $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
 					?>
 		<tr>
-			<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
+			<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
 			<td><?php echo $row['role']; ?></td>
 			
 			

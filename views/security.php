@@ -78,8 +78,9 @@ if (isset($_GET['edit'])) {
                     $AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
 					?>
 		<tr>
-			<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
-			<td><?php echo $AccomodationName_row['acc_name']; ?></td>
+			<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
+			 <td><?php echo $AccomodationName_row['acc_name']; ?></td>  
+
 			
 			<td>
  

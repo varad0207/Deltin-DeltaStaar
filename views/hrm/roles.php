@@ -111,54 +111,54 @@ if (isset($_GET['edit'])) {
                                 <fieldset style="color:white;">
                                     <legend>Accomodation details</legend>
 
-                                    <div>
+                                    <!-- <div>
                                         <input type="radio" id="none" name="rights_acc" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_acc" value="1">
+                                        <input type="checkbox" name="rights_acc[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_acc" value="2">
+                                        <input type="checkbox"  name="rights_acc[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_acc" value="4">
+                                        <input type="checkbox" name="rights_acc[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_acc" value="7">
+                                    <!-- <div>
+                                        <input type="radio" id="all" name="rights_acc" value="7" >
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                                 <fieldset style="color:white;">
                                     <legend>Room details</legend>
 
-                                    <div>
+                                    <!-- <div>
                                         <input type="radio" id="none" name="rights_room" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_room" value="1">
+                                        <input type="checkbox" name="rights_room[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_room" value="2">
+                                        <input type="checkbox"  name="rights_room[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_room" value="4">
+                                        <input type="checkbox" name="rights_room[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_room" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_room" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                             </div>
 
@@ -175,54 +175,54 @@ if (isset($_GET['edit'])) {
                                 <fieldset style="color:white;">
                                     <legend>Employee data</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_employee_details" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_employee_details" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_employee_details" value="1">
+                                        <input type="checkbox" name="rights_employee_details[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_employee_details" value="2">
+                                        <input type="checkbox"  name="rights_employee_details[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_employee_details" value="4">
+                                        <input type="checkbox" name="rights_employee_details[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_employee_details" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_employee_details" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                                 <fieldset style="color:white;">
                                     <legend>Vaccination details</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_vaccination_details" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_vaccination_details" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_vaccination_details" value="1">
+                                        <input type="checkbox" name="rights_vaccination_details[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_vaccination_details" value="2">
+                                        <input type="checkbox"  name="rights_vaccination_details[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_vaccination_details" value="4">
+                                        <input type="checkbox" name="rights_vaccination_details[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_vaccination_details" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_vaccination_details" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                             </div>
 
@@ -234,84 +234,84 @@ if (isset($_GET['edit'])) {
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div> -->
                             <div class="col-md-12 pa2" >
-                            <label style="display: block;text-align: center;" for="security">Security Module</label>
+                            <label style="display: block;text-align: center;" for="security[]">Security Module</label>
                                 <fieldset style="color:white;">
                                     <legend>Tanker Entry and details</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_tankers" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_tankers" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_tankers" value="1">
+                                        <input type="checkbox" name="rights_tankers[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_tankers" value="2">
+                                        <input type="checkbox"  name="rights_tankers[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_tankers" value="4">
+                                        <input type="checkbox" name="rights_tankers[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_tankers" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_tankers" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                                 <fieldset style="color:white;">
                                     <legend>Employee outing</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_employee_outing" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_employee_outing" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_employee_outing" value="1">
+                                        <input type="checkbox" name="rights_employee_outing[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_employee_outing" value="2">
+                                        <input type="checkbox"  name="rights_employee_outing[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_employee_outing" value="4">
+                                        <input type="checkbox" name="rights_employee_outing[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_employee_outing" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_employee_outing" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                                 <fieldset style="color:white;">
                                     <legend>Visitor log</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_visitors" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_visitors" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_visitors" value="1">
+                                        <input type="checkbox" name="rights_visitors[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_visitors" value="2">
+                                        <input type="checkbox"  name="rights_visitors[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_visitors" value="4">
+                                        <input type="checkbox" name="rights_visitors[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_visitors" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_visitors" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                             </div>
 
@@ -328,54 +328,54 @@ if (isset($_GET['edit'])) {
                                 <fieldset style="color:white;">
                                     <legend>Complaint Details</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_complaints" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_complaints" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_complaints" value="1">
+                                        <input type="checkbox" name="rights_complaints[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_complaints" value="2">
+                                        <input type="checkbox"  name="rights_complaints[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_complaints" value="4">
+                                        <input type="checkbox" name="rights_complaints[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_complaints" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_complaints" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                                 <fieldset style="color:white;">
                                     <legend>Jobs</legend>
 
-                                    <div>
-                                        <input type="radio" id="none" name="rights_jobs" value="0" checked>
+                                    <!-- <div>
+                                        <input type="checkbox" id="none" name="rights_jobs" value="0" checked>
                                         <label for="none">None</label>
-                                    </div>
+                                    </div> -->
 
                                     <div>
-                                        <input type="radio" id="read" name="rights_jobs" value="1">
+                                        <input type="checkbox" name="rights_jobs[]" value="1">
                                         <label for="read">Read</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" id="write_update" name="rights_jobs" value="2">
+                                        <input type="checkbox"  name="rights_jobs[]" value="2">
                                         <label for="write_update">Write+Update</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="delete" name="rights_jobs" value="4">
+                                        <input type="checkbox" name="rights_jobs[]" value="4">
                                         <label for="delete">Delete</label>
                                     </div>
-                                    <div>
-                                        <input type="radio" id="all" name="rights_jobs" value="7">
+                                    <!-- <div>
+                                        <input type="checkbox" id="all" name="rights_jobs" value="7">
                                         <label for="all">All</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
                             </div>
 

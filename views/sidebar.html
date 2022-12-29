@@ -23,7 +23,7 @@
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-        <a class="navbar-brand mb-2" href="#" style="padding: 8px 8px 8px 8px;">
+        <a class="navbar-brand mb-2" href="#" style="padding: 8px;">
             <img src="../images/logo-no-name-circle.png" height="120px" alt="Deltin Logo" class="">
         </a>
 
@@ -33,7 +33,11 @@
         <ul class="nav flex-column p-4" id="nav_accordion" style="--bs-nav-link-hover-color: #f8f9fa;">
 
             <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#"><i class="bi bi-building"></i> Accommodation </a>
+                <a class="nav-link border-dark border-bottom" href="#">
+                    <i class="bi bi-building"></i>
+                    Accommodation
+                    <i class="bi bi-chevron-down"></i>
+                </a>
                 <ul class="submenu collapse">
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../views/accomodation/accomodation.php">
@@ -60,7 +64,9 @@
             </li>
 
             <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#"><i class="bi bi-file-text"></i> Complaints </a>
+                <a class="nav-link border-dark border-bottom" href="#">
+                    <i class="bi bi-file-text"></i> Complaints <i class="bi bi-chevron-down"></i>
+                </a>
                 <ul class="submenu collapse">
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../views/complaint/complaint.php">
@@ -78,7 +84,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../views/complaint/complaint_type_table.php">
+                        <a class="nav-link border-dark border-bottom"
+                            href="../views/complaint/complaint_type_table.php">
                             Complaint Type Table
                         </a>
                     </li>
@@ -86,7 +93,9 @@
             </li>
 
             <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#"><i class="bi bi-person"></i> HRM </a>
+                <a class="nav-link border-dark border-bottom" href="#">
+                    <i class="bi bi-person"></i> HRM <i class="bi bi-chevron-down"></i>
+                </a>
                 <ul class="submenu collapse">
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../views/hrm/emp_desig.php">
@@ -137,7 +146,9 @@
             </li>
 
             <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#"><i class="bi bi-shield"></i> Security </a>
+                <a class="nav-link border-dark border-bottom" href="#">
+                    <i class="bi bi-shield"></i> Security <i class="bi bi-chevron-down"></i>
+                </a>
                 <ul class="submenu collapse">
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../views/security/employee_outing.php">

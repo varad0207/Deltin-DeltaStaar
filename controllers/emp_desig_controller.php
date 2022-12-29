@@ -22,6 +22,6 @@
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
         $_SESSION['message'] = "Employee Designation Added!";
-        header("location: ../index.html");
+        header("location: ../views/config/emp_desig_table.php");
     }
 ?>

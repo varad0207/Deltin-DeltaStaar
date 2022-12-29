@@ -1,6 +1,6 @@
 <?php 
     include('../../controllers/includes/common.php');
-    include('../../controllers/vaccination_controller.php'); 
+    include('../../controllers/emp_desig_controller.php'); 
 
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     // check rights
@@ -25,28 +25,6 @@
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/table.css">
-    <!-- Live Search -->
-    <script type="text/javascript">
-		function search() {
-		    // Declare variables
-		    var input, filter, listing, i, txtValue;
-		    input = document.getElementById("form1");
-		    filter = input.value.toUpperCase();
-		    listing = document.getElementsByTagName("tr");
-		    // Loop through all 
-		    for (i = 0; i < listing.length; i++) {
-		      if (listing[i]) {
-		        txtValue = listing[i].textContent || listing[i].innerText;
-		        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		          listing[i].style.display = "";
-		        } else {
-		          listing[i].style.display = "none";
-                //   document.getElementById("demo").innerHTML = "No Results Found";
-		        }
-		      }
-		    }
-		 }
-	</script>
 </head>
 <body class="bg">
     <!-- Navigation Bar -->
@@ -66,16 +44,16 @@
 
     
     <div class="table-header">
-    <h1 class="tc f1 lh-title spr">Vaccination Details</h1>
-    <div class="fl w-75 form-outline srch">
+    <h1 class="tc f1 lh-title spr">Employee Designation Details</h1>
+    <!-- <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
-    </div>
-    <div class="fl w-25 tr">
+    </div> -->
+    
         <button class="btn btn-dark">
             <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
         </button>
-    </div>
+    
     </div>
 
     <!-- Displaying Database Table -->
@@ -90,50 +68,26 @@
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
+        <?php $results = mysqli_query($conn, "SELECT * FROM employee_designation"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
-                    <th scope="col">Employee Code</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Date of Administration</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Date of Next Dose</th>
+                    <th scope="col">Designation</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
-                    <?php $employeeid = $row['emp_id'];
-                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
-                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
-
-                    $categoryid = $row['category_id'];
-                    $queryCategory_name = mysqli_query($conn, "SELECT * FROM vaccination_category where category_id=$categoryid");
-                    $CategoryName_row = mysqli_fetch_assoc($queryCategory_name);
-                    ?>
-                    <tr>
-                    <th scope="row"><?php echo $EmployeeCode_row['emp_code']; ?></th>
-                        
+                <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <td>
-                            <?php echo $CategoryName_row['category_name']; ?>
+                            <?php echo $row['designation']; ?>
                         </td>
                         <td>
-                            <?php echo $row['date_of_administration']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['location']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['date_of_next_dose']; ?>
-                        </td>
-                        <td>
-                            <a href="./vaccination.php?edit=<?php echo '%27' ?><?php echo $row['vaccination_id']; ?><?php echo '%27' ?>"
+                            <a href="./emp_desig.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                                 &nbsp;
-                            <a href="../../controllers/vaccination_controller.php?del=<?php echo '%27' ?><?php echo $row['vaccination_id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/emp_desig_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                         </td>
@@ -152,7 +106,7 @@
         </div>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
-                <h4><a href="vaccination.php">Add Vaccination</a></h4>
+                <h4><a href="emp_desig.php">Add Employee Designation</a></h4>
             </button>   
         </div>
     </div>

@@ -60,13 +60,13 @@ if (!isset($_SESSION["emp_id"]))
                                     </svg>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="./vaccination_category.php">Add Vaccination
+                                    <a class="dropdown-item" href="./config/vaccination_category.php">Add Vaccination
                                         category</a>
-                                    <a class="dropdown-item" href="./hrm/emp_desig.php">Add Employee Designation</a>
-                                    <a class="dropdown-item" href="#">Add Tanker Vendors</a>
-                                    <a class="dropdown-item" href="./security.php">Define Security</a>
-                                    <a class="dropdown-item" href="./technician.php">Define/Add Technician</a>
-                                    <a class="dropdown-item" href="#">Complaint Type</a>
+                                    <a class="dropdown-item" href="./config/emp_desig.php">Add Employee Designation</a>
+                                    <a class="dropdown-item" href="./config/tanker_vendor.php">Add Tanker Vendors</a>
+                                    <a class="dropdown-item" href="./config/security.php">Define Security</a>
+                                    <a class="dropdown-item" href="./config/technician.php">Define/Add Technician</a>
+                                    <a class="dropdown-item" href="./config/complaint_type.php">Complaint Type</a>
                                 </div>
                             </div>
                         </li>

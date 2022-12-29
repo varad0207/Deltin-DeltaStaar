@@ -26,7 +26,7 @@ if (!isset($_SESSION["emp_id"]))
 
 <body class="bgcolor">
     <!-- Navigation Bar -->
-    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+    <nav class="navbar navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo"

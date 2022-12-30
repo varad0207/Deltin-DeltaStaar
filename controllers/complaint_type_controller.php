@@ -10,8 +10,8 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     if(!isset($_SESSION))
     {
         session_start();
-        $type = $description = "";
     }
+    $type = $description = "";
 
     if(isset($_POST['submit']))
     {
@@ -20,7 +20,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
 
         mysqli_query($conn, "INSERT INTO complaint_type (id, type, description) VALUES ('', '$type', '$description')");
         $_SESSION['message'] = "Complaint Type Info Added!";
-        header("location: ../views/complaint/complaint_type_table.php");
+        header("location: ../views/config/complaint_type_table.php");
     }
 
     if(isset($_POST['update']))
@@ -31,15 +31,15 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
 
         mysqli_query($conn, "UPDATE complaint_type SET type = '$type', description = '$description') WHERE id = '$id'");
         $_SESSION['message'] = "Complaint Type Info Updated!";
-        header("location: ../views/complaint/complaint_type_table.php");
+        header("location: ../views/config/complaint_type_table.php");
     }
 
     if(isset($_GET['del']))
     {
         $id = $_GET['del'];
         
-        mysqli_query($conn, "DELETE FROM complaint_type WHERE id = '$id'");
+        mysqli_query($conn, "DELETE FROM complaint_type WHERE id = $id");
         $_SESSION['message'] = "Complaint Type Deleted!";
-        header("location: ../views/complaint/complaint_type_table.php");
+        header("location: ../views/config/complaint_type_table.php");
     }
 ?>

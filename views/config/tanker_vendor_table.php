@@ -1,6 +1,6 @@
 <?php 
     include('../../controllers/includes/common.php'); 
-    include('../../controllers/tanker_controller.php'); 
+    include('../../controllers/tanker_vendor_controller.php'); 
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     // check rights
 ?> 
@@ -65,7 +65,7 @@
 
     
     <div class="table-header">
-    <h1 class="tc f1 lh-title spr">Tanker Details</h1>
+    <h1 class="tc f1 lh-title spr">Tanker Vendor Details</h1>
     <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
@@ -89,66 +89,41 @@
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT tanker_vendors.*,t.id entry_id,t.acc_id acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id"); ?>
+        <?php $results = mysqli_query($conn, "SELECT * FROM tanker_vendors"); ?>
 
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
-                    <th scope="col">Bill Number</th>
-                    <th scope="col">Quality</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Accommodation</th>
-                    <!-- <th scope="col">Employee Security</th> -->
-                    <th scope="col">Vendor</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
+                    <th scope="col">Vendor Name</th>
+                    <th scope="col">Comapny Name</th>
+                    <th scope="col">Vendor Adress</th>
+                    <th scope="col">Number</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) {
                     ?>
-                    <?php 
-                    $vendor_id = $row['vendor_id'];
-                    $queryvendorId = mysqli_query($conn, "SELECT * FROM tanker_vendors where id='$vendor_id'");
-                    $vendor = mysqli_fetch_assoc($queryvendorId);
-					?>
-                    <?php
-                    $accid = $row['acc_id'];
-                    $queryAccId = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id = '$accid'");
-                    $acc = mysqli_fetch_assoc($queryAccId);
-                    ?>
                     <tr>
-                    <th scope="row"><?php echo $row['bill_no']; ?></th>
+                    <th scope="row"><?php echo $row['vname']; ?></th>
                         
                         <td>
-                            <?php echo $row['quality_check']; ?>
+                            <?php echo $row['company_name']; ?>
                         </td>
                         <td>
-                            <?php echo $row['qty']; ?>
+                            <?php echo $row['address']; ?>
                         </td>
                         <td>
-                            <?php echo $acc['acc_name']; ?>
+                            <?php echo $row['number']; ?>
                         </td>
+                        
                         <td>
-                            <?php echo $vendor['vname']; ?>
-                        </td>
-                        <td>
-                            <?php 
-                            $timestamp = strtotime($row['timestamp']);                            
-                            $date = date('d-m-Y', $timestamp);
-                            echo $date; ?>
-                        </td>
-                        <td>
-                            <?php $time = date('H:i:s', $timestamp); echo $time; ?>
-                        </td>
-                        <td>
-                            <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="./tanker_vendor.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             &nbsp;
-                            <a href="../../controllers/tanker_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/tanker_vendor_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                         </td>
@@ -167,7 +142,7 @@
         </div>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
-                <h4><a href="tanker.php">Add Tanker</a></h4>
+                <h4><a href="tanker_vendor.php">Add Tanker Vendor</a></h4>
             </button>   
         </div>
     </div>

@@ -112,7 +112,6 @@ if (isset($_GET['edit'])) {
 							<th>Accommodation name </th>
 
 
-<<<<<<< HEAD
 					$accomodationid = $row['acc_id'];
                     $queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
                     $AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
@@ -124,11 +123,6 @@ if (isset($_GET['edit'])) {
 			
 			<td>
  
-=======
-							<th colspan="2">Action</th>
-						</tr>
-					</thead>
->>>>>>> 0e0b1c36b1f9bfa7062c58ab1e04c22dab778402
 
 					<?php while ($row = mysqli_fetch_array($results)) { ?>
 					<?php $employeeid = $row['emp_id'];

@@ -1,5 +1,20 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/employee_controller.php'); ?>
+<?php include('../../controllers/employee_controller.php'); 
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+$update = "";
+$designation = "";
+if(isset($_GET['edit']))
+{
+    $id = $_GET['edit'];
+    $update = true;
+
+    $record = mysqli_query($conn, "SELECT * FROM employee_designation WHERE id=$id");
+
+	$n = mysqli_fetch_array($record);
+
+    $designation = $n['designation'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +79,7 @@
                        
                         <div class="col-md-12 pa2">
                             <label for="designation">Employee Designation</label>
-                              <input class="form-control" type="text" name="designation" placeholder="Designation" required>
+                              <input class="form-control" type="text" name="designation" placeholder="Designation" value ="<?php echo $designation?>" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>

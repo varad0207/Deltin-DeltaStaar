@@ -1,18 +1,21 @@
 <?php
-if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     include('includes/common.php');
-}else{
-    include('includes/common.php');
-}
+
+// if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
+//     include('includes/common.php');
+
+// }else{
+//     include('includes/common.php');
+// }
 ?>
 <?php
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
-    if(!isset($_SESSION))
-    {
-        session_start();
-        $emp_code = $start_date = $arrival_date = $purpose = "";
+    // if(!isset($_SESSION))
+    // {
+    //     session_start();
+    //     $emp_code = $start_date = $arrival_date = $purpose = "";
 
-    }
+    // }
 
     if(isset($_POST['submit']))
     {
@@ -43,7 +46,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     if(isset($_GET['del']))
     {
         $emp_id = $_GET['del'];
-        mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_id = $empid");
+        mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_id = $emp_id");
         $_SESSION['message'] = "Employee Outing Info Deleted!";
         header("location: ../views/employee_outing_table.php");
     }

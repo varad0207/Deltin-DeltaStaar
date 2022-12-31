@@ -101,7 +101,9 @@ $emptype='emp';
                                 </label>
                         </div>
 
-                        <button id="submit" name="save" value="emp_code" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Go</button>
+                        <div class="mb-3 tc">
+						        <button class="btn btn-warning f3 lh-copy" style="color: white;" type="submit" name="submitemp" value="submitemp">Submit</button>
+					        </div>
 
                     </form>
                 </div>

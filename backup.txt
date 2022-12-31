@@ -2192,3 +2192,15 @@ BACKUP TESTING!!!!!!!!!
 			</div>
 		</div>
 	</div>
+
+
+<td>
+                            <!-- <?php 
+                            $timestamp = strtotime($row['check_out']);                            
+                            $date = date('d-m-Y', $timestamp);
+                            echo $date; 
+                            $time = date('H:i:s', $timestamp); 
+                            echo $time; 
+                            ?> -->
+                            <button type="button" class="btn btn-danger" value="checkout" name="checkout">Checkout</button>
+                        </td>

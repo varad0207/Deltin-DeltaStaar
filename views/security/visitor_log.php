@@ -3,22 +3,27 @@
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 ?>
 <?php
+	$id = "";
+    $cat="";
+    $emp_id="";
+    $security_emp_id="";
+    $visitor_name="";
+    $vehicle_no="";
+    $purpose="";
+    $phone_no="";
+    $emptype = "";
+    $check_out = "";
 
-if (isset($_GET['edit'])) {
-	$vaccination_id = $_GET['edit'];
-	$update =true;
-	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE vaccination_id=$vaccination_id");
-	// if (count($record) == 1 ) {
-	$n=mysqli_fetch_array($record);
-	$emp_id = $n['emp_id'];
-	$category = $n['category_id'];
-	$dateofadministration = date('Y-m-d', strtotime($n['date_of_administration']));
-	$location = $n['location'];
-	$nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
-	
+	if(isset($_GET['checkout']))
+	{
+		$id = $_GET['checkout'];
+		$update = true;
+		$record = mysqli_query($conn, "SELECT * FROM visitor_log WHERE id=$id");
 
-	// }
-}
+		$n = mysqli_fetch_array($record);
+
+		$cat = $n['type'];
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,17 +86,21 @@ if (isset($_GET['edit'])) {
                     <h1 class="f2 lh-copy tc" style="color: white;">VISITOR LOG FORM</h1>
                     	<form class="requires-validation f3 lh-copy" novalidate action="../../controllers/visitor_log_controller.php" method="post">
 							<div class="col-md-12 pa2">
-							<div class="input-group">
-							<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Visitor Category :- <span></span>
-							<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="cat_id">
-    						<option name="category_name" selected>Choose...</option>
-    						<option name="employee" value="emp">Employee</option>
-                        	<option name="non_employee" value="nonemp">Non-Employee</option>
-                        	</select>
-                        	</label>
-                    		</div>
-                        	<div class="invalid-feedback">Please select an option!</div>
-							<button id="submit" name="empcat" value="empcat" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Go</button>
+								<div class="input-group">
+								<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Visitor Category :- <span></span>
+								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="cat_id">
+								<option name="category_name" selected>Choose...</option>
+								<option name="employee" value="emp">Employee</option>
+								<option name="non_employee" value="nonemp">Non-Employee</option>
+								</select>
+								</label>
+								</div>
+								<div class="invalid-feedback">Please select an option!</div>
+								<?php if($update == true): ?>
+									<button id="submit" name="checkout" value="checkout" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Checkout</button>
+								<?php else: ?>
+								<button id="submit" name="empcat" value="empcat" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Go</button>
+								<?php endif ?>
                         	</div>
 						</form>
 					</div>

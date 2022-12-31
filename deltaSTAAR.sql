@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 22, 2022 at 11:19 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Host: localhost
+-- Generation Time: Dec 31, 2022 at 06:38 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,17 +42,6 @@ CREATE TABLE `accomodation` (
   `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `accomodation`
---
-
-INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `owner`, `remark`) VALUES
-(1, 'acc123', 'abcd', 'Active', 'Panaji', 'Unisex', 400, 15, 8, 7, 'chinmay', 'none'),
-(2, 'A123', 'Madhuban', 'Active', 'Panaji', 'Male', 200, 20, 2, 18, 'Varad', 'None'),
-(3, 'AB1122', 'Taleigao', 'Permanentl', 'Panaji', 'Unisex', 400, 30, 1, 29, 'Deltin', 'none'),
-(4, 'XYZ23', 'Mandovi', 'Permanentl', 'Panaji', 'Female', 500, 32, 12, 20, 'Deltastaar', 'Accommodation only for female staff'),
-(5, 'xyz112', 'Porvorim', 'Active', 'Porvorim', 'Unisex', 1000, 50, 17, 33, 'Deltastaar', 'Accommodation for both male and female staff');
-
 -- --------------------------------------------------------
 
 --
@@ -77,21 +66,12 @@ CREATE TABLE `complaints` (
   `type` int(11) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tech_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tech_closure_timestamp` timestamp NULL DEFAULT NULL,
   `sec_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `warden_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `remarks` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `complaints`
---
-
-INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `status`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`) VALUES
-(1, '2022-12-19 11:30:03', 1, 'bulb not working', NULL, '2022-12-19 11:30:03', '2022-12-19 11:30:03', '2022-12-19 11:30:03', NULL, 'ABCD1234'),
-(2, '2022-12-20 05:01:37', 2, 'plumbing', NULL, '2022-12-20 05:01:37', '2022-12-20 05:01:37', '2022-12-20 05:01:37', NULL, 'AB224'),
-(3, '2022-12-20 05:39:02', 3, 'Broken table', NULL, '2022-12-20 05:39:02', '2022-12-20 05:39:02', '2022-12-20 05:39:02', NULL, 'ABCD1234');
 
 -- --------------------------------------------------------
 
@@ -122,9 +102,18 @@ INSERT INTO `complaint_type` (`id`, `type`, `description`) VALUES
 --
 
 CREATE TABLE `contact` (
+  `id` int(11) NOT NULL,
   `emp_id` int(11) NOT NULL,
-  `contact` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `primary_contact` varchar(13) NOT NULL,
+  `secondary_contact` varchar(13) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`id`, `emp_id`, `primary_contact`, `secondary_contact`) VALUES
+(1, 2, '9527014907', '9423060461');
 
 -- --------------------------------------------------------
 
@@ -140,6 +129,7 @@ CREATE TABLE `employee` (
   `lname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `designation` int(11) NOT NULL,
   `dob` date NOT NULL,
+  `contact` int(11) NOT NULL,
   `address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -158,10 +148,8 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role`) VALUES
-(1, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 2, '2002-07-05', 'ponda goa', 'Goa', 'India', 403401, 'chinmayjoshi5702@gmail.com', 'A+', 'IT', '2022-05-19', 1234567890, 12000, 3, 1),
-(2, 'AB224', 'Varad', 'M', 'Kelkar', 1, '2002-07-02', 'Fatorda', 'Goa', 'India', 403602, 'varad@kelkar', 'A-', 'COMP', '2022-12-02', 44002231, 10000, 1, 1),
-(3, 'A123', 'Ivan', 'A', 'Azim', 3, '2022-12-02', 'Sanguem', 'Goa', 'India', 403601, 'ivan@azim', 'O+', 'COMP', '2022-12-01', 222330, 12000, 2, 1);
+INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role`) VALUES
+(2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', 1, 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', NULL, 'IT', '2022-07-15', 1234567890, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -181,8 +169,7 @@ CREATE TABLE `employee_designation` (
 INSERT INTO `employee_designation` (`id`, `designation`) VALUES
 (1, 'Manager'),
 (2, 'Team Lead'),
-(3, 'Admin'),
-(4, 'Front Desk Manager');
+(3, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -197,14 +184,6 @@ CREATE TABLE `employee_outing` (
   `arrival_date` date NOT NULL,
   `category` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `employee_outing`
---
-
-INSERT INTO `employee_outing` (`emp_id`, `approval`, `outing_date`, `arrival_date`, `category`) VALUES
-(2, NULL, '2022-12-20', '2022-12-30', 'home'),
-(1, NULL, '2022-12-01', '2022-12-29', 'home');
 
 -- --------------------------------------------------------
 
@@ -222,8 +201,7 @@ CREATE TABLE `login_credentials` (
 --
 
 INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
-(1, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(2, '0444c32ebf0b36d55d38afd22ad00ecd');
+(2, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -243,28 +221,12 @@ CREATE TABLE `login_history` (
 --
 
 INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
-(1, '2022-12-19 08:38:57', '2022-12-19 08:38:57', 1),
-(1, '2022-12-19 08:40:49', '2022-12-19 08:40:49', 2),
-(1, '2022-12-19 08:58:15', '2022-12-19 08:58:15', 3),
-(1, '2022-12-19 09:01:02', '2022-12-19 09:01:02', 4),
-(1, '2022-12-19 09:05:52', '2022-12-19 09:05:52', 5),
-(1, '2022-12-19 09:28:37', '2022-12-19 09:28:37', 6),
-(1, '2022-12-20 11:37:36', '2022-12-20 11:37:36', 9),
-(1, '2022-12-21 03:01:02', '2022-12-21 03:01:02', 10),
-(1, '2022-12-21 03:21:21', '2022-12-21 03:21:21', 11),
-(2, '2022-12-21 03:35:28', '2022-12-21 03:35:28', 12),
-(2, '2022-12-21 03:35:37', '2022-12-21 03:35:37', 13),
-(2, '2022-12-21 11:39:08', '2022-12-21 11:39:08', 14),
-(1, '2022-12-21 11:39:26', '2022-12-21 11:39:26', 15),
-(2, '2022-12-21 11:40:44', '2022-12-21 11:40:44', 16),
-(1, '2022-12-21 11:41:43', '2022-12-21 11:41:43', 17),
-(1, '2022-12-21 12:02:07', '2022-12-21 12:02:07', 18),
-(1, '2022-12-21 12:02:52', '2022-12-21 12:02:52', 19),
-(1, '2022-12-21 12:04:01', '2022-12-21 12:04:01', 20),
-(2, '2022-12-21 12:06:11', '2022-12-21 12:06:11', 21),
-(2, '2022-12-22 04:24:09', '2022-12-22 04:24:09', 22),
-(2, '2022-12-22 04:28:01', '2022-12-22 04:28:01', 23),
-(2, '2022-12-22 08:44:02', '2022-12-22 08:44:02', 24);
+(2, '2022-12-22 07:58:01', '2022-12-22 07:58:01', 1),
+(2, '2022-12-27 04:55:10', '2022-12-27 04:55:10', 2),
+(2, '2022-12-29 18:50:01', '2022-12-29 18:50:01', 3),
+(2, '2022-12-29 20:04:45', '2022-12-29 20:04:45', 4),
+(2, '2022-12-30 06:23:32', '2022-12-30 06:23:32', 5),
+(2, '2022-12-30 06:35:57', '2022-12-30 06:35:57', 6);
 
 -- --------------------------------------------------------
 
@@ -274,17 +236,17 @@ INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
 
 CREATE TABLE `rights` (
   `id` int(11) NOT NULL,
-  `accomodation` enum('0','1','2','4','7') NOT NULL,
-  `complaints` enum('0','1','2','4','7') NOT NULL,
-  `employee_details` enum('0','1','2','4','7') NOT NULL,
-  `employee_outing` enum('0','1','2','4','7') NOT NULL,
-  `roles` enum('0','1','2','4','7') NOT NULL,
-  `rooms` enum('0','1','2','4','7') NOT NULL,
-  `tankers` enum('0','1','2','4','7') NOT NULL,
-  `jobs` enum('0','1','2','4','7') NOT NULL,
-  `vaccination` enum('0','1','2','4','7') NOT NULL,
-  `vaccination_category` enum('0','1','2','4','7') NOT NULL,
-  `visitor_log` enum('0','1','2','4','7') NOT NULL
+  `accomodation` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `complaints` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `employee_details` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `employee_outing` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `roles` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `rooms` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `tankers` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `jobs` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `vaccination` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `vaccination_category` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
+  `visitor_log` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -292,7 +254,12 @@ CREATE TABLE `rights` (
 --
 
 INSERT INTO `rights` (`id`, `accomodation`, `complaints`, `employee_details`, `employee_outing`, `roles`, `rooms`, `tankers`, `jobs`, `vaccination`, `vaccination_category`, `visitor_log`) VALUES
-(1, '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7');
+(1, '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7'),
+(2, '7', '0', '4', '6', '7', '2', '3', '6', '0', '7', '5'),
+(3, '1', '1', '1', '1', '7', '1', '1', '1', '0', '7', '1'),
+(4, '2', '0', '2', '2', '7', '2', '2', '0', '2', '7', '0'),
+(5, '7', '0', '1', '0', '7', '3', '0', '0', '1', '7', '4'),
+(6, '0', '0', '0', '0', '7', '0', '0', '0', '0', '7', '0');
 
 -- --------------------------------------------------------
 
@@ -328,14 +295,6 @@ CREATE TABLE `rooms` (
   `current_room_occupancy` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `rooms`
---
-
-INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
-(1, 1, '102', 4, 'Occupied', 3),
-(4, 3, '1123', 4, 'Occupied', 4);
-
 -- --------------------------------------------------------
 
 --
@@ -346,14 +305,6 @@ CREATE TABLE `security` (
   `emp_id` int(11) NOT NULL,
   `acc_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `security`
---
-
-INSERT INTO `security` (`emp_id`, `acc_id`) VALUES
-(1, 1),
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -377,7 +328,7 @@ CREATE TABLE `tankers` (
 --
 
 INSERT INTO `tankers` (`id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `vendor_id`, `timestamp`) VALUES
-(2, 3, 1, 'Yes', 7000, 1234, 1, '2022-12-22 10:03:57');
+(2, 1, 2, 'Yes', 2456, 12334, 1, '2022-12-22 10:06:03');
 
 -- --------------------------------------------------------
 
@@ -398,7 +349,7 @@ CREATE TABLE `tanker_vendors` (
 --
 
 INSERT INTO `tanker_vendors` (`id`, `vname`, `company_name`, `number`, `address`) VALUES
-(1, 'Varad', 'Kelkar\'s', 221, 'Margao');
+(1, 'ABCD', 'abc water works', 12345678, 'goa');
 
 -- --------------------------------------------------------
 
@@ -411,13 +362,6 @@ CREATE TABLE `technician` (
   `emp_id` int(11) NOT NULL,
   `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `technician`
---
-
-INSERT INTO `technician` (`id`, `emp_id`, `role`) VALUES
-(1, 1, 'Electrician');
 
 -- --------------------------------------------------------
 
@@ -434,15 +378,6 @@ CREATE TABLE `vaccination` (
   `date_of_next_dose` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `vaccination`
---
-
-INSERT INTO `vaccination` (`vaccination_id`, `emp_id`, `category_id`, `date_of_administration`, `location`, `date_of_next_dose`) VALUES
-(1, 2, 1, '2022-06-22', 'Panaji', '2022-10-20'),
-(4, 3, 1, '2022-06-09', 'Margao', '2022-12-02'),
-(5, 2, 1, '2022-02-10', 'Margao', '2022-08-25');
-
 -- --------------------------------------------------------
 
 --
@@ -453,16 +388,6 @@ CREATE TABLE `vaccination_category` (
   `category_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `vaccination_category`
---
-
-INSERT INTO `vaccination_category` (`category_name`, `category_id`) VALUES
-('Fully', 1),
-('Nodose', 2),
-('sec dose', 3),
-('First dose', 4);
 
 -- --------------------------------------------------------
 
@@ -512,7 +437,8 @@ ALTER TABLE `complaint_type`
 -- Indexes for table `contact`
 --
 ALTER TABLE `contact`
-  ADD PRIMARY KEY (`emp_id`,`contact`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `emp_id` (`emp_id`);
 
 --
 -- Indexes for table `employee`
@@ -522,7 +448,8 @@ ALTER TABLE `employee`
   ADD UNIQUE KEY `emp_code` (`emp_code`),
   ADD KEY `role` (`role`),
   ADD KEY `designation` (`designation`),
-  ADD KEY `fk_emp_acc_id` (`acc_id`);
+  ADD KEY `fk_emp_acc_id` (`acc_id`),
+  ADD KEY `contact` (`contact`);
 
 --
 -- Indexes for table `employee_designation`
@@ -628,13 +555,13 @@ ALTER TABLE `visitor_log`
 -- AUTO_INCREMENT for table `accomodation`
 --
 ALTER TABLE `accomodation`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
@@ -643,46 +570,52 @@ ALTER TABLE `complaint_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employee_designation`
 --
 ALTER TABLE `employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `rights`
 --
 ALTER TABLE `rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tankers`
 --
 ALTER TABLE `tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tanker_vendors`
@@ -694,19 +627,19 @@ ALTER TABLE `tanker_vendors`
 -- AUTO_INCREMENT for table `technician`
 --
 ALTER TABLE `technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vaccination_category`
 --
 ALTER TABLE `vaccination_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `visitor_log`
@@ -737,6 +670,7 @@ ALTER TABLE `contact`
 ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`),
   ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`),
+  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`contact`) REFERENCES `contact` (`id`),
   ADD CONSTRAINT `fk_emp_acc_id` FOREIGN KEY (`acc_id`) REFERENCES `accomodation` (`acc_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

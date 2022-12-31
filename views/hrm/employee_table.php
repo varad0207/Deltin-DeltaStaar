@@ -112,6 +112,7 @@ if (!isset($_SESSION["emp_id"]))
                         <th scope="col">State</th>
                         <th scope="col">Country</th>
                         <th scope="col">Pincode</th>
+                        <th scope="col">Contact Number</th>
                         <th scope="col">Email</th>
                         <th scope="col">Blood Group</th>
                         <th scope="col">Department</th>
@@ -162,6 +163,9 @@ if (!isset($_SESSION["emp_id"]))
                         </td>
                         <td>
                             <?php echo $row['pincode']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['contact']; ?>
                         </td>
                         <td>
                             <?php echo $row['email']; ?>

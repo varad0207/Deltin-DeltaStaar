@@ -23,6 +23,7 @@ if (isset($_GET['edit'])) {
     $state = $n['state'];
     $country = $n['country'];
     $pincode = $n['pincode'];
+    $contact = $n['contact'];
     $email = $n['email'];
     $blood_group = $n['blood_group'];
     $department = $n['department'];
@@ -188,6 +189,14 @@ if (isset($_GET['edit'])) {
                                 <label for="pincode">Pincode</label>
                                 <input class="form-control" type="number" name="pincode" placeholder="Pincode"
                                     value="<?php echo $pincode; ?>" required>
+                                <div class="valid-feedback">field is valid!</div>
+                                <div class="invalid-feedback">field cannot be blank!</div>
+                            </div>
+
+                            <div class="col-md-12 pa2">
+                                <label for="contact">Contact Number</label>
+                                <input class="form-control" type="number" name="contact" placeholder="Contact Number"
+                                    value="<?php echo $contact; ?>" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>

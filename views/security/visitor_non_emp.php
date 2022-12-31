@@ -3,7 +3,7 @@
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 ?>
 <?php
-
+    $emptype='nonemp';
 if (isset($_GET['edit'])) {
 	$vaccination_id = $_GET['edit'];
 	$update =true;
@@ -80,20 +80,43 @@ if (isset($_GET['edit'])) {
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">VISITOR LOG FORM</h1>
                     	<form class="requires-validation f3 lh-copy" novalidate action="../../controllers/visitor_log_controller.php" method="post">
-							<div class="col-md-12 pa2">
-							<div class="input-group">
-							<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Visitor Category :- <span></span>
-							<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="cat_id">
-    						<option name="category_name" selected>Choose...</option>
-    						<option name="employee" value="emp">Employee</option>
-                        	<option name="non_employee" value="nonemp">Non-Employee</option>
-                        	</select>
-                        	</label>
-                    		</div>
-                        	<div class="invalid-feedback">Please select an option!</div>
-							<button id="submit" name="empcat" value="empcat" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Go</button>
-                        	</div>
-						</form>
+                            <div class="input-group">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Security Code :-<span>
+							    <input class="form-control" type="text" name="security_emp_id" value="<?php echo $security_emp_id; ?>">
+                                </label>
+                            </div>
+					            
+					        <div class="">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Visitor Name:-<span>
+								<input class="form-control" type="text" name="visitor_name" value="<?php echo $visitor_name; ?>">
+					            </label>
+                                </div>
+					
+					        <div class="input-group">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Vehicle No:- <span>
+								<input class="form-control" type="text" name="vehicle_no" value="<?php echo $vehicle_no; ?>">
+                                </label>
+                            </div>
+					
+
+                            <div class="">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Purpose of visit:- <span>
+								<input class="form-control" type="text" name="purpose" value="<?php echo $purpose; ?>">
+                                </label>
+                            </div>
+					
+
+                            <div class="input-group">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Phone number:-<span>
+								<input class="form-control" type="text" name="phone_no" value="<?php echo $phone_no; ?>">
+					            </label>
+                            </div>
+					
+
+					        <div class="mb-3 tc">
+						        <button class="btn btn-warning f3 lh-copy" style="color: white;" type="submit" name="save" value="save">Save</button>
+					        </div>
+                        </form>
 					</div>
             	</div>
         	</div>

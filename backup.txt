@@ -2094,3 +2094,101 @@ locations - accomodation location
 
 
 BACKUP TESTING!!!!!!!!!
+
+
+
+
+
+<div class="container">
+		<h1 class="tc f1 lh-title">Visitor Log Form</h1>
+		<div class="row mx-0 justify-content-center">
+			<div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 bg f4 lh-copy">
+				<?php if (isset($_SESSION['message'])): ?>
+				<div class="msg">
+					<?php
+	                echo $_SESSION['message'];
+	                unset($_SESSION['message']);
+                    ?>
+				</div>
+				<?php endif ?>
+
+				<?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
+				<form method="post" class="w-100 rounded p-4 border bg-white" action="../../controllers/visitor_log_controller.php">
+					<input type="hidden" name="vaccination_id" value="<?php echo $vaccination_id; ?>">
+					
+                    <div class="input-group">
+						<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Visitor Category :- <span></span>
+						<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="cat_id">
+    					<option name="category_name" selected>Choose...</option>
+    					<option name="employee" value="emp">Employee</option>
+                        <option name="non_employee" value="nonemp">Non-Employee</option>
+                        </select>
+                        </label>
+                    </div>
+                    <div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code :-
+                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="emp_id">
+    					<option name="employee_code" selected>Choose...</option>
+    					
+							<?php
+								$emp_det=mysqli_query($conn, "SELECT * FROM employee");
+								
+								foreach ($emp_det as $row){ ?>
+								<option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+								<?php
+								}
+								
+							?>
+						</select>
+
+
+
+								<!-- <?php if ($update == true): ?>
+								<input class="form-control" disabled type="text" name="emp_id" value="<?php echo $emp_id; ?>"> 
+								<?php else: ?>
+								<input class="form-control" type="text" name="emp_id" value="<?php echo $emp_id; ?>">
+								<?php endif ?> -->
+					</div>
+					</label>
+					
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Security ID:-<span>
+									<input class="form-control" type="text" name="security_emp_id" value="<?php echo $security_emp_id; ?>">
+					</div>
+					</label>
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Visitor Name:-<span>
+									<input class="form-control" type="text" name="visitor_name" value="<?php echo $visitor_name; ?>">
+					</div>
+					</label>
+					<div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Vehicle No:- <span>
+									<input class="form-control" type="text" name="vehicle_no" value="<?php echo $vehicle_no; ?>">
+					</div>
+					</label>
+
+                    <div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Purpose of visit:- <span>
+									<input class="form-control" type="text" name="purpose" value="<?php echo $purpose; ?>">
+					</div>
+					</label>
+
+                    <div class="input-group">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Phone number:-<span>
+									<input class="form-control" type="text" name="phone_no" value="<?php echo $phone_no; ?>">
+					</div>
+					</label>
+
+					<div class="mb-3 tc">
+						<?php if ($update == true): ?>
+						<button class="btnn" type="submit" name="update" value="update"
+							style="background: #556B2F;">Update</button>
+						<?php else: ?>
+						<button class="btn btn-dark px-3" class="btnn" type="submit" name="save"
+							value="save">Save</button>
+						<?php endif ?>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>

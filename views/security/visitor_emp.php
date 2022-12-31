@@ -1,30 +1,16 @@
 <?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/visitor_log_controller.php');
-if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
-?>
+<?php include('../../controllers/visitor_log_controller.php'); ?>
 <?php
+if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 
-if (isset($_GET['edit'])) {
-	$vaccination_id = $_GET['edit'];
-	$update =true;
-	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE vaccination_id=$vaccination_id");
-	// if (count($record) == 1 ) {
-	$n=mysqli_fetch_array($record);
-	$emp_id = $n['emp_id'];
-	$category = $n['category_id'];
-	$dateofadministration = date('Y-m-d', strtotime($n['date_of_administration']));
-	$location = $n['location'];
-	$nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
-	
-
-	// }
-}
+$emptype='emp';
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-<link rel="stylesheet" type="text/css" href="style.css">
+    
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -73,37 +59,61 @@ if (isset($_GET['edit'])) {
             </div>
         </div>
     </nav>
-	<div class="form-body">
+	
+  <div class="form-body">
     <div class="row">
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
-                    <h1 class="f2 lh-copy tc" style="color: white;">VISITOR LOG FORM</h1>
-                    	<form class="requires-validation f3 lh-copy" novalidate action="../../controllers/visitor_log_controller.php" method="post">
-							<div class="col-md-12 pa2">
-							<div class="input-group">
-							<label class="d-block mb-4" for="inlineFormCustomSelectPref"> <span class="d-block mb-2">Visitor Category :- <span></span>
-							<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="cat_id">
-    						<option name="category_name" selected>Choose...</option>
-    						<option name="employee" value="emp">Employee</option>
-                        	<option name="non_employee" value="nonemp">Non-Employee</option>
-                        	</select>
-                        	</label>
-                    		</div>
-                        	<div class="invalid-feedback">Please select an option!</div>
-							<button id="submit" name="empcat" value="empcat" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Go</button>
-                        	</div>
-						</form>
-					</div>
-            	</div>
-        	</div>
-    	</div>
-  	</div>
+                    <h1 class="f2 lh-copy tc" style="color: white;">Visitor Log Form</h1>
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/visitor_log_controller.php" method="post">
 
+                        <div class="input-group">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Security Code :-<span>
+							    <input class="form-control" type="text" name="security_emp_id" value="<?php echo $security_emp_id; ?>">
+                                </label>
+                        </div>
+                        <div class="col-md-12 pa2">
+                            <label for="empcode">Employee Code</label>
+                            <select class="form-select mt-3" name="emp_id" required>
+                            <option selected disabled value="" name="employee_code">Select Employee Code</option>
+                            <?php $emp_code=mysqli_query($conn, "SELECT * FROM employee");
+								foreach ($emp_code as $row)
+                                { ?>
+							        <option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+							    <?php
+							    }
+                                ?>
+                            </select>
+                            <div class="invalid-feedback">Please select an option!</div>
+                            <br>
+                        </div>
+
+                        <div class="input-group">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Vehicle No:- <span>
+								<input class="form-control" type="text" name="vehicle_no" value="<?php echo $vehicle_no; ?>">
+                                </label>
+                        </div>
+
+                        <div class="">
+						        <label class="d-block mb-4"> <span class="d-block mb-2">Purpose of visit:- <span>
+								<input class="form-control" type="text" name="purpose" value="<?php echo $purpose; ?>">
+                                </label>
+                        </div>
+
+                        <button id="submit" name="save" value="emp_code" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Go</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+
+  <script src="../../js/form.js"></script>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
+
 </html>
-
-
-

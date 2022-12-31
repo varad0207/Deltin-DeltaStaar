@@ -137,7 +137,7 @@
                         <td>
                             <?php 
                             $timestamp = strtotime($row['check_in']);                            
-                            $date = date('d-m-Y', $timestamp);
+                            $date = date('d M Y ', $timestamp);
                             echo $date; 
                             $time = date('H:i:s', $timestamp); 
                             echo $time; 

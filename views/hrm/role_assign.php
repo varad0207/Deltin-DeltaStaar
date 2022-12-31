@@ -24,6 +24,8 @@ if (!isset($_SESSION["emp_id"]))
 <html lang="en">
 
 <head>
+<script src="../../js/rightName.js"> </script>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,11 +33,15 @@ if (!isset($_SESSION["emp_id"]))
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Assign Role</title>
-    
+
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
 
     <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/table.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
@@ -45,8 +51,8 @@ if (!isset($_SESSION["emp_id"]))
     <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
-                    style="border-radius: 50px;">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo"
+                    class="d-inline-block align-text-top" style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -78,321 +84,93 @@ if (!isset($_SESSION["emp_id"]))
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
-                <div class="form-content">
+                <!-- <div class="form-content"> -->
                     <div class="form-items">
-                        <h1 class="f2 lh-copy tc" style="color: white;">Create Role</h1>
-                        <form class=" f3 lh-copy" novalidate
-                            action="../../controllers/role_controller.php" method="post">
-                            <input type="hidden" name="role_id" value="<?php echo $role_id; ?>">
-                            <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
+                        <h1 class="f2 lh-copy tc" style="color: white;">Assign Role</h1>
+                        <form class=" f3 lh-copy" novalidate action="../../controllers/role_assign_controller.php"
+                            method="post">
+                            <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation and employee.role is null"); ?>
+                            <div class="pa1 table-responsive">
+                                <table class="table table-bordered tc">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Employee Code</th>
+                                            <th scope="col">Employee Name</th>
+                                            <th scope="col">Designation</th>
+                                            <th scope="col">Department</th>
+                                            <th scope="col" colspan="2">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                            <?php
+                                            $desigid = $row['designation'];
+                                            $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where designation='$desigid'");
+                                            $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
+                                            ?>
+                                            <tr>
+                                                <th scope="row">
+                                                <input type="hidden" name="emp_id" value="<?php echo $row['emp_id']; ?>">
+                                                    <?php echo $row['emp_code']; ?>
+                                                </th>
+                                                <td>
+                                                    <?php
+                                                    $emp_name = $row['fname'] . " " . $row['mname'] . " " . $row['lname'];
+                                                    echo $emp_name;
+                                                    ?>
+                                                </td>
 
-                            <div class="col-md-12 pa2">
-                                <label for="role_name">Role Name</label>
+                                                <td>
+                                                    <?php echo $EmployeeDesig_row['designation']; ?>
+                                                </td>
 
-                                <input class="form-control" type="text" name="role_name" placeholder="Role Name"
-                                    value="<?php echo $role_name; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                                <td>
+                                                    <?php echo $row['department']; ?>
+                                                </td>
+
+                                                <td>
+                                                    <select name="role">
+                                                        <option name="employee_desig" selected disabled value="">Assign Role </option>
+                                                        <?php
+                                                        $roles = mysqli_query($conn, "SELECT * FROM roles");
+
+                                                        foreach ($roles as $row) {
+                                                            $sql = mysqli_query($conn, "SELECT rights.* FROM rights join roles on rights.id=roles.rights and roles.role_id='{$row['role_id']}'");
+                                                            $rights = mysqli_fetch_array($sql);
+                                                           
+                                                          
+                                                            
+                                                            ?>
+                                                            <option name="role_id" value="<?= $row["role_id"] ?>" title="">
+                                                                <?= $row["role_name"]; ?>
+                                                            </option>
+                                                            <?php
+                                                        }
+
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
-
-                            <h4 class="f2 lh-copy tc" style="color: white;">Rights</h4>
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="accomodation">Accomodation Module</label>
-                                <input class="form-control" type="text" name="accomodation" placeholder=""
-                                    value="" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
-
-
-                            <div class="col-md-12 pa2" >
-                            <label style="display: block;text-align: center;" for="accomodation">Accomodation Module</label>
-                                <fieldset style="color:white;">
-                                    <legend>Accomodation details</legend>
-
-                                    <!-- <div>
-                                        <input type="radio" id="none" name="rights_acc" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_acc[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_acc[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_acc[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="radio" id="all" name="rights_acc" value="7" >
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                                <fieldset style="color:white;">
-                                    <legend>Room details</legend>
-
-                                    <!-- <div>
-                                        <input type="radio" id="none" name="rights_room" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_room[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_room[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_room[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_room" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                            </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="hrm">HRM Module</label>
-                                <input class="form-control" type="text" name="hrm" placeholder=""
-                                    value="" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
-                            <div class="col-md-12 pa2" >
-                            <label style="display: block;text-align: center;" for="hrm">HRM Module</label>
-
-                                <fieldset style="color:white;">
-                                    <legend>Employee data</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_employee_details" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_employee_details[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_employee_details[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_employee_details[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_employee_details" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                                <fieldset style="color:white;">
-                                    <legend>Vaccination details</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_vaccination_details" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_vaccination_details[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_vaccination_details[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_vaccination_details[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_vaccination_details" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                            </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="security">Security Module</label>
-                                <input class="form-control" type="text" name="security" placeholder=""
-                                    value="" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
-                            <div class="col-md-12 pa2" >
-                            <label style="display: block;text-align: center;" for="security[]">Security Module</label>
-                                <fieldset style="color:white;">
-                                    <legend>Tanker Entry and details</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_tankers" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_tankers[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_tankers[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_tankers[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_tankers" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                                <fieldset style="color:white;">
-                                    <legend>Employee outing</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_employee_outing" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_employee_outing[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_employee_outing[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_employee_outing[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_employee_outing" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                                <fieldset style="color:white;">
-                                    <legend>Visitor log</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_visitors" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_visitors[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_visitors[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_visitors[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_visitors" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                            </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="complaints">Complaints Module</label>
-                                <input class="form-control" type="date" name="complaints" value="" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
-
-                            <div class="col-md-12 pa2" >
-                            <label style="display: block;text-align: center;" for="security">Complaints Module</label>
-
-                                <fieldset style="color:white;">
-                                    <legend>Complaint Details</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_complaints" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_complaints[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_complaints[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_complaints[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_complaints" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                                <fieldset style="color:white;">
-                                    <legend>Jobs</legend>
-
-                                    <!-- <div>
-                                        <input type="checkbox" id="none" name="rights_jobs" value="0" checked>
-                                        <label for="none">None</label>
-                                    </div> -->
-
-                                    <div>
-                                        <input type="checkbox" name="rights_jobs[]" value="1">
-                                        <label for="read">Read</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="checkbox"  name="rights_jobs[]" value="2">
-                                        <label for="write_update">Write+Update</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" name="rights_jobs[]" value="4">
-                                        <label for="delete">Delete</label>
-                                    </div>
-                                    <!-- <div>
-                                        <input type="checkbox" id="all" name="rights_jobs" value="7">
-                                        <label for="all">All</label>
-                                    </div> -->
-                                </fieldset>
-                            </div>
-
                             <div class="form-button mt-3 tc">
-
-
                                 <?php if ($update == true): ?>
-                                <button id="submit" name="update" value="update" type="submit"
-                                    class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
-                                <?php else: ?>
-                                <button id="submit" name="submit" value="sumbit" type="submit"
-                                    class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
-                                <?php endif ?>
+                                    <button id="submit" name="update" value="update" type="submit"
+                                        class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                                    <?php else: ?>
+                                    <button id="submit" name="submit" value="sumbit" type="submit"
+                                        class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                                    <?php endif ?>
+                                    <button class="btn btn-warning f3 lh-copy" style="color: white;"
+                                    onclick="location.href='roles.php'">
+                                    Add New Role
+                                </button>
                             </div>
                         </form>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

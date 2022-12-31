@@ -143,18 +143,14 @@
                             echo $time; 
                             ?>
                         </td>
+                        
                         <td>
-                            <!-- <?php 
-                            $timestamp = strtotime($row['check_out']);                            
-                            $date = date('d-m-Y', $timestamp);
-                            echo $date; 
-                            $time = date('H:i:s', $timestamp); 
-                            echo $time; 
-                            ?> -->
-                            <button type="button" class="btn btn-danger" value="checkout" name="checkout">Checkout</button>
+                            <a href="../../controllers/visitor_log_controller.php?checkout=<?php echo $row['id']; ?>"
+                                class="del_btn"><button type="button" class="btn btn-danger" value="checkout" name="checkout">Checkout</button>
+                            </a>
                         </td>
                         <td>
-                            <a href="../../controllers/tanker_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/visitor_log_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                         </td>
@@ -173,7 +169,7 @@
         </div>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
-                <h4><a href="tanker.php">Add Visitor</a></h4>
+                <h4><a href="visitor_log.php">Add Visitor</a></h4>
             </button>   
         </div>
     </div>

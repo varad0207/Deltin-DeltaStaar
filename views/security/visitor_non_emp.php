@@ -4,21 +4,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 ?>
 <?php
     $emptype='nonemp';
-if (isset($_GET['edit'])) {
-	$vaccination_id = $_GET['edit'];
-	$update =true;
-	$record = mysqli_query($conn, "SELECT * FROM vaccination WHERE vaccination_id=$vaccination_id");
-	// if (count($record) == 1 ) {
-	$n=mysqli_fetch_array($record);
-	$emp_id = $n['emp_id'];
-	$category = $n['category_id'];
-	$dateofadministration = date('Y-m-d', strtotime($n['date_of_administration']));
-	$location = $n['location'];
-	$nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
-	
 
-	// }
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -114,7 +100,7 @@ if (isset($_GET['edit'])) {
 					
 
 					        <div class="mb-3 tc">
-						        <button class="btn btn-warning f3 lh-copy" style="color: white;" type="submit" name="save" value="save">Save</button>
+						        <button class="btn btn-warning f3 lh-copy" style="color: white;" type="submit" name="submitnonemp" value="submitnonemp">Submit</button>
 					        </div>
                         </form>
 					</div>

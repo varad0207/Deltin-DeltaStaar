@@ -23,6 +23,7 @@ $address = "";
 $state = "";
 $country = "";
 $pincode = "";
+$contact = "";
 $email = "";
 $blood_group = "";
 $department = "";
@@ -44,6 +45,7 @@ if (isset($_POST['submit'])) {
     $state = $_POST['state'];
     $country = $_POST['country'];
     $pincode = $_POST['pincode'];
+    $contact = $_POST['contact'];
     $email = $_POST['email'];
     $blood_group = $_POST['blood_group'];
     $department = $_POST['department'];
@@ -69,6 +71,7 @@ if (isset($_POST['update'])) {
     $state = $_POST['state'];
     $country = $_POST['country'];
     $pincode = $_POST['pincode'];
+    $contact = $_POST['contact'];
     $email = $_POST['email'];
     $blood_group = $_POST['blood_group'];
     $department = $_POST['department'];

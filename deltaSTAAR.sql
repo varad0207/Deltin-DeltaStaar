@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2022 at 11:19 AM
+-- Generation Time: Dec 31, 2022 at 12:33 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -151,17 +151,18 @@ CREATE TABLE `employee` (
   `aadhaar_number` int(11) NOT NULL,
   `salary` float DEFAULT NULL,
   `acc_id` int(11) DEFAULT NULL,
-  `role` int(11) DEFAULT NULL
+  `role` int(11) DEFAULT NULL,
+  `contact` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role`) VALUES
-(1, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 2, '2002-07-05', 'ponda goa', 'Goa', 'India', 403401, 'chinmayjoshi5702@gmail.com', 'A+', 'IT', '2022-05-19', 1234567890, 12000, 3, 1),
-(2, 'AB224', 'Varad', 'M', 'Kelkar', 1, '2002-07-02', 'Fatorda', 'Goa', 'India', 403602, 'varad@kelkar', 'A-', 'COMP', '2022-12-02', 44002231, 10000, 1, 1),
-(3, 'A123', 'Ivan', 'A', 'Azim', 3, '2022-12-02', 'Sanguem', 'Goa', 'India', 403601, 'ivan@azim', 'O+', 'COMP', '2022-12-01', 222330, 12000, 2, 1);
+INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role`, `contact`) VALUES
+(1, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 2, '2002-07-05', 'ponda goa', 'Goa', 'India', 403401, 'chinmayjoshi5702@gmail.com', 'A+', 'IT', '2022-05-19', 1234567890, 12000, 3, 1, 1234567890),
+(2, 'AB224', 'Varad', 'M', 'Kelkar', 1, '2002-07-02', 'Fatorda', 'Goa', 'India', 403602, 'varad@kelkar', 'A-', 'COMP', '2022-12-02', 44002231, 10000, 1, 1, 2147483647),
+(3, 'A123', 'Ivan', 'iax', 'Azim', 3, '2022-12-02', 'Sanguem', 'Goa', 'India', 403601, 'ivan@azim', 'O+', 'COMP', '2022-12-01', 222330, 12000, 2, 1, 1234567890);
 
 -- --------------------------------------------------------
 
@@ -182,7 +183,8 @@ INSERT INTO `employee_designation` (`id`, `designation`) VALUES
 (1, 'Manager'),
 (2, 'Team Lead'),
 (3, 'Admin'),
-(4, 'Front Desk Manager');
+(4, 'Front Desk Manager'),
+(5, 'HR');
 
 -- --------------------------------------------------------
 
@@ -264,7 +266,26 @@ INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
 (2, '2022-12-21 12:06:11', '2022-12-21 12:06:11', 21),
 (2, '2022-12-22 04:24:09', '2022-12-22 04:24:09', 22),
 (2, '2022-12-22 04:28:01', '2022-12-22 04:28:01', 23),
-(2, '2022-12-22 08:44:02', '2022-12-22 08:44:02', 24);
+(2, '2022-12-22 10:30:12', '2022-12-22 10:30:12', 24),
+(2, '2022-12-22 10:35:54', '2022-12-22 10:35:54', 25),
+(2, '2022-12-23 07:47:26', '2022-12-23 07:47:26', 26),
+(1, '2022-12-23 10:00:13', '2022-12-23 10:00:13', 27),
+(1, '2022-12-23 10:08:36', '2022-12-23 10:08:36', 28),
+(2, '2022-12-23 10:09:20', '2022-12-23 10:09:20', 29),
+(2, '2022-12-23 11:36:06', '2022-12-23 11:36:06', 30),
+(1, '2022-12-23 11:39:37', '2022-12-23 11:39:37', 31),
+(2, '2022-12-24 10:21:25', '2022-12-24 10:21:25', 32),
+(2, '2022-12-24 10:24:38', '2022-12-24 10:24:38', 33),
+(2, '2022-12-29 09:36:42', '2022-12-29 09:36:42', 34),
+(2, '2022-12-30 07:03:27', '2022-12-30 07:03:27', 35),
+(2, '2022-12-30 09:53:35', '2022-12-30 09:53:35', 36),
+(1, '2022-12-30 09:53:59', '2022-12-30 09:53:59', 37),
+(1, '2022-12-30 09:54:44', '2022-12-30 09:54:44', 38),
+(1, '2022-12-30 09:55:27', '2022-12-30 09:55:27', 39),
+(2, '2022-12-30 10:31:38', '2022-12-30 10:31:38', 40),
+(2, '2022-12-30 16:44:33', '2022-12-30 16:44:33', 41),
+(2, '2022-12-31 04:42:10', '2022-12-31 04:42:10', 42),
+(1, '2022-12-31 09:34:18', '2022-12-31 09:34:18', 43);
 
 -- --------------------------------------------------------
 
@@ -377,7 +398,7 @@ CREATE TABLE `tankers` (
 --
 
 INSERT INTO `tankers` (`id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `vendor_id`, `timestamp`) VALUES
-(2, 3, 1, 'Yes', 7000, 1234, 1, '2022-12-22 10:03:57');
+(4, 2, 2, 'Yes', 7000, 1244, 1, '2022-12-23 07:20:15');
 
 -- --------------------------------------------------------
 
@@ -462,7 +483,8 @@ INSERT INTO `vaccination_category` (`category_name`, `category_id`) VALUES
 ('Fully', 1),
 ('Nodose', 2),
 ('sec dose', 3),
-('First dose', 4);
+('First dose', 4),
+('test2', 7);
 
 -- --------------------------------------------------------
 
@@ -475,13 +497,20 @@ CREATE TABLE `visitor_log` (
   `emp_id` int(11) DEFAULT NULL,
   `security_emp_id` int(11) NOT NULL,
   `visitor_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vehicle_no` int(11) DEFAULT NULL,
+  `vehicle_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `check_in` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `check_out` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `purpose` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_no` int(11) NOT NULL
+  `phone_no` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `visitor_log`
+--
+
+INSERT INTO `visitor_log` (`id`, `emp_id`, `security_emp_id`, `visitor_name`, `vehicle_no`, `type`, `check_in`, `check_out`, `purpose`, `phone_no`) VALUES
+(7, NULL, 2, 'Gaurav', 'GA08Q9964', 'Non-Employee', '2022-12-31 05:47:57', '0000-00-00 00:00:00', 'Meetup', 11223344);
 
 --
 -- Indexes for dumped tables
@@ -640,7 +669,7 @@ ALTER TABLE `complaints`
 -- AUTO_INCREMENT for table `complaint_type`
 --
 ALTER TABLE `complaint_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -652,13 +681,13 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `employee_designation`
 --
 ALTER TABLE `employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `rights`
@@ -682,13 +711,13 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `tankers`
 --
 ALTER TABLE `tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tanker_vendors`
 --
 ALTER TABLE `tanker_vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `technician`
@@ -700,19 +729,19 @@ ALTER TABLE `technician`
 -- AUTO_INCREMENT for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `vaccination_category`
 --
 ALTER TABLE `vaccination_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `visitor_log`
 --
 ALTER TABLE `visitor_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

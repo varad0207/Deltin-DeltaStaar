@@ -46,7 +46,7 @@ if (isset($_GET['edit'])) {
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Add Employees</title>
-    
+
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
 
@@ -60,8 +60,8 @@ if (isset($_GET['edit'])) {
     <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
-                    style="border-radius: 50px;">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo"
+                    class="d-inline-block align-text-top" style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -76,13 +76,14 @@ if (isset($_GET['edit'])) {
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
 
-                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
+                                onclick=history.back()>Back</a>
 
                         </li>
                     </ul>
@@ -105,8 +106,7 @@ if (isset($_GET['edit'])) {
                                 <label for="acc_code">Employee Code</label>
 
                                 <input class="form-control" type="text" name="emp_code" placeholder="Employee Code"
-                                value="<?php echo $emp_code; ?>"
-                                value="??php echo $emp_code; ??" required>
+                                    value="<?php echo $emp_code; ?>" value="??php echo $emp_code; ??" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
@@ -143,9 +143,10 @@ if (isset($_GET['edit'])) {
                                     $emp_desig = mysqli_query($conn, "SELECT * FROM employee_designation");
 
                                     foreach ($emp_desig as $row) { ?>
-                                    <option name="employee_desig" value="<?= $row["id"] ?>"><?= $row["designation"]; ?>
-                                    </option>
-                                    <?php
+                                        <option name="employee_desig" value="<?= $row["id"] ?>">
+                                            <?= $row["designation"]; ?>
+                                        </option>
+                                        <?php
                                     }
 
                                     ?>
@@ -201,7 +202,8 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="blood_group">Blood Group</label>
-                                <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>" required>
+                                <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>"
+                                    required>
                                     <option selected disabled value="">Select Blood Group</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -218,8 +220,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="dept">Department</label>
                                 <input class="form-control" type="text" name="department" placeholder="Department"
-                                value="<?php echo $department; ?>"
-                                value="??php echo $department; ??" required>
+                                    value="<?php echo $department; ?>" value="??php echo $department; ??" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
@@ -261,8 +262,10 @@ if (isset($_GET['edit'])) {
                                     $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
 
                                     foreach ($emp_acc as $row) { ?>
-                                    <option name="employee_accomodation" value="<?= $row["acc_id"] ?>"><?= $row["acc_name"]; ?></option>
-                                    <?php
+                                        <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
+                                            <?= $row["acc_name"]; ?>
+                                        </option>
+                                        <?php
                                     }
 
                                     ?>
@@ -280,12 +283,12 @@ if (isset($_GET['edit'])) {
 
                             <div class="form-button mt-3 tc">
                                 <?php if ($update == true): ?>
-                                <button id="submit" name="update" value="update" type="submit"
-                                    class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
-                                <?php else: ?>
-                                <button id="submit" name="submit" value="sumbit" type="submit"
-                                    class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
-						        <?php endif ?>
+                                    <button id="submit" name="update" value="update" type="submit"
+                                        class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                                    <?php else: ?>
+                                    <button id="submit" name="submit" value="sumbit" type="submit"
+                                        class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                                    <?php endif ?>
                             </div>
                         </form>
                     </div>

@@ -18,7 +18,6 @@ i {
     padding-right: 0.25rem;
 }
 
-
 /* The sidebar menu */
 .sidebar {
     height: 100%;
@@ -37,7 +36,7 @@ i {
     /* Disable horizontal scroll */
     padding-top: 40px;
     /* Place content 60px from the top */
-    transition: 0.5s;
+    transition: 0.4s;
     /* 0.5 second transition effect to slide in the sidebar */
     font-family: "Poppins", Arial, sans-serif;
     font-size: 18px;
@@ -58,7 +57,7 @@ i {
 
 /* When you mouse over the navigation links, change their color */
 .sidebar a:hover {
-    color: #f1f1f1 !important;
+    color: #fff !important;
 }
 
 /* Position and style the close button (top right corner) */
@@ -86,9 +85,9 @@ i {
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
-    transition: margin-left .5s;
+    transition: margin-left 0.4s;
     /* If you want a transition effect */
-    padding: 20px;
+    
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

@@ -2,7 +2,8 @@
 <?php include('../../controllers/vaccination_controller.php'); ?>
 <?php
 $category_name = "";
-if (isset($_GET['edit'])) {
+if (isset($_GET['edit'])) 
+{
 	$category_id = $_GET['edit'];
 	$update = true;
 	$record = mysqli_query($conn, "SELECT * FROM vaccination_category WHERE category_id=$category_id");

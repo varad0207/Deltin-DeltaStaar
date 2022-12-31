@@ -1,34 +1,49 @@
 <?php
-require '../../controllers/includes/common.php';
-require '../../controllers/complaint_type_controller.php';
+    require '../../controllers/includes/common.php';
+    require '../../controllers/complaint_type_controller.php';
 ?>
+<?php
+    if (!isset($_SESSION["emp_id"]))
+    header("location:../../views/login.php");
 
+    $update = $type = $description = $id = "";
+
+    if(isset($_GET['edit']))
+    {
+        $id = $_GET['edit'];
+        $update = true;
+        $record = mysqli_query($conn, "SELECT * FROM complaint_type WHERE id = $id");
+    
+        $n = mysqli_fetch_array($record);    
+        $type = $n['type'];
+        $description = $n['description'];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Add Complaint Type</title>
-    
+    <meta name="description" content="Complaint submission portal for deltin employees">
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
-
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 </head>
 
 <body class="b ma2">
-    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">
-                <img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="#">
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -43,30 +58,19 @@ require '../../controllers/complaint_type_controller.php';
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-
+                        
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../aboutus.html" target="_blank">About Us</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" target="_blank">Locations</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <!-- <a class="nav-link active1" id="adminlogin" href="../dashboard.php">Back</a> -->
-                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
-                                onclick=history.back()>Back</a>
-
+                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-    <img src="" alt="logo" class="center">
+
     <div class="form-body">
         <div class="row">
             <div class="form-holder">

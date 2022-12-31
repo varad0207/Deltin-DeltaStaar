@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 31, 2022 at 06:38 PM
+-- Generation Time: Dec 31, 2022 at 07:07 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -400,13 +400,20 @@ CREATE TABLE `visitor_log` (
   `emp_id` int(11) DEFAULT NULL,
   `security_emp_id` int(11) NOT NULL,
   `visitor_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vehicle_no` int(11) DEFAULT NULL,
+  `vehicle_no` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `check_in` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `check_out` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `purpose` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_no` int(11) NOT NULL
+  `phone_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `visitor_log`
+--
+
+INSERT INTO `visitor_log` (`id`, `emp_id`, `security_emp_id`, `visitor_name`, `vehicle_no`, `type`, `check_in`, `check_out`, `purpose`, `phone_no`) VALUES
+(1, 2, 2, 'Chinmay', '4879', NULL, '2022-12-31 13:28:29', '2022-12-31 13:28:29', 'something', '9527014907');
 
 --
 -- Indexes for dumped tables
@@ -645,7 +652,7 @@ ALTER TABLE `vaccination_category`
 -- AUTO_INCREMENT for table `visitor_log`
 --
 ALTER TABLE `visitor_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

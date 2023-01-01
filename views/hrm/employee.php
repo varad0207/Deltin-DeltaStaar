@@ -11,7 +11,7 @@ if (isset($_GET['edit'])) {
     $record = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code=$emp_code");
 
     $n = mysqli_fetch_array($record);
-
+    $emp_id = $n['emp_id'];
     $emp_code = $n['emp_code'];
     $fname = $n['fname'];
     $mname = $n['mname'];
@@ -22,7 +22,6 @@ if (isset($_GET['edit'])) {
     $state = $n['state'];
     $country = $n['country'];
     $pincode = $n['pincode'];
-    $contact = $n['contact'];
     $email = $n['email'];
     $blood_group = $n['blood_group'];
     $department = $n['department'];
@@ -30,6 +29,12 @@ if (isset($_GET['edit'])) {
     $aadhaar_number = $n['aadhaar_number'];
     $salary = $n['salary'];
     $acc_id = $n['acc_id'];
+    // $for_contacts = mysqli_query($conn, "SELECT * FROM contact WHERE emp_id='{$n['emp_id']}'");
+    // $contacts = mysqli_fetch_array($for_contacts);
+    // $contact1 = $contacts['primary_contact'];
+    // $contact2 = $contacts['secondary_contact'];
+    // $contact_id = $contacts['id'];
+    $contact = $n['contact'];
 
 }
 ?>
@@ -280,6 +285,9 @@ if (isset($_GET['edit'])) {
                         <form class="requires-validation f3 lh-copy" novalidate
                             action="../../controllers/employee_controller.php" method="post">
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
+                            <!-- <input type="hidden" name="contacts_id" value="<?php //echo $contact_id; ?>"> -->
+                            <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
+
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_code">Employee Code</label>
@@ -372,12 +380,19 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="col-md-12 pa2">
-                                <label for="contact">Contact Number</label>
-                                <input class="form-control" type="number" name="contact" placeholder="Contact Number"
+                                <label for="contact1">Contact Number</label>
+                                <input class="form-control" type="tel" name="contact1" placeholder="Contact Number"
                                     value="<?php echo $contact; ?>" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
+                            <!-- <div class="col-md-12 pa2">
+                                <label for="contact2">Secondary Contact Number</label>
+                                <input class="form-control" type="number" name="contact2" placeholder="Contact Number"
+                                    value="<?php //echo $contact2; ?>">
+                                 <div class="valid-feedback">field is valid!</div>
+                                <div class="invalid-feedback">field cannot be blank!</div>
+                            </div> -->
 
                             <div class="col-md-12 pa2">
                                 <label for="email">Email</label>

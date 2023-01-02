@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 31, 2022 at 07:07 PM
+-- Generation Time: Jan 02, 2023 at 11:07 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -129,7 +129,7 @@ CREATE TABLE `employee` (
   `lname` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `designation` int(11) NOT NULL,
   `dob` date NOT NULL,
-  `contact` int(11) NOT NULL,
+  `contact` varchar(13) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE `employee` (
   `blood_group` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `department` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
-  `aadhaar_number` int(11) NOT NULL,
+  `aadhaar_number` int(11) DEFAULT NULL,
   `salary` float DEFAULT NULL,
   `acc_id` int(11) DEFAULT NULL,
   `role` int(11) DEFAULT NULL
@@ -149,7 +149,9 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role`) VALUES
-(2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', 1, 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', NULL, 'IT', '2022-07-15', 1234567890, NULL, NULL, 1);
+(2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', '9527014907', 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', NULL, 'IT', '2022-07-15', 1234567890, NULL, NULL, 1),
+(3, 'ABCD1235', 'XYZ', 'U', 'PQR', 2, '2002-07-05', '+919527014907', 'Goa', 'Goa', 'India', 403401, 'chinmay@gmail.com', 'A+', 'it', '2002-07-05', NULL, 50000, NULL, 8),
+(7, 'ABCD1236', 'XYZ', 'u', 'PQR', 2, '2023-01-18', '+919527014907', 'Panjim Goa', 'goa', 'america', 123123, 'chinmayjoshi5702@gmail.com', 'A-', 'it', '2023-02-11', 1234567890, 5000000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -226,7 +228,9 @@ INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
 (2, '2022-12-29 18:50:01', '2022-12-29 18:50:01', 3),
 (2, '2022-12-29 20:04:45', '2022-12-29 20:04:45', 4),
 (2, '2022-12-30 06:23:32', '2022-12-30 06:23:32', 5),
-(2, '2022-12-30 06:35:57', '2022-12-30 06:35:57', 6);
+(2, '2022-12-30 06:35:57', '2022-12-30 06:35:57', 6),
+(2, '2022-12-31 13:46:10', '2022-12-31 13:46:10', 7),
+(2, '2023-01-01 12:30:11', '2023-01-01 12:30:11', 8);
 
 -- --------------------------------------------------------
 
@@ -259,7 +263,8 @@ INSERT INTO `rights` (`id`, `accomodation`, `complaints`, `employee_details`, `e
 (3, '1', '1', '1', '1', '7', '1', '1', '1', '0', '7', '1'),
 (4, '2', '0', '2', '2', '7', '2', '2', '0', '2', '7', '0'),
 (5, '7', '0', '1', '0', '7', '3', '0', '0', '1', '7', '4'),
-(6, '0', '0', '0', '0', '7', '0', '0', '0', '0', '7', '0');
+(6, '0', '0', '0', '0', '7', '0', '0', '0', '0', '7', '0'),
+(7, '1', '1', '1', '1', '7', '1', '1', '1', '1', '7', '1');
 
 -- --------------------------------------------------------
 
@@ -278,7 +283,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`, `rights`) VALUES
-(1, 'Super Admin', 1);
+(1, 'Super Admin', 1),
+(8, 'Test', 7);
 
 -- --------------------------------------------------------
 
@@ -455,8 +461,7 @@ ALTER TABLE `employee`
   ADD UNIQUE KEY `emp_code` (`emp_code`),
   ADD KEY `role` (`role`),
   ADD KEY `designation` (`designation`),
-  ADD KEY `fk_emp_acc_id` (`acc_id`),
-  ADD KEY `contact` (`contact`);
+  ADD KEY `fk_emp_acc_id` (`acc_id`);
 
 --
 -- Indexes for table `employee_designation`
@@ -586,7 +591,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `employee_designation`
@@ -598,19 +603,19 @@ ALTER TABLE `employee_designation`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rights`
 --
 ALTER TABLE `rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -676,9 +681,7 @@ ALTER TABLE `contact`
 --
 ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`),
-  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`),
-  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`contact`) REFERENCES `contact` (`id`),
-  ADD CONSTRAINT `fk_emp_acc_id` FOREIGN KEY (`acc_id`) REFERENCES `accomodation` (`acc_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`);
 
 --
 -- Constraints for table `employee_outing`

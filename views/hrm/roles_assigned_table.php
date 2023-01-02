@@ -1,13 +1,9 @@
 <?php 
     include('../../controllers/includes/common.php'); 
-    include('../../controllers/role_controller.php');
     if (!isset($_SESSION["emp_id"]))
         header("location:../../views/login.php");
 
-    //only superadmin can view and assign roles
-    if ($_SESSION['is_superadmin'] == 0)
-        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
+    
     // check rights
 ?>
 
@@ -71,7 +67,7 @@
 
     
     <div class="table-header">
-    <h1 class="tc f1 lh-title spr">All Roles</h1>
+    <h1 class="tc f1 lh-title spr">All Assigned Roles</h1>
     <!-- <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
@@ -95,18 +91,22 @@
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT * FROM roles JOIN rights ON rights = id"); ?>
+        <?php 
+        $emp = mysqli_query($conn, "select * from employee where role is not null ");
+        ?>
 
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
+                        <th>Employee</th>
                     <th scope="col" rowspan="2">Role Name</th>
                     <th scope="col" colspan="12">Rights</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <th></th>
                         <th></th>
                         <th>Accommodation</th>
                         <th>Complaints</th>
@@ -118,10 +118,14 @@
                         <th>Vaccination</th>
                         <th>Vaccination Category</th>
                         <th>Visitor Log</th>
-                        <th colspan="2">Action</th>
+                        <!-- <th colspan="2">Action</th> -->
                     </tr>
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php while ($emp_row = mysqli_fetch_array($emp)) { 
+                        $results = mysqli_query($conn, "SELECT * FROM roles JOIN rights ON rights = id where role_id='{$emp_row['role']}'");
+                    $row = mysqli_fetch_array($results);
+                        ?>
                     <tr>
+                        <td><?php echo $emp_row['emp_code']; ?></td>
                         <td>
                             <?php echo $row['role_name']; ?>
                         </td>
@@ -156,16 +160,16 @@
                         <?php echo $row['visitor_log']; ?>
                         </td>
                         
-                        <td>
-                            <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                        <!-- <td>
+                            <a href="./roles.php?edit=<?php //echo '%27' ?><?php //echo $row['role_id']; ?><?php //echo '%27' ?>"
                             class="edit_btn"> <i class="bi bi-pencil-square"
                             style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             &nbsp;
-                            <a href="../../controllers/role_controller.php?del=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/role_controller.php?del=<?php //echo '%27' ?><?php //echo $row['role_id']; ?><?php //echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
-                        </td>
+                        </td> -->
                     </tr>
                     <?php } ?>
                 </tbody>
@@ -179,6 +183,7 @@
                 <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
             </button>
         </div>
+        
         <div class="fl w-20 tr">
             <button class="btn btn-light">
                 <h4><a href="role_assign.php">Assign Role</a></h4>

@@ -174,17 +174,22 @@
     </div>
 
     <div class="table-footer pa4">
-        <div class="fl w-60 tl">
+        <div class="fl w-25 tl">
             <button class="btn btn-warning">
                 <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
             </button>
         </div>
-        <div class="fl w-20 tr">
+        <div class="fl w-25 tr">
+            <button class="btn btn-light">
+                <h4><a href="roles_assigned_table.php">View Assigned Roles</a></h4>
+            </button>   
+        </div>
+        <div class="fl w-25 tr">
             <button class="btn btn-light">
                 <h4><a href="role_assign.php">Assign Role</a></h4>
             </button>   
         </div>
-        <div class="fl w-20 tr">
+        <div class="fl w-25 tr">
             <button class="btn btn-light">
                 <h4><a href="roles.php">Add Role</a></h4>
             </button>   

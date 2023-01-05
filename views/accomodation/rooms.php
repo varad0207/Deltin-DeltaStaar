@@ -288,13 +288,12 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>
 
-                        <div class="col-md-12 pa2">
+                        <!-- <div class="col-md-12 pa2">
                             <label for="curr_room_cap">Current Room Occupancy</label>
                               <input class="form-control" type="number" name="curr_room_cap" value="<?php echo $curr_room_cap ?>" placeholder="Room Occupancy" required>
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
-                        </div>
-
+                        </div>  -->  <!-- it will be derived from db  -->
                        <div class="col-md-12 pa2">
                         <label for="room_status">Room Status</label>
                             <select class="form-select mt-3" name="room_stat" value="<?php echo $status ?>" required>

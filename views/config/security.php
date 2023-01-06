@@ -1,5 +1,5 @@
-<?php include('../controllers/includes/common.php'); ?>
-<?php include('../controllers/security_controller.php'); ?>
+<?php include('../../controllers/includes/common.php'); ?>
+<?php include('../../controllers/security_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
 	$emp_id = $_GET['edit'];
@@ -24,10 +24,10 @@ if (isset($_GET['edit'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<!--Favicon link-->
-	<link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
+	<link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
 	<title>Delta@STAAR | Security</title>
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/form.css">
+	<link rel="stylesheet" href="../../css/form.css">
 	<link rel="stylesheet" href="../../css/style1.css">
 
 	<!-- CSS only -->
@@ -40,7 +40,8 @@ if (isset($_GET['edit'])) {
 	<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="../dashboard.php">
-				<img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+			<img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 				aria-controls="offcanvasNavbar">
@@ -78,9 +79,9 @@ if (isset($_GET['edit'])) {
 			</div>
 		</div>
 	</nav>
-	<center>
-		<h3>Define Security</h3>
-	</center>
+	
+		
+	
 	<div class="container">
 		<!-- <h1 class="tc f1 lh-title">Add New Security</h1> -->
 		<div class="row mx-0 justify-content-center">
@@ -104,39 +105,35 @@ if (isset($_GET['edit'])) {
 					<thead>
 						<tr>
 
-							<!-- <th>emp-id </th>
-		
-		<th>acc_id </th> -->
-
-							<th>Employee code </th>
-							<th>Accommodation name </th>
-
-
-					$accomodationid = $row['acc_id'];
-                    $queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
-                    $AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
-					?>
-		<tr>
-			<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
-			 <td><?php echo $AccomodationName_row['acc_name']; ?></td>  
-
-			
-			<td>
- 
-
-					<?php while ($row = mysqli_fetch_array($results)) { ?>
-					<?php $employeeid = $row['emp_id'];
-	    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
-	    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
-
-	    $accomodationid = $row['acc_id'];
-	    $queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
-	    $AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
-        ?>
-					<tr>
-						<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
-						<td><?php echo $AccomodationName_row['acc_name']; ?></td>
-
+						<!-- <th>emp-id </th>
+						<th>acc_id </th> -->
+						<th>Employee code </th>
+						<th>Accommodation name </th>
+					</thead>
+					<tbody>
+						<tr>
+						<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
+			 			<!-- <td><?php echo $AccomodationName_row['acc_name']; ?></td>   -->
+						<td><?php 
+							while ($row = mysqli_fetch_array($results)) 
+							{ ?>
+								<?php $employeeid = $row['emp_id'];
+	    						$queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
+	    						$EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
+								$accomodationid = $row['acc_id'];
+	    						$queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
+	    						$AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
+        						?>
+								<?php
+								$accomodationid = $row['acc_id'];
+                    			$queryAccomodationName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id=$accomodationid");
+                    			$AccomodationName_row = mysqli_fetch_assoc($queryAccomodationName);
+								?>
+							
+							
+							<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
+							<td><?php echo $AccomodationName_row['acc_name']; ?></td>
+						</tr>
 						<td>
 
 
@@ -144,15 +141,16 @@ if (isset($_GET['edit'])) {
 								class="edit_btn">Edit</a>
 						</td>
 						<td>
-							<a href="../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
+							<a href="../../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
 								class="del_btn">Delete</a>
 						</td>
 					</tr>
 					<?php } ?>
 				</table>
 
-				<form method="post" class="w-100 rounded p-4 border bg-white"
-					action="../controllers/security_controller.php">
+				<form method="post" class="w-100 rounded p-4 border bg-white" action="../../controllers/security_controller.php">
+
+					<h1 class="f2 lh-copy tc" style="color: black;">Define Security</h1>
 					<input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 					<!-- <div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code

@@ -113,6 +113,7 @@ if ($_SESSION['rights_complaints'] > 0) {
 
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
+
             <div class="msg">
                 <?php
                 echo $_SESSION['message'];
@@ -137,6 +138,7 @@ if ($_SESSION['rights_complaints'] > 0) {
                         <th>Description </th>
                         <th>Status </th>
                         <th>Closure Time<br>(Technician)</th>
+
                         </th>
                         <th>Closure Time<br>(Security) </th>
                         <th>Closure Time<br>(Warden) </th>
@@ -149,14 +151,24 @@ if ($_SESSION['rights_complaints'] > 0) {
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
-                        <?php
-                        $emp_code = $row['emp_code'];
-                        $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
-                        $EmpName_row = mysqli_fetch_assoc($queryEmpName);
-                        $acc_name = $EmpName_row['acc_id'];
-                        $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_name'");
-                        $AccName_row = mysqli_fetch_assoc($queryAccName);
+                    <?php
+                $emp_code = $row['emp_code'];
+                $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
+                $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                $acc_name = $EmpName_row['acc_id'];
+                $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_name'");
+                $AccName_row = mysqli_fetch_assoc($queryAccName);
                         ?>
+                    <?php
+                $comp_type = $row['type'];
+                $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type where id='$comp_type'");
+                $CompType_row = mysqli_fetch_assoc($queryCompType);
+
+
+                $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
+                
+                        ?>
+
                         <?php
                         $comp_type = $row['type'];
                         $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type where id='$comp_type'");

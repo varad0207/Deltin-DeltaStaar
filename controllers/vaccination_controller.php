@@ -41,14 +41,17 @@ if (isset($_POST['update'])) {
     $dateofadministration=date('Y-m-d',strtotime($_POST['doa']));
     $nextdose=date('Y-m-d',strtotime($_POST['dond']));
     $location=$_POST['loc'];
-
-    mysqli_query($conn, "UPDATE vaccination SET emp_id='$emp_id', category_id='$category',date_of_administration='$dateofadministration',location='$location',date_of_next_dose='$nextdose' WHERE vaccination_id='$vaccination_id'");
+    // echo $location;
+    mysqli_query($conn, "INSERT INTO vaccination(emp_id,category_id,date_of_administration,location,date_of_next_dose) VALUES ('$emp_id','$category','$dateofadministration','$location','$nextdose')");
     $_SESSION['message'] = "Vaccnation Info updated!";
     header('location: ../views/hrm/vaccination_table.php');
 }
 
 if (isset($_GET['del'])) {
     $vaccination_id = $_GET['del'];
+    /*
+to delete entirely, # DELETE FROM vaccination WHERE emp_id=$emp_id #
+    */
     mysqli_query($conn, "DELETE FROM vaccination WHERE vaccination_id=$vaccination_id");
     $_SESSION['message'] = "Vaccination deleted!";
     header('location: ../views/hrm/vaccination_table.php');

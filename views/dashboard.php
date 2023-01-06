@@ -122,7 +122,7 @@ if (!isset($_SESSION["emp_id"]))
                 <a>
                     <img class="rounded-circle" src="../images/complaint.png" alt="COMPLAINT">
                     <p class="f4 lh-copy txt"><a href="./complaint/complaint_table.php">Complaints</a></p>
-                    <p class="f4 lh-copy txt"><a href="./complaint/jobs.php">Jobs</a></p>
+                    <p class="f4 lh-copy txt"><a href="./complaint/jobs_table.php">Jobs</a></p>
                 </a>
             </div>
 

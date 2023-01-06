@@ -27,8 +27,8 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         $row = mysqli_fetch_array($check1);
         $emp_id = $row['emp_id'];
 
-        // $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
-        // $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+        $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
+        $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
 
         $last_insert_id = mysqli_insert_id($conn);
         if (!isset($_SESSION['emp_id'])) {

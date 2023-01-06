@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 07, 2023 at 12:40 AM
+-- Generation Time: Jan 07, 2023 at 12:47 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -241,7 +241,7 @@ CREATE TABLE `last_dose` (
 
 CREATE TABLE `login_credentials` (
   `emp_id` int(11) NOT NULL,
-  `pass` varchar(255) NOT NULL
+  `pass` varchar(255) NOT NULL DEFAULT '5f4dcc3b5aa765d61d8327deb882cf99'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

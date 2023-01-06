@@ -272,7 +272,7 @@
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT * FROM vaccination"); ?>
+        <?php $results = mysqli_query($conn, "select employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -288,18 +288,16 @@
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <?php $employeeid = $row['emp_id'];
-                    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
-                    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
+                    
 
                     $categoryid = $row['category_id'];
-                    $queryCategory_name = mysqli_query($conn, "SELECT * FROM vaccination_category where category_id=$categoryid");
-                    $CategoryName_row = mysqli_fetch_assoc($queryCategory_name);
+                    
                     ?>
                     <tr>
-                    <th scope="row"><?php echo $EmployeeCode_row['emp_code']; ?></th>
+                    <th scope="row"><?php echo $row['emp_code']; ?></th>
                         
                         <td>
-                            <?php echo $CategoryName_row['category_name']; ?>
+                            <?php echo $row['category_name']; ?>
                         </td>
                         <td>
                             <?php echo $row['date_of_administration']; ?>

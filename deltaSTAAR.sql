@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2023 at 11:07 AM
+-- Generation Time: Jan 07, 2023 at 12:40 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -65,13 +65,20 @@ CREATE TABLE `complaints` (
   `raise_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `type` int(11) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tech_closure_timestamp` timestamp NULL DEFAULT NULL,
-  `sec_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `warden_closure_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sec_closure_timestamp` timestamp NULL DEFAULT NULL,
+  `warden_closure_timestamp` timestamp NULL DEFAULT NULL,
   `remarks` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `complaints`
+--
+
+INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`) VALUES
+(1, '2023-01-04 18:19:39', 1, 'light off', NULL, '2023-01-04 18:19:39', '2023-01-04 18:19:39', NULL, 'ABCD1234'),
+(2, '2023-01-05 19:24:10', 2, 'sink overflow', NULL, '2023-01-05 19:24:10', '2023-01-05 19:24:10', NULL, 'ABCD1234');
 
 -- --------------------------------------------------------
 
@@ -140,7 +147,7 @@ CREATE TABLE `employee` (
   `joining_date` date DEFAULT NULL,
   `aadhaar_number` int(11) DEFAULT NULL,
   `salary` float DEFAULT NULL,
-  `acc_id` int(11) DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
   `role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -148,7 +155,7 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `acc_id`, `role`) VALUES
+INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
 (2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', '9527014907', 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', NULL, 'IT', '2022-07-15', 1234567890, NULL, NULL, 1),
 (3, 'ABCD1235', 'XYZ', 'U', 'PQR', 2, '2002-07-05', '+919527014907', 'Goa', 'Goa', 'India', 403401, 'chinmay@gmail.com', 'A+', 'it', '2002-07-05', NULL, 50000, NULL, 8),
 (7, 'ABCD1236', 'XYZ', 'u', 'PQR', 2, '2023-01-18', '+919527014907', 'Panjim Goa', 'goa', 'america', 123123, 'chinmayjoshi5702@gmail.com', 'A-', 'it', '2023-02-11', 1234567890, 5000000, NULL, NULL);
@@ -186,6 +193,45 @@ CREATE TABLE `employee_outing` (
   `arrival_date` date NOT NULL,
   `category` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` int(11) NOT NULL,
+  `complaint_id` int(11) NOT NULL,
+  `technician_id` int(11) NOT NULL,
+  `raise_timestamp` date NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `completion_date` date DEFAULT NULL,
+  `remarks` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `complaint_id`, `technician_id`, `raise_timestamp`, `description`, `completion_date`, `remarks`, `warden_emp_code`) VALUES
+(15, 1, 1, '2023-01-05', 'zcas', '2023-01-08', 'asda', 'ABCD1234');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `last_dose`
+-- (See below for the actual view)
+--
+CREATE TABLE `last_dose` (
+`vaccination_id` int(11)
+,`emp_id` int(11)
+,`category_id` int(11)
+,`date_of_administration` date
+,`location` varchar(50)
+,`date_of_next_dose` date
+);
 
 -- --------------------------------------------------------
 
@@ -230,7 +276,10 @@ INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
 (2, '2022-12-30 06:23:32', '2022-12-30 06:23:32', 5),
 (2, '2022-12-30 06:35:57', '2022-12-30 06:35:57', 6),
 (2, '2022-12-31 13:46:10', '2022-12-31 13:46:10', 7),
-(2, '2023-01-01 12:30:11', '2023-01-01 12:30:11', 8);
+(2, '2023-01-01 12:30:11', '2023-01-01 12:30:11', 8),
+(2, '2023-01-02 11:18:24', '2023-01-02 11:18:24', 9),
+(2, '2023-01-06 17:03:30', '2023-01-06 17:03:30', 10),
+(2, '2023-01-06 19:09:45', '2023-01-06 19:09:45', 11);
 
 -- --------------------------------------------------------
 
@@ -369,6 +418,13 @@ CREATE TABLE `technician` (
   `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `technician`
+--
+
+INSERT INTO `technician` (`id`, `emp_id`, `role`) VALUES
+(1, 3, 'Electrician');
+
 -- --------------------------------------------------------
 
 --
@@ -384,6 +440,16 @@ CREATE TABLE `vaccination` (
   `date_of_next_dose` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `vaccination`
+--
+
+INSERT INTO `vaccination` (`vaccination_id`, `emp_id`, `category_id`, `date_of_administration`, `location`, `date_of_next_dose`) VALUES
+(1, 2, 1, '2022-01-01', 'goa', '2022-02-01'),
+(2, 2, 2, '2022-02-09', 'goa', '2022-04-01'),
+(3, 3, 1, '2023-01-01', 'goa', '2023-02-01'),
+(4, 3, 2, '2023-02-16', 'goa', '2023-03-18');
+
 -- --------------------------------------------------------
 
 --
@@ -394,6 +460,15 @@ CREATE TABLE `vaccination_category` (
   `category_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `vaccination_category`
+--
+
+INSERT INTO `vaccination_category` (`category_name`, `category_id`) VALUES
+('First Dose', 1),
+('Second dose', 2),
+('Third dose', 3);
 
 -- --------------------------------------------------------
 
@@ -420,6 +495,15 @@ CREATE TABLE `visitor_log` (
 
 INSERT INTO `visitor_log` (`id`, `emp_id`, `security_emp_id`, `visitor_name`, `vehicle_no`, `type`, `check_in`, `check_out`, `purpose`, `phone_no`) VALUES
 (1, 2, 2, 'Chinmay', '4879', NULL, '2022-12-31 13:28:29', '2022-12-31 13:28:29', 'something', '9527014907');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `last_dose`
+--
+DROP TABLE IF EXISTS `last_dose`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `last_dose`  AS   (select `v1`.`vaccination_id` AS `vaccination_id`,`v1`.`emp_id` AS `emp_id`,`v1`.`category_id` AS `category_id`,`v1`.`date_of_administration` AS `date_of_administration`,`v1`.`location` AS `location`,`v1`.`date_of_next_dose` AS `date_of_next_dose` from (`vaccination` `v1` left join `vaccination` `v2` on(`v1`.`emp_id` = `v2`.`emp_id` and `v1`.`date_of_administration` < `v2`.`date_of_administration`)) where `v2`.`emp_id` is null)  ;
 
 --
 -- Indexes for dumped tables
@@ -461,7 +545,7 @@ ALTER TABLE `employee`
   ADD UNIQUE KEY `emp_code` (`emp_code`),
   ADD KEY `role` (`role`),
   ADD KEY `designation` (`designation`),
-  ADD KEY `fk_emp_acc_id` (`acc_id`);
+  ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `employee_designation`
@@ -474,6 +558,15 @@ ALTER TABLE `employee_designation`
 --
 ALTER TABLE `employee_outing`
   ADD KEY `emp_id` (`emp_id`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_ibfk_1` (`complaint_id`),
+  ADD KEY `jobs_ibfk_2` (`technician_id`),
+  ADD KEY `jobs_ibfk_3` (`warden_emp_code`);
 
 --
 -- Indexes for table `login_credentials`
@@ -573,7 +666,7 @@ ALTER TABLE `accomodation`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
@@ -600,10 +693,16 @@ ALTER TABLE `employee_designation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rights`
@@ -639,19 +738,19 @@ ALTER TABLE `tanker_vendors`
 -- AUTO_INCREMENT for table `technician`
 --
 ALTER TABLE `technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `vaccination_category`
 --
 ALTER TABLE `vaccination_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `visitor_log`
@@ -681,13 +780,22 @@ ALTER TABLE `contact`
 --
 ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`),
-  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`);
+  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`),
+  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
 -- Constraints for table `employee_outing`
 --
 ALTER TABLE `employee_outing`
   ADD CONSTRAINT `employee_outing_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+
+--
+-- Constraints for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD CONSTRAINT `jobs_ibfk_1` FOREIGN KEY (`complaint_id`) REFERENCES `complaints` (`id`),
+  ADD CONSTRAINT `jobs_ibfk_2` FOREIGN KEY (`technician_id`) REFERENCES `technician` (`id`),
+  ADD CONSTRAINT `jobs_ibfk_3` FOREIGN KEY (`warden_emp_code`) REFERENCES `employee` (`emp_code`);
 
 --
 -- Constraints for table `login_credentials`

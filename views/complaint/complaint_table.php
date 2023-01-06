@@ -120,7 +120,7 @@ if ($_SESSION['rights_complaints'] > 0) {
         <?php endif ?>
 
         <?php
-        if (isset($_POST['save'])) {
+        if (isset($_POST['save'])|| (isset($_SESSION['emp_id']) && $isPrivilaged)) {
             $emp_code = $_POST['Id'];
             echo "<script>console.log('$emp_code')</script>";
                 $results = isset($_SESSION['emp_id'])?mysqli_query($conn, "SELECT * FROM complaints"):mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");

@@ -26,8 +26,10 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         session_start();
         $row = mysqli_fetch_array($check1);
         $emp_id = $row['emp_id'];
+
         $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+
         $last_insert_id = mysqli_insert_id($conn);
         if (!isset($_SESSION['emp_id'])) {
             $superadmin = 0;
@@ -49,12 +51,25 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             ) {
                 $superadmin = 1;
             }
+            $_SESSION['rights_accomodation'] = $rights_table['accomodation'];
+            $_SESSION['rights_complaints'] = $rights_table['complaints'];
+            $_SESSION['rights_employee_details'] = $rights_table['employee_details'];
+            $_SESSION['rights_employee_outing'] = $rights_table['employee_outing'];
+            $_SESSION['rights_roles'] = $rights_table['roles'];
+            $_SESSION['rights_rooms'] = $rights_table['rooms'];
+            $_SESSION['rights_tankers'] = $rights_table['tankers'];
+            $_SESSION['rights_jobs'] = $rights_table['jobs'];
+            $_SESSION['rights_vaccination'] = $rights_table['vaccination'];
+            $_SESSION['rights_vaccination_category'] = $rights_table['vaccination_category'];
+            $_SESSION['rights_visitor_log'] = $rights_table['visitor_log'];
             $_SESSION['is_superadmin'] = $superadmin;
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;
             $_SESSION['login_history_id'] = $last_insert_id;
-            if($_SESSION['is_superadmin']==1) header("location:../views/dashboard.php");
-            else header("location:../views/employee_dashboard.php");
+            if ($_SESSION['is_superadmin'] == 1)
+                header("location:../views/dashboard.php");
+            else
+                header("location:../views/employee_dashboard.php");
         }
     }
 }

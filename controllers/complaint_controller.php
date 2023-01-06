@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
+if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isset($_GET['tech'])||isset($_GET['sec'])||isset($_GET['warden'])) {
     include('../controllers/includes/common.php');
 }else{
     include('../../controllers/includes/common.php');
@@ -55,6 +55,30 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $id = $_GET['del'];
         mysqli_query($conn, "DELETE FROM complaints WHERE id = '$id'");
         $_SESSION['message'] = "Complaint Deleted";
+        header('location: ../views/complaint/complaint_table.php');
+    }
+
+    if(isset($_GET['tech']))
+    {
+        $id = $_GET['tech'];
+        mysqli_query($conn, "UPDATE complaints SET tech_closure_timestamp=now() WHERE id=$id");
+        $_SESSION['message'] = "Complaint Info Updated!";
+        header('location: ../views/complaint/complaint_table.php');
+    }
+
+    if(isset($_GET['sec']))
+    {
+        $id = $_GET['sec'];
+        mysqli_query($conn, "UPDATE complaints SET sec_closure_timestamp=now() WHERE id=$id");
+        $_SESSION['message'] = "Complaint Info Updated!";
+        header('location: ../views/complaint/complaint_table.php');
+    }
+
+    if(isset($_GET['warden']))
+    {
+        $id = $_GET['warden'];
+        mysqli_query($conn, "UPDATE complaints SET warden_closure_timestamp=now() WHERE id=$id");
+        $_SESSION['message'] = "Complaint Info Updated!";
         header('location: ../views/complaint/complaint_table.php');
     }
 ?>

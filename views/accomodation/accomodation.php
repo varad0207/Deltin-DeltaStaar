@@ -319,13 +319,13 @@ if (isset($_GET['edit'])) {
                                 <div class="invalid-feedback">Please select a gender!</div>
                             </div>
 
-                            <div class="col-md-12 pa2">
+                            <!-- <div class="col-md-12 pa2">
                                 <label for="tot_capacity">Total Capacity</label>
                                 <input class="form-control" type="number" name="cap" value="<?php echo $tot_capacity ?>"
                                     placeholder="Total Capacity" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
-                            </div>
+                            </div> -->
 
                             <div class="col-md-12 pa2">
                                 <label for="no_of_rooms">Number of Rooms</label>
@@ -335,23 +335,23 @@ if (isset($_GET['edit'])) {
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
 
-                            <div class="col-md-12 pa2">
+                            <!-- <div class="col-md-12 pa2">
                                 <label for="occupied_rooms">Occupied Rooms</label>
                                 <input class="form-control" type="number" id="occnor" name="orooms"
                                     value="<?php echo $occupied_rooms ?>" placeholder="Number of Rooms Occupied"
                                     required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-12 pa2">
+                            <!-- <div class="col-md-12 pa2">
                                 <label for="available_rooms">Available Number of Rooms</label>
                                 <input class="form-control" type="number" id="avr" name="arooms"
                                     value="<?php echo $available_rooms ?>" placeholder="Availabe number of Rooms"
                                     onclick="calc()" required>
                                 <p id="avrp" style="display: none;color:red;">Invalid Input!</p>
 
-                            </div>
+                            </div> -->
 
                             <div class="col-md-12 pa2">
                                 <label for="owner">Owner</label>

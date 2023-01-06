@@ -1,5 +1,5 @@
-<?php include('../controllers/includes/common.php'); ?>
-<?php include('../controllers/technician_controller.php'); ?>
+<?php include('../../controllers/includes/common.php'); ?>
+<?php include('../../controllers/technician_controller.php'); ?>
 <?php
 if (isset($_GET['edit'])) {
 	$emp_id = $_GET['edit'];
@@ -8,26 +8,8 @@ if (isset($_GET['edit'])) {
 
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
-
 	$emp_id = $n['emp_id'];
 	$role = $n['role'];
-	/*$mname = $n['mname'];
-	$lname = $n['lname'];
-	$designation = $n['designation'];
-	$dob = $n['dob'];
-	$address = $n['address'];
-	$state = $n['state'];
-	$country = $n['country'];
-	$pincode = $n['pincode'];
-	$email = $n['email'];
-	$blood_group = $n['blood_group'];
-	$department = $n['department'];
-	$joining_date = $n['joining_date'];
-	$aadhaar_number = $n['aadhaar_number'];
-	$salary = $n['salary'];
-	$acc_id = $n['acc_id'];*/
-
-	// }
 }
 ?>
 <!DOCTYPE html>
@@ -39,11 +21,11 @@ if (isset($_GET['edit'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<!--Favicon link-->
-	<link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
+    <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
 	<title>Delta@STAAR | Technician</title>
 	
 	<meta name="description" content="Employee Addition portal for deltin employees">
-	<link rel="stylesheet" href="../css/form.css">
+	<link rel="stylesheet" href="../../css/form.css">
 	<link rel="stylesheet" href="../../css/style1.css">
 
 	<!-- CSS only -->
@@ -56,7 +38,8 @@ if (isset($_GET['edit'])) {
 	<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="../dashboard.php">
-				<img src="" alt="Deltin Logo" class="d-inline-block align-text-top">
+			<img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
+                    style="border-radius: 50px;">			
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 				aria-controls="offcanvasNavbar">
@@ -114,7 +97,6 @@ if (isset($_GET['edit'])) {
 						<tr>
 
 
-<<<<<<< HEAD
 		<th>emp_code </th>
 		<th>Role </th>
 		
@@ -122,13 +104,13 @@ if (isset($_GET['edit'])) {
 		</tr>
 	</thead>
 	
-	<?php while ($row = mysqli_fetch_array($results)) { ?>
+		<?php while ($row = mysqli_fetch_array($results)) { ?>
 		<?php $employeeid = $row['emp_id'];
                     $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
                     $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
 					?>
 		<tr>
-			<!-- <td><?php echo $EmployeeCode_row['emp_code']; ?></td> -->
+			<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
 			<td><?php echo $row['role']; ?></td>
 			
 			
@@ -136,45 +118,13 @@ if (isset($_GET['edit'])) {
 				<a href="../views/technician.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
-				<a href="../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
+				<a href="../../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>
 </table>
-=======
 
-							<th>emp_code </th>
-							<th>Role </th>
-
-							<th colspan="2">Action</th>
-						</tr>
-					</thead>
-
-					<?php while ($row = mysqli_fetch_array($results)) { ?>
-					<?php $employeeid = $row['emp_id'];
-	    $queryEmployeeCode = mysqli_query($conn, "SELECT * FROM employee where emp_id=$employeeid");
-	    $EmployeeCode_row = mysqli_fetch_assoc($queryEmployeeCode);
-        ?>
-					<tr>
-						<td><?php echo $EmployeeCode_row['emp_code']; ?></td>
-						<td><?php echo $row['role']; ?></td>
-
-
-						<td>
-							<a href="../views/technician.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
-								class="edit_btn">Edit</a>
-						</td>
-						<td>
-							<a href="../controllers/technician_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
-								class="del_btn">Delete</a>
-						</td>
-					</tr>
-					<?php } ?>
-				</table>
->>>>>>> 0e0b1c36b1f9bfa7062c58ab1e04c22dab778402
-
-				<form method="post" class="w-100 rounded p-4 border bg-white"
-					action="../controllers/technician_controller.php">
+				<form method="post" class="w-100 rounded p-4 border " action="../../controllers/technician_controller.php">
 					<input type="hidden" name="eId" value="<?php echo $emp_id; ?>">
 					<!-- <div class="input-group">
 						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code
@@ -186,7 +136,7 @@ if (isset($_GET['edit'])) {
 					</div> -->
 					</label>
 					<div class="input-group">
-						<label class="d-block mb-4"> <span class="d-block mb-2">Employee Code <span></span>
+						<label class="d-block mb-4"> <span class="d-block mb-2" >Employee Code <span></span>
 
 								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="eId">
 									<option name="employee_code" selected>Choose...</option>

@@ -124,7 +124,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
         <?php
         if (isset($_POST['save'])|| (isset($_SESSION['emp_id']) && $isPrivilaged)) {
-            $emp_code = $_POST['Id'];
+            if(isset($_POST['Id']))$emp_code = $_POST['Id'];
             echo "<script>console.log('$emp_code')</script>";
                 $results = isset($_SESSION['emp_id'])?mysqli_query($conn, "SELECT * FROM complaints"):mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
             ?>
@@ -153,16 +153,13 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <?php
-                    $emp_code = $row['emp_code'];
-                    $queryEmpName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$emp_code'");
-                    $EmpName_row = mysqli_fetch_assoc($queryEmpName);
-                    $roomid = $EmpName_row['room_id'];
-                    $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id='$roomid'");
-                    $Room_row = mysqli_fetch_assoc($queryRoom);
-                    $accid = $Room_row['acc_id'];
-                    $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id = '$accid'");
-                    $Acc_row = mysqli_fetch_assoc($queryAcc);
-                    ?>
+                $emp_code = $row['emp_code'];
+                $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
+                $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                
+                $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where warden_emp_code='$emp_code'");
+                $AccName_row = mysqli_fetch_assoc($queryAccName);
+                        ?>
                     <?php
                     $comp_type = $row['type'];
                     $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type WHERE id='$comp_type'");

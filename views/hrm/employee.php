@@ -454,12 +454,31 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="col-md-12 pa2">
+                                <label for="acc_id">Accomodation</label>
+                                <select class="form-select mt-3" name="acc_id">
+                                    <option name="employee_accomodation" selected disabled value="">Select Accomodation
+                                    </option>
+                        
+                                <?php $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
+
+                                    foreach ($emp_acc as $row) { ?>
+                                        <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
+                                            <?= $row["acc_name"]; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                    </select>
+                                <div class="invalid-feedback">Please select an option!</div>
+                            </div>
+
+                            <div class="col-md-12 pa2">
                                 <label for="room_id">Room</label>
                                 <select class="form-select mt-3" name="room_id">
                                     <option name="employee_room" selected disabled value="">Select room
                                     </option>
                                     <?php
-                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms");
+                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms WHERE ");
 
                                     foreach ($emp_room as $row) { 
                                         if($row['status'] == 'Occupied') {

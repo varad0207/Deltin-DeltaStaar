@@ -66,8 +66,8 @@ if (isset($_POST['submit'])) {
     foreach ($vaccination as $vaccination_rights) $vaccination_rights_sum += intval($vaccination_rights);
     foreach ($visitor_log as $visitors_rights) $visitors_rights_sum += intval($visitors_rights);
     // echo $emp_rights_sum;
-    mysqli_query($conn,"INSERT INTO rights (accomodation, complaints,employee_details,employee_outing,roles,rooms,tankers,jobs,vaccination,vaccination_category,visitor_log) VALUES 
-                                            ('$acc_rights_sum', '$comp_rights_sum','$emp_rights_sum','$emp_outing_rights_sum','7','$rooms_rights_sum','$tankers_rights_sum','$jobs_rights_sum','$vaccination_rights_sum','7','$visitors_rights_sum')");
+    mysqli_query($conn,"INSERT INTO rights (accomodation, complaints,employee_details,employee_outing,rooms,tankers,jobs,vaccination,visitor_log) VALUES 
+                                            ('$acc_rights_sum', '$comp_rights_sum','$emp_rights_sum','$emp_outing_rights_sum','$rooms_rights_sum','$tankers_rights_sum','$jobs_rights_sum','$vaccination_rights_sum','$visitors_rights_sum')");
     $last_insert_id = mysqli_insert_id($conn);
 
     mysqli_query($conn, "INSERT INTO roles (role_name, rights) VALUES ('$role_name', '$last_insert_id')");

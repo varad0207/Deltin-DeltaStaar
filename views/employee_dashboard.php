@@ -20,7 +20,7 @@ if (!isset($_SESSION["emp_id"]))
 
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
-    <title>Delta@STAAR | SuperAdmin Portal</title>
+    <title>Delta@STAAR | Dashboard</title>
 </head>
 
 <body class="bgcolor">

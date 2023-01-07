@@ -2687,3 +2687,16 @@ nav{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+complaint_table.php
+
+$emp_code = $row['emp_code'];
+                    $queryEmpName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$emp_code'");
+                    $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                    $roomid = $EmpName_row['room_id'];
+                    $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id='$roomid'");
+                    $Room_row = mysqli_fetch_assoc($queryRoom);
+                    $accid = $Room_row['acc_id'];
+                    $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id = '$accid'");
+                    $Acc_row = mysqli_fetch_assoc($queryAcc);
+                    ?>

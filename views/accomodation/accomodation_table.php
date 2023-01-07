@@ -3,6 +3,13 @@
     include('../../controllers/accomodation_controller.php'); 
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     // check rights
+    $isPrivilaged = 0;
+if ($_SESSION['rights_accomodation'] > 0) {
+    $isPrivilaged = $_SESSION['rights_accomodation'];
+}
+else
+die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
 ?>
 
 <!DOCTYPE html>
@@ -284,8 +291,9 @@
                     <th scope="col">Gender</th>
                     <th scope="col">Total Capacity</th>
                     <th scope="col">Number of Rooms</th>
-                    <th scope="col">Occupied Rooms</th>
-                    <th scope="col">Availabe Rooms</th>
+                    <th scope="col">Warden</th>
+                    <!-- <th scope="col">Occupied Rooms</th>
+                    <th scope="col">Availabe Rooms</th> -->
                     <th scope="col">Owner</th>
                     <th scope="col">Remark</th>
                     <th scope="col" colspan="2">Action</th>
@@ -293,6 +301,11 @@
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
+                        <?php
+                        $employeecode = $row['warden_emp_code'];
+                        $queryEmployeeName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$employeecode'");
+                        $EmployeeName_row = mysqli_fetch_assoc($queryEmployeeName);
+                        ?>
                     <tr>
                     <th scope="row"><?php echo $row['acc_code']; ?></th>
                     <td>
@@ -314,11 +327,14 @@
                             <?php echo $row['no_of_rooms']; ?>
                         </td>
                         <td>
+                            <?php echo $EmployeeName_row['fname']. " " . $EmployeeName_row['lname']; ?>
+                        </td>
+                        <!-- <td>
                             <?php echo $row['occupied_rooms']; ?>
                         </td>
                         <td>
                             <?php echo $row['available_rooms']; ?>
-                        </td>
+                        </td> -->
                         <td>
                             <?php echo $row['owner']; ?>
                         </td>

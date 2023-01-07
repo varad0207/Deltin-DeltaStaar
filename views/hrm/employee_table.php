@@ -5,6 +5,12 @@ include('../../controllers/employee_controller.php');
 if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
+$isPrivilaged = 0;
+if ($_SESSION['rights_employee_details'] > 0) {
+    $isPrivilaged = $_SESSION['rights_employee_details'];
+}
+else
+die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 ?>
 
@@ -318,6 +324,7 @@ if (!isset($_SESSION["emp_id"]))
                         <th scope="col">Aadhar Number</th>
                         <th scope="col">Salary</th>
                         <th scope="col">Accommodation</th>
+                        <th scope="col">Room Number</th>
                         <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -325,11 +332,16 @@ if (!isset($_SESSION["emp_id"]))
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <?php
                         $desigid = $row['designation'];
-                        $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation where designation='$desigid'");
+                        $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE designation='$desigid'");
                         $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
                         ?>
                         <?php
-                        $accid = $row['acc_id'];
+                        $roomid = $row['room_id'];
+                        $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
+                        $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
+                        ?>
+                        <?php
+                        $accid = $EmployeeRoom_row['acc_id'];
                         if (!empty($accid)) {
                             $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
                             $Acc_row = mysqli_fetch_assoc($queryAcc);
@@ -338,8 +350,6 @@ if (!isset($_SESSION["emp_id"]))
                             $accName = 'N/A';
                         }
                         ?>
-
-<!--======================================== -->
 
                         <tr>
                             <th scope="row"><?php echo $row['emp_code']; ?></th>
@@ -393,6 +403,9 @@ if (!isset($_SESSION["emp_id"]))
                             </td>
                             <td>
                                 <?php echo $accName; ?>
+                            </td>
+                            <td>
+                                <?php echo $EmployeeRoom_row['room_no']; ?>
                             </td>
                             <td>
                                 <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>

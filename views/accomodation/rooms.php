@@ -294,7 +294,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                               <div class="valid-feedback">field is valid!</div>
                               <div class="invalid-feedback">field cannot be blank!</div>
                         </div>  -->  <!-- it will be derived from db  -->
-                       <div class="col-md-12 pa2">
+                       <!-- <div class="col-md-12 pa2">
                         <label for="room_status">Room Status</label>
                             <select class="form-select mt-3" name="room_stat" value="<?php echo $status ?>" required>
                                 <option selected disabled value="">Select status</option>
@@ -303,7 +303,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                            </select>
                             
                             <div class="invalid-feedback">Please select an option!</div>
-                       </div>
+                       </div> -->
 
                         <div class="form-button mt-3 tc">
                             <?php if ($update == true): ?>

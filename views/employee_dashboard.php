@@ -14,14 +14,13 @@ if (!isset($_SESSION["emp_id"]))
     <!-- <link rel="stylesheet" href="../css/style1.css"> -->
     <link rel="stylesheet" href="../css/style1.css">
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../images/logo-no-name-circle.png">
-    <title>Delta@STAAR | SuperAdmin Portal</title>
+    <title>Delta@STAAR | Dashboard</title>
 </head>
 
 <body class="bgcolor">
@@ -29,24 +28,20 @@ if (!isset($_SESSION["emp_id"]))
     <nav class="navbar navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo"
-                    class="d-inline-block align-text-top" style="border-radius: 50px;">
+                <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top" style="border-radius: 50px;">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <!-- only superadmin will see the configure button -->
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <div class="dropdown">
                                 <a class="nav-link active " id="dropdownMenuButton" aria-haspopup="true"
                                     aria-expanded="false" aria-current="page" href="#" data-toggle="dropdown"
@@ -69,9 +64,9 @@ if (!isset($_SESSION["emp_id"]))
                                     <a class="dropdown-item" href="./config/complaint_type.php">Complaint Type</a>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="dashboard.php">Home</a>
+                            <a class="nav-link active" aria-current="page" href="employee_dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./aboutus.html" target="_blank">About Us</a>
@@ -94,69 +89,67 @@ if (!isset($_SESSION["emp_id"]))
 
     <!-- CARDS -->
     <div class="portal">
-        <h1 class="tc f-subheadline lh-title spr">Super Admin Portal</h1>
+        <h1 class="tc f-subheadline lh-title spr">Dashboard</h1>
 
         <div class="containeer ma4">
             <!-- FIRST ELEMENT -->
             <div class="containeer-items tc">
-                <a>
-                    <img class="rounded-circle" src="../images/emp.png" alt="EMPLOYEE">
-                    <p class="f4 lh-copy txt"><a href="./hrm/employee_table.php">Employee</a></p>
+                <!-- <a> -->
+                    <!-- <img class="rounded-circle" src="../images/emp.png" alt="EMPLOYEE"> -->
+                    <?php if ($_SESSION['rights_employee_details'] > 0) { ?><p class="f4 lh-copy txt"><a href="./hrm/employee_table.php">Employee</a></p><?php } ?>
                     <!-- style="pointer-events: none;color:#a0a6ab;" onMouseOver="this.style.color='red'" -->
-                    <p class="f4 lh-copy txt"><a href="./hrm/vaccination_table.php">Vaccination</a></p>
-                    <p class="f4 lh-copy txt"><a href="./hrm/roles_table.php">Roles</a></p>
-                </a>
+                    <?php if ($_SESSION['rights_vaccination'] > 0) { ?><p class="f4 lh-copy txt"><a href="./hrm/vaccination_table.php">Vaccination</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_roles'] > 0) { ?><p class="f4 lh-copy txt"><a href="./hrm/roles_table.php">Roles</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_accomodation'] > 0) { ?><p class="f4 lh-copy txt"><a href="./accomodation/accomodation_table.php">Accommodation</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_rooms'] > 0) { ?> <p class="f4 lh-copy txt"><a href="./accomodation/room_table.php">Rooms</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_complaints'] > 0) { ?><p class="f4 lh-copy txt"><a href="./complaint/complaint_table.php">Complaints</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_jobs'] > 0) { ?> <p class="f4 lh-copy txt"><a href="./complaint/jobs_table.php">Jobs</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_employee_outing'] > 0) { ?><p class="f4 lh-copy txt"><a href="./security/employee_outing_table.php">Outing</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_tankers'] > 0) { ?><p class="f4 lh-copy txt"><a href="./security/tanker_table.php">Tankers</a></p><?php } ?>
+                    <?php if ($_SESSION['rights_visitor_log'] > 0) { ?><p class="f4 lh-copy txt"><a href="./security/visitor_log_table.php">Visitors</a></p><?php } ?>
+               
+                    <!-- </a> -->
             </div>
 
             <!-- SECOND ELEMENT -->
-            <div class="containeer-items tc">
-                <a>
-                    <img class="rounded-circle" src="../images/acc.png" alt="ACCOMODATION">
-                    <p class="f4 lh-copy txt"><a href="./accomodation/accomodation_table.php">Accommodation</a></p>
-                    <p class="f4 lh-copy txt"><a href="./accomodation/room_table.php">Rooms</a></p>
-                </a>
-            </div>
+            <!-- <div class="containeer-items tc">
+                <a> -->
+                    <!-- <img class="rounded-circle" src="../images/acc.png" alt="ACCOMODATION"> -->
+                    <!-- <?php //if ($_SESSION['rights_accomodation'] > 0) { ?><p class="f4 lh-copy txt"><a href="./accomodation/accomodation_table.php">Accommodation</a></p><?php //} ?>-->
+                    <!-- <?php //if ($_SESSION['rights_rooms'] > 0) { ?> <p class="f4 lh-copy txt"><a href="./accomodation/room_table.php">Rooms</a></p><?php // } ?> --> 
+                <!-- </a>
+            </div> -->
 
             <!-- THIRD ELEMENT -->
-            <div class="containeer-items tc">
-                <a>
-                    <img class="rounded-circle" src="../images/complaint.png" alt="COMPLAINT">
-                    <p class="f4 lh-copy txt"><a href="./complaint/complaint_table.php">Complaints</a></p>
-                    <p class="f4 lh-copy txt"><a href="./complaint/jobs_table.php">Jobs</a></p>
-                </a>
-            </div>
+            <!-- <div class="containeer-items tc">
+                <a> -->
+                    <!-- <img class="rounded-circle" src="../images/complaint.png" alt="COMPLAINT"> -->
+                    <!-- <?php //if ($_SESSION['rights_complaints'] > 0) { ?><p class="f4 lh-copy txt"><a href="./complaint/complaint_table.php">Complaints</a></p><?php //} ?> -->
+                    <!-- <?php // if ($_SESSION['rights_jobs'] > 0) { ?> <p class="f4 lh-copy txt"><a href="./complaint/jobs_table.php">Jobs</a></p><?php //} ?> -->
+                <!-- </a>
+            </div> -->
 
             <!-- FOURTH ELEMENT -->
-            <div class="containeer-items tc">
-                <a>
-                    <img class="rounded-circle" src="../images/tanker.png" alt="SECURITY">
-                    <p class="f4 lh-copy txt"><a href="./security/employee_outing_table.php">Outing</a></p>
-                    <p class="f4 lh-copy txt"><a href="./security/tanker_table.php">Tankers</a></p>
-                    <p class="f4 lh-copy txt"><a href="./security/visitor_log_table.php">Visitors</a></p>
-                </a>
-            </div>
+            <!-- <div class="containeer-items tc">
+                <a> -->
+                    <!-- <img class="rounded-circle" src="../images/tanker.png" alt="SECURITY"> -->
+                    <!-- <?php // if ($_SESSION['rights_employee_outing'] > 0) { ?><p class="f4 lh-copy txt"><a href="./security/employee_outing_table.php">Outing</a></p><?php // } ?> -->
+                    <!-- <?php //if ($_SESSION['rights_tankers'] > 0) { ?><p class="f4 lh-copy txt"><a href="./security/tanker_table.php">Tankers</a></p><?php //} ?> -->
+                    <!-- <?php //if ($_SESSION['rights_visitor_log'] > 0) { ?><p class="f4 lh-copy txt"><a href="./security/visitor_log_table.php">Visitors</a></p><?php // } ?> -->
+                <!-- </a>
+            </div> -->
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt6">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

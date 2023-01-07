@@ -23,6 +23,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $available_rooms = "";
         $owner = "";
         $remark = "";
+        $room_cap = "";
     } 
 
     if (isset($_POST['submit']) && !empty($_POST['submit']))
@@ -32,10 +33,10 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $bldg_status = mysqli_real_escape_string($conn, $_POST['bldg']);
         $location = mysqli_real_escape_string($conn, $_POST['loc']);
         $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-        $tot_capacity = mysqli_real_escape_string($conn, $_POST['cap']);
+        // $tot_capacity = mysqli_real_escape_string($conn, $_POST['cap']);
         $no_of_rooms = mysqli_real_escape_string($conn, $_POST['rooms']);
-        $available_rooms = mysqli_real_escape_string($conn, $_POST['arooms']);
-        $occupied_rooms = mysqli_real_escape_string($conn, $_POST['orooms']);
+        // $available_rooms = mysqli_real_escape_string($conn, $_POST['arooms']);
+        // $occupied_rooms = mysqli_real_escape_string($conn, $_POST['orooms']);
         $owner = mysqli_real_escape_string($conn, $_POST['owner']);
         $remark = mysqli_real_escape_string($conn, $_POST['remark']);
 

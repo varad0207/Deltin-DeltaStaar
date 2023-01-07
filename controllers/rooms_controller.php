@@ -21,7 +21,19 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $curr_room_cap = mysqli_real_escape_string($conn, $_POST['curr_room_cap']);
         $status = mysqli_real_escape_string($conn, $_POST['room_stat']);
 
-        $insert = "insert into rooms (acc_id, id, room_no, room_capacity, status, current_room_occupancy) values ('$acc_code', '', '$room_no', '$room_cap', '$status', '$curr_room_cap')";
+        $insert = "insert into rooms (acc_id, id, room_no, room_capacity, status, current_room_occupancy) values ('$acc_code', '', '$room_no', '$room_cap', '', '$curr_room_cap')";
+
+        // $results = mysqli_query($conn, "SELECT * FROM rooms");
+        // $row = mysqli_fetch_array($results);
+        // $acc_id = $row['acc_id'];
+        $queryRoom = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id = '$acc_code'");
+        $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
+        $roomCap = $EmployeeRoom_row['tot_capacity'];
+        $noOfRooms = $EmployeeRoom_row['no_of_rooms'];
+        $room_cap = $noOfRooms * $room_cap;
+
+        $updateAcc = "UPDATE accomodation SET tot_capacity = $room_cap WHERE acc_id = $acc_code";
+        $submitAcc = mysqli_query($conn, $updateAcc) or die(mysqli_error($conn));
 
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));

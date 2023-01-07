@@ -28,7 +28,7 @@ if (isset($_GET['edit'])) {
     $joining_date = $n['joining_date'];
     $aadhaar_number = $n['aadhaar_number'];
     $salary = $n['salary'];
-    $acc_id = $n['acc_id'];
+    $room_id = $n['room_id'];
     // $for_contacts = mysqli_query($conn, "SELECT * FROM contact WHERE emp_id='{$n['emp_id']}'");
     // $contacts = mysqli_fetch_array($for_contacts);
     // $contact1 = $contacts['primary_contact'];
@@ -454,22 +454,36 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="col-md-12 pa2">
-                                <label for="acc_id">Accomodation</label>
-
-
-                                <select class="form-select mt-3" name="acc_id">
-                                    <option name="employee_accomodation" selected disabled value="">Select Accomodattion
+                                <label for="room_id">Room</label>
+                                <select class="form-select mt-3" name="room_id">
+                                    <option name="employee_room" selected disabled value="">Select room
                                     </option>
                                     <?php
-                                    $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
+                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms");
 
-                                    foreach ($emp_acc as $row) { ?>
-                                        <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
-                                            <?= $row["acc_name"]; ?>
+                                    foreach ($emp_room as $row) { 
+                                        if($row['status'] == 'Occupied') {
+                                        ?>
+                                        <option name="employee_room" disabled value="<?= $row["id"] ?>">
+                                            <?= $row["room_no"]; ?>
+                                        </option>
+                                        <?php } 
+                                        elseif($row['status'] == 'Available') {
+                                        ?>
+                                        <option name="employee_room" value="<?= $row["id"] ?>">
+                                            <?= $row["room_no"]; ?>
                                         </option>
                                         <?php
+                                        }
+                                        else {
+                                        ?>
+                                        <option name="employee_room" value="<?= $row["id"] ?>">
+                                            <?= $row["room_no"]; ?>
+                                        </option>
+                                        <?php 
+                                        }
+                                        
                                     }
-
                                     ?>
                                 </select>
 

@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
 // give login credentials
 // default credentials -> password="password"
 
-mysqli_query($conn, "insert into login_credentials(emp_id) values('$emp_id'");
+mysqli_query($conn, "insert into login_credentials(emp_id) values('$emp_id')";
 
 
 

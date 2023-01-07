@@ -30,9 +30,10 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
         $roomCap = $EmployeeRoom_row['tot_capacity'];
         $noOfRooms = $EmployeeRoom_row['no_of_rooms'];
-        $room_cap = $noOfRooms * $room_cap;
+        $roomCap = $roomCap + $room_cap;
+        $noOfRooms = $noOfRooms + 1;
 
-        $updateAcc = "UPDATE accomodation SET tot_capacity = $room_cap WHERE acc_id = $acc_code";
+        $updateAcc = "UPDATE accomodation SET tot_capacity = $roomCap, no_of_rooms = $noOfRooms WHERE acc_id = $acc_code";
         $submitAcc = mysqli_query($conn, $updateAcc) or die(mysqli_error($conn));
 
         echo mysqli_error($conn);

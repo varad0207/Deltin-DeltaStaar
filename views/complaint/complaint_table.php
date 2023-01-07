@@ -145,27 +145,29 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         <th>Remarks </th>
                         <th>Employee Name </th>
                         <th>Employee Code </th>
-                        <th>accomodation Name </th>
+                        <th>Accomodation Name</th>
+                        <th>Room Number</th>
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <?php
-                $emp_code = $row['emp_code'];
-                $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
-                $EmpName_row = mysqli_fetch_assoc($queryEmpName);
-                $acc_name = $EmpName_row['acc_id'];
-                $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$acc_name'");
-                $AccName_row = mysqli_fetch_assoc($queryAccName);
-                        ?>
+                    $emp_code = $row['emp_code'];
+                    $queryEmpName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$emp_code'");
+                    $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                    $roomid = $EmpName_row['room_id'];
+                    $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id='$roomid'");
+                    $Room_row = mysqli_fetch_assoc($queryRoom);
+                    $accid = $Room_row['acc_id'];
+                    $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id = '$accid'");
+                    $Acc_row = mysqli_fetch_assoc($queryAcc);
+                    ?>
                     <?php
-                $comp_type = $row['type'];
-                $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type where id='$comp_type'");
-                $CompType_row = mysqli_fetch_assoc($queryCompType);
-
-
-                $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
+                    $comp_type = $row['type'];
+                    $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type WHERE id='$comp_type'");
+                    $CompType_row = mysqli_fetch_assoc($queryCompType);
+                    $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
                 
                         ?>
                     <tr>
@@ -212,7 +214,10 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <!-- fetch acc name -->
                         <td>
-                            <?php echo $AccName_row['acc_name']; ?>
+                            <?php echo $Acc_row['acc_name']; ?>
+                        </td>
+                        <td>
+                            <?php echo $Room_row['room_no']; ?>
                         </td>
                         <td>
 

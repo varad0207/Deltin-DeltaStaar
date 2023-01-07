@@ -84,7 +84,7 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
                       </div>
 
                       <div class="col-md-12 pa2">
-                        <label for="quantity">Arrival Date</label>
+                        <label for="quantity">Arrival Date (Optional)</label>
                           <input class="form-control" type="date" name="arrival_date">
                       </div>
 

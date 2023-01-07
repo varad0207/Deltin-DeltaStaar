@@ -291,8 +291,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Gender</th>
                     <th scope="col">Total Capacity</th>
                     <th scope="col">Number of Rooms</th>
-                    <th scope="col">Occupied Rooms</th>
-                    <th scope="col">Availabe Rooms</th>
+                    <th scope="col">Warden</th>
+                    <!-- <th scope="col">Occupied Rooms</th>
+                    <th scope="col">Availabe Rooms</th> -->
                     <th scope="col">Owner</th>
                     <th scope="col">Remark</th>
                     <th scope="col" colspan="2">Action</th>
@@ -300,6 +301,11 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
+                        <?php
+                        $employeecode = $row['warden_emp_code'];
+                        $queryEmployeeName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$employeecode'");
+                        $EmployeeName_row = mysqli_fetch_assoc($queryEmployeeName);
+                        ?>
                     <tr>
                     <th scope="row"><?php echo $row['acc_code']; ?></th>
                     <td>
@@ -321,11 +327,14 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             <?php echo $row['no_of_rooms']; ?>
                         </td>
                         <td>
+                            <?php echo $EmployeeName_row['fname']. " " . $EmployeeName_row['lname']; ?>
+                        </td>
+                        <!-- <td>
                             <?php echo $row['occupied_rooms']; ?>
                         </td>
                         <td>
                             <?php echo $row['available_rooms']; ?>
-                        </td>
+                        </td> -->
                         <td>
                             <?php echo $row['owner']; ?>
                         </td>

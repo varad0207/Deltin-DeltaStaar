@@ -19,6 +19,7 @@ if (isset($_GET['edit'])) {
     $gender = $n['gender'];
     $tot_capacity = $n['tot_capacity'];
     $no_of_rooms = $n['no_of_rooms'];
+    $warden_emp_code = $n['warden_emp_code'];
     $occupied_rooms = $n['occupied_rooms'];
     $available_rooms = $n['available_rooms'];
     $owner = $n['owner'];
@@ -334,6 +335,25 @@ if (isset($_GET['edit'])) {
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
+
+                            <div class="col-md-12 pa2">
+						<label class="d-block mb-4"> <span class="d-block mb-2">Warden Employee Code <span></span>
+
+								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="warden_emp_code">
+									<option name="employee_code" selected>Choose...</option>
+
+									<?php
+                            $emp_det = mysqli_query($conn, "SELECT * FROM employee");
+
+                            foreach ($emp_det as $row) { ?>
+									<option name="employee_code" value="<?= $row["emp_code"] ?>"><?= $row["emp_code"]; ?>
+									</option>
+									<?php
+                            }
+
+                                ?>
+								</select>
+					</div>
 
                             <!-- <div class="col-md-12 pa2">
                                 <label for="occupied_rooms">Occupied Rooms</label>

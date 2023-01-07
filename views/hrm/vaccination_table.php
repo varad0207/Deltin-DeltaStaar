@@ -279,7 +279,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "select employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id"); ?>
+        <?php $results = mysqli_query($conn, "select last_dose.emp_id emp_id, employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -295,8 +295,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <?php $employeeid = $row['emp_id'];
-                    
-
+                
                     $categoryid = $row['category_id'];
                     
                     ?>

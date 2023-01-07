@@ -8,6 +8,9 @@ $isPrivilaged = 0;
 if ($_SESSION['rights_complaints'] > 0) {
     $isPrivilaged = $_SESSION['rights_complaints'];
 }
+else
+die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
 ?>
 
 <!DOCTYPE html>

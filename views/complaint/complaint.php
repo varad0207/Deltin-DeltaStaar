@@ -2,12 +2,6 @@
 require '../../controllers/includes/common.php';
 require '../../controllers/complaint_controller.php';
 
-// raise complaint if logged in
-if(isset($_SESSION['emp_id'])){
-    // $_SESSION['emp_code']
-    //  display this emp code directly in the form below
-}
-
 $update = "";
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
@@ -66,9 +60,9 @@ if (isset($_GET['edit'])) {
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick=history.back()>Back</a>
                         </li>
@@ -95,9 +89,14 @@ if (isset($_GET['edit'])) {
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <div class="col-md-12 pa2">
                           <label for="empcode">Employee Code</label>
+                          <?php if (isset($_SESSION['emp_id']) && !$update) { ?>
+                            <input class="form-control"  type="text" name="emp_code" value="<?php echo $_SESSION['emp_code']; ?>" disabled>
+
+                            <?php } else {?>
                             <input class="form-control" value="" type="text" name="emp_code" placeholder="eg.HV1234" required>
                             <div class="valid-feedback">field is valid!</div>
                             <div class="invalid-feedback">field cannot be blank!</div>
+                            <?php } ?>
                         </div>
                       
                         

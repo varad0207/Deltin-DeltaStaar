@@ -211,7 +211,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <!-- fetch acc name -->
                         <td>
-                            <?php echo $Acc_row['acc_name']; ?>
+                            <?php echo $AccName_row['acc_name']; ?>
                         </td>
                         <td>
                             <?php echo $Room_row['room_no']; ?>

@@ -8,6 +8,7 @@ if (isset($_GET['edit'])) {
 
 	// if (count($record) == 1 ) {
 	$n = mysqli_fetch_array($record);
+    $id = $n['id'];
 	$emp_id = $n['emp_id'];
 	$role = $n['role'];
 }
@@ -73,10 +74,10 @@ if (isset($_GET['edit'])) {
                         <h1 class="f2 lh-copy tc" style="color: white;">Add Technician</h1>
                         <form class="requires-validation f3 lh-copy" novalidate
                             action="../../controllers/technician_controller.php" method="post">
-                            <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
+                            <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <div class="col-md-12 pa2">
-                                <<label class="d-block mb-4">Employee Code</label>
-								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
+                                <label class="d-block mb-4">Employee Code</label>
+								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="emp_id">
 								<option name="employee_code" selected>Choose...</option>
 								<?php
 								$emp_det = mysqli_query($conn, "SELECT * FROM employee");

@@ -10,9 +10,9 @@
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Sidebar</title>
 
-    <link rel="stylesheet" href="../../css//sidebar.css">
-    <!-- <link rel="stylesheet" href="../../css/form.css">
-    <link rel="stylesheet" href="../../css/style1.css"> -->
+    <link rel="stylesheet" href="../../css/sidebar.css">
+    <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/style1.css">
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -39,23 +39,23 @@
                 </a>
                 <ul class="submenu collapse">
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="#">
+                        <a class="nav-link border-dark border-bottom" href="../../views/accomodation/accomodation.php">
                             Add Accommodation
                         </a>
                     </li>
                     <li>
                         <a class="nav-link border-dark border-bottom"
-                            href="accomodation_table.php">
+                            href="../../views/accomodation/accomodation_table.php">
                             Accommodation Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="rooms.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/accomodation/rooms.php">
                             Add Rooms
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="room_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/accomodation/room_table.php">
                             Rooms Table
                         </a>
                     </li>
@@ -64,27 +64,27 @@
 
             <li class="nav-item has-submenu">
                 <a class="nav-link border-dark border-bottom" href="#">
-                    <i class="bi bi-file-text"></i> Complaints <i class="bi bi-chevron-down"></i>
+                    <i class="bi bi-file-text"></i>Complaints<i class="bi bi-chevron-down"></i>
                 </a>
                 <ul class="submenu collapse">
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../complaint/complaint.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/complaint/complaint.php">
                             Raise A Complaint
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../complaint/complaint_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/complaint/complaint_table.php">
                             Complaint Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../config/complaint_type.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/config/complaint_type.php">
                             Add Complaint Type
                         </a>
                     </li>
                     <li>
                         <a class="nav-link border-dark border-bottom"
-                            href="../config/complaint_type_table.php">
+                            href="../../views/config/complaint_type_table.php">
                             Complaint Type Table
                         </a>
                     </li>
@@ -97,52 +97,52 @@
                 </a>
                 <ul class="submenu collapse">
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../config/emp_desig.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/config/emp_desig.php">
                             Add Designation Details
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../config/emp_desig_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/config/emp_desig_table.php">
                             Employees Designation Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/employee.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/hrm/employee.php">
                             Add Employee Details
                         </a>
                     </li>
                     
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/employee_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/hrm/employee_table.php">
                             Employees Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/roles.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/hrm/roles.php">
                             Add Role </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/roles_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/hrm/roles_table.php">
                             Roles Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/security_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/config/security_table.php">
                             Security Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/technician_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/config/technician_table.php">
                             Technician Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/vaccination.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/hrm/vaccination.php">
                             Add Vacination Details
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../hrm/vaccination_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/hrm/vaccination_table.php">
                             Vacination Table
                         </a>
                     </li>
@@ -156,33 +156,33 @@
                 </a>
                 <ul class="submenu collapse">
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/employee_outing.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/security/employee_outing.php">
                             Add Employee Outing
                         </a>
                     </li>
                     <li>
                         <a class="nav-link border-dark border-bottom"
-                            href="../security/employee_outing_table.php">
+                            href="../../views/security/employee_outing_table.php">
                             Employee Outings Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/tanker.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/security/tanker.php">
                             Add Tanker Entry
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/tanker_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/security/tanker_table.php">
                             Tanker Table
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/visitor_log.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/security/visitor_log.php">
                             Visitor Log Form
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/visitor_log_table.php">
+                        <a class="nav-link border-dark border-bottom" href="../../views/security/visitor_log_table.php">
                             Visitor Log Table
                         </a>
                     </li>

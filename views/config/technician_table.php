@@ -44,8 +44,13 @@
 </head>
 
 <body>
+    <!-- Sidebar -->
+<?php
+include '../../controllers/includes/sidebar.php';
+?>
 <nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy fw5">
         <div class="container-fluid">
+        <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
             <a class="navbar-brand" href="#">
                 <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
                     style="border-radius: 50px;">

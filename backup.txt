@@ -2946,3 +2946,59 @@ technician
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
+
+
+
+
+// jobs_table.php
+
+<td>
+                        <?php 
+                            if (!isset($row3['tech_closure_timestamp'])) {
+                        ?>
+                        <a href="../../controllers/complaint_controller.php?tech=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                class="del_btn" style="background-color: red; color: white;padding:5px; border-radius: 5px;">Done</a><br>Technician
+                        
+                        <?php
+                            } else {
+                        ?>
+                        <p class="del_btn" style="background-color: green; color: white;padding:5px; border-radius: 5px; margin-bottom:0px ;" disabled>Closed</p>Technician
+                        
+                        <?php
+                            }
+                        ?>
+                        </td>
+
+                        <td>
+                        <?php 
+                            if (!isset($row3['sec_closure_timestamp'])) {
+                        ?>
+                        <a href="../../controllers/complaint_controller.php?sec=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                class="del_btn" style="background-color: red; color: white;padding:5px; border-radius: 5px;">Done</a><br>Security
+                        
+                        <?php
+                            } else {
+                        ?>
+                        <p class="del_btn" style="background-color: green; color: white;padding:5px; border-radius: 5px; margin-bottom:0px ;" disabled>Closed</p>Security
+                        
+                        <?php
+                            }
+                        ?>
+                        </td>
+
+                        <td>
+                        <?php 
+                            if (!isset($row3['warden_closure_timestamp'])) {
+                        ?>
+                        <a href="../../controllers/complaint_controller.php?warden=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                class="del_btn" style="background-color: red; color: white;padding:5px; border-radius: 5px;">Done</a><br>Warden
+                        
+                        <?php
+                            } else {
+                        ?>
+                        <p class="del_btn" style="background-color: green; color: white;padding:5px; border-radius: 5px; margin-bottom:0px ;" disabled>Closed</p>Warden
+                        
+                        <?php
+                            }
+                        ?>
+                        </td>

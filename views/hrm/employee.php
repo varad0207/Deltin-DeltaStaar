@@ -63,219 +63,12 @@ if (isset($_GET['edit'])) {
 
 <body class="b ma2">
 
-    <!-- Sidebar -->
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!-- Sidebar and Navbar -->
+    <?php
+    include '../../controllers/includes/sidebar.html';
+    include '../../controllers/includes/navbar.html';
+    ?>
 
-        <a class="navbar-brand mb-2" href="#" style="padding: 8px;">
-            <img src="../../images/logo-no-name-circle.png" height="120px" alt="Deltin Logo" class="">
-        </a>
-
-        <ul class="nav flex-column p-4" id="nav_accordion" style="--bs-nav-link-hover-color: #f8f9fa;">
-
-            <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#">
-                    <i class="bi bi-building"></i>
-                    Accommodation
-                    <i class="bi bi-chevron-down"></i>
-                </a>
-                <ul class="submenu collapse">
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../accomodation/accomodation.php">
-                            Add Accommodation
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom"
-                            href="../accomodation/accomodation_table.php">
-                            Accommodation Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../accomodation/rooms.php">
-                            Add Rooms
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../accomodation/room_table.php">
-                            Rooms Table
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#">
-                    <i class="bi bi-file-text"></i> Complaints <i class="bi bi-chevron-down"></i>
-                </a>
-                <ul class="submenu collapse">
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../complaint/complaint.php">
-                            Raise A Complaint
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../complaint/complaint_table.php">
-                            Complaint Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../config/complaint_type.php">
-                            Add Complaint Type
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom"
-                            href="../config/complaint_type_table.php">
-                            Complaint Type Table
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#">
-                    <i class="bi bi-person"></i> HRM <i class="bi bi-chevron-down"></i>
-                </a>
-                <ul class="submenu collapse">
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../config/emp_desig.php">
-                            Add Designation Details
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../config/emp_desig_table.php">
-                            Employees Designation Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="#">
-                            Add Employee Details
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="employee_table.php">
-                            Employees Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="roles.php">
-                            Add Role </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="roles_table.php">
-                            Roles Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="security_table.php">
-                            Security Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="technician_table.php">
-                            Technician Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="vaccination.php">
-                            Add Vacination Details
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="vaccination_table.php">
-                            Vacination Table
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-            <li class="nav-item has-submenu">
-                <a class="nav-link border-dark border-bottom" href="#">
-                    <i class="bi bi-shield"></i> Security <i class="bi bi-chevron-down"></i>
-                </a>
-                <ul class="submenu collapse">
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/employee_outing.php">
-                            Add Employee Outing
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom"
-                            href="../security/employee_outing_table.php">
-                            Employee Outings Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/tanker.php">
-                            Add Tanker Entry
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/tanker_table.php">
-                            Tanker Table
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/visitor_log.php">
-                            Visitor Log Form
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link border-dark border-bottom" href="../security/visitor_log_table.php">
-                            Visitor Log Table
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!--
-            <li class="nav-item">
-                <a class="nav-link" href="#"> Other link </a>
-            </li>
-            -->
-        </ul>
-
-    </div>
-    <!-- Navbar -->
-    <nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
-        <div class="container-fluid">
-        <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
-            <a class="navbar-brand" href="#">
-                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo"
-                    class="d-inline-block align-text-top" style="border-radius: 50px;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="../dashboard.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-
-                            <a class="nav-link active1" id="adminlogin" onmouseover="this.style.cursor='pointer'"
-                                onclick=history.back()>Back</a>
-
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- <img src="../../images/logo-no-name.png" alt="logo" class="center"> -->
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
@@ -455,12 +248,12 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_id">Accomodation</label>
-                                <select class="form-select mt-3" name="acc_id">
+                                <select class="form-select mt-3" name="acc_id" id="accList" onchange="myfunc()">
                                     <option name="employee_accomodation" selected disabled value="">Select Accomodation
                                     </option>
                         
                                 <?php $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
-
+                                    $empAcc_row = mysqli_fetch_assoc($emp_acc);
                                     foreach ($emp_acc as $row) { ?>
                                         <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
                                             <?= $row["acc_name"]; ?>
@@ -475,11 +268,13 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="room_id">Room</label>
                                 <select class="form-select mt-3" name="room_id">
+                                    
                                     <option name="employee_room" selected disabled value="">Select room
                                     </option>
                                     <?php
-                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms WHERE ");
-
+                                    // $accid = $empAcc_row['acc_id'];
+                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms");
+                                    
                                     foreach ($emp_room as $row) { 
                                         if($row['status'] == 'Occupied') {
                                         ?>
@@ -534,6 +329,12 @@ if (isset($_GET['edit'])) {
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
     
     <!-- Script files -->
+    <script>
+        function myfunc() {
+            var x = document.getElementById("accList").value;
+            func(x);
+        }
+    </script>
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>

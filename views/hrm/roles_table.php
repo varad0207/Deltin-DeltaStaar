@@ -54,20 +54,11 @@
 	</script>
 </head>
 <body class="bg">
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy fw5">
-        <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo" class="d-inline-block align-text-top"
-                    style="border-radius: 50px;">
-            </a>
-            <ul class="navbar-nav justify-content-end">    
-                <li class="nav-item">
-                    <a class="nav-link active" id="adminlogin" onmouseover="this.style.cursor='pointer'" onclick = "history.back()" >Back</a>
-                </li>
-            </ul>    
-        </div>
-    </nav>
+    <!-- Sidebar and Navbar-->
+   <?php
+    include '../../controllers/includes/sidebar.html';
+    include '../../controllers/includes/navbar.html';
+    ?>
 
     
     <div class="table-header">
@@ -84,6 +75,29 @@
     </div>
 
     <!-- Displaying Database Table -->
+    <?php  //Entries per-page
+        $results_per_page = 5;
+
+        //Number of results in the DB
+        $sql = "select * from roles";
+        $result = mysqli_query($conn, $sql);
+        $number_of_results = mysqli_num_rows($result); 
+        //number of pages
+        $number_of_pages = ceil($number_of_results / $results_per_page);
+
+        // on which is the user
+        if (!isset($_GET['page']))
+        $page = 1;
+    else
+        $page = $_GET['page'];
+    //starting limit number for the results
+    $this_page_first_result = ($page - 1) * $results_per_page;
+
+   // retrieve the selected results
+   $sqli = "SELECT * FROM roles LIMIT " . $this_page_first_result . ',' . $results_per_page;
+   $results = mysqli_query($conn, $sqli);
+
+        ?>
 
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -170,6 +184,12 @@
                     <?php } ?>
                 </tbody>
             </table>
+            <?php
+            
+            //display the links to the pages
+            for($page=1;$page<=$number_of_pages;$page++)
+                echo '<a href="roles_table.php?page=' .$page .'">' .$page .'</a>';
+            ?>
         </div>
     </div>
 

@@ -15,6 +15,7 @@
     <script src="../js/Sidebar/sidebar.js"></script>
 
     <link rel="stylesheet" href="../css/style1.css">
+    <link rel="stylesheet" href="../css/technician.css">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
@@ -273,26 +274,77 @@
                 </div>
             </div>
         </nav>
+
+
         <div class="container">
             <div class="left-side">
-              <div class="welcome-message">Welcome back, [User Name]</div>
-              <div class="user-icon">
-                <!-- Insert image or icon here -->
-              </div>
-              <div class="complaint-statistics">
-                <div class="statistics-item">Pending Complaints</div>
-                <div class="statistics-item">Solved Complaints</div>
-                <div class="statistics-item">Assigned to you</div>
-              </div>
-              <button class="view-complaints-button">View Complaints</button>
+                <div class="welcome-message">Welcome back, <span style="color:#ceaa6d">Technician</span></div>
+                <div class="parent-con">
+                    <div class="user-icon">
+
+                        <img src="../images/technician.png" alt="technician_logo">
+                    </div>
+                    <div class="complaint-statistics">
+
+                        <div class="statistics-item">Solved Complaints: 100</div>
+                        <div class="statistics-item">Pending Complaints: 10</div>
+                        <div class="statistics-item">Assigned to you: 5</div>
+                    </div>
+                </div>
+
+                <div class="pt-4 button-con">
+                    <button class="button-56" role="button">View Complaints</button>
+                </div>
+
             </div>
             <div class="right-side">
-              <!-- Donut chart goes here -->
+
+
+                <h4 class="text-center p-2">Complaints Information</h4>
+                <canvas id="myDoughnutChart"></canvas>
+
+
             </div>
         </div>
-          
 
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script> //Doughnut Chart
+
+            //Setup Block
+            const dataDoughnut = {
+                labels: [
+                    'Completed',
+                    'Assigned',
+                    'Pending'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(38,166,254)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            //Config Block
+            const configDoughnut = {
+                type: 'doughnut',
+                data: dataDoughnut,
+                options: {
+                    aspectRatio: 1.2
+                }
+
+            };
+
+            //Render Block
+            const myDoughnutChart = new Chart(
+                document.getElementById('myDoughnutChart'), configDoughnut
+            );
+        </script>
 
         <!-- Footer -->
         <footer class="tc f3 lh-copy mt6">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>

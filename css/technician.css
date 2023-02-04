@@ -1,43 +1,115 @@
+@font-face {
+    font-family: Seasons;
+    src: url(Fontspring-DEMO-theseasons-bd.otf);
+}
+
 .container {
     display: flex;
 }
 
 .left-side {
-    width: 50%;
+    width: 60%;
     padding: 20px;
     text-align: center;
 }
 
+.right-side {
+    width: 40%;
+    padding: 20px;
+}
+
 .welcome-message {
-    font-size: 24px;
+    font-size: 50px;
     margin-bottom: 20px;
+    font-family: Seasons;
+}
+
+.parent-con {
+    display: flex;
 }
 
 .user-icon {
+
     margin-bottom: 20px;
+    width: 40%;
 }
 
 .complaint-statistics {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 1.2rem;
     margin-bottom: 20px;
+    width: 60%;
+    font-size: 1.5rem;
 }
 
 .statistics-item {
     margin-bottom: 10px;
 }
 
-.view-complaints-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.button-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.right-side {
-    width: 50%;
-    padding: 20px;
+/* CSS */
+.button-56 {
+    align-items: center;
+    background-color: #ffdfcf;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-56:after {
+    background-color: #111;
+    border-radius: 8px;
+    content: "";
+    display: block;
+    height: 48px;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    transform: translate(8px, 8px);
+    transition: transform .2s ease-out;
+    z-index: -1;
+}
+
+.button-56:hover:after {
+    transform: translate(0, 0);
+}
+
+.button-56:active {
+    background-color: #ffdeda;
+    outline: 0;
+}
+
+.button-56:hover {
+    outline: 0;
+}
+
+@media (min-width: 768px) {
+    .button-56 {
+        padding: 0 40px;
+    }
 }

@@ -3,6 +3,8 @@
 
 ![](/images/logo-no-name-circle.png)
 
+<!-- 
+
 ## Getting Started
 These instructions will help you get the project up and running on your local machine for development and testing purposes.
 
@@ -14,9 +16,11 @@ These instructions will help you get the project up and running on your local ma
 
 ### Running the Project
 
+-->
+
 ## Built With
-- **A** - The framework used
-+ **X** - The IDE used
++ **Technologies used**- HTML, CSS, JavaScript, PHP, MySQL
+- **Frameworks used**- Chart.js, Bootstrap, Tachyons CSS
 
 ## Authors
 - Chinmay Joshi

@@ -8,9 +8,8 @@ if (!isset($_SESSION["emp_id"]))
 $isPrivilaged = 0;
 if ($_SESSION['rights_employee_details'] > 0) {
     $isPrivilaged = $_SESSION['rights_employee_details'];
-}
-else
-die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+} else
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 ?>
 
@@ -27,7 +26,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     <title>DELTA@STAAR | Employee Details</title>
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <!-- Tachyons -->
@@ -60,17 +60,18 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 </head>
 
 <body class="bg">
-   <!-- Sidebar and Navbar-->
-   <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
-    ?>
+    <!-- Sidebar and Navbar-->
+    <?php
+   include '../../controllers/includes/sidebar.html';
+   include '../../controllers/includes/navbar.html';
+   ?>
 
 
     <div class="table-header">
         <h1 class="tc f1 lh-title spr">Employee Details</h1>
         <div class="fl w-75 form-outline srch">
-            <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
+            <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search"
+                oninput="search()" />
             <h4 id="demo"></h4>
         </div>
         <div class="fl w-25 tr">
@@ -83,38 +84,38 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     <!-- Displaying Database Table -->
 
     <div class="table-div">
-        <?php if (isset($_SESSION['message'])) : ?>
-            <div class="msg">
-                <?php
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
+        <?php if (isset($_SESSION['message'])): ?>
+        <div class="msg">
+            <?php
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
                 ?>
-            </div>
+        </div>
         <?php endif ?>
-        
-       <?php  //Entries per-page
-        $results_per_page = 5;
 
-        //Number of results in the DB
-        $sql = "select * from employee";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result); 
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
+        <?php //Entries per-page
+       $results_per_page = 5;
 
-        // on which is the user
-        if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
+       //Number of results in the DB
+       $sql = "select * from employee";
+       $result = mysqli_query($conn, $sql);
+       $number_of_results = mysqli_num_rows($result);
+       //number of pages
+       $number_of_pages = ceil($number_of_results / $results_per_page);
 
-   // retrieve the selected results
-   $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
-   $results = mysqli_query($conn, $sqli);
+       // on which is the user
+       if (!isset($_GET['page']))
+           $page = 1;
+       else
+           $page = $_GET['page'];
+       //starting limit number for the results
+       $this_page_first_result = ($page - 1) * $results_per_page;
 
-        ?>
+       // retrieve the selected results
+       $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
+       $results = mysqli_query($conn, $sqli);
+
+       ?>
 
         <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation LIMIT " . $this_page_first_result . ',' . $results_per_page); ?>
         <div class="pa1 table-responsive">
@@ -145,99 +146,124 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
-                        <?php
+                    <?php
                         $desigid = $row['designation'];
                         $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE designation='$desigid'");
                         $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
                         ?>
-                        <?php
+                    <?php
                         $roomid = $row['room_id'];
                         $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
                         $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
                         ?>
-                        <?php
-                        $accid = $EmployeeRoom_row['acc_id'];
-                        if (!empty($accid)) {
-                            $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
+                    <?php
+                        // $accid = $EmployeeRoom_row['acc_id'];
+
+                        if (isset($EmployeeRoom_row['acc_id']) && array_key_exists($offset, $EmployeeRoom_row['acc_id'])) {
+                            $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
                             $Acc_row = mysqli_fetch_assoc($queryAcc);
                             $accName = $Acc_row['acc_name'];
-                        }else{
+                          } else {
                             $accName = 'N/A';
-                        }
+                          }
+
+                        // if (!empty($accid)) {
+                        //     $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
+                        //     $Acc_row = mysqli_fetch_assoc($queryAcc);
+                        //     $accName = $Acc_row['acc_name'];
+                        // } else {
+                        //     $accName = 'N/A';
+                        // }
                         ?>
 
-                        <tr>
-                            <th scope="row"><?php echo $row['emp_code']; ?></th>
-                            <td>
-                                <?php echo $row['fname']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['mname']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['lname']; ?>
-                            </td>
-                            <td>
-                                <?php echo $EmployeeDesig_row['designation']; ?>
-                            </td>
-                            <td>
-                                <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
-                            </td>
-                            <td>
-                                <?php echo $row['address']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['state']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['country']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['pincode']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['contact']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['email']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['blood_group']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['department']; ?>
-                            </td>
-                            <td>
-                                <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
-                            </td>
-                            <td>
-                                <?php echo $row['aadhaar_number']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['salary']; ?>
-                            </td>
-                            <td>
-                                <?php echo $accName; ?>
-                            </td>
-                            <td>
-                                <?php echo $EmployeeRoom_row['room_no']; ?>
-                            </td>
-                            <td>
-                                <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
-                                &nbsp;
-                                <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th scope="row"><?php echo $row['emp_code']; ?></th>
+                        <td>
+                            <?php echo $row['fname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['mname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['lname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $EmployeeDesig_row['designation']; ?>
+                        </td>
+                        <td>
+                            <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
+                        </td>
+                        <td>
+                            <?php echo $row['address']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['state']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['country']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['pincode']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['contact']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['email']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['blood_group']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['department']; ?>
+                        </td>
+                        <td>
+                            <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
+                        </td>
+                        <td>
+                            <?php echo $row['aadhaar_number']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['salary']; ?>
+                        </td>
+                        <td>
+                            <?php echo $accName; ?>
+                        </td>
+                        <td>
+                            
+                            <?php
+                            if (isset($EmployeeRoom_row['room_no']) && array_key_exists($offset, $EmployeeRoom_row['room_no'])) {
+                                echo $EmployeeRoom_row['room_no'];
+                              } else {
+                            echo $EmployeeRoom_row['room_no']='N/A';
+                              }
+                             ?>
+                        </td>
+                        <td style="text-align: center;">
+                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square"
+                                    style="font-size: 1rem; color: black;"></i></a>
+                            &nbsp;
+                            <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1rem; color: black;"></i></a>
+                        </td>
+                    </tr>
                     <?php } ?>
                 </tbody>
             </table>
 
-            <?php
-            
-            //display the links to the pages
-            for($page=1;$page<=$number_of_pages;$page++)
-                echo '<a href="employee_table.php?page=' .$page .'">' .$page .'</a>';
-            ?>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <?php for ($page = 1; $page <= $number_of_pages; $page++): ?>
+                    <li class="page-item <?php if ($page == $current_page)
+            echo 'active'; ?>">
+                        <a class="page-link" href="employee_table.php?page=<?php echo $page; ?>">
+                            <?php echo $page; ?>
+                        </a>
+                    </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
         </div>
     </div>
 
@@ -261,9 +287,13 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

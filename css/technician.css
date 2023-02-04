@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+}
+
+.left-side {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome-message {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.user-icon {
+    margin-bottom: 20px;
+}
+
+.complaint-statistics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.statistics-item {
+    margin-bottom: 10px;
+}
+
+.view-complaints-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.right-side {
+    width: 50%;
+    padding: 20px;
+}

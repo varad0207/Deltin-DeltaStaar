@@ -110,9 +110,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     //starting limit number for the results
     $this_page_first_result = ($page - 1) * $results_per_page;
 
-    // retrieve the selected results
-   // $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
-   // $results = mysqli_query($conn, $sqli);
+   // retrieve the selected results
+   $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
+   $results = mysqli_query($conn, $sqli);
 
         ?>
 

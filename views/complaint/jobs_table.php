@@ -79,7 +79,29 @@ if ($_SESSION['rights_jobs'] > 0) {
     </div> -->
     </div>
 
+    <?php  //Entries per-page
+        $results_per_page = 5;
 
+        //Number of results in the DB
+        $sql = "SELECT * FROM jobs";
+        $result = mysqli_query($conn, $sql);
+        $number_of_results = mysqli_num_rows($result); 
+        //number of pages
+        $number_of_pages = ceil($number_of_results / $results_per_page);
+
+        // on which is the user
+        if (!isset($_GET['page']))
+        $page = 1;
+    else
+        $page = $_GET['page'];
+    //starting limit number for the results
+    $this_page_first_result = ($page - 1) * $results_per_page;
+
+   // retrieve the selected results
+   $sqli = "SELECT * FROM jobs LIMIT " . $this_page_first_result . ',' . $results_per_page;
+   $results = mysqli_query($conn, $sqli);
+
+        ?>
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
         <div class="msg">
@@ -240,6 +262,12 @@ if ($_SESSION['rights_jobs'] > 0) {
                     <?php } ?>
                 </tbody>
             </table>
+            <?php
+            
+            //display the links to the pages
+            for($page=1;$page<=$number_of_pages;$page++)
+                echo '<a href="jobs_table.php?page=' .$page .'">' .$page .'</a>';
+            ?>
         </div>
     </div>
 

@@ -80,6 +80,30 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
     <!-- Displaying Database Table -->
 
+    <?php  //Entries per-page
+        $results_per_page = 5;
+
+        //Number of results in the DB
+        $sql = "select * from vaccination";
+        $result = mysqli_query($conn, $sql);
+        $number_of_results = mysqli_num_rows($result); 
+        //number of pages
+        $number_of_pages = ceil($number_of_results / $results_per_page);
+
+        // on which is the user
+        if (!isset($_GET['page']))
+        $page = 1;
+    else
+        $page = $_GET['page'];
+    //starting limit number for the results
+    $this_page_first_result = ($page - 1) * $results_per_page;
+
+   // retrieve the selected results
+   $sqli = "SELECT * FROM vaccination LIMIT " . $this_page_first_result . ',' . $results_per_page;
+   $results = mysqli_query($conn, $sqli);
+
+    ?>
+
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
                 <div class="msg">
@@ -138,6 +162,12 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <?php } ?>
                 </tbody>
             </table>
+            <?php
+            
+            //display the links to the pages
+            for($page=1;$page<=$number_of_pages;$page++)
+                echo '<a href="vaccination_table.php?page=' .$page .'">' .$page .'</a>';
+            ?>
         </div>
     </div>
 

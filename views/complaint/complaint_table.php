@@ -71,7 +71,31 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
         </div> -->
+        
         <!-- Displaying Database Table -->
+        <?php  //Entries per-page
+        $results_per_page = 5;
+
+        //Number of results in the DB
+        $sql = "select * from complaints";
+        $result = mysqli_query($conn, $sql);
+        $number_of_results = mysqli_num_rows($result); 
+        //number of pages
+        $number_of_pages = ceil($number_of_results / $results_per_page);
+
+        // on which is the user
+        if (!isset($_GET['page']))
+        $page = 1;
+    else
+        $page = $_GET['page'];
+    //starting limit number for the results
+    $this_page_first_result = ($page - 1) * $results_per_page;
+
+   // retrieve the selected results
+   $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
+   $results = mysqli_query($conn, $sqli);
+
+        ?>
         <?php if (!isset($_SESSION['emp_id'])) { ?>
         <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">
             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
@@ -234,6 +258,12 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 </tbody>
             </table>
             <?php } ?>
+            <?php
+            
+            //display the links to the pages
+            for($page=1;$page<=$number_of_pages;$page++)
+                echo '<a href="complaint_table.php?page=' .$page .'">' .$page .'</a>';
+            ?>
         </div>
     </div>
 

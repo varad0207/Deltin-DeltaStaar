@@ -5,7 +5,7 @@
 
 .container {
     display: flex;
-    
+
 }
 
 .left-side {
@@ -54,6 +54,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 1rem;
 }
 
 /* CSS */
@@ -109,8 +110,68 @@
     outline: 0;
 }
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
     .button-56 {
         padding: 0 40px;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .welcome-message {
+        font-size: 30px;
+    }
+
+    .user-icon {
+        width: 100%;
+    }
+
+    .complaint-statistics {
+        padding-left: 0;
+        font-size: 1.2rem;
+    }
+
+    .button-56 {
+        font-size: 14px;
+        height: 40px;
+    }
+}*/
+
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+    }
+
+    .parent-con {
+        flex-direction: column;
+    }
+
+    .complaint-statistics {
+        width: 100%;
+        align-items: center;
+        padding-left: 0;
+        font-size: 20px;
+    }
+
+    .user-icon {
+        margin: 20px auto;
+        width: 80%;
+        text-align: center;
+    }
+
+    .welcome-message {
+        font-size: 35px;
+    }
+
+    .button-56 {
+        padding-top: 0;
     }
 }

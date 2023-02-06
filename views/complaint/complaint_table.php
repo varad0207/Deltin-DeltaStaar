@@ -5,8 +5,9 @@ if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
 $isPrivilaged = 0;
-if ($_SESSION['rights_complaints'] > 0) {
-    $isPrivilaged = $_SESSION['rights_complaints'];
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_complaints'] > 0) {
+    $isPrivilaged = $rights['rights_complaints'];
 }
 else
 die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');

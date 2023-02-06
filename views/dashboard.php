@@ -73,7 +73,7 @@ else{
         include '../controllers/includes/navbar.php';
         ?>
 
-        <div class="welcome-message">Welcome back, <span style="color:#ceaa6d">
+        <div align=center class="welcome-message">Welcome back, <span style="color:#ceaa6d">
                 <?php echo $emp_details['fname']; ?>
             </span></div>
 

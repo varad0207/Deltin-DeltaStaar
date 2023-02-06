@@ -173,6 +173,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 
                 $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where warden_emp_code='$emp_code'");
                 $AccName_row = mysqli_fetch_assoc($queryAccName);
+
+                  $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE acc_id = '{$AccName_row['acc_id']}'");
+                  $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
                         ?>
                     <?php
                     $comp_type = $row['type'];
@@ -228,7 +231,13 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             <?php echo $AccName_row['acc_name']; ?>
                         </td>
                         <td>
-                            <?php echo $Room_row['room_no']; ?>
+                        <?php
+                            if (isset($EmployeeRoom_row['room_no']) && array_key_exists($offset, $EmployeeRoom_row['room_no'])) {
+                                echo $EmployeeRoom_row['room_no'];
+                              } else {
+                            echo $EmployeeRoom_row['room_no']='N/A';
+                              }
+                             ?>
                         </td>
                         <td>
 

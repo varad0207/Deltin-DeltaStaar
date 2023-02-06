@@ -159,7 +159,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                     <?php
                         // $accid = $EmployeeRoom_row['acc_id'];
 
-                        if (isset($EmployeeRoom_row['acc_id']) && array_key_exists($offset, $EmployeeRoom_row['acc_id'])) {
+                        if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
                             $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
                             $Acc_row = mysqli_fetch_assoc($queryAcc);
                             $accName = $Acc_row['acc_name'];
@@ -167,14 +167,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                             $accName = 'N/A';
                           }
 
-                        // if (!empty($accid)) {
-                        //     $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
-                        //     $Acc_row = mysqli_fetch_assoc($queryAcc);
-                        //     $accName = $Acc_row['acc_name'];
-                        // } else {
-                        //     $accName = 'N/A';
-                        // }
-                        ?>
+                    ?>
 
                     <tr>
                         <th scope="row"><?php echo $row['emp_code']; ?></th>
@@ -232,7 +225,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                         <td>
                             
                             <?php
-                            if (isset($EmployeeRoom_row['room_no']) && array_key_exists($offset, $EmployeeRoom_row['room_no'])) {
+                            if (isset($EmployeeRoom_row['room_no']) && !empty($EmployeeRoom_row['room_no'])) {
                                 echo $EmployeeRoom_row['room_no'];
                               } else {
                             echo $EmployeeRoom_row['room_no']='N/A';

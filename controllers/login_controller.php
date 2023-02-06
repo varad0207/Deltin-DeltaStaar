@@ -61,10 +61,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;
             $_SESSION['login_history_id'] = $last_insert_id;
-            if ($_SESSION['is_superadmin'] == 1)
-                header("location:../views/dashboard.php");
-            else
-                header("location:../views/employee_dashboard.php");
+                header("location:../views/all_dashboard.php");
         }
     }
 }

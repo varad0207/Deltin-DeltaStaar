@@ -26,7 +26,7 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
         <a class="navbar-brand mb-2" href="#" style="padding: 8px;">
-            <img src="../../images/logo-no-name-circle.png" height="120px" alt="Deltin Logo" class="">
+            <img src="../images/logo-no-name-circle.png" height="120px" alt="Deltin Logo" class="">
         </a>
 
         <ul class="nav flex-column p-4" id="nav_accordion" style="--bs-nav-link-hover-color: #f8f9fa;">

@@ -6,8 +6,9 @@ if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
 $isPrivilaged = 0;
-if ($_SESSION['rights_employee_details'] > 0) {
-    $isPrivilaged = $_SESSION['rights_employee_details'];
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_employee_details'] > 0) {
+    $isPrivilaged = $rights['rights_employee_details'];
 } else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
@@ -149,7 +150,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                     <?php
                         // $accid = $EmployeeRoom_row['acc_id'];
 
-                        if (isset($EmployeeRoom_row['acc_id']) && array_key_exists($offset, $EmployeeRoom_row['acc_id'])) {
+                        if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
                             $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
                             $Acc_row = mysqli_fetch_assoc($queryAcc);
                             $accName = $Acc_row['acc_name'];
@@ -157,14 +158,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                             $accName = 'N/A';
                           }
 
-                        // if (!empty($accid)) {
-                        //     $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
-                        //     $Acc_row = mysqli_fetch_assoc($queryAcc);
-                        //     $accName = $Acc_row['acc_name'];
-                        // } else {
-                        //     $accName = 'N/A';
-                        // }
-                        ?>
+                    ?>
 
                     <tr>
                         <th scope="row"><?php echo $row['emp_code']; ?></th>

@@ -127,20 +127,10 @@ if ($_SESSION['rights_employee_details'] > 0) {
                         <th scope="col">Middle Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Designation</th>
-                        <th scope="col">Date of Birth</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">State</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Pincode</th>
-                        <th scope="col">Contact Number</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Blood Group</th>
                         <th scope="col">Department</th>
                         <th scope="col">Joining Date</th>
-                        <th scope="col">Aadhar Number</th>
-                        <th scope="col">Salary</th>
-                        <th scope="col">Accommodation</th>
-                        <th scope="col">Room Number</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Contact Number</th>
                         <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -191,55 +181,20 @@ if ($_SESSION['rights_employee_details'] > 0) {
                             <?php echo $EmployeeDesig_row['designation']; ?>
                         </td>
                         <td>
-                            <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
-                        </td>
-                        <td>
-                            <?php echo $row['address']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['state']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['country']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['pincode']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['contact']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['email']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['blood_group']; ?>
-                        </td>
-                        <td>
                             <?php echo $row['department']; ?>
                         </td>
                         <td>
                             <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
                         </td>
                         <td>
-                            <?php echo $row['aadhaar_number']; ?>
+                            <?php echo $row['state']; ?>
                         </td>
+                        
                         <td>
-                            <?php echo $row['salary']; ?>
-                        </td>
-                        <td>
-                            <?php echo $accName; ?>
-                        </td>
-                        <td>
-                            
-                            <?php
-                            if (isset($EmployeeRoom_row['room_no']) && array_key_exists($offset, $EmployeeRoom_row['room_no'])) {
-                                echo $EmployeeRoom_row['room_no'];
-                              } else {
-                            echo $EmployeeRoom_row['room_no']='N/A';
-                              }
-                             ?>
+                            <?php echo $row['contact']; ?>
                         </td>
                         <td style="text-align: center;">
+                        <a href="./emp_viewmore.php?id=<?php echo $row['emp_code']?> " class="btn btn-primary">View More</a>
                             <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square"
                                     style="font-size: 1rem; color: black;"></i></a>

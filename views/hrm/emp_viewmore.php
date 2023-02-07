@@ -64,8 +64,8 @@ if(isset($_GET["id"])){
 <body class="bg">
     <!-- Sidebar and Navbar-->
     <?php
-   include '../../controllers/includes/sidebar.html';
-   include '../../controllers/includes/navbar.html';
+   include '../../controllers/includes/sidebar.php';
+   include '../../controllers/includes/navbar.php';
    ?>
 
 

@@ -1,7 +1,7 @@
 <?php
 require "../controllers/includes/common.php";
 if (!isset($_SESSION["emp_id"]))
-    header("location:login.php");
+    header("location:../index.php");
 $emp = mysqli_query($conn, "select * from employee where emp_id='{$_SESSION['emp_id']}'");
 $emp_details = mysqli_fetch_array($emp);
 $check_technician=mysqli_query($conn,"select * from employee join technician using(emp_id) where emp_id='{$_SESSION['emp_id']}' and employee.role is not null");
@@ -74,9 +74,8 @@ else{
         ?>
 
         <div align=center class="welcome-message">Welcome back, <span style="color:#ceaa6d">
-                <?php echo $emp_details['fname']; ?>
+                <?php echo $emp_details['fname'];?>
             </span></div>
-
            <?php 
            if($isSuperadmin)
            include '../controllers/includes/superadmin.php'; 

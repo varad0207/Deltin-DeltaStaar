@@ -100,11 +100,11 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                     </li>
                   <?php  if($_SESSION['is_superadmin']){ ?>
 
-                    <li>
+                    <!-- <li>
                         <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/complaint_type.php">
                             Add Complaint Type
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="nav-link border-dark border-bottom"
                             href="../<?php echo $link; ?>views/config/complaint_type_table.php">
@@ -123,11 +123,11 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                 </a>
                 <ul class="submenu collapse">
                     <?php if($rights['rights_employee_details']>0){ ?>
-                    <li>
+                    <!-- <li>
                         <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/emp_desig.php">
                             Add Designation Details
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/emp_desig_table.php">
                             Employees Designation Table

@@ -6,11 +6,11 @@ if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
 $isPrivilaged = 0;
-$check = mysqli_query($conn,"select emp_id from employee where emp_id in(select emp_id from technician) and emp_id='{$_SESSION['emp_id']}')");
-    if (mysqli_num_rows($check) > 0)
-    $isPrivilaged = 1;
-    else
-die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+// $check = mysqli_query($conn,"select emp_id from employee where emp_id in(select emp_id from technician) and emp_id='{$_SESSION['emp_id']}')");
+//     if (mysqli_num_rows($check) > 0)
+//     $isPrivilaged = 1;
+//     else
+// die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_jobs'] > 0) {

@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isset($_GET['tech'])||isset($_GET['sec'])||isset($_GET['warden'])) {
+if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isset($_GET['tech_pending'])||isset($_GET['tech'])||isset($_GET['sec'])||isset($_GET['warden'])) {
     include('../controllers/includes/common.php');
 }else{
     include('../../controllers/includes/common.php');
@@ -15,6 +15,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
         $category = "";
         $description = "";
         $status = "";
+        $tech_pending_timestamp = "";
         $tech_closure_timestamp = "";
         $sec_closure_timestamp = "";
         $warden_closure_timestamp = "";
@@ -39,6 +40,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
         $category = $_POST['category'];
         $description = $_POST['description'];
         $status = $_POST['status'];
+        $tech_pending_timestamp = $_POST['tech_pending_timestamp'];
         $tech_closure_timestamp = $_POST['tech_closure_timestamp'];
         $sec_closure_timestamp = $_POST['sec_closure_timestamp'];
         $warden_closure_timestamp = $_POST['warden_closure_timestamp'];
@@ -56,6 +58,14 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
         mysqli_query($conn, "DELETE FROM complaints WHERE id = '$id'");
         $_SESSION['message'] = "Complaint Deleted";
         header('location: ../views/complaint/complaint_table.php');
+    }
+
+    if(isset($_GET['tech_pending']))
+    {
+
+    mysqli_query($conn, "UPDATE complaints SET tech_pending_timestamp=now() WHERE id={$_GET['tech_pending']}");
+        $_SESSION['message'] = "Complaint Info Updated!";
+        header('location: ../views/complaint/tech_jobs.php');
     }
 
     if(isset($_GET['tech']))

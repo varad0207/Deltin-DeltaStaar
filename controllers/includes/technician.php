@@ -1,3 +1,7 @@
+<?php
+include 'common.php';
+?>
+
 <div class="container">
             <div class="left-side">
                 <div class="parent-con">

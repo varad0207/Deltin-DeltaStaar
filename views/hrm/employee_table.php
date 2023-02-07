@@ -36,6 +36,7 @@ if ($rights['rights_employee_details'] > 0) {
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/form.css">
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {

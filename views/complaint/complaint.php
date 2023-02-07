@@ -76,7 +76,7 @@ if (isset($_GET['edit'])) {
                         <div class="col-md-12 pa2">
                           <label for="empcode">Employee Code</label>
                           <?php if (isset($_SESSION['emp_id']) && !$update) { ?>
-                            <input class="form-control"  type="text" name="emp_code" value="<?php echo $_SESSION['emp_code']; ?>" disabled>
+                            <input class="form-control" style="pointer-events: none;"  type="text" name="emp_code" value="<?php echo $_SESSION['emp_code']; ?>">
 
                             <?php } else {?>
                             <input class="form-control" value="" type="text" name="emp_code" placeholder="eg.HV1234" required>

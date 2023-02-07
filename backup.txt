@@ -3002,3 +3002,49 @@ technician
                             }
                         ?>
                         </td>
+
+tech_job.php
+ <td>
+                                <a id="buttonId" class="del_btn">Add remark</a>
+                                <script>
+                                    
+                                    document.getElementById("buttonId").addEventListener("click", function () {
+                                        var button = document.getElementById("buttonId");
+                                        var textbox = document.createElement("input");
+                                        textbox.type = "text";
+                                        var submitButton = document.createElement("input");
+                                        submitButton.type = "submit";
+                                        button.parentNode.replaceChild(textbox, button);
+                                        textbox.parentNode.insertBefore(submitButton, textbox.nextSibling);
+
+                                    });
+                                </script>
+                            </td>
+
+
+complaint_table.php
+
+ <div class="progress" style="color:black">
+                                        <?php
+                                        
+
+                                        if (isset($row['tech_closure_timestamp']) && isset($row['sec_closure_timestamp']) && isset($row['warden_closure_timestamp'])) {
+                                            $progress = 100;
+                                            $stat = "Completed";
+                                        } else if (isset($row['tech_pending_timestamp']) && !isset($row['tech_closure_timestamp']) && !isset($row['sec_closure_timestamp']) && !isset($row['warden_closure_timestamp'])) {
+                                            $progress = 75;
+                                            $stat = "Waiting for material";
+                                        } else if (!isset($row['tech_closure_timestamp']) && !isset($row['sec_closure_timestamp']) && !isset($row['warden_closure_timestamp'])) {
+                                            $progress = 5;
+                                            $stat = "Not started";
+                                        } else {
+                                            $progress = 50;
+                                            $stat = "In progress";
+                                        }
+                                        ?>
+                                        <div class="progress-bar" role="progressbar" style="width: <?php echo $progress; ?>%; color:black;"
+                                            aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <?php echo $progress; ?><br>
+                                        </div>
+                                        <?php echo $stat; ?>
+                                    </div>

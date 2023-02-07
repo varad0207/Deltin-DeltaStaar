@@ -6,7 +6,7 @@ require 'common.php';
         <div class="container-fluid">
         <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
             <a class="navbar-brand" href="#">
-                <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo"
+                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo"
                     class="d-inline-block align-text-top" style="border-radius: 50px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -26,6 +26,9 @@ require 'common.php';
                 <?php if (!isset($_SESSION['emp_id'])) { ?>
                 <div class="offcanvas-body">
 					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <!-- <li class="nav-item">
+							<a class="nav-link active" href="../../views/dashboard.php">Home</a>
+						</li> -->
 						<li class="nav-item">
 							<a class="nav-link active" href="../../views/aboutus.html">About Us</a>
 						</li>
@@ -58,28 +61,28 @@ require 'common.php';
                                     </svg>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="../views/config/vaccination_category.php">Add Vaccination
+                                    <a class="dropdown-item" href="../../views/config/vaccination_category.php">Add Vaccination
                                         category</a>
-                                    <a class="dropdown-item" href="../views/config/emp_desig.php">Add Employee Designation</a>
-                                    <a class="dropdown-item" href="../views/config/tanker_vendor.php">Add Tanker Vendors</a>
-                                    <a class="dropdown-item" href="../views/config/security.php">Define Security</a>
-                                    <a class="dropdown-item" href="../views/config/technician.php">Define/Add Technician</a>
-                                    <a class="dropdown-item" href="../views/config/complaint_type.php">Complaint Type</a>
+                                    <a class="dropdown-item" href="../../views/config/emp_desig.php">Add Employee Designation</a>
+                                    <a class="dropdown-item" href="../../views/config/tanker_vendor.php">Add Tanker Vendors</a>
+                                    <a class="dropdown-item" href="../../views/config/security.php">Define Security</a>
+                                    <a class="dropdown-item" href="../../views/config/technician.php">Define/Add Technician</a>
+                                    <a class="dropdown-item" href="../../views/config/complaint_type.php">Complaint Type</a>
                                 </div>
                             </div>
                         </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="../views/dashboard.php">Home</a>
+                            <a class="nav-link active" aria-current="page" href="../../views/dashboard.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../views/aboutus.html" >About Us</a>
+                            <a class="nav-link active" href="../../views/aboutus.html" >About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../views/complaint/complaint.php" >Complain+</a>
+                            <a class="nav-link active" href="../../views/complaint/complaint.php" >Complain+</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active1" id="adminlogin" href="../controllers/logout.php">Log Out</a>
+                            <a class="nav-link active1" id="adminlogin" href="../../controllers/logout.php">Log Out</a>
                         </li>
                     </ul>
                 </div>

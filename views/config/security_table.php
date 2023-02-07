@@ -46,8 +46,8 @@
 <body>
     <!-- Sidebar and Navbar-->
    <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
     <div class="table-header">
         <h1 class="tc f1 lh-title spr">Security</h1>

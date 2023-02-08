@@ -1,26 +1,3 @@
-<?php
-require "../controllers/includes/common.php";
-if (!isset($_SESSION["emp_id"]))
-    header("location:../index.php");
-$emp = mysqli_query($conn, "select * from employee where emp_id='{$_SESSION['emp_id']}'");
-$emp_details = mysqli_fetch_array($emp);
-$check_technician = mysqli_query($conn, "select * from employee join technician using(emp_id) where emp_id='{$_SESSION['emp_id']}' and employee.role is not null");
-$check_security = mysqli_query($conn, "select * from employee join security using(emp_id) where emp_id='{$_SESSION['emp_id']}' and role is not null");
-$isSecurity = 0;
-$isSuperadmin = 0;
-$isTechnician = 0;
-if ($_SESSION['is_superadmin']) {
-    $isSuperadmin = 1;
-} else {
-    if (mysqli_num_rows($check_technician) > 0 && mysqli_num_rows($check_security) > 0) {
-        //security is also techinician
-    } else if (mysqli_num_rows($check_technician) > 0) {
-        $isTechnician = 1;
-    } else if (mysqli_num_rows($check_security) > 0) {
-        $isSecurity = 1;
-    }
-}
-?>
 <!DOCTYPE html>
 <html>
 
@@ -46,7 +23,6 @@ if ($_SESSION['is_superadmin']) {
     <link rel="stylesheet" href="../css/technician.css">
     <link rel="stylesheet" href="../css/securityDashboard.css">
     <link rel="stylesheet" href="../css/employeeDashboard.css">
-
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
@@ -73,23 +49,15 @@ if ($_SESSION['is_superadmin']) {
         include '../controllers/includes/navbar.php';
         ?>
 
-        <div align=center class="welcome-message">Welcome back, <span style="color:#ceaa6d">
-                <?php echo $emp_details['fname']; ?>
-            </span></div>
-        <?php
-        if ($isSuperadmin)
-            include '../controllers/includes/superadmin.php';
-        else if ($isTechnician)
-            include '../controllers/includes/technician.php';
-        else if ($isSecurity)
-            include '../controllers/includes/security.php';
-        else
-            include '../controllers/includes/employee.php';
-        ?>
+        <div align=center class="welcome-message">
+            Welcome back, <span style="color:#ceaa6d">Employee</span>
+        </div>
+
+        <?php include '../controllers/includes/employee.php'; ?>
 
 
         <!-- Footer -->
-        <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+        <footer class="tc f3 lh-copy mt6">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 
 
     </div>

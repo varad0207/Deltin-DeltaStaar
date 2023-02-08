@@ -93,6 +93,7 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                             Complaint Table
                         </a>
                     </li>
+                    <!--
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/complaint/jobs_table.php">
                             View Jobs

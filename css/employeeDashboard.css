@@ -1,0 +1,57 @@
+@font-face {
+    font-family: Seasons;
+    src: url(Fontspring-DEMO-theseasons-bd.otf);
+}
+
+h4 {
+    padding-top: 1rem;
+    font-family: Seasons;
+}
+
+.containerrr {
+    display: flex !important;
+    flex-direction: row;
+    padding-top: 1.2rem;
+    text-align: center;
+}
+
+.one,
+.two,
+.three {
+    display: flex !important;
+    align-items: center;
+    width: 33.33%;
+}
+.employee-logo{
+    padding: 1rem;
+    
+}
+
+.two,
+.three {
+    
+    flex-direction: column;
+}
+
+.head-icon {
+    display: flex;
+    width: 40%;
+}
+
+@media only screen and (max-width: 768px) {
+    .containerrr {
+        flex-direction: column;
+        padding-top: 0;
+    }
+
+    .one,
+    .two,
+    .three {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 8%;
+    }
+
+    
+}

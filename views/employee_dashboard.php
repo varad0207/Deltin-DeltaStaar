@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../css/style1.css">
     <link rel="stylesheet" href="../css/technician.css">
     <link rel="stylesheet" href="../css/securityDashboard.css">
+    <link rel="stylesheet" href="../css/employeeDashboard.css">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
@@ -49,10 +50,10 @@
         ?>
 
         <div align=center class="welcome-message">
-            Welcome back, <span style="color:#ceaa6d">Security</span>
+            Welcome back, <span style="color:#ceaa6d">Employee</span>
         </div>
 
-        <?php include '../controllers/includes/Security.php'; ?>
+        <?php include '../controllers/includes/employee.php'; ?>
 
 
         <!-- Footer -->

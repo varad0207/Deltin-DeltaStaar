@@ -11,7 +11,10 @@ if ($rights['rights_complaints'] > 0) {
 }
 else
 die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
+$isWarden=0;
+$check = mysqli_query($conn,"select emp_id from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}'");
+if (mysqli_num_rows($check) > 0)
+    $isWarden = 1;
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +65,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 <body class="bg">
     <!-- Sidebar and Navbar-->
    <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
 
     <div class="table-header">
@@ -249,19 +252,23 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         <b style="color: green;">Job Raised</b>
                         <?php
                             } else {
-                        ?>
+                                if ($isWarden) {
+                                    if ($rights['rights_jobs'] > 1 && $rights['rights_jobs'] != 5 && $rights['rights_jobs'] != 4) { ?>
                         <a href="jobs.php?raise=<?php echo $row['id']; ?>" class="edit_btn" style="color: red;">Raise Job</a>
                         <?php
+                                    }
+                                }
                             }
-                            
                             }
                         ?>
 
                             
                         </td>
                         <td>
+                        <?php if ($isPrivilaged >= 4) { ?>
                             <a href="../../controllers/complaint_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn">Delete</a>
+                                <?php } ?>
                         </td>
                     </tr>
                     <?php } ?>

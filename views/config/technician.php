@@ -34,8 +34,8 @@ if (isset($_GET['edit'])) {
 <body style="background-color: black; color:#fff;">
 <!-- Sidebar and Navbar-->
 <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
 	<div class="form-body">
         <div class="row">

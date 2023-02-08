@@ -36,7 +36,11 @@ if ($rights['rights_employee_details'] > 0) {
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
+
     <link rel="stylesheet" href="../../css/form.css">
+
+  
+
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {
@@ -64,8 +68,8 @@ if ($rights['rights_employee_details'] > 0) {
 <body class="bg">
     <!-- Sidebar and Navbar-->
     <?php
-   include '../../controllers/includes/sidebar.html';
-   include '../../controllers/includes/navbar.html';
+   include '../../controllers/includes/sidebar.php';
+   include '../../controllers/includes/navbar.php';
    ?>
 
 

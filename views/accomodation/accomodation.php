@@ -1,9 +1,20 @@
-<?php include('../../controllers/includes/common.php'); ?>
-<?php include('../../controllers/accomodation_controller.php');
-?>
-<?php
+<?php include('../../controllers/includes/common.php');
+include('../../controllers/accomodation_controller.php');
+
+
 if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
+
+// check rights
+$isPrivilaged = 0;
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_accomodation'] > 1) {
+    $isPrivilaged = $rights['rights_accomodation'];
+} else
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+if ($isPrivilaged == 5 || $isPrivilaged == 4)
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
 $acc_code = $acc_name = $bldg_status = $location = $gender = $tot_capacity = $no_of_rooms = $occupied_rooms = $available_rooms = $owner = $remark = "";
 if (isset($_GET['edit'])) {
     $acc_code = $_GET['edit'];
@@ -54,8 +65,8 @@ if (isset($_GET['edit'])) {
 
     <!-- Sidebar and Navbar-->
     <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
     <div class="form-body">
         <div class="row">
@@ -132,23 +143,26 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="col-md-12 pa2">
-						<label class="d-block mb-4"> <span class="d-block mb-2">Warden Employee Code <span></span>
+                                <label class="d-block mb-4"> <span class="d-block mb-2">Warden Employee Code
+                                        <span></span>
 
-								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="warden_emp_code">
-									<option name="employee_code" selected>Choose...</option>
+                                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"
+                                            name="warden_emp_code">
+                                            <option name="employee_code" selected>Choose...</option>
 
-									<?php
-                            $emp_det = mysqli_query($conn, "SELECT * FROM employee");
+                                            <?php
+                                            $emp_det = mysqli_query($conn, "SELECT * FROM employee");
 
-                            foreach ($emp_det as $row) { ?>
-									<option name="employee_code" value="<?= $row["emp_code"] ?>"><?= $row["emp_code"]; ?>
-									</option>
-									<?php
-                            }
+                                            foreach ($emp_det as $row) { ?>
+                                                <option name="employee_code" value="<?= $row["emp_code"] ?>"><?=
+                                                      $row["emp_code"]; ?>
+                                                </option>
+                                            <?php
+                                            }
 
-                                ?>
-								</select>
-					</div>
+                                            ?>
+                                        </select>
+                            </div>
 
                             <!-- <div class="col-md-12 pa2">
                                 <label for="occupied_rooms">Occupied Rooms</label>
@@ -185,11 +199,11 @@ if (isset($_GET['edit'])) {
 
                             <div class="form-button mt-3 tc">
                                 <?php if ($update == true): ?>
-                                <button id="submit" name="update" value="update" type="submit"
-                                    class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                                    <button id="submit" name="update" value="update" type="submit"
+                                        class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
                                 <?php else: ?>
-                                <button id="submit" name="submit" value="sumbit" type="submit"
-                                    class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                                    <button id="submit" name="submit" value="sumbit" type="submit"
+                                        class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
                                 <?php endif ?>
                             </div>
                         </form>

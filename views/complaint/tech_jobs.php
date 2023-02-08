@@ -11,6 +11,8 @@ if ($rights['rights_jobs'] > 0) {
 } else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
+if(mysqli_num_rows($sql)==0) 
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $technician_id = mysqli_fetch_array($sql);
 
 ?>
@@ -63,8 +65,8 @@ $technician_id = mysqli_fetch_array($sql);
 <body class="bg">
     <!-- Sidebar and Navbar-->
     <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
 
     <div class="table-header">

@@ -1,7 +1,15 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/tanker_controller.php'); 
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
-$update = "";
+$isPrivilaged = 0;
+    $rights = unserialize($_SESSION['rights']);
+    if ($rights['rights_tankers'] > 1) {
+        $isPrivilaged = $rights['rights_tankers'];
+    } else
+        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    if ($isPrivilaged == 5 || $isPrivilaged == 4)
+        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+   $update = "";
 if(isset($_GET['edit']))
 {
     $id = $_GET['edit'];

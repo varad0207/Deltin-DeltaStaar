@@ -50,7 +50,7 @@
         $purpose=$_POST['purpose'];
         $phone_no=$_POST['phone_no'];
         mysqli_query($conn, "INSERT INTO visitor_log(security_emp_id,visitor_name,vehicle_no,type,check_in,check_out,purpose,phone_no) VALUES ('$security_emp_id','$visitor_name','$vehicle_no','$type','$check_in','','$purpose','$phone_no')");
-        $_SESSION['message'] = "vaccination details saved";
+        $_SESSION['message'] = "visitor details saved";
         header('location: ../views/security/visitor_log_table.php');
     }
     if(isset($_POST['submitemp']))

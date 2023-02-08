@@ -18,7 +18,12 @@ include 'common.php';
         </div>
 
         <div class="button-con">
-            <a href="../views/complaint/tech_jobs.php"><button class="button-56" role="button">View Jobs</button></a>
+            <a href="../views/complaint/tech_jobs.php">
+                <button class="button-56" role="button">
+                    View Jobs
+
+                </button>
+            </a>
         </div>
 
     </div>

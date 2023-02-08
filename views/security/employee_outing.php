@@ -24,8 +24,8 @@ if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 <body class="b ma2">
   <!-- Sidebar and Navbar-->
   <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
   
     <div class="form-body">

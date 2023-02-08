@@ -5,12 +5,15 @@ if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
 $isPrivilaged = 0;
-if ($_SESSION['rights_complaints'] > 0) {
-    $isPrivilaged = $_SESSION['rights_complaints'];
-}
-else
-die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_complaints'] > 0) {
+    $isPrivilaged = $rights['rights_complaints'];
+} else
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+$isWarden = 0;
+$check = mysqli_query($conn, "select emp_id from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}'");
+if (mysqli_num_rows($check) > 0)
+    $isWarden = 1;
 ?>
 
 <!DOCTYPE html>
@@ -60,9 +63,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
 <body class="bg">
     <!-- Sidebar and Navbar-->
-   <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    <?php
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
 
     <div class="table-header">
@@ -71,51 +74,51 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
         </div> -->
-        
+
         <!-- Displaying Database Table -->
-        <?php  //Entries per-page
+        <?php //Entries per-page
         $results_per_page = 5;
 
         //Number of results in the DB
         $sql = "select * from complaints";
         $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result); 
+        $number_of_results = mysqli_num_rows($result);
         //number of pages
         $number_of_pages = ceil($number_of_results / $results_per_page);
 
         // on which is the user
         if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
+            $page = 1;
+        else
+            $page = $_GET['page'];
+        //starting limit number for the results
+        $this_page_first_result = ($page - 1) * $results_per_page;
 
-   // retrieve the selected results
-   $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
-   $results = mysqli_query($conn, $sqli);
+        // retrieve the selected results
+        $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
+        $results = mysqli_query($conn, $sqli);
 
         ?>
         <?php if (!isset($_SESSION['emp_id'])) { ?>
-        <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
-                <option name="employee_code" selected>Choose...</option>
+            <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
+                    <option name="employee_code" selected>Choose...</option>
 
-                <?php
-                $emp_det = mysqli_query($conn, "SELECT * FROM employee");
+                    <?php
+                    $emp_det = mysqli_query($conn, "SELECT * FROM employee");
 
-                foreach ($emp_det as $row) { ?>
-                <option name="employee_code" value="<?= $row["emp_code"] ?>"><?= $row["emp_code"]; ?></option>
-                <?php
-                }
+                    foreach ($emp_det as $row) { ?>
+                        <option name="employee_code" value="<?= $row["emp_code"] ?>"><?= $row["emp_code"]; ?></option>
+                        <?php
+                    }
                     ?>
                 </select>
                 <button class="btn btn-dark px-3" class="btnn" type="submit" name="save" value="save">Save</button>
             </form>
             <?php
-            
-        } 
-        
+
+        }
+
 
         ?>
         <!-- <div class="tr">
@@ -128,141 +131,165 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
-        <div class="msg">
-            <?php
-            echo $_SESSION['message'];
-            unset($_SESSION['message']);
-                    ?>
-        </div>
+            <div class="msg">
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
+            </div>
         <?php endif ?>
 
         <?php
-        if (isset($_POST['save'])|| (isset($_SESSION['emp_id']) && $isPrivilaged)) {
-            if(isset($_POST['Id']))$emp_code = $_POST['Id'];
+        if (isset($_POST['save']) || (isset($_SESSION['emp_id']) && $isPrivilaged)) {
+            if (isset($_POST['Id']))
+                $emp_code = $_POST['Id'];
             echo "<script>console.log('$emp_code')</script>";
-                $results = isset($_SESSION['emp_id'])?mysqli_query($conn, "SELECT * FROM complaints"):mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
+            $results = isset($_SESSION['emp_id']) ? mysqli_query($conn, "SELECT * FROM complaints") : mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
             ?>
-        
-        <div class="pa1 table-responsive">
-            <table class="table table-bordered tc">
-                <thead>
-                    <tr>
-                        <th>Complaint Id </th>
-                        <th>Raised Time </th>
-                        <th>Complaint Category </th>
-                        <th>Description </th>
-                        <th>Status </th>
-                        <th>Closure Time<br>(Technician)</th>
-                        
-                        <th>Closure Time<br>(Security) </th>
-                        <th>Closure Time<br>(Warden) </th>
-                        <th>Remarks </th>
-                        <th>Employee Name </th>
-                        <th>Employee Code </th>
-                        <th>Accomodation Name</th>
-                        <th>Room Number</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
-                    <?php
-                $emp_code = $row['emp_code'];
-                $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
-                $EmpName_row = mysqli_fetch_assoc($queryEmpName);
-                
-                $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where warden_emp_code='$emp_code'");
-                $AccName_row = mysqli_fetch_assoc($queryAccName);
-                        ?>
-                    <?php
-                    $comp_type = $row['type'];
-                    $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type WHERE id='$comp_type'");
-                    $CompType_row = mysqli_fetch_assoc($queryCompType);
-                    $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
-                
-                        ?>
-                    <tr>
-                        <td>
-                            <?php echo $row['id']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['raise_timestamp']; ?>
-                        </td>
-                        <!-- fetch complaint category -->
-                        <td>
-                            <?php echo $CompType_row['type']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['description']; ?>
-                        </td>
-                        <td>
+
+            <div class="pa1 table-responsive">
+                <table class="table table-bordered tc">
+                    <thead>
+                        <tr>
+                            <th>Complaint Id </th>
+                            <th>Raised Time </th>
+                            <th>Complaint Category </th>
+                            <th>Description </th>
+                            <th>Status </th>
+                            <th>Closure Time<br>(Technician)</th>
+
+                            <th>Closure Time<br>(Security) </th>
+                            <th>Closure Time<br>(Warden) </th>
+                            <th>Remarks </th>
+                            <th>Employee Name </th>
+                            <th>Employee Code </th>
+                            <th>Accomodation Name</th>
+                            <th>Room Number</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_array($results)) { ?>
                             <?php
-                                if (!isset($row['tech_closure_timestamp'])||!isset($row['sec_closure_timestamp'])||!isset($row['warden_closure_timestamp'])) {
-                                    echo "<p>Pending</p>";
-                                  } else{
-                                    echo "<p>Completed</p>";
-                                  }
-                             ?>
-                        </td>
-                        <td>
-                            <?php echo $row['tech_closure_timestamp']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['sec_closure_timestamp']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['warden_closure_timestamp']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['remarks']; ?>
-                        </td>
-                        <!-- fetch emp name -->
-                        <td>
-                            <?php echo $EmpName_row['fname']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['emp_code']; ?>
-                        </td>
-                        <!-- fetch acc name -->
-                        <td>
-                            <?php echo $AccName_row['acc_name']; ?>
-                        </td>
-                        <td>
-                            <?php echo $Room_row['room_no']; ?>
-                        </td>
-                        <td>
+                            $emp_code = $row['emp_code'];
+                            $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
+                            $EmpName_row = mysqli_fetch_assoc($queryEmpName);
 
-                        <?php 
-                            if ($query) {
-                            if (mysqli_num_rows($query) > 0) {
-                        ?>
-                        <b style="color: green;">Job Raised</b>
-                        <?php
-                            } else {
-                        ?>
-                        <a href="jobs.php?raise=<?php echo $row['id']; ?>" class="edit_btn" style="color: red;">Raise Job</a>
-                        <?php
-                            }
-                            
-                            }
-                        ?>
+                            $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'");
+                            $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
 
-                            
-                        </td>
-                        <td>
-                            <a href="../../controllers/complaint_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
-                                class="del_btn">Delete</a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                            $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
+                            $AccName_row = mysqli_fetch_assoc($queryAccName);
+
+                            ?>
+                            <?php
+                            $comp_type = $row['type'];
+                            $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type WHERE id='$comp_type'");
+                            $CompType_row = mysqli_fetch_assoc($queryCompType);
+                            $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
+
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $row['id']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['raise_timestamp']; ?>
+                                </td>
+                                <!-- fetch complaint category -->
+                                <td>
+                                    <?php echo $CompType_row['type']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['description']; ?>
+                                </td>
+                                <td>
+                                    <?php
+
+                                    if (isset($row['tech_closure_timestamp']) && isset($row['sec_closure_timestamp']) && isset($row['warden_closure_timestamp'])) {
+                                        echo "<p>Completed</p>";
+                                    } else if (isset($row['tech_pending_timestamp']) && !isset($row['tech_closure_timestamp']) && !isset($row['sec_closure_timestamp']) && !isset($row['warden_closure_timestamp'])) {
+                                        echo "<p>Waiting for material</p>";
+                                    } else if (!isset($row['tech_closure_timestamp']) && !isset($row['sec_closure_timestamp']) && !isset($row['warden_closure_timestamp'])) {
+                                        echo "<p>Not Started</p>";
+                                    } else {
+                                        echo "<p>In Progress</p>";
+                                    }
+
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['tech_closure_timestamp']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['sec_closure_timestamp']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['warden_closure_timestamp']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['remarks']; ?>
+                                </td>
+                                <!-- fetch emp name -->
+                                <td>
+                                    <?php echo $EmpName_row['fname']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['emp_code']; ?>
+                                </td>
+                                <!-- fetch acc name -->
+                                <td>
+                                    <?php echo $AccName_row['acc_name']; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if (isset($EmployeeRoom_row['room_no']) && !empty($EmployeeRoom_row['room_no'])) {
+                                        echo $EmployeeRoom_row['room_no'];
+                                    } else {
+                                        echo $EmployeeRoom_row['room_no'] = 'N/A';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+
+                                    <?php
+                                    if ($query) {
+                                        if (mysqli_num_rows($query) > 0) {
+                                            ?>
+                                            <a href="jobs_table.php ?>" class="edit_btn"
+                                                        style="color: green;">Job Raised</a>
+                                            <!-- <b style="color: green;">Job Raised</b> -->
+                                            <?php
+                                        } else {
+                                            if ($isWarden) {
+                                                if ($rights['rights_jobs'] > 1 && $rights['rights_jobs'] != 5 && $rights['rights_jobs'] != 4) { ?>
+                                                    <a href="jobs.php?raise=<?php echo $row['id']; ?>" class="edit_btn"
+                                                        style="color: red;">Raise Job</a>
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ?>
+
+
+                                </td>
+                                <td>
+                                    <?php if ($isPrivilaged >= 4) { ?>
+                                        <a href="../../controllers/complaint_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                                            class="del_btn">Delete</a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             <?php } ?>
             <?php
-            
+
             //display the links to the pages
-            for($page=1;$page<=$number_of_pages;$page++)
-                echo '<a href="complaint_table.php?page=' .$page .'">' .$page .'</a>';
+            for ($page = 1; $page <= $number_of_pages; $page++)
+                echo '<a href="complaint_table.php?page=' . $page . '">' . $page . '</a>';
             ?>
         </div>
     </div>

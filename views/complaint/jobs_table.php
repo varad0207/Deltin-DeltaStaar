@@ -6,10 +6,18 @@ if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
 $isPrivilaged = 0;
-if ($_SESSION['rights_jobs'] > 0) {
-    $isPrivilaged = $_SESSION['rights_jobs'];
-} else
-    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+// $check = mysqli_query($conn,"select emp_id from employee where emp_id in(select emp_id from technician) and emp_id='{$_SESSION['emp_id']}')");
+//     if (mysqli_num_rows($check) > 0)
+//     $isPrivilaged = 1;
+//     else
+// die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_jobs'] > 0) {
+    $isPrivilaged = $rights['rights_jobs'];
+}
+else
+die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 ?>
 
@@ -61,8 +69,8 @@ if ($_SESSION['rights_jobs'] > 0) {
 <body class="bg">
     <!-- Sidebar and Navbar-->
     <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
 
     <div class="table-header">
@@ -233,10 +241,18 @@ if ($_SESSION['rights_jobs'] > 0) {
 
                         <td style="text-align:center;">
                             <?php if (!isset($row3['sec_closure_timestamp'])) { ?>
-                            <a href="../../controllers/complaint_controller.php?sec=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                
+                                <?php    if (!isset($row3['tech_closure_timestamp'])) { ?>
+                                    <a href="../../controllers/complaint_controller.php?sec=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                class="btn btn-secondary" style="pointer-events: none;"
+                                >Done</a><br>
+                            <span class="closure-label">Security</span>
+                                    <?php } else { ?>
+                                        <a href="../../controllers/complaint_controller.php?sec=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
                                 class="del_btn"
                                 >Done</a><br>
                             <span class="closure-label">Security</span>
+                                        <?php } ?>
                             <?php } else { ?>
                             <p class="del_btn"
                                 style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; margin-bottom: 0px; text-align: center; display: inline-block;"
@@ -247,10 +263,17 @@ if ($_SESSION['rights_jobs'] > 0) {
 
                         <td style="text-align:center;">
                             <?php if (!isset($row3['warden_closure_timestamp'])) { ?>
+                                <?php    if (!isset($row3['tech_closure_timestamp']) && !isset($row3['sec_closure_timestamp'])) { ?>
+                                    <a href="../../controllers/complaint_controller.php?warden=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                class="btn btn-secondary" style="pointer-events: none;"
+                                >Done</a><br>
+                            <span class="closure-label">Warden</span>
+                            <?php } else { ?>
                             <a href="../../controllers/complaint_controller.php?warden=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
                                 class="del_btn"
                                 >Done</a><br>
                             <span class="closure-label">Warden</span>
+                            <?php } ?>
                             <?php } else { ?>
                             <p class="del_btn"
                                 style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; margin-bottom: 0px; text-align: center; display: inline-block;"

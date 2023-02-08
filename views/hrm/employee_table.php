@@ -6,8 +6,9 @@ if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
 $isPrivilaged = 0;
-if ($_SESSION['rights_employee_details'] > 0) {
-    $isPrivilaged = $_SESSION['rights_employee_details'];
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_employee_details'] > 0) {
+    $isPrivilaged = $rights['rights_employee_details'];
 } else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
@@ -35,6 +36,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
+      <link rel="stylesheet" href="../../css/form.css">
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {
@@ -62,8 +64,8 @@ if ($_SESSION['rights_employee_details'] > 0) {
 <body class="bg">
     <!-- Sidebar and Navbar-->
     <?php
-   include '../../controllers/includes/sidebar.html';
-   include '../../controllers/includes/navbar.html';
+   include '../../controllers/includes/sidebar.php';
+   include '../../controllers/includes/navbar.php';
    ?>
 
 
@@ -127,20 +129,10 @@ if ($_SESSION['rights_employee_details'] > 0) {
                         <th scope="col">Middle Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Designation</th>
-                        <th scope="col">Date of Birth</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">State</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Pincode</th>
-                        <th scope="col">Contact Number</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Blood Group</th>
                         <th scope="col">Department</th>
                         <th scope="col">Joining Date</th>
-                        <th scope="col">Aadhar Number</th>
-                        <th scope="col">Salary</th>
-                        <th scope="col">Accommodation</th>
-                        <th scope="col">Room Number</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Contact Number</th>
                         <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -159,7 +151,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                     <?php
                         // $accid = $EmployeeRoom_row['acc_id'];
 
-                        if (isset($EmployeeRoom_row['acc_id']) && array_key_exists($offset, $EmployeeRoom_row['acc_id'])) {
+                        if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
                             $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
                             $Acc_row = mysqli_fetch_assoc($queryAcc);
                             $accName = $Acc_row['acc_name'];
@@ -167,14 +159,7 @@ if ($_SESSION['rights_employee_details'] > 0) {
                             $accName = 'N/A';
                           }
 
-                        // if (!empty($accid)) {
-                        //     $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='$accid'");
-                        //     $Acc_row = mysqli_fetch_assoc($queryAcc);
-                        //     $accName = $Acc_row['acc_name'];
-                        // } else {
-                        //     $accName = 'N/A';
-                        // }
-                        ?>
+                    ?>
 
                     <tr>
                         <th scope="row"><?php echo $row['emp_code']; ?></th>
@@ -191,55 +176,20 @@ if ($_SESSION['rights_employee_details'] > 0) {
                             <?php echo $EmployeeDesig_row['designation']; ?>
                         </td>
                         <td>
-                            <?php echo date('d-m-Y', strtotime($row['dob'])); ?>
-                        </td>
-                        <td>
-                            <?php echo $row['address']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['state']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['country']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['pincode']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['contact']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['email']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['blood_group']; ?>
-                        </td>
-                        <td>
                             <?php echo $row['department']; ?>
                         </td>
                         <td>
                             <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
                         </td>
                         <td>
-                            <?php echo $row['aadhaar_number']; ?>
+                            <?php echo $row['state']; ?>
                         </td>
+                        
                         <td>
-                            <?php echo $row['salary']; ?>
-                        </td>
-                        <td>
-                            <?php echo $accName; ?>
-                        </td>
-                        <td>
-                            
-                            <?php
-                            if (isset($EmployeeRoom_row['room_no']) && array_key_exists($offset, $EmployeeRoom_row['room_no'])) {
-                                echo $EmployeeRoom_row['room_no'];
-                              } else {
-                            echo $EmployeeRoom_row['room_no']='N/A';
-                              }
-                             ?>
+                            <?php echo $row['contact']; ?>
                         </td>
                         <td style="text-align: center;">
+                        <a href="./emp_viewmore.php?id=<?php echo $row['emp_code']?> " class="btn btn-primary">View More</a>
                             <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square"
                                     style="font-size: 1rem; color: black;"></i></a>

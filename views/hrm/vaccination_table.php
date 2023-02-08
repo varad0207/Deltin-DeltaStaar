@@ -5,8 +5,9 @@
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     // check rights
     $isPrivilaged = 0;
-if ($_SESSION['rights_vaccination'] > 0) {
-    $isPrivilaged = $_SESSION['rights_vaccination'];
+$rights = unserialize($_SESSION['rights']);
+if ($rights['rights_vaccination'] > 0) {
+    $isPrivilaged = $rights['rights_vaccination'];
 }
 else
 die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
@@ -60,8 +61,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
     <!-- Sidebar and Navbar-->
    <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+    include '../../controllers/includes/sidebar.php';
+    include '../../controllers/includes/navbar.php';
     ?>
 
     

@@ -1,7 +1,17 @@
 <?php
 require '../../controllers/includes/common.php';
 require '../../controllers/complaint_controller.php';
-
+// if (isset($_SESSION["emp_id"])) {
+//     // check rights
+//     $isPrivilaged = 0;
+//     $rights = unserialize($_SESSION['rights']);
+//     if ($rights['rights_complaints'] > 1) {
+//         $isPrivilaged = $rights['rights_complaints'];
+//     } else
+//         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+//     if ($isPrivilaged == 5 || $isPrivilaged == 4)
+//         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+// }
 $update = "";
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
@@ -42,8 +52,10 @@ if (isset($_GET['edit'])) {
 <body class="b ma2">
     <!-- Sidebar and Navbar-->
    <?php
-    include '../../controllers/includes/sidebar.html';
-    include '../../controllers/includes/navbar.html';
+   if (isset($_SESSION['emp_id'])) {
+       include '../../controllers/includes/sidebar.php';
+       include '../../controllers/includes/navbar.php';
+   }
     ?>
     <div class="form-body">
     <div class="row">
@@ -64,7 +76,7 @@ if (isset($_GET['edit'])) {
                         <div class="col-md-12 pa2">
                           <label for="empcode">Employee Code</label>
                           <?php if (isset($_SESSION['emp_id']) && !$update) { ?>
-                            <input class="form-control"  type="text" name="emp_code" value="<?php echo $_SESSION['emp_code']; ?>" disabled>
+                            <input class="form-control" style="pointer-events: none;"  type="text" name="emp_code" value="<?php echo $_SESSION['emp_code']; ?>">
 
                             <?php } else {?>
                             <input class="form-control" value="" type="text" name="emp_code" placeholder="eg.HV1234" required>
@@ -90,7 +102,7 @@ if (isset($_GET['edit'])) {
 
 
                        <div class="col-md-12 pa2">
-                        <label for="description">Complain Description</label>
+                        <label for="description">Complaint Description</label>
                         <textarea name="description" placeholder="Please describe your problem" cols="30" rows="10" value="<?php echo $description; ?>"></textarea>
                        </div>
                        

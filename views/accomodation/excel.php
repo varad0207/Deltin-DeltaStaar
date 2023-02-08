@@ -39,8 +39,8 @@ if(isset($_POST["excel"]))
                 ';
         }
         $output .= "</table>";
-        header("Content-Type: application/xlsx");
-        header("Content-Disposition: attachment; filename=Accomodation.xlsx");
+        header("Content-Type: application/xls");
+        header("Content-Disposition: attachment; filename=Accomodation.xls");
         echo $output;
     }
     else{

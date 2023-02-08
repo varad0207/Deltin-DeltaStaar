@@ -1,29 +1,3 @@
-<?php
-require "../controllers/includes/common.php";
-if (!isset($_SESSION["emp_id"]))
-    header("location:../index.php");
-$emp = mysqli_query($conn, "select * from employee where emp_id='{$_SESSION['emp_id']}'");
-$emp_details = mysqli_fetch_array($emp);
-$check_technician=mysqli_query($conn,"select * from employee join technician using(emp_id) where emp_id='{$_SESSION['emp_id']}' and employee.role is not null");
-$check_security=mysqli_query($conn,"select * from employee join security using(emp_id) where emp_id='{$_SESSION['emp_id']}' and role is not null");
-$isSecurity = 0;
-$isSuperadmin = 0;
-$isTechnician = 0;
-if($_SESSION['is_superadmin']){
-    $isSuperadmin = 1;
-}
-else{
-    if(mysqli_num_rows($check_technician)>0 && mysqli_num_rows($check_security)>0){
-        //security is also techinician
-    }
-    else if(mysqli_num_rows($check_technician)>0){
-        $isTechnician=1;
-    }
-    else if(mysqli_num_rows($check_security)>0){
-        $isSecurity=1;
-    }
-}
-?>
 <!DOCTYPE html>
 <html>
 
@@ -48,7 +22,6 @@ else{
     <link rel="stylesheet" href="../css/style1.css">
     <link rel="stylesheet" href="../css/technician.css">
     <link rel="stylesheet" href="../css/securityDashboard.css">
-
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
@@ -75,19 +48,11 @@ else{
         include '../controllers/includes/navbar.php';
         ?>
 
-        <div align=center class="welcome-message">Welcome back, <span style="color:#ceaa6d">
-                <?php echo $emp_details['fname'];?>
-            </span></div>
-           <?php 
-           if($isSuperadmin)
-           include '../controllers/includes/superadmin.php'; 
-           else if($isTechnician)
-           include '../controllers/includes/technician.php'; 
-           else if($isSecurity)
-           include '../controllers/includes/security.php'; 
-           else
-           include '../controllers/includes/employee.php'; 
-           ?>
+        <div align=center class="welcome-message">
+            Welcome back, <span style="color:#ceaa6d">Security</span>
+        </div>
+
+        <?php include '../controllers/includes/Security.php'; ?>
 
 
         <!-- Footer -->
@@ -122,7 +87,7 @@ else{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -1,0 +1,20 @@
+@font-face {
+    font-family: Seasons;
+    src: url(Fontspring-DEMO-theseasons-bd.otf);
+}
+
+.containerr {
+    display: flex !important;
+    flex-direction: row;
+
+
+
+}
+
+.left,
+.middle,
+.right {
+    display: flex !important;
+    align-items: center;
+    width: 33.33%;
+}

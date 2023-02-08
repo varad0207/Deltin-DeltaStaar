@@ -4,7 +4,15 @@
 
 if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
-
+    $isPrivilaged = 0;
+    $rights = unserialize($_SESSION['rights']);
+    if ($rights['rights_employee_details'] > 1) {
+        $isPrivilaged = $rights['rights_employee_details'];
+    } else
+        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    if ($isPrivilaged == 5 || $isPrivilaged == 4)
+        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    
 if (isset($_GET['edit'])) {
     $emp_code = $_GET['edit'];
     $update = true;
@@ -213,11 +221,27 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="col-md-12 pa2">
-                                <label for="dept">Department</label>
+                                <!-- <label for="dept">Department</label>
                                 <input class="form-control" type="text" name="department" placeholder="Department"
                                     value="<?php echo $department; ?>" value="??php echo $department; ??" required>
                                 <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <div class="invalid-feedback">field cannot be blank!</div> -->
+                                <label for="department">Department</label>
+                                <select class="form-select mt-3" name="department" required>
+                                    <option name="employee_dept" selected disabled value="">Select Designation</option>
+                                    <?php
+                                    $emp_dept = mysqli_query($conn, "SELECT * FROM employee_dept");
+
+                                    foreach ($emp_dept as $row) { ?>
+                                        <option name="employee_dept" value="<?= $row["dept_id"] ?>">
+                                            <?= $row["dept_name"]; ?>
+                                        </option>
+                                        <?php
+                                    }
+
+                                    ?>
+                                </select>
+                                <div class="invalid-feedback">Please select an option!</div>
                             </div>
 
                             <div class="col-md-12 pa2">

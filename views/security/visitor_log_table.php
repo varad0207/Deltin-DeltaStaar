@@ -2,7 +2,14 @@
     include('../../controllers/includes/common.php'); 
     include('../../controllers/tanker_controller.php'); 
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
-    // check rights
+    $isPrivilaged = 0;
+    $rights = unserialize($_SESSION['rights']);
+    if ($rights['rights_visitor_log'] > 0) {
+        $isPrivilaged = $rights['rights_visitor_log'];
+    }
+    else
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    
 ?> 
 
 <!DOCTYPE html>
@@ -159,14 +166,18 @@
                         </td>
                         
                         <td>
+                        <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
                             <a href="../../controllers/visitor_log_controller.php?checkout=<?php echo $row['id']; ?>"
                                 class="del_btn"><button type="button" class="btn btn-danger" value="checkout" name="checkout">Checkout</button>
                             </a>
+                            <?php } ?>
                         </td>
                         <td>
+                        <?php if($isPrivilaged>=4){ ?>
                             <a href="../../controllers/visitor_log_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                             </a>
+                            <?php } ?>
                         </td>
                     </tr>
                     <?php } ?>
@@ -187,11 +198,13 @@
                 <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
             </button>
         </div>
+        <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
                 <h4><a href="visitor_log.php">Add Visitor</a></h4>
             </button>   
         </div>
+        <?php } ?>
     </div>
     
     <!-- Footer -->

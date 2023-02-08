@@ -36,7 +36,8 @@ if ($rights['rights_employee_details'] > 0) {
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
-      <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/sort.css">
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {
@@ -62,15 +63,30 @@ if ($rights['rights_employee_details'] > 0) {
 </head>
 
 <body class="bg">
+    <!-- <style>
+        .container{
+            color: whitesmoke;
+            display: flex;
+            gap: 10px;
+            flex-flow: row wrap;
+            justify-content: space-evenly;
+            align-items: baseline;
+            align-content: baseline;
+            order: 2;
+        }
+
+        .parent {
+            color: whitesmoke;
+        }
+    </style> -->
     <!-- Sidebar and Navbar-->
     <?php
    include '../../controllers/includes/sidebar.php';
    include '../../controllers/includes/navbar.php';
    ?>
 
-
-    <div class="table-header">
-        <h1 class="tc f1 lh-title spr">Employee Details</h1>
+    <h1 class="tc f1 lh-title spr">Employee Details</h1>
+    <!-- <div class="table-header">
         <div class="fl w-75 form-outline srch">
             <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search"
                 oninput="search()" />
@@ -81,8 +97,115 @@ if ($rights['rights_employee_details'] > 0) {
                 <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
             </button>
         </div>
+    </div> -->
+    
+    <!-- Sort and Filter -->
+    <div class="container">
+        <div class="item">
+            <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
+            <!-- <h4 id="demo"></h4> -->
+        </div>
+        <div class="item">
+            <form action="" method="post">
+                <div class="input-group mb-3">
+                    <select name="sort_alpha" class="form-control">
+                        <option value="">--Select Option--</option>
+                        <option value="a-z" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?> >A-Z(Ascending Order)</option>
+                        <option value="z-a" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?> >Z-A(Descending Order)</option>
+                    </select>
+                    <button class="btn btn-dark">
+                    <i class="bi bi-filter-circle"> Sort By</i>
+                    </button>
+                </div>
+            </form>
+        </div>   
     </div>
-
+    <div class="parent tc">
+        <form action="" method="post">
+            <h4>Filter By:</h4> 
+                    <div class="fl w-third pa2">
+                    Designation 
+                    <?php
+                    $res1 = mysqli_query($conn, "SELECT * FROM employee_designation");
+                    if(mysqli_num_rows($res1) > 0){
+                        foreach($res1 as $r1){
+                            $checked1 = [];
+                            if(isset($_POST['designation'])){
+                                $checked1 = $_POST['designation'];
+                            }
+                            ?>
+                            
+                            <div class="check">
+                                <input type="checkbox" name="designations[]" value="<?= $r1['id'] ?>"
+                                <?php
+                                if(in_array($r1['id'],$checked1)) echo "checked";
+                                ?>
+                                >
+                                <?= $r1['designation'] ?>
+                            </div>
+                        
+                            <?php
+                        }
+                    }
+                    else{
+                        echo "No Record";
+                    }
+                    ?>
+                    <label>Click to Filter</label>
+                    <button type="submit" class="btn btn-dark">Filter</button>
+                    </div>
+                    <div class="fl w-third pa2">
+                    Department 
+                        <?php
+                        $res2 = mysqli_query($conn, "SELECT * FROM employee_dept");
+                        if(mysqli_num_rows($res2) > 0){
+                            foreach($res2 as $r2){
+                                $checked2 = [];
+                                if(isset($_POST['dept_name'])){
+                                    $checked2 = $_POST['dept_name'];
+                                }
+                                ?>
+                                
+                                <div class="check">
+                                    <input type="checkbox" name="departments[]" value="<?= $r2['dept_id'] ?>"
+                                    <?php
+                                    if(in_array($r2['dept_id'],$checked2)) echo "checked";
+                                    ?>
+                                    >
+                                    <?= $r2['dept_name'] ?>
+                                </div>
+                            
+                                <?php
+                            }
+                        }
+                        else{
+                            echo "No Record";
+                        }
+                        ?>
+                        <label>Click to Filter</label>
+                        <button type="submit" class="btn btn-dark">Filter</button>
+                    </div>
+                    <div class="fl w-third pa2">
+                    Joining Date
+                    <form action="" method="post">
+                        <div class="form-group md-2">
+                            <label>From Date</label>
+                            <input type="date" name="start_date" class="form-control">
+                        </div>
+                        <div class="form-group md-2">
+                            <label>To Date</label>
+                            <input type="date" name="to_date" class="form-control">
+                        </div>
+                        <div class="form-group md-2">
+                            <label>Click to Filter</label>
+                            <button type="submit" class="btn btn-dark">Filter</button>
+                        </div>
+                    </form>
+                    </div>
+                    <!-- <h4><label>Click To Filter</label><button type="submit" class="btn btn-dark">Filter</button></h4> -->
+        </form>
+    </div>
+    
     <!-- Displaying Database Table -->
 
     <div class="table-div">
@@ -95,31 +218,31 @@ if ($rights['rights_employee_details'] > 0) {
         </div>
         <?php endif ?>
 
-        <?php //Entries per-page
-       $results_per_page = 5;
+        <?php 
+        //Entries per-page
+        $results_per_page = 5;
 
-       //Number of results in the DB
-       $sql = "select * from employee";
-       $result = mysqli_query($conn, $sql);
-       $number_of_results = mysqli_num_rows($result);
-       //number of pages
-       $number_of_pages = ceil($number_of_results / $results_per_page);
+        //Number of results in the DB
+        $sql = "select * from employee";
+        $result = mysqli_query($conn, $sql);
+        $number_of_results = mysqli_num_rows($result);
+        //number of pages
+        $number_of_pages = ceil($number_of_results / $results_per_page);
 
-       // on which is the user
-       if (!isset($_GET['page']))
-           $page = 1;
-       else
-           $page = $_GET['page'];
-       //starting limit number for the results
-       $this_page_first_result = ($page - 1) * $results_per_page;
+        // on which is the user
+        if (!isset($_GET['page']))
+            $page = 1;
+        else
+            $page = $_GET['page'];
+        //starting limit number for the results
+        $this_page_first_result = ($page - 1) * $results_per_page;
 
-       // retrieve the selected results
-       $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
-       $results = mysqli_query($conn, $sqli);
+        // retrieve the selected results
+        $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
+        $results = mysqli_query($conn, $sqli);
 
-       ?>
+        ?>
 
-        <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation LIMIT " . $this_page_first_result . ',' . $results_per_page); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -137,17 +260,68 @@ if ($rights['rights_employee_details'] > 0) {
                     </tr>
                 </thead>
                 <tbody>
+        <!-- Sort -->
+        <?php 
+        $sort_condition = "";
+        if(isset($_POST['sort_alpha']))
+        {
+            if($_POST['sort_alpha'] == "a-z"){
+                $sort_condition = "ASC";
+            }
+            else if($_POST['sort_alpha'] == "z-a"){
+                $sort_condition = "DESC";
+            }
+        }
+        // $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation LIMIT " . $this_page_first_result . ',' . $results_per_page); 
+        $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation ORDER BY fname $sort_condition");
+        ?>
+        <!-- Filter according to date -->
+        <?php
+        if(isset($_POST['from_date']) && isset($_POST['to_date']))
+        {
+            $from_date = $_POST['from_date'];
+            $to_date = $_POST['to_date'];
+
+            $results = mysqli_query($conn, "SELECT * FROM employee WHERE joining_date BETWEEN '$from_date' AND '$to_date' ORDER BY fname $sort_condition");
+        }
+        ?>
+        <!-- Filter -->
+        <?php
+        if(isset($_POST['designations']))
+        {
+            $desigChecked = [];
+            $desigChecked = $_POST['designations'];
+            foreach($desigChecked as $desigRow)
+            {
+                $results = mysqli_query($conn, "SELECT * FROM employee WHERE designation IN('$desigRow')");
+            }
+        }
+        if(isset($_POST['departments']))
+        {
+            $deptChecked = [];
+            $deptChecked = $_POST['departments'];
+            foreach($deptChecked as $deptRow)
+            {
+                $results = mysqli_query($conn, "SELECT * FROM employee WHERE department IN('$deptRow')");
+            }
+        }
+        ?>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <?php
                         $desigid = $row['designation'];
-                        $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE designation='$desigid'");
+                        $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE id='$desigid' OR designation = '$desigid'");
                         $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
-                        ?>
+                    ?>
+                    <?php
+                        $deptid = $row['department'];
+                        $queryEmpDept = mysqli_query($conn, "SELECT * FROM employee_dept WHERE dept_id='$deptid'");
+                        $EmployeeDept_row = mysqli_fetch_assoc($queryEmpDept);
+                    ?>
                     <?php
                         $roomid = $row['room_id'];
                         $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
                         $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
-                        ?>
+                    ?>
                     <?php
                         // $accid = $EmployeeRoom_row['acc_id'];
 
@@ -176,7 +350,7 @@ if ($rights['rights_employee_details'] > 0) {
                             <?php echo $EmployeeDesig_row['designation']; ?>
                         </td>
                         <td>
-                            <?php echo $row['department']; ?>
+                            <?php echo $EmployeeDept_row['dept_name']; ?>
                         </td>
                         <td>
                             <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>

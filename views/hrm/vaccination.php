@@ -3,6 +3,15 @@
 <?php
 if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
+    $isPrivilaged = 0;
+    $rights = unserialize($_SESSION['rights']);
+    if ($rights['rights_vaccination'] > 1) {
+        $isPrivilaged = $rights['rights_vaccination'];
+    } else
+        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    if ($isPrivilaged == 5 || $isPrivilaged == 4)
+        die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    
 
 if (isset($_GET['edit'])) {
     $vaccination_id = $_GET['edit'];

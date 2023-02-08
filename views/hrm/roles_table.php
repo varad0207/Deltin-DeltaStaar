@@ -126,11 +126,11 @@
                         <th>Complaints</th>
                         <th>Employee</th>
                         <th>Employee Outing</th>
-                        <th>Roles</th>
+                        <!-- <th>Roles</th> -->
                         <th>Tankers</th>
                         <th>Jobs</th>
                         <th>Vaccination</th>
-                        <th>Vaccination Category</th>
+                        <!-- <th>Vaccination Category</th> -->
                         <th>Visitor Log</th>
                         <th colspan="2">Action</th>
                     </tr>
@@ -151,9 +151,9 @@
                         <td>
                             <?php echo $row['employee_outing']; ?>
                         </td>
-                        <td>
-                            <?php echo $row['roles']; ?>
-                        </td>
+                        <!-- <td>
+                            <?php //echo $row['roles']; ?>
+                        </td> -->
                         <td>
                             <?php echo $row['tankers']; ?>
                         </td>
@@ -163,9 +163,9 @@
                         <td>
                             <?php echo $row['vaccination']; ?>
                         </td>
-                        <td>
-                            <?php echo $row['vaccination_category']; ?>
-                        </td>
+                        <!-- <td>
+                            <?php //echo $row['vaccination_category']; ?>
+                        </td> -->
                         <td>
                         <?php echo $row['visitor_log']; ?>
                         </td>

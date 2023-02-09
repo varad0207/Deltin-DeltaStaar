@@ -108,10 +108,20 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="location">Location</label>
-                                <input class="form-control" type="text" name="loc" value="<?php echo $location ?>"
-                                    placeholder="Location " required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <select class="form-select mt-3" name="location" required>
+                                    <option name="acc_loc" selected disabled value="">Select Designation</option>
+                                    <?php
+                                    $acc_loc = mysqli_query($conn, "SELECT * FROM acc_locations");
+
+                                    foreach ($acc_loc as $row) { ?>
+                                        <option name="acc_loc" value="<?= $row["loc_id"] ?>">
+                                            <?= $row["location"]; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <div class="invalid-feedback">Please select an option!</div>
                             </div>
 
                             <div class="col-md-12 pa2">

@@ -63,17 +63,82 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     include '../../controllers/includes/navbar.php';
     ?>
 
-    <div class="table-header">
-    <h1 class="tc f1 lh-title spr">Accommodation Details</h1>
-    <div class="fl w-75 form-outline srch">
+<h1 class="tc f1 lh-title spr">Accommodation Details</h1>
+    <div class="item fl w-60 pl4">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-        <h4 id="demo"></h4>
     </div>
-    <div class="fl w-25 tr">
-        <button class="btn btn-dark">
-            <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
+    <div class="fl w-40 tr pr5">
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+        <h5><i class="bi bi-filter-circle">Filter</i></h5>
         </button>
-    </div>
+
+        <div class="offcanvas offcanvas-top text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title f2 lh-copy" id="offcanvasTopLabel">DeltaSTAAR</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body offcanvas-size">
+                <div>     
+                    <!-- Sort and Filter -->
+                    <div class="container">
+                        <form action="" method="post">
+                            <div class="item">
+                                <form action="" method="post" class="myForm">
+                                    <div class="input-group mb-3">
+                                        <select name="sort_alpha" class="form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="a-z" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?> >A-Z(Ascending Order)</option>
+                                            <option value="z-a" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?> >Z-A(Descending Order)</option>
+                                        </select>
+                                        <button class="btn btn-dark">
+                                        <i class="bi bi-filter-circle"> Sort By</i>
+                                        </button>
+                                    </div>
+                                </form>
+                                </div>   
+                            </div>
+                            <div class="parent tc">
+                                <form action="" method="post" class="myForm">
+                                    <h4>Filter By:</h4> 
+                                            <div class="fl w-third pa2">
+                                            Location 
+                                            <?php
+                                            $res1 = mysqli_query($conn, "SELECT * FROM acc_locations");
+                                            if(mysqli_num_rows($res1) > 0){
+                                                foreach($res1 as $r1){
+                                                    $checked1 = [];
+                                                    if(isset($_POST['locations'])){
+                                                        $checked1 = $_POST['locations'];
+                                                    }
+                                                    ?>
+                                                    
+                                                    <div class="check">
+                                                        <input type="checkbox" name="locations[]" value="<?= $r1['loc_id'] ?>"
+                                                        <?php
+                                                        if(in_array($r1['loc_id'],$checked1)) echo "checked";
+                                                        ?>
+                                                        >
+                                                        <?= $r1['location'] ?>
+                                                    </div>
+                                                
+                                                    <?php
+                                                }
+                                            }
+                                            else{
+                                                echo "No Record";
+                                            }
+                                            ?>
+                                            <label>Click to Filter</label>
+                                            <button type="submit" class="btn btn-dark">Filter</button>
+                                            <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
+                                            </div>
+                                </form>
+                                <!-- <label>Click to Reset</label> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Displaying Database Table -->
@@ -110,7 +175,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 </div>
         <?php endif ?>
         
-        <?php $results = mysqli_query($conn, "SELECT * FROM accomodation"); ?>
+        <?php 
+        $results = mysqli_query($conn, "SELECT * FROM accomodation"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -131,11 +197,107 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     </tr>
                 </thead>
                 <tbody>
+
+        <?php 
+        $sort_condition = "";
+        if(isset($_POST['sort_alpha']))
+        {
+            if($_POST['sort_alpha'] == "a-z"){
+                $sort_condition = "ASC";
+            }
+            else if($_POST['sort_alpha'] == "z-a"){
+                $sort_condition = "DESC";
+            }
+        }
+        $results = mysqli_query($conn, "SELECT * FROM accomodation ORDER BY acc_name $sort_condition");
+        ?>
+        <?php
+        if(isset($_POST['locations']))
+        {
+            $locChecked = [];
+            $locChecked = $_POST['locations'];
+            foreach($locChecked as $locRow)
+            {
+                $results = mysqli_query($conn, "SELECT * FROM accomodation WHERE location IN('$locRow')");
+                if(mysqli_num_rows($results) > 0){
+                    while($row = mysqli_fetch_array($results)){
+                        ?>
+                        <?php
+                        $employeecode = $row['warden_emp_code'];
+                        $queryEmployeeName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$employeecode'");
+                        $EmployeeName_row = mysqli_fetch_assoc($queryEmployeeName);
+                        ?>
+                        <?php
+                        $accLocation = $row['location'];
+                        $queryAccLoc = mysqli_query($conn, "SELECT * FROM acc_locations WHERE loc_id = '$accLocation'");
+                        $AccLoc_row = mysqli_fetch_assoc($queryAccLoc);
+                        ?>
+                        <tr>
+                        <th scope="row"><?php echo $row['acc_code']; ?></th>
+                        <td>
+                                <?php echo $row['acc_name']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['bldg_status']; ?>
+                            </td>
+                            <td>
+                                <?php echo $AccLoc_row['location']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['gender']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['tot_capacity']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['no_of_rooms']; ?>
+                            </td>
+                            <td>
+                                <?php echo $EmployeeName_row['fname']. " " . $EmployeeName_row['lname']; ?>
+                            </td>
+                            <!-- <td>
+                                <?php echo $row['occupied_rooms']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['available_rooms']; ?>
+                            </td> -->
+                            <td>
+                                <?php echo $row['owner']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['remark']; ?>
+                            </td>
+                            <td>
+                                <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
+                                <a href="accomodation.php?edit=<?php echo '%27'; ?><?php echo $row['acc_code']; ?><?php echo '%27'; ?>"
+                                    class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
+                                </a>
+                                <?php } ?>
+                                &nbsp;
+                                <?php if($isPrivilaged>=4){ ?>
+                                <a href="../../controllers/accomodation_controller.php?del=<?php echo '%27' ?><?php echo $row['acc_code']; ?><?php echo '%27' ?>"
+                                    class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
+                                </a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                        <?php
+                    }
+                }
+            }
+            ?>
+
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <?php
                         $employeecode = $row['warden_emp_code'];
                         $queryEmployeeName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$employeecode'");
                         $EmployeeName_row = mysqli_fetch_assoc($queryEmployeeName);
+                        ?>
+                        <?php
+                        $accLocation = $row['location'];
+                        $queryAccLoc = mysqli_query($conn, "SELECT * FROM acc_locations WHERE loc_id = '$accLocation'");
+                        $AccLoc_row = mysqli_fetch_assoc($queryAccLoc);
                         ?>
                     <tr>
                     <th scope="row"><?php echo $row['acc_code']; ?></th>
@@ -146,7 +308,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             <?php echo $row['bldg_status']; ?>
                         </td>
                         <td>
-                            <?php echo $row['location']; ?>
+                            <?php echo $AccLoc_row['location']; ?>
                         </td>
                         <td>
                             <?php echo $row['gender']; ?>

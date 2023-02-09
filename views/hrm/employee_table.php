@@ -37,7 +37,6 @@ if ($rights['rights_employee_details'] > 0) {
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
     <link rel="stylesheet" href="../../css/form.css">
-    <!-- <link rel="stylesheet" href="../../css/sort.css"> -->
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {
@@ -83,7 +82,7 @@ if ($rights['rights_employee_details'] > 0) {
 
         <div class="offcanvas offcanvas-top text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasTopLabel">Offcanvas</h5>
+                <h5 class="offcanvas-title f2 lh-copy" id="offcanvasTopLabel">DeltaSTAAR</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body offcanvas-size">

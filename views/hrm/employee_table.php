@@ -37,7 +37,7 @@ if ($rights['rights_employee_details'] > 0) {
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
     <link rel="stylesheet" href="../../css/form.css">
-    <link rel="stylesheet" href="../../css/sort.css">
+    <!-- <link rel="stylesheet" href="../../css/sort.css"> -->
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {
@@ -73,118 +73,132 @@ if ($rights['rights_employee_details'] > 0) {
    ?>
 
     <h1 class="tc f1 lh-title spr">Employee Details</h1>
-    <!-- Sort and Filter -->
-    <div class="container">
-        <div class="item">
-            <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-        </div>
-        <form action="" method="post">
-            <div class="item">
-                <form action="" method="post" class="myForm">
-                    <div class="input-group mb-3">
-                        <select name="sort_alpha" class="form-control">
-                            <option value="">--Select Option--</option>
-                            <option value="a-z" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?> >A-Z(Ascending Order)</option>
-                            <option value="z-a" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?> >Z-A(Descending Order)</option>
-                        </select>
-                        <button class="btn btn-dark">
-                        <i class="bi bi-filter-circle"> Sort By</i>
-                        </button>
-                    </div>
-                </form>
-                </div>   
-            </div>
-            <div class="parent tc">
-                <form action="" method="post" class="myForm">
-                    <h4>Filter By:</h4> 
-                            <div class="fl w-third pa2">
-                            Designation 
-                            <?php
-                            $res1 = mysqli_query($conn, "SELECT * FROM employee_designation");
-                            if(mysqli_num_rows($res1) > 0){
-                                foreach($res1 as $r1){
-                                    $checked1 = [];
-                                    if(isset($_POST['designations'])){
-                                        $checked1 = $_POST['designations'];
-                                    }
-                                    ?>
-                                    
-                                    <div class="check">
-                                        <input type="checkbox" name="designations[]" value="<?= $r1['id'] ?>"
-                                        <?php
-                                        if(in_array($r1['id'],$checked1)) echo "checked";
-                                        ?>
-                                        >
-                                        <?= $r1['designation'] ?>
-                                    </div>
-                                
-                                    <?php
-                                }
-                            }
-                            else{
-                                echo "No Record";
-                            }
-                            ?>
-                            <label>Click to Filter</label>
-                            <button type="submit" class="btn btn-dark">Filter</button>
-                            <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
-                            </div>
-                            <div class="fl w-third pa2">
-                            Department 
-                                <?php
-                                $res2 = mysqli_query($conn, "SELECT * FROM employee_dept");
-                                if(mysqli_num_rows($res2) > 0){
-                                    foreach($res2 as $r2){
-                                        $checked2 = [];
-                                        if(isset($_POST['departments'])){
-                                            $checked2 = $_POST['departments'];
-                                        }
-                                        ?>
-                                        
-                                        <div class="check">
-                                            <input type="checkbox" name="departments[]" value="<?= $r2['dept_id'] ?>"
-                                            <?php
-                                            if(in_array($r2['dept_id'],$checked2)) echo "checked";
-                                            ?>
-                                            >
-                                            <?= $r2['dept_name'] ?>
-                                        </div>
-                                    
-                                        <?php
-                                    }
-                                }
-                                else{
-                                    echo "No Record";
-                                }
-                                ?>
-                                <label>Click to Filter</label>
-                                <button type="submit" class="btn btn-dark">Filter</button>
-                                <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
-                            </div>
-                            <div class="fl w-third pa2">
-                            Joining Date
-                            <form action="" method="post" class="myForm">
-                                <div class="form-group md-2">
-                                    <label>From Date</label>
-                                    <input type="date" name="start_date" class="form-control" value="<?php if(isset($_POST['start_date'])) echo $_POST['start_date']; ?>">
-                                </div>
-                                <div class="form-group md-2">
-                                    <label>To Date</label>
-                                    <input type="date" name="to_date" class="form-control" value="<?php if(isset($_POST['to_date'])) echo $_POST['to_date']; ?>">
-                                </div>
-                                <div class="form-group md-2">
-                                    <label>Click to Filter</label>
-                                    <button type="submit" class="btn btn-dark">Filter</button>
-                                    <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
-                                </div>
-                            </form>
-                            </div>
-                </form>
-                <!-- <label>Click to Reset</label> -->
-                
-        </form>
+    <div class="item fl w-60 pl4">
+        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
     </div>
-    
+    <div class="fl w-40 tr pr5">
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+        <h5><i class="bi bi-filter-circle">Filter</i></h5>
+        </button>
+
+        <div class="offcanvas offcanvas-top text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasTopLabel">Offcanvas</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body offcanvas-size">
+                <div>     
+                    <!-- Sort and Filter -->
+                    <div class="container">
+                        <form action="" method="post">
+                            <div class="item">
+                                <form action="" method="post" class="myForm">
+                                    <div class="input-group mb-3">
+                                        <select name="sort_alpha" class="form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="a-z" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?> >A-Z(Ascending Order)</option>
+                                            <option value="z-a" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?> >Z-A(Descending Order)</option>
+                                        </select>
+                                        <button class="btn btn-dark">
+                                        <i class="bi bi-filter-circle"> Sort By</i>
+                                        </button>
+                                    </div>
+                                </form>
+                                </div>   
+                            </div>
+                            <div class="parent tc">
+                                <form action="" method="post" class="myForm">
+                                    <h4>Filter By:</h4> 
+                                            <div class="fl w-third pa2">
+                                            Designation 
+                                            <?php
+                                            $res1 = mysqli_query($conn, "SELECT * FROM employee_designation");
+                                            if(mysqli_num_rows($res1) > 0){
+                                                foreach($res1 as $r1){
+                                                    $checked1 = [];
+                                                    if(isset($_POST['designations'])){
+                                                        $checked1 = $_POST['designations'];
+                                                    }
+                                                    ?>
+                                                    
+                                                    <div class="check">
+                                                        <input type="checkbox" name="designations[]" value="<?= $r1['id'] ?>"
+                                                        <?php
+                                                        if(in_array($r1['id'],$checked1)) echo "checked";
+                                                        ?>
+                                                        >
+                                                        <?= $r1['designation'] ?>
+                                                    </div>
+                                                
+                                                    <?php
+                                                }
+                                            }
+                                            else{
+                                                echo "No Record";
+                                            }
+                                            ?>
+                                            <label>Click to Filter</label>
+                                            <button type="submit" class="btn btn-dark">Filter</button>
+                                            <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
+                                            </div>
+                                            <div class="fl w-third pa2">
+                                            Department 
+                                                <?php
+                                                $res2 = mysqli_query($conn, "SELECT * FROM employee_dept");
+                                                if(mysqli_num_rows($res2) > 0){
+                                                    foreach($res2 as $r2){
+                                                        $checked2 = [];
+                                                        if(isset($_POST['departments'])){
+                                                            $checked2 = $_POST['departments'];
+                                                        }
+                                                        ?>
+                                                        
+                                                        <div class="check">
+                                                            <input type="checkbox" name="departments[]" value="<?= $r2['dept_id'] ?>"
+                                                            <?php
+                                                            if(in_array($r2['dept_id'],$checked2)) echo "checked";
+                                                            ?>
+                                                            >
+                                                            <?= $r2['dept_name'] ?>
+                                                        </div>
+                                                    
+                                                        <?php
+                                                    }
+                                                }
+                                                else{
+                                                    echo "No Record";
+                                                }
+                                                ?>
+                                                <label>Click to Filter</label>
+                                                <button type="submit" class="btn btn-dark">Filter</button>
+                                                <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
+                                            </div>
+                                            <div class="fl w-third pa2">
+                                            Joining Date
+                                            <form action="" method="post" class="myForm">
+                                                <div class="form-group md-2">
+                                                    <label>From Date</label>
+                                                    <input type="date" name="start_date" class="form-control" value="<?php if(isset($_POST['start_date'])) echo $_POST['start_date']; ?>">
+                                                </div>
+                                                <div class="form-group md-2">
+                                                    <label>To Date</label>
+                                                    <input type="date" name="to_date" class="form-control" value="<?php if(isset($_POST['to_date'])) echo $_POST['to_date']; ?>">
+                                                </div>
+                                                <div class="form-group md-2">
+                                                    <label>Click to Filter</label>
+                                                    <button type="submit" class="btn btn-dark">Filter</button>
+                                                    <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
+                                                </div>
+                                            </form>
+                                            </div>
+                                </form>
+                                <!-- <label>Click to Reset</label> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Displaying Database Table -->
 
     <div class="table-div">

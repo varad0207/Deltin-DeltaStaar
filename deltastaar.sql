@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2023 at 04:36 AM
+-- Generation Time: Feb 09, 2023 at 05:41 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -31,27 +31,44 @@ CREATE TABLE `accomodation` (
   `acc_id` int(11) NOT NULL,
   `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `acc_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bldg_status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bldg_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` int(11) DEFAULT NULL,
   `gender` enum('Male','Female','Unisex') COLLATE utf8mb4_unicode_ci NOT NULL,
   `tot_capacity` int(11) NOT NULL,
   `no_of_rooms` int(11) NOT NULL,
   `occupied_rooms` int(11) DEFAULT NULL,
   `available_rooms` int(11) DEFAULT NULL,
+  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `owner` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `accomodation`
 --
 
-INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `owner`, `remark`, `warden_emp_code`) VALUES
-(1, 'XYZ23', 'Madhuban', 'Active', 'Taleigao', 'Unisex', 10, 3, 0, 0, 'Deltastaar', 'Accommodation for all staff', 'ABCD0987'),
-(2, 'PQR09', 'Mandovi', 'Temporaril', 'Panaji', 'Male', 2, 2, 0, 0, 'Deltastaar', 'Accommodation for male staff', 'ABCD1234'),
-(3, 'LMN56', 'Porvorim', 'Temporaril', 'Porvorim', 'Female', 1, 1, 0, 0, 'Deltastaar', 'Accommodation for female staff', 'ABCD1234'),
-(4, 'ABC123', 'Mapusa', 'Active', 'Mapusa', 'Unisex', 1, 1, 0, 0, 'Deltastaar', 'Accommodation for all staff', 'ABCD0987');
+INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `warden_emp_code`, `owner`, `remark`) VALUES
+(4, 'Acc1', 'Madhuban', 'Active', 1, 'Male', 113, 123, NULL, NULL, 'ABCD1234', 'Admin', 'done'),
+(5, 'Acc2', 'Taj', 'Active', 2, 'Unisex', 4, 51, NULL, NULL, 'ABCD1234', 'ABG', 'NONE!');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acc_locations`
+--
+
+CREATE TABLE `acc_locations` (
+  `loc_id` int(11) NOT NULL,
+  `location` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `acc_locations`
+--
+
+INSERT INTO `acc_locations` (`loc_id`, `location`) VALUES
+(1, 'Panaji'),
+(2, 'Porvorim');
 
 -- --------------------------------------------------------
 
@@ -76,6 +93,7 @@ CREATE TABLE `complaints` (
   `raise_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `type` int(11) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tech_pending_timestamp` timestamp NULL DEFAULT NULL,
   `tech_closure_timestamp` timestamp NULL DEFAULT NULL,
   `sec_closure_timestamp` timestamp NULL DEFAULT NULL,
   `warden_closure_timestamp` timestamp NULL DEFAULT NULL,
@@ -87,9 +105,11 @@ CREATE TABLE `complaints` (
 -- Dumping data for table `complaints`
 --
 
-INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`) VALUES
-(1, '2023-01-04 18:19:39', 1, 'light off', NULL, '2023-01-04 18:19:39', '2023-01-04 18:19:39', NULL, 'ABCD1234'),
-(2, '2023-01-05 19:24:10', 2, 'sink overflow', NULL, '2023-01-05 19:24:10', '2023-01-05 19:24:10', NULL, 'ABCD1234');
+INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `tech_pending_timestamp`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`) VALUES
+(1, '2023-01-04 18:19:39', 1, 'light off', '2023-02-07 09:21:55', '2023-02-07 09:21:55', '2023-01-04 18:19:39', '2023-01-04 18:19:39', NULL, 'ABCD1234'),
+(2, '2023-01-05 19:24:10', 2, 'sink overflow', '2023-02-07 20:32:43', NULL, NULL, NULL, NULL, 'ABCD1234'),
+(8, '2023-02-07 07:49:33', 3, 'check', NULL, NULL, NULL, NULL, NULL, 'ABCD1234'),
+(9, '2023-02-07 08:41:01', 1, 'Bulb fuse', NULL, NULL, NULL, NULL, NULL, 'ABCD1236');
 
 -- --------------------------------------------------------
 
@@ -153,8 +173,8 @@ CREATE TABLE `employee` (
   `country` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pincode` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `department` int(11) DEFAULT NULL,
   `blood_group` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
   `aadhaar_number` int(11) DEFAULT NULL,
   `salary` float DEFAULT NULL,
@@ -166,14 +186,32 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `blood_group`, `department`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
-(2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', '9527014907', 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', 'O+', 'IT', '2022-07-15', 1234567890, 80000, 6, 1),
-(3, 'ABCD1235', 'XYZ', 'U', 'PQR', 2, '2002-07-05', '+919527014907', 'Goa', 'Goa', 'India', 403401, 'chinmay@gmail.com', 'AB+', 'it', '2002-07-05', 1234, 50000, 4, 8),
-(7, 'ABCD1236', 'XYZ', 'u', 'PQR', 2, '2023-01-18', '+919527014907', 'Panjim Goa', 'goa', 'america', 123123, 'chinmayjoshi5702@gmail.com', 'B+', 'it', '2023-02-11', 1234567890, 5000000, 6, 9),
-(8, 'ABCD0987', 'Varad', 'M', 'Kelkar', 3, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varad@kelkar', 'A-', 'COMP', '2022-09-23', 2147483647, 80000, 7, 1),
-(19, 'WXYZ0072', 'Charlie', 'H', 'Harper', 1, '1997-04-25', '1234567890', 'Malibu', 'California', 'USA', 445673, 'test@dummy', 'O+', 'HR', '2022-12-16', 12345678, 80000, 6, 1),
-(21, 'AB224', 't', 'e', 's', 2, '2023-01-11', '2', 'r', 'i', 'n', 3, 'test@dummy', 'A-', 'COMP', '2023-01-07', 3, 2, 6, NULL),
-(22, 'WXYZ6666', 'Test', 'J', 'case', 2, '2023-01-05', '1234567890', 'Fatorda', 'California', 'USA', 3, 'test@dummy', 'B-', 'COMP', '2023-01-05', 1, 2, 6, NULL);
+INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
+(2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', '9527014907', 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', 1, 'B+', '2022-07-15', 1234567890, 610000, 4, 1),
+(3, 'ABCD1235', 'XYZ', 'U', 'PQR', 2, '2002-07-05', '+919527014907', 'Goa', 'Goa', 'India', 403401, 'chinmay@gmail.com', 3, 'B+', '2002-07-05', 1234567, 50000, 3, 8),
+(7, 'ABCD1236', 'XYZ', 'u', 'PQR', 2, '2023-01-18', '+919527014907', 'Panjim Goa', 'goa', 'america', 123123, 'chinmayjoshi5702@gmail.com', 3, 'A+', '2023-02-11', 1234567890, 5000000, 5, 8),
+(8, 'ABCD2002', 'Varad', 'M', 'Kelkar', 3, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, NULL, 2, 'A-', NULL, NULL, NULL, NULL, 1),
+(10, 'ABCD0987', 'Test', 'H', 'case', 1, '2023-02-01', '1234567890', 'Fatorda', 'Goa', 'India', 40302, 'test@dummy', 2, 'B-', '2023-02-09', 123, 23000, 3, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_dept`
+--
+
+CREATE TABLE `employee_dept` (
+  `dept_id` int(11) NOT NULL,
+  `dept_name` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `employee_dept`
+--
+
+INSERT INTO `employee_dept` (`dept_id`, `dept_name`) VALUES
+(1, 'IT'),
+(2, 'COMP'),
+(3, 'HR');
 
 -- --------------------------------------------------------
 
@@ -231,7 +269,8 @@ CREATE TABLE `jobs` (
 --
 
 INSERT INTO `jobs` (`id`, `complaint_id`, `technician_id`, `raise_timestamp`, `description`, `completion_date`, `remarks`, `warden_emp_code`) VALUES
-(15, 1, 1, '2023-01-05', 'zcas', '2023-01-08', 'asda', 'ABCD1234');
+(15, 1, 1, '2023-01-05', 'zcas', '2023-01-08', 'asda', 'ABCD1234'),
+(16, 2, 1, '2023-02-07', 'check', '2023-02-13', 'Do it asap!', 'ABCD1234');
 
 -- --------------------------------------------------------
 
@@ -265,10 +304,9 @@ CREATE TABLE `login_credentials` (
 
 INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
 (2, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(8, '0444c32ebf0b36d55d38afd22ad00ecd'),
-(19, '5f4dcc3b5aa765d61d8327deb882cf99'),
 (7, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(7, '5f4dcc3b5aa765d61d8327deb882cf99');
+(3, '5f4dcc3b5aa765d61d8327deb882cf99'),
+(8, '0444c32ebf0b36d55d38afd22ad00ecd');
 
 -- --------------------------------------------------------
 
@@ -296,32 +334,39 @@ INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
 (2, '2022-12-30 06:35:57', '2022-12-30 06:35:57', 6),
 (2, '2022-12-31 13:46:10', '2022-12-31 13:46:10', 7),
 (2, '2023-01-01 12:30:11', '2023-01-01 12:30:11', 8),
-(2, '2023-01-02 11:18:24', '2023-01-02 11:18:24', 9),
+(2, '2023-01-06 19:38:54', '2023-01-06 19:38:54', 9),
 (2, '2023-01-06 17:03:30', '2023-01-06 17:03:30', 10),
 (2, '2023-01-06 19:09:45', '2023-01-06 19:09:45', 11),
-(2, '2023-01-07 03:34:59', '2023-01-07 03:34:59', 12),
-(8, '2023-01-07 03:35:45', '2023-01-07 03:35:45', 13),
-(8, '2023-01-07 04:31:30', '2023-01-07 04:31:30', 14),
-(8, '2023-01-07 06:40:37', '2023-01-07 06:40:37', 15),
-(8, '2023-01-07 07:54:16', '2023-01-07 07:54:16', 16),
-(8, '2023-01-07 08:31:13', '2023-01-07 08:31:13', 17),
-(8, '2023-01-07 09:33:44', '2023-01-07 09:33:44', 18),
-(19, '2023-01-07 09:34:40', '2023-01-07 09:34:40', 19),
-(7, '2023-01-07 09:35:23', '2023-01-07 09:35:23', 20),
-(8, '2023-01-07 09:59:01', '2023-01-07 09:59:01', 21),
-(8, '2023-01-07 10:02:51', '2023-01-07 10:02:51', 22),
-(7, '2023-01-07 10:04:14', '2023-01-07 10:04:14', 23),
-(2, '2023-01-07 10:20:12', '2023-01-07 10:20:12', 24),
-(8, '2023-01-09 17:46:01', '2023-01-09 17:46:01', 25),
-(8, '2023-01-09 18:21:08', '2023-01-09 18:21:08', 26),
-(8, '2023-01-10 03:24:51', '2023-01-10 03:24:51', 27),
-(8, '2023-01-10 12:55:29', '2023-01-10 12:55:29', 28),
-(2, '2023-02-03 04:30:12', '2023-02-03 04:30:12', 29),
-(2, '2023-02-03 04:42:29', '2023-02-03 04:42:29', 30),
-(8, '2023-02-06 11:18:35', '2023-02-06 11:18:35', 31),
-(8, '2023-02-06 14:58:44', '2023-02-06 14:58:44', 32),
-(2, '2023-02-06 17:30:01', '2023-02-06 17:30:01', 33),
-(8, '2023-02-07 06:32:23', '2023-02-07 06:32:23', 34);
+(2, '2023-01-07 07:17:36', '2023-01-07 07:17:36', 12),
+(2, '2023-01-07 07:17:53', '2023-01-07 07:17:53', 13),
+(2, '2023-02-06 06:27:24', '2023-02-06 06:27:24', 14),
+(7, '2023-01-07 09:29:48', '2023-01-07 09:29:48', 15),
+(7, '2023-01-07 09:30:35', '2023-01-07 09:30:35', 16),
+(7, '2023-01-07 09:30:44', '2023-01-07 09:30:44', 17),
+(2, '2023-02-03 18:34:50', '2023-02-03 18:34:50', 18),
+(2, '2023-02-04 12:43:48', '2023-02-04 12:43:48', 19),
+(3, '2023-02-04 14:54:10', '2023-02-04 14:54:10', 20),
+(3, '2023-02-04 15:03:03', '2023-02-04 15:03:03', 21),
+(3, '2023-02-04 15:03:29', '2023-02-04 15:03:29', 22),
+(3, '2023-02-04 15:03:34', '2023-02-04 15:03:34', 23),
+(3, '2023-02-06 09:01:47', '2023-02-06 09:01:47', 24),
+(2, '2023-02-06 09:02:03', '2023-02-06 09:02:03', 25),
+(2, '2023-02-07 08:40:17', '2023-02-07 08:40:17', 26),
+(7, '2023-02-07 18:42:07', '2023-02-07 18:42:07', 27),
+(2, '2023-02-07 20:10:28', '2023-02-07 20:10:28', 28),
+(3, '2023-02-07 20:13:41', '2023-02-07 20:13:41', 29),
+(2, '2023-02-07 20:15:29', '2023-02-07 20:15:29', 30),
+(3, '2023-02-07 20:38:20', '2023-02-07 20:38:20', 31),
+(2, '2023-02-07 20:38:28', '2023-02-07 20:38:28', 32),
+(8, '2023-02-08 06:41:49', '2023-02-08 06:41:49', 33),
+(8, '2023-02-08 16:04:45', '2023-02-08 16:04:45', 34),
+(8, '2023-02-08 17:33:02', '2023-02-08 17:33:02', 35),
+(8, '2023-02-09 11:49:19', '2023-02-09 11:49:19', 36),
+(8, '2023-02-09 14:49:18', '2023-02-09 14:49:18', 37),
+(3, '2023-02-09 14:50:17', '2023-02-09 14:50:17', 38),
+(8, '2023-02-09 14:50:49', '2023-02-09 14:50:49', 39),
+(3, '2023-02-09 14:50:57', '2023-02-09 14:50:57', 40),
+(8, '2023-02-09 14:51:03', '2023-02-09 14:51:03', 41);
 
 -- --------------------------------------------------------
 
@@ -350,8 +395,7 @@ CREATE TABLE `rights` (
 
 INSERT INTO `rights` (`id`, `accomodation`, `complaints`, `employee_details`, `employee_outing`, `roles`, `rooms`, `tankers`, `jobs`, `vaccination`, `vaccination_category`, `visitor_log`) VALUES
 (1, '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7'),
-(7, '1', '1', '1', '1', '0', '1', '1', '1', '1', '0', '1'),
-(8, '0', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+(7, '0', '1', '0', '1', '0', '1', '1', '1', '1', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -371,8 +415,7 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`role_id`, `role_name`, `rights`) VALUES
 (1, 'Super Admin', 1),
-(8, 'Test', 7),
-(9, 'Technician', 8);
+(8, 'Test', 7);
 
 -- --------------------------------------------------------
 
@@ -394,13 +437,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
-(1, 3, '102', 4, '', 0),
-(1, 4, '103', 1, 'Occupied', 1),
-(2, 5, '202', 1, 'Occupied', 1),
-(1, 6, '104', 5, 'Occupied', 5),
-(2, 7, '204', 1, 'Occupied', 1),
-(3, 8, '408', 1, '', 0),
-(4, 9, '1104', 1, '', 0);
+(4, 3, '2', 4, 'Available', 3),
+(4, 4, '3', 4, 'Available', 1),
+(5, 5, '4', 4, 'Available', 1);
 
 -- --------------------------------------------------------
 
@@ -410,16 +449,8 @@ INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `curr
 
 CREATE TABLE `security` (
   `emp_id` int(11) NOT NULL,
-  `acc_id` int(11) NOT NULL,
-  `id` int(11) NOT NULL
+  `acc_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `security`
---
-
-INSERT INTO `security` (`emp_id`, `acc_id`, `id`) VALUES
-(19, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -483,9 +514,7 @@ CREATE TABLE `technician` (
 --
 
 INSERT INTO `technician` (`id`, `emp_id`, `role`) VALUES
-(1, 3, 'Electrician'),
-(7, 7, 'Plumber'),
-(10, 21, 'Plumber');
+(1, 3, 'Electrician');
 
 -- --------------------------------------------------------
 
@@ -510,9 +539,7 @@ INSERT INTO `vaccination` (`vaccination_id`, `emp_id`, `category_id`, `date_of_a
 (1, 2, 1, '2022-01-01', 'goa', '2022-02-01'),
 (2, 2, 2, '2022-02-09', 'goa', '2022-04-01'),
 (3, 3, 1, '2023-01-01', 'goa', '2023-02-01'),
-(4, 3, 2, '2023-02-16', 'goa', '2023-03-18'),
-(5, 8, 1, '2022-06-15', 'Margao', '2022-09-14'),
-(6, 8, 1, '2022-06-15', 'Margao', '2022-09-14');
+(4, 3, 2, '2023-02-16', 'goa', '2023-03-18');
 
 -- --------------------------------------------------------
 
@@ -579,7 +606,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 ALTER TABLE `accomodation`
   ADD PRIMARY KEY (`acc_id`),
   ADD UNIQUE KEY `acc_code` (`acc_code`),
-  ADD KEY `accomodation_ibfk_1` (`warden_emp_code`);
+  ADD KEY `accomodation_ibfk_1` (`warden_emp_code`),
+  ADD KEY `fk_acc_loc` (`location`);
+
+--
+-- Indexes for table `acc_locations`
+--
+ALTER TABLE `acc_locations`
+  ADD PRIMARY KEY (`loc_id`);
 
 --
 -- Indexes for table `complaints`
@@ -610,7 +644,14 @@ ALTER TABLE `employee`
   ADD UNIQUE KEY `emp_code` (`emp_code`),
   ADD KEY `role` (`role`),
   ADD KEY `designation` (`designation`),
-  ADD KEY `room_id` (`room_id`);
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `fk_emp_dept` (`department`);
+
+--
+-- Indexes for table `employee_dept`
+--
+ALTER TABLE `employee_dept`
+  ADD PRIMARY KEY (`dept_id`);
 
 --
 -- Indexes for table `employee_designation`
@@ -670,7 +711,6 @@ ALTER TABLE `rooms`
 -- Indexes for table `security`
 --
 ALTER TABLE `security`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `emp_id` (`emp_id`),
   ADD KEY `acc_id` (`acc_id`);
 
@@ -726,13 +766,19 @@ ALTER TABLE `visitor_log`
 -- AUTO_INCREMENT for table `accomodation`
 --
 ALTER TABLE `accomodation`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `acc_locations`
+--
+ALTER TABLE `acc_locations`
+  MODIFY `loc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
@@ -750,7 +796,13 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `employee_dept`
+--
+ALTER TABLE `employee_dept`
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `employee_designation`
@@ -762,37 +814,31 @@ ALTER TABLE `employee_designation`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `rights`
 --
 ALTER TABLE `rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `security`
---
-ALTER TABLE `security`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tankers`
@@ -810,13 +856,13 @@ ALTER TABLE `tanker_vendors`
 -- AUTO_INCREMENT for table `technician`
 --
 ALTER TABLE `technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `vaccination_category`
@@ -838,7 +884,8 @@ ALTER TABLE `visitor_log`
 -- Constraints for table `accomodation`
 --
 ALTER TABLE `accomodation`
-  ADD CONSTRAINT `accomodation_ibfk_1` FOREIGN KEY (`warden_emp_code`) REFERENCES `employee` (`emp_code`);
+  ADD CONSTRAINT `accomodation_ibfk_1` FOREIGN KEY (`warden_emp_code`) REFERENCES `employee` (`emp_code`),
+  ADD CONSTRAINT `fk_acc_loc` FOREIGN KEY (`location`) REFERENCES `acc_locations` (`loc_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `complaints`
@@ -859,7 +906,8 @@ ALTER TABLE `contact`
 ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`),
   ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`designation`) REFERENCES `employee_designation` (`id`),
-  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
+  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`),
+  ADD CONSTRAINT `fk_emp_dept` FOREIGN KEY (`department`) REFERENCES `employee_dept` (`dept_id`);
 
 --
 -- Constraints for table `employee_outing`

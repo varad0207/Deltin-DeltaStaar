@@ -1,3 +1,92 @@
+<?php 
+                    if(mysqli_num_rows($results) > 0){
+                    while ($row = mysqli_fetch_array($results)) { ?>
+
+}
+                }
+            }
+        }
+        if(isset($_POST['departments']))
+        {
+            $deptChecked = [];
+            $deptChecked = $_POST['departments'];
+            
+            foreach($deptChecked as $deptRow)
+            {
+                $results = mysqli_query($conn, "SELECT * FROM employee WHERE department IN('$deptRow')");
+                
+            }
+        }
+        ?>
+
+<?php
+                        $desigid = $row['designation'];
+                        $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE id='$desigid' OR designation = '$desigid'");
+                        $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
+                    ?>
+                    <?php
+                        $deptid = $row['department'];
+                        $queryEmpDept = mysqli_query($conn, "SELECT * FROM employee_dept WHERE dept_id='$deptid'");
+                        $EmployeeDept_row = mysqli_fetch_assoc($queryEmpDept);
+                    ?>
+                    <?php
+                        $roomid = $row['room_id'];
+                        $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
+                        $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
+                    ?>
+                    <?php
+                        // $accid = $EmployeeRoom_row['acc_id'];
+
+                        if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
+                            $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
+                            $Acc_row = mysqli_fetch_assoc($queryAcc);
+                            $accName = $Acc_row['acc_name'];
+                          } else {
+                            $accName = 'N/A';
+                          }
+
+                    ?>
+
+                    <tr>
+                        <th scope="row"><?php echo $row['emp_code']; ?></th>
+                        <td>
+                            <?php echo $row['fname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['mname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row['lname']; ?>
+                        </td>
+                        <td>
+                            <?php echo $EmployeeDesig_row['designation']; ?>
+                        </td>
+                        <td>
+                            <?php echo $EmployeeDept_row['dept_name']; ?>
+                        </td>
+                        <td>
+                            <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
+                        </td>
+                        <td>
+                            <?php echo $row['state']; ?>
+                        </td>
+                        
+                        <td>
+                            <?php echo $row['contact']; ?>
+                        </td>
+                        <td style="text-align: center;">
+                        <a href="./emp_viewmore.php?id=<?php echo $row['emp_code']?> " class="btn btn-primary">View More</a>
+                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                                class="edit_btn"> <i class="bi bi-pencil-square"
+                                    style="font-size: 1rem; color: black;"></i></a>
+                            &nbsp;
+                            <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
+                                class="del_btn"><i class="bi bi-trash" style="font-size: 1rem; color: black;"></i></a>
+                        </td>
+                    </tr>
+                    <?php }
+                    } 
+                    ?>
 accomodation
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/accomodation_controller.php'); ?>

@@ -35,18 +35,17 @@ if ($_SESSION['is_superadmin']) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
     <link href="../css/sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style1.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
-    <link rel="stylesheet" href="../css/style1.css">
+    
     <link rel="stylesheet" href="../css/technician.css">
     <link rel="stylesheet" href="../css/securityDashboard.css">
     <link rel="stylesheet" href="../css/employeeDashboard.css">
-
+    <link rel="stylesheet" href="../css/style1.css">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
@@ -73,9 +72,11 @@ if ($_SESSION['is_superadmin']) {
         include '../controllers/includes/navbar.php';
         ?>
 
-        <div align=center class="welcome-message">Welcome back, <span style="color:#ceaa6d">
+        <div class="tc f1 lh-title txt">Welcome back, 
+            <span class="spr">
                 <?php echo $emp_details['fname']; ?>
-            </span></div>
+            </span>!
+        </div>
         <?php
         if ($isSuperadmin)
             include '../controllers/includes/superadmin.php';

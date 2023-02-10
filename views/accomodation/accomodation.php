@@ -108,7 +108,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="location">Location</label>
-                                <select class="form-select mt-3" name="location" required>
+                                <select class="form-select mt-3" name="loc" required>
                                     <option name="acc_loc" selected disabled value="">Select Designation</option>
                                     <?php
                                     $acc_loc = mysqli_query($conn, "SELECT * FROM acc_locations");

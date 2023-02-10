@@ -60,6 +60,13 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                             Accommodation Table
                         </a>
                     </li>
+                    
+                    <li>
+                        <a class="nav-link border-dark border-bottom"
+                            href="../<?php echo $link; ?>views/config/acc_loc_table.php">
+                            Accommodation Location Table
+                        </a>
+                    </li>
                     <?php }  
                     if($rights['rights_rooms']>0){  ?>
                     <li>
@@ -132,6 +139,11 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/emp_desig_table.php">
                             Employees Designation Table
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/emp_dept_table.php">
+                            Employees Department Table
                         </a>
                     </li>
                     <li>

@@ -68,10 +68,13 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                                     <a class="dropdown-item" href="../views/config/vaccination_category.php">Add Vaccination
                                         category</a>
                                     <a class="dropdown-item" href="../views/config/emp_desig.php">Add Employee Designation</a>
+                                    <a class="dropdown-item" href="../views/config/emp_dept.php">Add Employee Department</a>
+                                    <a class="dropdown-item" href="../views/config/acc_loc.php">Add Accommodation Location</a>
                                     <a class="dropdown-item" href="../views/config/tanker_vendor.php">Add Tanker Vendors</a>
                                     <a class="dropdown-item" href="../views/config/security.php">Define Security</a>
                                     <a class="dropdown-item" href="../views/config/technician.php">Define/Add Technician</a>
                                     <a class="dropdown-item" href="../views/config/complaint_type.php">Complaint Type</a>
+                                    
                                 </div>
                             </div>
                         </li>

@@ -80,6 +80,9 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../../views/dashboard.php">Home</a>
                         </li>
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link active1" aria-current="page" onclick="window.history.back()">Back</a>
+                        </li>
                         
                         <!-- <li class="nav-item">
                             <a class="nav-link active" href="../../views/aboutus.html" >About Us</a>

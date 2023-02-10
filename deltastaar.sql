@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 05:41 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Host: localhost
+-- Generation Time: Feb 10, 2023 at 11:34 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -98,7 +98,7 @@ CREATE TABLE `complaints` (
   `sec_closure_timestamp` timestamp NULL DEFAULT NULL,
   `warden_closure_timestamp` timestamp NULL DEFAULT NULL,
   `remarks` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -109,7 +109,7 @@ INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `tech_
 (1, '2023-01-04 18:19:39', 1, 'light off', '2023-02-07 09:21:55', '2023-02-07 09:21:55', '2023-01-04 18:19:39', '2023-01-04 18:19:39', NULL, 'ABCD1234'),
 (2, '2023-01-05 19:24:10', 2, 'sink overflow', '2023-02-07 20:32:43', NULL, NULL, NULL, NULL, 'ABCD1234'),
 (8, '2023-02-07 07:49:33', 3, 'check', NULL, NULL, NULL, NULL, NULL, 'ABCD1234'),
-(9, '2023-02-07 08:41:01', 1, 'Bulb fuse', NULL, NULL, NULL, NULL, NULL, 'ABCD1236');
+(9, '2023-02-07 08:41:01', 1, 'Bulb fuse', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -189,8 +189,6 @@ CREATE TABLE `employee` (
 INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
 (2, 'ABCD1234', 'Chinmay', 'Umesh', 'Joshi', 3, '2002-07-05', '9527014907', 'Flat RT6, Fonseca Arcade co-op housing society,Ponda ', 'Goa', 'India', 403401, 'chinmayujoshi@gmail.com', 1, 'B+', '2022-07-15', 1234567890, 610000, 4, 1),
 (3, 'ABCD1235', 'XYZ', 'U', 'PQR', 2, '2002-07-05', '+919527014907', 'Goa', 'Goa', 'India', 403401, 'chinmay@gmail.com', 3, 'B+', '2002-07-05', 1234567, 50000, 3, 8),
-(7, 'ABCD1236', 'XYZ', 'u', 'PQR', 2, '2023-01-18', '+919527014907', 'Panjim Goa', 'goa', 'america', 123123, 'chinmayjoshi5702@gmail.com', 3, 'A+', '2023-02-11', 1234567890, 5000000, 5, 8),
-(8, 'ABCD2002', 'Varad', 'M', 'Kelkar', 3, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, NULL, 2, 'A-', NULL, NULL, NULL, NULL, 1),
 (10, 'ABCD0987', 'Test', 'H', 'case', 1, '2023-02-01', '1234567890', 'Fatorda', 'Goa', 'India', 40302, 'test@dummy', 2, 'B-', '2023-02-09', 123, 23000, 3, NULL);
 
 -- --------------------------------------------------------
@@ -304,9 +302,7 @@ CREATE TABLE `login_credentials` (
 
 INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
 (2, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(7, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(3, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(8, '0444c32ebf0b36d55d38afd22ad00ecd');
+(3, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -315,8 +311,8 @@ INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
 --
 
 CREATE TABLE `login_history` (
-  `emp_id` int(11) NOT NULL,
-  `login_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `emp_id` int(11) DEFAULT NULL,
+  `login_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `logout_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -326,47 +322,10 @@ CREATE TABLE `login_history` (
 --
 
 INSERT INTO `login_history` (`emp_id`, `login_time`, `logout_time`, `id`) VALUES
-(2, '2022-12-22 07:58:01', '2022-12-22 07:58:01', 1),
-(2, '2022-12-27 04:55:10', '2022-12-27 04:55:10', 2),
-(2, '2022-12-29 18:50:01', '2022-12-29 18:50:01', 3),
-(2, '2022-12-29 20:04:45', '2022-12-29 20:04:45', 4),
-(2, '2022-12-30 06:23:32', '2022-12-30 06:23:32', 5),
-(2, '2022-12-30 06:35:57', '2022-12-30 06:35:57', 6),
-(2, '2022-12-31 13:46:10', '2022-12-31 13:46:10', 7),
-(2, '2023-01-01 12:30:11', '2023-01-01 12:30:11', 8),
-(2, '2023-01-06 19:38:54', '2023-01-06 19:38:54', 9),
-(2, '2023-01-06 17:03:30', '2023-01-06 17:03:30', 10),
-(2, '2023-01-06 19:09:45', '2023-01-06 19:09:45', 11),
-(2, '2023-01-07 07:17:36', '2023-01-07 07:17:36', 12),
-(2, '2023-01-07 07:17:53', '2023-01-07 07:17:53', 13),
-(2, '2023-02-06 06:27:24', '2023-02-06 06:27:24', 14),
-(7, '2023-01-07 09:29:48', '2023-01-07 09:29:48', 15),
-(7, '2023-01-07 09:30:35', '2023-01-07 09:30:35', 16),
-(7, '2023-01-07 09:30:44', '2023-01-07 09:30:44', 17),
-(2, '2023-02-03 18:34:50', '2023-02-03 18:34:50', 18),
-(2, '2023-02-04 12:43:48', '2023-02-04 12:43:48', 19),
-(3, '2023-02-04 14:54:10', '2023-02-04 14:54:10', 20),
-(3, '2023-02-04 15:03:03', '2023-02-04 15:03:03', 21),
-(3, '2023-02-04 15:03:29', '2023-02-04 15:03:29', 22),
-(3, '2023-02-04 15:03:34', '2023-02-04 15:03:34', 23),
-(3, '2023-02-06 09:01:47', '2023-02-06 09:01:47', 24),
-(2, '2023-02-06 09:02:03', '2023-02-06 09:02:03', 25),
-(2, '2023-02-07 08:40:17', '2023-02-07 08:40:17', 26),
-(7, '2023-02-07 18:42:07', '2023-02-07 18:42:07', 27),
-(2, '2023-02-07 20:10:28', '2023-02-07 20:10:28', 28),
-(3, '2023-02-07 20:13:41', '2023-02-07 20:13:41', 29),
-(2, '2023-02-07 20:15:29', '2023-02-07 20:15:29', 30),
-(3, '2023-02-07 20:38:20', '2023-02-07 20:38:20', 31),
-(2, '2023-02-07 20:38:28', '2023-02-07 20:38:28', 32),
-(8, '2023-02-08 06:41:49', '2023-02-08 06:41:49', 33),
-(8, '2023-02-08 16:04:45', '2023-02-08 16:04:45', 34),
-(8, '2023-02-08 17:33:02', '2023-02-08 17:33:02', 35),
-(8, '2023-02-09 11:49:19', '2023-02-09 11:49:19', 36),
-(8, '2023-02-09 14:49:18', '2023-02-09 14:49:18', 37),
-(3, '2023-02-09 14:50:17', '2023-02-09 14:50:17', 38),
-(8, '2023-02-09 14:50:49', '2023-02-09 14:50:49', 39),
-(3, '2023-02-09 14:50:57', '2023-02-09 14:50:57', 40),
-(8, '2023-02-09 14:51:03', '2023-02-09 14:51:03', 41);
+(NULL, '2023-02-10 17:52:46', '2023-02-10 17:52:46', 1),
+(2, '2023-02-10 17:53:29', '2023-02-10 17:53:29', 2),
+(2, '2023-02-10 17:53:45', '2023-02-10 17:54:04', 3),
+(2, '2023-02-10 18:04:16', '2023-02-10 18:04:16', 4);
 
 -- --------------------------------------------------------
 
@@ -437,9 +396,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
-(4, 3, '2', 4, 'Available', 3),
+(4, 3, '2', 4, 'Available', 4),
 (4, 4, '3', 4, 'Available', 1),
-(5, 5, '4', 4, 'Available', 1);
+(5, 5, '4', 4, 'Available', 2);
 
 -- --------------------------------------------------------
 
@@ -620,8 +579,8 @@ ALTER TABLE `acc_locations`
 --
 ALTER TABLE `complaints`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `emp_code` (`emp_code`),
-  ADD KEY `type` (`type`);
+  ADD KEY `type` (`type`),
+  ADD KEY `emp_code` (`emp_code`);
 
 --
 -- Indexes for table `complaint_type`
@@ -820,7 +779,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rights`
@@ -891,8 +850,9 @@ ALTER TABLE `accomodation`
 -- Constraints for table `complaints`
 --
 ALTER TABLE `complaints`
-  ADD CONSTRAINT `complaints_ibfk_1` FOREIGN KEY (`emp_code`) REFERENCES `employee` (`emp_code`),
-  ADD CONSTRAINT `complaints_ibfk_2` FOREIGN KEY (`type`) REFERENCES `complaint_type` (`id`);
+  ADD CONSTRAINT `complaints_ibfk_2` FOREIGN KEY (`type`) REFERENCES `complaint_type` (`id`),
+  ADD CONSTRAINT `complaints_ibfk_3` FOREIGN KEY (`emp_code`) REFERENCES `employee` (`emp_code`) ON DELETE SET NULL,
+  ADD CONSTRAINT `complaints_ibfk_4` FOREIGN KEY (`emp_code`) REFERENCES `employee` (`emp_code`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `contact`
@@ -927,13 +887,13 @@ ALTER TABLE `jobs`
 -- Constraints for table `login_credentials`
 --
 ALTER TABLE `login_credentials`
-  ADD CONSTRAINT `login_credentials_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+  ADD CONSTRAINT `login_credentials_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `login_history`
 --
 ALTER TABLE `login_history`
-  ADD CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+  ADD CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `roles`

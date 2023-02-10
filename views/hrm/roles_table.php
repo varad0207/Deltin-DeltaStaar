@@ -343,7 +343,7 @@ $all = '<span class="material-icons">done_all</span>';
                                         style="font-size: 1.2rem; color: black;"></i>
                                 </a>
                                 &nbsp;
-                                <a href="../../controllers/role_controller.php?del=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
+                                <a href="../../controllers/role_controller.php?del_role=<?php echo $row['role_id']; ?>"
                                     class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                                 </a>
                             </td>
@@ -361,11 +361,11 @@ $all = '<span class="material-icons">done_all</span>';
     </div>
 
     <div class="table-footer pa4">
-        <div class="fl w-25 tl">
+        <!-- <div class="fl w-25 tl">
             <button class="btn btn-warning">
                 <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
             </button>
-        </div>
+        </div> -->
         <div class="fl w-25 tr">
             <button class="btn btn-light">
                 <h4><a href="roles_assigned_table.php">View Assigned Roles</a></h4>

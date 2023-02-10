@@ -133,7 +133,8 @@ $all = '<span class="material-icons">done_all</span>';
                     <tr>
                         <th>Employee</th>
                     <th scope="col" rowspan="2">Role Name</th>
-                    <th scope="col" colspan="12">Rights</th>
+                    <th scope="col" colspan="8">Rights</th>
+                    <th scope="col" colspan="2">Un-assign</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -150,6 +151,7 @@ $all = '<span class="material-icons">done_all</span>';
                         <th>Vaccination</th>
                         <!-- <th>Vaccination Category</th> -->
                         <th>Visitor Log</th>
+                        <th></th>
                         <!-- <th colspan="2">Action</th> -->
                     </tr>
                     <?php while ($emp_row = mysqli_fetch_array($emp)) { 
@@ -313,7 +315,12 @@ $all = '<span class="material-icons">done_all</span>';
                                 ?>
 
                             </td>
-                        
+                            <td>
+                                <a href="../../controllers/role_controller.php?del_roleof_emp=<?php echo $emp_row['emp_id'];; ?>"
+                                    class="del_btn">
+                                    <span class="material-icons">link_off</span>
+                                </a>
+                            </td>
                         <!-- <td>
                             <a href="./roles.php?edit=<?php //echo '%27' ?><?php //echo $row['role_id']; ?><?php //echo '%27' ?>"
                             class="edit_btn"> <i class="bi bi-pencil-square"
@@ -332,11 +339,11 @@ $all = '<span class="material-icons">done_all</span>';
     </div>
 
     <div class="table-footer pa4">
-        <div class="fl w-60 tl">
+        <!-- <div class="fl w-60 tl">
             <button class="btn btn-warning">
                 <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
             </button>
-        </div>
+        </div> -->
         
         <div class="fl w-20 tr">
             <button class="btn btn-light">

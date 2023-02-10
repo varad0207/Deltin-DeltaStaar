@@ -105,11 +105,11 @@ if ($_SESSION['is_superadmin'] == 0)
                             <?php echo $accid_row['acc_name']; ?>
                         </td>
                         <td>
-                            <a href="security.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="security.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
                                 class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                         <td>
-                            <a href="../../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/security_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         </td>
                     </tr>

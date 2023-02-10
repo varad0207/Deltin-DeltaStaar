@@ -205,8 +205,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="blood_group">Blood Group</label>
-                                <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>"
-                                    required>
+                                <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>">
                                     <option selected disabled value="">Select Blood Group</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -247,7 +246,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="joiningdate">Joining Date</label>
                                 <input class="form-control" type="date" name="joining_date"
-                                    value="<?php echo $joining_date; ?>" required>
+                                    value="<?php echo $joining_date; ?>">
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
@@ -257,7 +256,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="aadhar_no">Aadhar Number</label>
                                 <input class="form-control" type="number" name="aadhaar_number"
-                                    value="<?php echo $aadhaar_number; ?>" placeholder="Aadhar Number" required>
+                                    value="<?php echo $aadhaar_number; ?>" placeholder="Aadhar Number">
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
@@ -265,7 +264,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="salary">Salary</label>
                                 <input class="form-control" type="number" name="salary" placeholder="Salary"
-                                    value="<?php echo $salary; ?>" required>
+                                    value="<?php echo $salary; ?>">
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>

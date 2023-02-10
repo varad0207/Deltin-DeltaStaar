@@ -63,14 +63,14 @@ if(isset($_GET['edit']))
                     
 
                         <div class="col-md-12 pa2">
-                          <label for="accid">Accomodation ID</label>
+                          <label for="accid">Accomodation</label>
                           <select class="form-select mt-3" name="acc" required>
                                 <option selected disabled value="">Select Accomodation</option>
                                 <?php
                                 $acc_code=mysqli_query($conn, "SELECT * FROM accomodation");
                                 
                                 foreach ($acc_code as $row){ ?>
-                                <option name="acc" value="<?= $row["acc_id"]?>"><?= $row["acc_code"];?></option>	
+                                <option name="acc" value="<?= $row["acc_id"]?>"><?= $row["acc_name"];?></option>	
                                 <?php
                                 }
                               ?>

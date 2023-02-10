@@ -7,6 +7,11 @@
         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
     // check rights
+    $none = '<span class="material-icons">block</span>';
+$read = '<span class="material-icons">menu_book</span>';
+$write = '<span class="material-icons">edit</span>';
+$delete = '<span class="material-icons">delete</span>';
+$all = '<span class="material-icons">done_all</span>';
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +20,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
@@ -87,7 +93,40 @@
         <?php 
         $emp = mysqli_query($conn, "select * from employee where role is not null ");
         ?>
+<div class="pa1 table-responsive">
+            <table class="table table-bordered tc">
+                <thead>
+        <tr>
+                        <th scope="col">
+                            <?php echo $none; ?>No rights
+                        </th>
+                        &nbsp;
+                        <th scope="col">
+                            <?php echo $read; ?>Read-only
+                        </th>
+                        &nbsp;
+                        <th scope="col">
 
+                            <?php echo $write; ?>Add/Update
+                        </th>
+
+                        &nbsp;
+                        <th scope="col">
+
+                            <?php echo $delete; ?>Delete
+                        </th>
+
+                        &nbsp;
+                        <th scope="col">
+
+                            <?php echo $all; ?>All rights
+                        </th>
+
+
+                    </tr>
+        </thead>
+        </table>
+        </div>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -123,35 +162,157 @@
                             <?php echo $row['role_name']; ?>
                         </td>
                         <td>
-                            <?php echo $row['accomodation']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['complaints']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['employee_details']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['employee_outing']; ?>
-                        </td>
-                        <!-- <td>
-                            <?php //echo $row['roles']; ?>
-                        </td> -->
-                        <td>
-                            <?php echo $row['tankers']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['jobs']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['vaccination']; ?>
-                        </td>
-                        <!-- <td>
-                            <?php //echo $row['vaccination_category']; ?>
-                        </td> -->
-                        <td>
-                        <?php echo $row['visitor_log']; ?>
-                        </td>
+                                <?php
+                                if ($row['accomodation'] < 1)
+                                    echo $none;
+                                if ($row['accomodation'] == 1)
+                                    echo $read;
+                                if (($row['accomodation'] >= 2 && $row['accomodation'] <= 3) || $row['accomodation'] == 6)
+                                    echo $write;
+                                if ($row['accomodation'] >= 4 && $row['accomodation'] < 7)
+                                    echo $delete;
+                                if ($row['accomodation'] == 7)
+                                    echo $all;
+
+                                ?>
+
+
+                            </td>
+                            <td>
+                                <?php
+                                if ($row['complaints'] < 1)
+                                    echo $none;
+                                if ($row['complaints'] == 1)
+                                    echo $read;
+                                if (($row['complaints'] >= 2 && $row['complaints'] <= 3) || $row['complaints'] == 6)
+                                    echo $write;
+                                if ($row['complaints'] >= 4 && $row['complaints'] < 7)
+                                    echo $delete;
+                                if ($row['complaints'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
+                            <td>
+                                <?php
+                                if ($row['employee_details'] < 1)
+                                    echo $none;
+                                if ($row['employee_details'] == 1)
+                                    echo $read;
+                                if (($row['employee_details'] >= 2 && $row['employee_details'] <= 3) || $row['employee_details'] == 6)
+                                    echo $write;
+                                if ($row['employee_details'] >= 4 && $row['employee_details'] < 7)
+                                    echo $delete;
+                                if ($row['employee_details'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
+                            <td>
+                                <?php
+                                if ($row['employee_outing'] < 1)
+                                    echo $none;
+                                if ($row['employee_outing'] == 1)
+                                    echo $read;
+                                if (($row['employee_outing'] >= 2 && $row['employee_outing'] <= 3) || $row['employee_outing'] == 6)
+                                    echo $write;
+                                if ($row['employee_outing'] >= 4 && $row['employee_outing'] < 7)
+                                    echo $delete;
+                                if ($row['employee_outing'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
+                            <!-- <td>
+                                        <?php
+                                        //     if ($row['roles'] < 1)
+                                        //     echo $none;
+                                        // if ($row['roles'] == 1)
+                                        //     echo $read;
+                                        // if (($row['roles'] >= 2 && $row['roles'] <= 3)||$row['roles'] ==6 )
+                                        //     echo $write;
+                                        // if ($row['roles'] >= 4 && $row['roles'] < 7)
+                                        //     echo $delete;
+                                        // if ($row['roles'] == 7)
+                                        //     echo $all;
+                                        ?>
+                            
+                                    </td> -->
+                            <td>
+                                <?php
+                                if ($row['tankers'] < 1)
+                                    echo $none;
+                                if ($row['tankers'] == 1)
+                                    echo $read;
+                                if (($row['tankers'] >= 2 && $row['tankers'] <= 3) || $row['tankers'] == 6)
+                                    echo $write;
+                                if ($row['tankers'] >= 4 && $row['tankers'] < 7)
+                                    echo $delete;
+                                if ($row['tankers'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
+                            <td>
+                                <?php
+                                if ($row['jobs'] < 1)
+                                    echo $none;
+                                if ($row['jobs'] == 1)
+                                    echo $read;
+                                if (($row['jobs'] >= 2 && $row['jobs'] <= 3) || $row['jobs'] == 6)
+                                    echo $write;
+                                if ($row['jobs'] >= 4 && $row['jobs'] < 7)
+                                    echo $delete;
+                                if ($row['jobs'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
+                            <td>
+                                <?php
+                                if ($row['vaccination'] < 1)
+                                    echo $none;
+                                if ($row['vaccination'] == 1)
+                                    echo $read;
+                                if (($row['vaccination'] >= 2 && $row['vaccination'] <= 3) || $row['vaccination'] == 6)
+                                    echo $write;
+                                if ($row['vaccination'] >= 4 && $row['vaccination'] < 7)
+                                    echo $delete;
+                                if ($row['vaccination'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
+                            <!-- <td>
+                                        <?php
+                                        //     if ($row['vaccination_category'] < 1)
+                                        //     echo $none;
+                                        // if ($row['vaccination_category'] == 1)
+                                        //     echo $read;
+                                        // if (($row['vaccination_category'] >= 2 && $row['vaccination_category'] <= 3)||$row['vaccination_category'] ==6 )
+                                        //     echo $write;
+                                        // if ($row['vaccination_category'] >= 4 && $row['vaccination_category'] < 7)
+                                        //     echo $delete;
+                                        // if ($row['vaccination_category'] == 7)
+                                        //     echo $all;
+                                        ?>
+                            
+                                    </td> -->
+                            <td>
+                                <?php
+                                if ($row['visitor_log'] < 1)
+                                    echo $none;
+                                if ($row['visitor_log'] == 1)
+                                    echo $read;
+                                if (($row['visitor_log'] >= 2 && $row['visitor_log'] <= 3) || $row['visitor_log'] == 6)
+                                    echo $write;
+                                if ($row['visitor_log'] >= 4 && $row['visitor_log'] < 7)
+                                    echo $delete;
+                                if ($row['visitor_log'] == 7)
+                                    echo $all;
+                                ?>
+
+                            </td>
                         
                         <!-- <td>
                             <a href="./roles.php?edit=<?php //echo '%27' ?><?php //echo $row['role_id']; ?><?php //echo '%27' ?>"

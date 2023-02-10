@@ -383,7 +383,7 @@ $all = '<span class="material-icons">done_all</span>';
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer jhjh-->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 </body>
 

@@ -215,7 +215,7 @@ if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
                         </a>
                     </li>
                     <?php }
-                    if($rights['rights_tanker']>0) {
+                    if($rights['rights_tankers']>0) {
                     ?>
                     <li>
                         <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/security/tanker.php">

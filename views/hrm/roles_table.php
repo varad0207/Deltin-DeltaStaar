@@ -7,6 +7,7 @@ if (!isset($_SESSION["emp_id"]))
 //only superadmin can view and assign roles
 if ($_SESSION['is_superadmin'] == 0)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+$emp_role=mysqli_fetch_array(mysqli_query($conn,"select role from employee where emp_id='{$_SESSION['emp_id']}'"));
 
 // check rights
 //$read = '<i class="fa-thin fa-book-open"></i>';
@@ -338,6 +339,7 @@ $all = '<span class="material-icons">done_all</span>';
                             </td>
 
                             <td>
+                                <?php if($emp_role['role']!=$row['id']){ ?>
                                 <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
                                     class="edit_btn"> <i class="bi bi-pencil-square"
                                         style="font-size: 1.2rem; color: black;"></i>
@@ -346,6 +348,7 @@ $all = '<span class="material-icons">done_all</span>';
                                 <a href="../../controllers/role_controller.php?del_role=<?php echo $row['role_id']; ?>"
                                     class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                                 </a>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>

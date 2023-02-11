@@ -7,6 +7,7 @@
         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
     // check rights
+
     $none = '<span class="material-icons">block</span>';
 $read = '<span class="material-icons">menu_book</span>';
 $write = '<span class="material-icons">edit</span>';
@@ -316,10 +317,12 @@ $all = '<span class="material-icons">done_all</span>';
 
                             </td>
                             <td>
+                            <?php if($_SESSION['emp_id']!=$emp_row['emp_id']){ ?>
                                 <a href="../../controllers/role_controller.php?del_roleof_emp=<?php echo $emp_row['emp_id'];; ?>"
                                     class="del_btn">
                                     <span class="material-icons">link_off</span>
                                 </a>
+                                <?php } ?>
                             </td>
                         <!-- <td>
                             <a href="./roles.php?edit=<?php //echo '%27' ?><?php //echo $row['role_id']; ?><?php //echo '%27' ?>"

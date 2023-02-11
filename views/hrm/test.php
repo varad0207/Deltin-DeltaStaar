@@ -158,7 +158,7 @@ if ($rights['rights_employee_details'] > 0) {
                             <br>
                             <br>
                             <label>To Date:- </label>
-                            <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
+                            <input type="date" name="end_date" value="<?php  if (isset($_POST['end_date']))
                                                                             echo $_POST['end_date']; ?>"><br>
 
                         </td>
@@ -177,54 +177,42 @@ if ($rights['rights_employee_details'] > 0) {
     <br>
     <br>
     <?php
-    $res_array = [];
-    if (isset($_GET['designation']) || isset($_GET['department'])) {
-        $designation_checked = [];
-        $department_checked = [];
-        isset($_GET['designation'])?$designation_checked=$_GET['designation']:$l=0;
-        isset($_GET['department'])?$department_checked = $_GET['department']:$l=0;
-        if (!empty($designation_checked) && empty($department_checked)) 
-        {
-            foreach ($designation_checked as $row_desig) 
-            {
-                //echo $row_desig;
-                $qry = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation 
-                where id IN ($row_desig)";
-                $r = mysqli_query($conn, $qry);
-                array_push($res_array, $r);
-            }
-        } 
-        else if (!empty($department_checked) && empty($designation_checked)) 
-        {
-            foreach ($department_checked as $row_dept) 
-            {
-                echo $row_dept;
-                $qry = "SELECT * from employee JOIN employee_dept on employee_dept.dept_id = employee.department 
-                where department IN ($row_dept)";
-                $r = mysqli_query($conn, $qry);
-                array_push($res_array, $r);
-            }
-        } 
-        else 
-        {
-            foreach ($designation_checked as $row_desig) 
-            {
-                foreach ($department_checked as $row_dept) 
-                {
-                    $qry = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation 
-                   join employee_dept on employee.department = employee_dept.dept_id where employee.designation IN ($row_desig) and employee.department IN ($row_dept) ";
-                    $r = mysqli_query($conn, $qry);
-                    array_push($res_array, $r);
-                }
-            }
-        }
-    } 
-    else 
-    {
-        $qry = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation";
-        $r = mysqli_query($conn, $qry);
-        array_push($res_array, $r);
+$sql="SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1";
+if(isset($_GET['designation'])){
+    $designation_checked = [];
+    $designation_checked = $_GET['designation'];
+    $sql.=" and ( ";
+    foreach ($designation_checked as $row_desig) {
+        $sql .= " employee.designation=$row_desig or";
     }
+    $sql=substr($sql,0,strripos($sql,"or"));  
+    $sql.=" ) ";
+    // echo $sql;
+}
+if(isset($_GET['department'])){
+    $department_checked = [];
+    $department_checked = $_GET['department'];
+    $sql.=" and ( ";
+    foreach ($department_checked as $row_dept) {
+        $sql .= " employee.department=$row_dept or";
+    }
+    $sql=substr($sql,0,strripos($sql,"or"));  
+    $sql.=" ) ";
+    // echo $sql;
+}
+if (isset($_GET['start_date'])) {
+    // $start_date=date("Y-m-d",($_GET['start_date'])); 
+    // echo $start_date;
+    $_GET['start_date']!=""?$sql .= " and joining_date>='{$_GET['start_date']}' ":$a=0;
+        // echo $sql;
+
+}
+if (isset($_GET['end_date'])) {
+    // $end_date=date("Y-m-d",($_GET['end_date'])); 
+    $_GET['end_date']!=""?$sql .= " and joining_date<='{$_GET['end_date']}' ":$a=0;
+}
+
+$result=mysqli_query($conn,$sql);
     ?>
     <!-- Displaying Database Table -->
     <div class="table-div" style="margin-top:100px">
@@ -255,21 +243,18 @@ if ($rights['rights_employee_details'] > 0) {
                 <tbody>
                     <?php
 
-                    // $qry = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation";
-                    // $r = mysqli_query($conn, $qry);
+                    
 
-                    foreach ($res_array as $r) 
-                    {
-                        if (mysqli_num_rows($r) > 0) 
-                        {
-                            foreach ($r as $row) { ?>
+                    
+                        if (mysqli_num_rows($result) > 0) {
+                            while($row=mysqli_fetch_array($result)) { ?>
                                 <tr>
                                     <td><?php echo $row['emp_code'] ?></td>
                                     <td><?php echo $row['fname'] ?></td>
                                     <td><?php echo $row['mname'] ?></td>
                                     <td><?php echo $row['lname'] ?></td>
                                     <td><?php echo $row['designation'] ?></td>
-                                    <td><?php echo $row['department'] ?></td>
+                                    <td><?php echo $row['dept_name'] ?></td>
                                     <td><?php echo $row['joining_date'] ?></td>
                                     <td><?php echo $row['state'] ?></td>
                                     <td><?php echo $row['contact'] ?></td>
@@ -285,11 +270,9 @@ if ($rights['rights_employee_details'] > 0) {
                                 </tr>
                             <?php
                             }
-                        } else {
-                            ?> <label style="color:white;">No entries found</label> <?php
-                                                                                        }
-                                                                                    }
-                                                                                            ?>
+                        } else { ?> 
+                            <label style="color:white;">No entries found</label> 
+                        <?php  } ?>
                 </tbody>
             </table>
 

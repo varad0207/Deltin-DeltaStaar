@@ -1,3 +1,76 @@
+<div>     
+                    <!-- Sort and Filter -->
+                    <div class="container">
+                        <form action="" method="post">
+                            <div class="item">
+                                <form action="" method="post" class="myForm">
+                                    <div class="input-group mb-3">
+                                        <select name="sort_alpha" class="form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="a-z" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?> >A-Z(Ascending Order)</option>
+                                            <option value="z-a" <?php if(isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?> >Z-A(Descending Order)</option>
+                                        </select>
+                                        <button class="btn btn-dark">
+                                        <i class="bi bi-filter-circle"> Sort By</i>
+                                        </button>
+                                    </div>
+                                </form>
+                                </div>   
+                            </div>
+                            <div class="parent tc">
+                                <form action="" method="post" class="myForm">
+                                    <h4>Filter By:</h4> 
+                                            <div class="fl w-third pa2">
+                                            Location 
+                                            <?php
+                                            $res1 = mysqli_query($conn, "SELECT * FROM acc_locations");
+                                            if(mysqli_num_rows($res1) > 0){
+                                                foreach($res1 as $r1){
+                                                    $checked1 = [];
+                                                    if(isset($_POST['locations'])){
+                                                        $checked1 = $_POST['locations'];
+                                                    }
+                                                    ?>
+                                                    
+                                                    <div class="check">
+                                                        <input type="checkbox" name="locations[]" value="<?= $r1['loc_id'] ?>"
+                                                        <?php
+                                                        if(in_array($r1['loc_id'],$checked1)) echo "checked";
+                                                        ?>
+                                                        >
+                                                        <?= $r1['location'] ?>
+                                                    </div>
+                                                
+                                                    <?php
+                                                }
+                                            }
+                                            else{
+                                                echo "No Record";
+                                            }
+                                            ?>
+                                            <label>Click to Filter</label>
+                                            <button type="submit" class="btn btn-dark">Filter</button>
+                                            <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
+                                            </div>
+                                </form>
+                                <!-- <label>Click to Reset</label> -->
+                        </form>
+                    </div>
+                </div>
+
+                <?php
+                        $employeecode = $row['warden_emp_code'];
+                        $queryEmployeeName = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$employeecode'");
+                        $EmployeeName_row = mysqli_fetch_assoc($queryEmployeeName);
+                        ?>
+                        <?php
+                        $accLocation = $row['location'];
+                        $queryAccLoc = mysqli_query($conn, "SELECT * FROM acc_locations WHERE loc_id = '$accLocation'");
+                        $AccLoc_row = mysqli_fetch_assoc($queryAccLoc);
+                        ?>
+
+
+
 <?php 
                     if(mysqli_num_rows($results) > 0){
                     while ($row = mysqli_fetch_array($results)) { ?>

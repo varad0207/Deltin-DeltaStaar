@@ -257,11 +257,15 @@ if ($rights['rights_employee_details'] > 0) {
                                     <td style="text-align: center;">
                                         <a href="./emp_viewmore.php?id=<?php echo $row['emp_code'] ?> " class="btn btn-primary">View More
                                         </a>
+                                        <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
 
                                         <a href="./employee.php?edit=<?php echo $row['emp_code']; ?>" class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i>
                                         </a>
+                                        <?php } 
+                                         if($isPrivilaged>=4){  ?>
 
                                         <a href="../../controllers/employee_controller.php?del=<?php echo $row['emp_code']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;"></i></a>
+                                   <?php } ?>
                                     </td>
                                 </tr>
                                 <?php
@@ -283,11 +287,13 @@ if ($rights['rights_employee_details'] > 0) {
                 <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
             </button>
         </div>
+        <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
                 <h4><a href="employee.php">Add Employee</a></h4>
             </button>
         </div>
+        <?php } ?>
     </div>
 
     <!-- Footer -->

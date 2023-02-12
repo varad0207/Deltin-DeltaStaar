@@ -97,6 +97,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
             <table class="table">
                 <thead>
                     <th>Location : </th>
+                    <th>Building Status : </th>
+                    <th>Gender : </th>
                 </thead>
                 <tbody>
                     <tr>
@@ -125,7 +127,58 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             }
                             ?>
                         </td>
+                        <td>
+                        <?php
+                            $fetch_stat = "SELECT DISTINCT(bldg_status) FROM accomodation";
+                            $fetch_stat_run = mysqli_query($conn, $fetch_stat);
+                            if (mysqli_num_rows($fetch_stat_run) > 0) {
+                                foreach ($fetch_stat_run as $stat) {
+                                    $checked1 = [];
+                                    if (isset($_GET['bldg_status'])) {
+                                        $checked1 = $_GET['bldg_status'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="bldg_status[]" value="<?= $stat['bldg_status']; ?>" <?php if (in_array($stat['bldg_status'], $checked1)) {
+                                                                                                                        echo "checked";
+                                                                                                                    }
+                                                                                                                    ?>>
+                                        <label><?= $stat['bldg_status']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No Status available";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                        <?php
+                            $fetch_gender = "SELECT DISTINCT(gender) FROM accomodation";
+                            $fetch_gender_run = mysqli_query($conn, $fetch_gender);
+                            if (mysqli_num_rows($fetch_gender_run) > 0) {
+                                foreach ($fetch_gender_run as $gender) {
+                                    $checked1 = [];
+                                    if (isset($_GET['gender'])) {
+                                        $checked1 = $_GET['gender'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="gender[]" value="<?= $gender['gender']; ?>" <?php if (in_array($gender['gender'], $checked1)) {
+                                                                                                                        echo "checked";
+                                                                                                                    }
+                                                                                                                    ?>>
+                                        <label><?= $gender['gender']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No Gender available";
+                            }
+                            ?>
+                        </td>
                     </tr>
+                    
                 </tbody>
             </table>
         </form>
@@ -167,14 +220,36 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
             $location_checked = $_GET['location'];
             $sqli .= " AND ( ";
             foreach($location_checked as $row_loc){
-                $sqli .= " accomodation.location=$row_loc OR"; 
+                $sqli .= " t1.location=$row_loc OR"; 
+            }
+            $sqli =substr($sqli,0,strripos($sqli,"OR"));  
+            $sqli .=" ) ";
+            
+        }
+        if(isset($_GET['bldg_status'])){
+            $stat_checked = [];
+            $stat_checked = $_GET['bldg_status'];
+            $sqli .= " AND ( ";
+            foreach($stat_checked as $row_stat){
+                $sqli .= " bldg_status='$row_stat' OR"; 
+            }
+            $sqli =substr($sqli,0,strripos($sqli,"OR"));  
+            $sqli .=" ) ";
+            
+        }
+        if(isset($_GET['gender'])){
+            $gender_checked = [];
+            $gender_checked = $_GET['gender'];
+            $sqli .= " AND ( ";
+            foreach($gender_checked as $row_gender){
+                $sqli .= " gender='$row_gender' OR"; 
             }
             $sqli =substr($sqli,0,strripos($sqli,"OR"));  
             $sqli .=" ) ";
             
         }
         $sqli .=" ORDER BY acc_name $sort_condition";
-        echo $sqli;
+        // echo $sqli;
         // retrieve the selected results
         $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
         $results = mysqli_query($conn, $sqli);
@@ -209,6 +284,13 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     </tr>
                 </thead>
                 <tbody>
+
+
+                    <?php 
+                    if(mysqli_num_rows($results) > 0) {
+                    while ($row = mysqli_fetch_array($results)) { 
+                    ?>
+                        
                     <tr>
                     <th scope="row"><?php echo $row['acc_code']; ?></th>
                     <td>

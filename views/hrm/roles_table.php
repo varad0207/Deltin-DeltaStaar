@@ -7,7 +7,7 @@ if (!isset($_SESSION["emp_id"]))
 //only superadmin can view and assign roles
 if ($_SESSION['is_superadmin'] == 0)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-$emp_role=mysqli_fetch_array(mysqli_query($conn,"select role from employee where emp_id='{$_SESSION['emp_id']}'"));
+$emp_role = mysqli_fetch_array(mysqli_query($conn, "select role from employee where emp_id='{$_SESSION['emp_id']}'"));
 
 // check rights
 //$read = '<i class="fa-thin fa-book-open"></i>';
@@ -32,8 +32,7 @@ $all = '<span class="material-icons">done_all</span>';
 
     <title>DELTA@STAAR | Roles</title>
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <!-- Tachyons -->
@@ -43,13 +42,14 @@ $all = '<span class="material-icons">done_all</span>';
 
 
     <!-- Live Search -->
+
     <script type="text/javascript">
         function search() {
             // Declare variables
             var input, filter, listing, i, txtValue;
             input = document.getElementById("form1");
             filter = input.value.toUpperCase();
-            listing = document.getElementsByTagName("tr");
+            listing = document.getElementsByClassName("live");
             // Loop through all 
             for (i = 0; i < listing.length; i++) {
                 if (listing[i]) {
@@ -58,7 +58,6 @@ $all = '<span class="material-icons">done_all</span>';
                         listing[i].style.display = "";
                     } else {
                         listing[i].style.display = "none";
-                        //   document.getElementById("demo").innerHTML = "No Results Found";
                     }
                 }
             }
@@ -74,46 +73,15 @@ $all = '<span class="material-icons">done_all</span>';
     ?>
 
 
-    <div class="table-header">
-        <h1 class="tc f1 lh-title spr">All Roles</h1>
-        <!-- <div class="fl w-75 form-outline srch">
-        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-        <h4 id="demo"></h4>
-    </div> -->
-        <div class="tr">
-            <button class="btn btn-dark">
-                <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
-            </button>
-        </div>
+    <h1 class="tc f1 lh-title spr">All Roles</h1>
+    <div class="pa1">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
     </div>
-
-    <!-- Displaying Database Table -->
-    <?php //Entries per-page
-    $results_per_page = 5;
-
-    //Number of results in the DB
-    $sql = "select * from roles";
-    $result = mysqli_query($conn, $sql);
-    $number_of_results = mysqli_num_rows($result);
-    //number of pages
-    $number_of_pages = ceil($number_of_results / $results_per_page);
-
-    // on which is the user
-    if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
-
-    // retrieve the selected results
-    $sqli = "SELECT * FROM roles LIMIT " . $this_page_first_result . ',' . $results_per_page;
-    $results = mysqli_query($conn, $sqli);
-
-    ?>
+    <!-- FILTERING DATA -->
+    
 
     <div class="table-div">
-        <?php if (isset($_SESSION['message'])): ?>
+        <?php if (isset($_SESSION['message'])) : ?>
             <div class="msg">
                 <?php
                 echo $_SESSION['message'];
@@ -126,7 +94,7 @@ $all = '<span class="material-icons">done_all</span>';
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
-        <tr>
+                    <tr>
                         <th scope="col">
                             <?php echo $none; ?>No rights
                         </th>
@@ -154,8 +122,8 @@ $all = '<span class="material-icons">done_all</span>';
 
 
                     </tr>
-        </thead>
-        </table>
+                </thead>
+            </table>
         </div>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
@@ -165,7 +133,7 @@ $all = '<span class="material-icons">done_all</span>';
                         <th scope="col" colspan="12">Rights</th>
                     </tr>
                 </thead>
-                <tbody>
+                
                     <tr>
                         <th></th>
                         <th>Accommodation</th>
@@ -180,8 +148,9 @@ $all = '<span class="material-icons">done_all</span>';
                         <th>Visitor Log</th>
                         <th colspan="2">Action</th>
                     </tr>
+                    <tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
-                        <tr>
+                        <tr class="live">
                             <td>
                                 <?php echo $row['role_name']; ?>
                             </td>
@@ -339,15 +308,12 @@ $all = '<span class="material-icons">done_all</span>';
                             </td>
 
                             <td>
-                                <?php if($emp_role['role']!=$row['id']){ ?>
-                                <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>"
-                                    class="edit_btn"> <i class="bi bi-pencil-square"
-                                        style="font-size: 1.2rem; color: black;"></i>
-                                </a>
-                                &nbsp;
-                                <a href="../../controllers/role_controller.php?del_role=<?php echo $row['role_id']; ?>"
-                                    class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
-                                </a>
+                                <?php if ($emp_role['role'] != $row['id']) { ?>
+                                    <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>" class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="../../controllers/role_controller.php?del_role=<?php echo $row['role_id']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
+                                    </a>
                                 <?php } ?>
                             </td>
                         </tr>

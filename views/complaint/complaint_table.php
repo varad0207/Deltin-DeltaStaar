@@ -44,7 +44,7 @@ if (mysqli_num_rows($check) > 0)
             var input, filter, listing, i, txtValue;
             input = document.getElementById("form1");
             filter = input.value.toUpperCase();
-            listing = document.getElementsByTagName("tr");
+            listing = document.getElementsByClassName("live");
             // Loop through all 
             for (i = 0; i < listing.length; i++) {
                 if (listing[i]) {
@@ -68,13 +68,101 @@ if (mysqli_num_rows($check) > 0)
     include '../../controllers/includes/navbar.php';
     ?>
 
-    <div class="table-header">
-        <h1 class="tc f1 lh-title spr">All Complaints</h1>
-        <!-- <div class="fl w-75 form-outline srch">
-        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-        <h4 id="demo"></h4>
-        </div> -->
+    <h1 class="tc f1 lh-title spr">All Complaints</h1>
+    <div class="pa1">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
+    </div>
+    <!-- FILTERING DATA -->
+    <div class="pa1">
+        <br>
+        <form action="" method="GET" class="myForm">
+            <label style="color:white;">Filter By</label>
+            <button type="sumbit" class="btn btn-light">Go</button>
+            <!-- <button type="reset" class="btn btn-light" onclick="resetForm()">Reset</button> -->
+            <!-- <input type="button" value="Reset" onclick="resetForm()"> -->
+            <br>
+            <br>
+            <table class="table">
+                <thead>
+                    <th>Complain Category : </th>
+                    <th>Status : </th>
+                    <th>Accommodation : </th>
+                    <th>Sort By : </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <?php
+                            $fetch_filter = "SELECT * FROM complaint_type";
+                            $fetch_filter_run = mysqli_query($conn, $fetch_filter);
+                            if (mysqli_num_rows($fetch_filter_run) > 0) {
+                                foreach ($fetch_filter_run as $filter) {
+                                    $checked1 = [];
+                                    if (isset($_GET['type'])) {
+                                        $checked1 = $_GET['type'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="type[]" value="<?= $filter['type']; ?>" <?php if (in_array($filter['type'], $checked1)) {
+                                                                                                                        echo "checked";
+                                                                                                                    }
+                                                                                                                    ?>>
+                                        <label><?= $filter['type']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No Data available";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                        
+                        </td>
+                        <td>
+                        <?php
+                            $fetch_filter = "SELECT * FROM accomodation";
+                            $fetch_filter_run = mysqli_query($conn, $fetch_filter);
+                            if (mysqli_num_rows($fetch_filter_run) > 0) {
+                                foreach ($fetch_filter_run as $filter) {
+                                    $checked1 = [];
+                                    if (isset($_GET['acc_name'])) {
+                                        $checked1 = $_GET['acc_name'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="acc_name[]" value="<?= $filter['acc_name']; ?>" <?php if (in_array($filter['acc_name'], $checked1)) {
+                                                                                                                        echo "checked";
+                                                                                                                    }
+                                                                                                                    ?>>
+                                        <label><?= $filter['acc_name']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No Data available";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                        <!-- <form action="" method="post" class="myForm"> -->
+                        <div class="input-group mb-3">
+                            <select name="sort_alpha" class="form-control">
+                                <option value="">--Select Option--</option>
+                                <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
+                                <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
+                            </select>
+                        </div>
+                    <!-- </form> -->
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </form>
+    </div>
 
+    <div class="table-header">
         <!-- Displaying Database Table -->
         <?php //Entries per-page
         $results_per_page = 5;
@@ -95,8 +183,8 @@ if (mysqli_num_rows($check) > 0)
         $this_page_first_result = ($page - 1) * $results_per_page;
 
         // retrieve the selected results
-        $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
-        $results = mysqli_query($conn, $sqli);
+        // $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
+        // $results = mysqli_query($conn, $sqli);
 
         ?>
         <?php if (!isset($_SESSION['emp_id'])) { ?>
@@ -121,14 +209,45 @@ if (mysqli_num_rows($check) > 0)
 
 
         ?>
-        <!-- <div class="tr">
-        <button class="btn btn-dark">
-            <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
-        </button>
-    </div> -->
     </div>
 
-
+    <?php
+    $sqli = "SELECT * FROM complaints t1 JOIN employee t2 USING(emp_code) JOIN rooms t3 ON t2.room_id=t3.id JOIN accomodation t4 USING(acc_id) JOIN complaint_type t5 ON t1.type=t5.id WHERE 1=1";
+    $sort_condition = "";
+    if (isset($_GET['sort_alpha'])) {
+        if ($_GET['sort_alpha'] == "a-z") {
+            $sort_condition = "ASC";
+        } else if ($_GET['sort_alpha'] == "z-a") {
+            $sort_condition = "DESC";
+        }
+    }
+    if(isset($_GET['type'])){
+        $filter_checked = [];
+        $filter_checked = $_GET['type'];
+        $sqli .= " AND ( ";
+        foreach($filter_checked as $row_filter){
+            $sqli .= " t5.type='$row_filter' OR"; 
+        }
+        $sqli =substr($sqli,0,strripos($sqli,"OR"));  
+        $sqli .=" ) ";
+        
+    }
+    if(isset($_GET['acc_name'])){
+        $filter_checked = [];
+        $filter_checked = $_GET['acc_name'];
+        $sqli .= " AND ( ";
+        foreach($filter_checked as $row_filter){
+            $sqli .= " t4.acc_name='$row_filter' OR"; 
+        }
+        $sqli =substr($sqli,0,strripos($sqli,"OR"));  
+        $sqli .=" ) ";
+        
+    }
+    $sqli .=" ORDER BY t5.type $sort_condition";
+    echo $sqli;
+    $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
+    $results = mysqli_query($conn, $sqli);
+    ?>
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
             <div class="msg">
@@ -139,12 +258,12 @@ if (mysqli_num_rows($check) > 0)
             </div>
         <?php endif ?>
 
-        <?php
-        if (isset($_POST['save']) || (isset($_SESSION['emp_id']) && $isPrivilaged)) {
+            <?php
+            if (isset($_POST['save']) || (isset($_SESSION['emp_id']) && $isPrivilaged)) {
             if (isset($_POST['Id']))
                 $emp_code = $_POST['Id'];
             echo "<script>console.log('$emp_code')</script>";
-            $results = isset($_SESSION['emp_id']) ? mysqli_query($conn, "SELECT * FROM complaints") : mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
+            // $results = isset($_SESSION['emp_id']) ? mysqli_query($conn, "SELECT * FROM complaints") : mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
             ?>
 
             <div class="pa1 table-responsive">
@@ -189,7 +308,7 @@ if (mysqli_num_rows($check) > 0)
                             $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
 
                             ?>
-                            <tr>
+                            <tr class="live">
                                 <td>
                                     <?php echo $row['id']; ?>
                                 </td>
@@ -198,7 +317,7 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch complaint category -->
                                 <td>
-                                    <?php echo $CompType_row['type']; ?>
+                                    <?php echo $row['type']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['description']; ?>
@@ -232,21 +351,21 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch emp name -->
                                 <td>
-                                    <?php echo $EmpName_row['fname']; ?>
+                                    <?php echo $row['fname']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['emp_code']; ?>
                                 </td>
                                 <!-- fetch acc name -->
                                 <td>
-                                    <?php echo $AccName_row['acc_name']; ?>
+                                    <?php echo $row['acc_name']; ?>
                                 </td>
                                 <td>
                                     <?php
-                                    if (isset($EmployeeRoom_row['room_no']) && !empty($EmployeeRoom_row['room_no'])) {
-                                        echo $EmployeeRoom_row['room_no'];
+                                    if (isset($row['room_no']) && !empty($row['room_no'])) {
+                                        echo $row['room_no'];
                                     } else {
-                                        echo $EmployeeRoom_row['room_no'] = 'N/A';
+                                        echo $row['room_no'] = 'N/A';
                                     }
                                     ?>
                                 </td>

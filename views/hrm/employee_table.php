@@ -67,22 +67,8 @@ if ($rights['rights_employee_details'] > 0) {
     ?>
 
     <h1 class="tc f1 lh-title spr">Employee Details</h1>
-    <div class="item fl w-50 pa1">
-        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-    </div>
-    <div class="fl w-50 pa1">
-        <form action="" method="post" class="myForm">
-            <div class="input-group mb-3">
-                <select name="sort_alpha" class="form-control">
-                    <option value="">--Select Option--</option>
-                    <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
-                    <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
-                </select>
-                <button class="btn btn-light btn-outline-dark">
-                    <i class="bi bi-filter-circle">Sort By</i>
-                </button>
-            </div>
-        </form>
+    <div class="pa1">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
     </div>
 
     <!-- FILTERING DATA -->
@@ -91,7 +77,7 @@ if ($rights['rights_employee_details'] > 0) {
         <form action="" method="GET">
             <label style="color:white;">Filter By</label>
             <button type="sumbit" class="btn btn-light">Go</button>
-            <button type="reset" class="btn btn-light">Reset</button>
+            <!-- <button type="reset" class="btn btn-light">Reset</button> -->
             <br>
             <br>
             <table class="table">
@@ -99,7 +85,7 @@ if ($rights['rights_employee_details'] > 0) {
                     <th>Designation : </th>
                     <th>Department : </th>
                     <th>Joining Date : </th>
-
+                    <th>Sort By : </th>
                 </thead>
                 <tbody>
                     <tr>
@@ -164,6 +150,15 @@ if ($rights['rights_employee_details'] > 0) {
                                                                             echo $_POST['end_date']; ?>"><br>
 
                         </td>
+                        <td>
+                        <div class="input-group mb-3">
+                            <select name="sort_alpha" class="form-control">
+                                <option value="">--Select Option--</option>
+                                <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
+                                <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
+                            </select>
+                        </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -172,10 +167,10 @@ if ($rights['rights_employee_details'] > 0) {
 
     <?php
     $sort_condition = "";
-    if (isset($_POST['sort_alpha'])) {
-        if ($_POST['sort_alpha'] == "a-z") {
+    if (isset($_GET['sort_alpha'])) {
+        if ($_GET['sort_alpha'] == "a-z") {
             $sort_condition = "ASC";
-        } else if ($_POST['sort_alpha'] == "z-a") {
+        } else if ($_GET['sort_alpha'] == "z-a") {
             $sort_condition = "DESC";
         }
     }

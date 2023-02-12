@@ -13,7 +13,6 @@ if ($rights['rights_employee_details'] > 0) {
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,13 +36,14 @@ if ($rights['rights_employee_details'] > 0) {
     <link rel="stylesheet" href="../../css/table.css">
     <link rel="stylesheet" href="../../css/form.css">
     <!-- Live Search -->
+
     <script type="text/javascript">
         function search() {
             // Declare variables
             var input, filter, listing, i, txtValue;
             input = document.getElementById("form1");
             filter = input.value.toUpperCase();
-            listing = document.getElementsByTagName("tr");
+            listing = document.getElementsByClassName("live");
             // Loop through all 
             for (i = 0; i < listing.length; i++) {
                 if (listing[i]) {
@@ -52,14 +52,9 @@ if ($rights['rights_employee_details'] > 0) {
                         listing[i].style.display = "";
                     } else {
                         listing[i].style.display = "none";
-                        //   document.getElementById("demo").innerHTML = "No Results Found";
                     }
                 }
             }
-        }
-
-        function formReset() {
-            document.getElementsByClassName("myForm").reset();
         }
     </script>
 </head>
@@ -72,129 +67,158 @@ if ($rights['rights_employee_details'] > 0) {
     ?>
 
     <h1 class="tc f1 lh-title spr">Employee Details</h1>
-    <div class="item fl w-60 pl4">
+    <div class="item fl w-50 pa1">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
     </div>
-    <div class="fl w-40 tr pr5">
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-            <h5><i class="bi bi-filter-circle">Filter</i></h5>
-        </button>
-
-        <div class="offcanvas offcanvas-top text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title f2 lh-copy" id="offcanvasTopLabel">DeltaSTAAR</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="fl w-50 pa1">
+        <form action="" method="post" class="myForm">
+            <div class="input-group mb-3">
+                <select name="sort_alpha" class="form-control">
+                    <option value="">--Select Option--</option>
+                    <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
+                    <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
+                </select>
+                <button class="btn btn-light btn-outline-dark">
+                    <i class="bi bi-filter-circle">Sort By</i>
+                </button>
             </div>
-            <div class="offcanvas-body offcanvas-size">
-                <div>
-                    <!-- Sort and Filter -->
-                    <div class="container">
-                        <form action="" method="post">
-                            <div class="item">
-                                <form action="" method="post" class="myForm">
-                                    <div class="input-group mb-3">
-                                        <select name="sort_alpha" class="form-control">
-                                            <option value="">--Select Option--</option>
-                                            <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
-                                            <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
-                                        </select>
-                                        <button class="btn btn-dark">
-                                            <i class="bi bi-filter-circle"> Sort By</i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                    </div>
-                    <div class="parent tc">
-                        <form action="" method="post" class="myForm">
-                            <h4>Filter By:</h4>
-                            <div class="fl w-third pa2">
-                                Designation
-                                <?php
-                                $res1 = mysqli_query($conn, "SELECT * FROM employee_designation");
-                                if (mysqli_num_rows($res1) > 0) {
-                                    foreach ($res1 as $r1) {
-                                        $checked1 = [];
-                                        if (isset($_POST['designations'])) {
-                                            $checked1 = $_POST['designations'];
-                                        }
-                                ?>
-
-                                        <div class="check">
-                                            <input type="checkbox" name="designations[]" value="<?= $r1['id'] ?>" <?php
-                                                                                                                    if (in_array($r1['id'], $checked1)) echo "checked";
-                                                                                                                    ?>>
-                                            <?= $r1['designation'] ?>
-                                        </div>
-
-                                <?php
-                                    }
-                                } else {
-                                    echo "No Record";
-                                }
-                                ?>
-                                <label>Click to Filter</label>
-                                <button type="submit" class="btn btn-dark">Filter</button>
-                                <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
-                            </div>
-                            <div class="fl w-third pa2">
-                                Department
-                                <?php
-                                $res2 = mysqli_query($conn, "SELECT * FROM employee_dept");
-                                if (mysqli_num_rows($res2) > 0) {
-                                    foreach ($res2 as $r2) {
-                                        $checked2 = [];
-                                        if (isset($_POST['departments'])) {
-                                            $checked2 = $_POST['departments'];
-                                        }
-                                ?>
-
-                                        <div class="check">
-                                            <input type="checkbox" name="departments[]" value="<?= $r2['dept_id'] ?>" <?php
-                                                                                                                        if (in_array($r2['dept_id'], $checked2)) echo "checked";
-                                                                                                                        ?>>
-                                            <?= $r2['dept_name'] ?>
-                                        </div>
-
-                                <?php
-                                    }
-                                } else {
-                                    echo "No Record";
-                                }
-                                ?>
-                                <label>Click to Filter</label>
-                                <button type="submit" class="btn btn-dark">Filter</button>
-                                <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
-                            </div>
-                            <div class="fl w-third pa2">
-                                Joining Date
-                                <form action="" method="post" class="myForm">
-                                    <div class="form-group md-2">
-                                        <label>From Date</label>
-                                        <input type="date" name="start_date" class="form-control" value="<?php if (isset($_POST['start_date'])) echo $_POST['start_date']; ?>">
-                                    </div>
-                                    <div class="form-group md-2">
-                                        <label>To Date</label>
-                                        <input type="date" name="to_date" class="form-control" value="<?php if (isset($_POST['to_date'])) echo $_POST['to_date']; ?>">
-                                    </div>
-                                    <div class="form-group md-2">
-                                        <label>Click to Filter</label>
-                                        <button type="submit" class="btn btn-dark">Filter</button>
-                                        <!-- <button class="btn btn-dark" onclick="formReset()">Reset</button> -->
-                                    </div>
-                                </form>
-                            </div>
-                        </form>
-                        <!-- <label>Click to Reset</label> -->
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
-    <!-- Displaying Database Table -->
 
-    <div class="table-div">
+    <!-- FILTERING DATA -->
+    <div class="pa1">
+        <br>
+        <form action="" method="GET">
+            <label style="color:white;">Filter By</label>
+            <button type="sumbit" class="btn btn-light">Go</button>
+            <button type="reset" class="btn btn-light">Reset</button>
+            <br>
+            <br>
+            <table class="table">
+                <thead>
+                    <th>Designation : </th>
+                    <th>Department : </th>
+                    <th>Joining Date : </th>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <?php
+                            $fetch_desig = "SELECT * FROM employee_designation";
+                            $fetch_desig_run = mysqli_query($conn, $fetch_desig);
+                            if (mysqli_num_rows($fetch_desig_run) > 0) {
+                                foreach ($fetch_desig_run as $desig) {
+                                    $checked1 = [];
+                                    if (isset($_GET['designation'])) {
+                                        $checked1 = $_GET['designation'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) {
+                                                                                                                        echo "checked";
+                                                                                                                    }
+                                                                                                                    ?>>
+                                        <label><?= $desig['designation']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No designation availabe";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $fetch_dept = "SELECT * FROM employee_dept";
+                            $fetch_dept_run = mysqli_query($conn, $fetch_dept);
+                            if (mysqli_num_rows($fetch_dept_run) > 0) {
+                                foreach ($fetch_dept_run as $dept) {
+                                    $checked2 = [];
+                                    if (isset($_GET['department'])) {
+                                        $checked2 = $_GET['department'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) {
+                                                                                                                        echo "checked";
+                                                                                                                    }
+                                                                                                                    ?>>
+                                        <label><?= $dept['dept_name']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No designation availabe";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <label>From : </label>
+                            <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
+                                                                            echo $_POST['start_date']; ?>">
+                            <br>
+                            <br>
+                            <label>To : </label>
+                            <input type="date" name="end_date" value="<?php  if (isset($_POST['end_date']))
+                                                                            echo $_POST['end_date']; ?>"><br>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <?php
+    $sort_condition = "";
+    if (isset($_POST['sort_alpha'])) {
+        if ($_POST['sort_alpha'] == "a-z") {
+            $sort_condition = "ASC";
+        } else if ($_POST['sort_alpha'] == "z-a") {
+            $sort_condition = "DESC";
+        }
+    }
+
+    $sql="SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1";
+    if(isset($_GET['designation'])){
+        $designation_checked = [];
+        $designation_checked = $_GET['designation'];
+        $sql.=" and ( ";
+        foreach ($designation_checked as $row_desig) {
+            $sql .= " employee.designation=$row_desig or";
+        }
+        $sql=substr($sql,0,strripos($sql,"or"));  
+        $sql.=" ) ";
+        // echo $sql;
+    }
+    if(isset($_GET['department'])){
+        $department_checked = [];
+        $department_checked = $_GET['department'];
+        $sql.=" and ( ";
+        foreach ($department_checked as $row_dept) {
+            $sql .= " employee.department=$row_dept or";
+        }
+        $sql=substr($sql,0,strripos($sql,"or"));  
+        $sql.=" ) ";
+        // echo $sql;
+    }
+    if (isset($_GET['start_date'])) {
+        // $start_date=date("Y-m-d",($_GET['start_date'])); 
+        // echo $start_date;
+        $_GET['start_date']!=""?$sql .= " and joining_date>='{$_GET['start_date']}' ":$a=0;
+            // echo $sql;
+
+    }
+    if (isset($_GET['end_date'])) {
+        // $end_date=date("Y-m-d",($_GET['end_date'])); 
+        $_GET['end_date']!=""?$sql .= " and joining_date<='{$_GET['end_date']}' ":$a=0;
+    }
+    $sql .=" ORDER BY fname $sort_condition";
+    $result=mysqli_query($conn,$sql);
+    ?>
+    <!-- Displaying Database Table -->
+    <div class="table-div" style="margin-top:100px">
         <?php if (isset($_SESSION['message'])) : ?>
             <div class="msg">
                 <?php
@@ -203,33 +227,7 @@ if ($rights['rights_employee_details'] > 0) {
                 ?>
             </div>
         <?php endif ?>
-
-        <?php
-        //Entries per-page
-        $results_per_page = 5;
-
-        //Number of results in the DB
-        $sql = "select * from employee";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result);
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
-
-        // on which is the user
-        if (!isset($_GET['page']))
-            $page = 1;
-        else
-            $page = $_GET['page'];
-        //starting limit number for the results
-        $this_page_first_result = ($page - 1) * $results_per_page;
-
-        // retrieve the selected results
-        $sqli = "SELECT * FROM employee LIMIT " . $this_page_first_result . ',' . $results_per_page;
-        $results = mysqli_query($conn, $sqli);
-
-        ?>
-
-        <div class="pa1 table-responsive">
+        <div class="pl1 pr1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
@@ -246,270 +244,41 @@ if ($rights['rights_employee_details'] > 0) {
                     </tr>
                 </thead>
                 <tbody>
-
-                    <!-- Sort -->
                     <?php
-                    $sort_condition = "";
-                    if (isset($_POST['sort_alpha'])) {
-                        if ($_POST['sort_alpha'] == "a-z") {
-                            $sort_condition = "ASC";
-                        } else if ($_POST['sort_alpha'] == "z-a") {
-                            $sort_condition = "DESC";
-                        }
-                    }
-                    // $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation LIMIT " . $this_page_first_result . ',' . $results_per_page); 
-                    $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation ORDER BY fname $sort_condition");
-                    ?>
-                    <!-- Filter according to date -->
-                    <?php
-                    if (isset($_POST['start_date']) && isset($_POST['to_date'])) {
-                        $start_date = $_POST['start_date'];
-                        $to_date = $_POST['to_date'];
 
-                        $results = mysqli_query($conn, "SELECT * FROM employee WHERE joining_date BETWEEN '$start_date' AND '$to_date' ORDER BY fname $sort_condition");
-                    }
-                    ?>
-                    <!-- Filter -->
-                    <?php
-                    if (isset($_POST['designations'])) {
-                        $desigChecked = [];
-                        $desigChecked = $_POST['designations'];
-                        foreach ($desigChecked as $desigRow) {
-                            $results = mysqli_query($conn, "SELECT * FROM employee WHERE designation IN('$desigRow')");
-                            if (mysqli_num_rows($results) > 0) {
-                                while ($row = mysqli_fetch_array($results)) {
-                    ?>
-                                    <?php
-                                    $desigid = $row['designation'];
-                                    $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE id='$desigid' OR designation = '$desigid'");
-                                    $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
-                                    ?>
-                                    <?php
-                                    $deptid = $row['department'];
-                                    $queryEmpDept = mysqli_query($conn, "SELECT * FROM employee_dept WHERE dept_id='$deptid'");
-                                    $EmployeeDept_row = mysqli_fetch_assoc($queryEmpDept);
-                                    ?>
-                                    <?php
-                                    $roomid = $row['room_id'];
-                                    $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
-                                    $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
-                                    ?>
-                                    <?php
-                                    // $accid = $EmployeeRoom_row['acc_id'];
+                    
 
-                                    if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
-                                        $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
-                                        $Acc_row = mysqli_fetch_assoc($queryAcc);
-                                        $accName = $Acc_row['acc_name'];
-                                    } else {
-                                        $accName = 'N/A';
-                                    }
+                    
+                        if (mysqli_num_rows($result) > 0) {
+                            while($row=mysqli_fetch_array($result)) { ?>
+                                <tr class="live">
+                                    <td><?php echo $row['emp_code'] ?></td>
+                                    <td><?php echo $row['fname'] ?></td>
+                                    <td><?php echo $row['mname'] ?></td>
+                                    <td><?php echo $row['lname'] ?></td>
+                                    <td><?php echo $row['designation'] ?></td>
+                                    <td><?php echo $row['dept_name'] ?></td>
+                                    <td><?php echo $row['joining_date'] ?></td>
+                                    <td><?php echo $row['state'] ?></td>
+                                    <td><?php echo $row['contact'] ?></td>
+                                    <td style="text-align: center;">
+                                        <a href="./emp_viewmore.php?id=<?php echo $row['emp_code'] ?> " class="btn btn-primary">View More
+                                        </a>
 
-                                    ?>
-                                    <tr>
-                                        <th scope="row"><?php echo $row['emp_code']; ?></th>
-                                        <td>
-                                            <?php echo $row['fname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['mname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['lname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $EmployeeDesig_row['designation']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $EmployeeDept_row['dept_name']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['state']; ?>
-                                        </td>
+                                        <a href="./employee.php?edit=<?php echo $row['emp_code']; ?>" class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i>
+                                        </a>
 
-                                        <td>
-                                            <?php echo $row['contact']; ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="./emp_viewmore.php?id=<?php echo $row['emp_code'] ?> " class="btn btn-primary">View More</a>
-                                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i></a>
-                                            &nbsp;
-                                            <a href="../../controllers/employee_controller.php?del=<?php echo $row['emp_code']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem; color: black;"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                            <?php }
+                                        <a href="../../controllers/employee_controller.php?del=<?php echo $row['emp_code']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;"></i></a>
+                                    </td>
+                                </tr>
+                            <?php
                             }
-                            ?>
-                            <?php
-                        }
-                    }
-                    if (isset($_POST['departments'])) {
-                        $deptChecked = [];
-                        $deptChecked = $_POST['departments'];
-
-                        foreach ($deptChecked as $deptRow) {
-                            $results = mysqli_query($conn, "SELECT * FROM employee WHERE department IN('$deptRow')");
-                            if (mysqli_num_rows($results) > 0) {
-                                while ($row = mysqli_fetch_array($results)) {
-                            ?>
-                                    <?php
-                                    $desigid = $row['designation'];
-                                    $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE id='$desigid' OR designation = '$desigid'");
-                                    $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
-                                    ?>
-                                    <?php
-                                    $deptid = $row['department'];
-                                    $queryEmpDept = mysqli_query($conn, "SELECT * FROM employee_dept WHERE dept_id='$deptid'");
-                                    $EmployeeDept_row = mysqli_fetch_assoc($queryEmpDept);
-                                    ?>
-                                    <?php
-                                    $roomid = $row['room_id'];
-                                    $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
-                                    $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
-                                    ?>
-                                    <?php
-                                    // $accid = $EmployeeRoom_row['acc_id'];
-
-                                    if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
-                                        $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
-                                        $Acc_row = mysqli_fetch_assoc($queryAcc);
-                                        $accName = $Acc_row['acc_name'];
-                                    } else {
-                                        $accName = 'N/A';
-                                    }
-
-                                    ?>
-                                    <tr>
-                                        <th scope="row"><?php echo $row['emp_code']; ?></th>
-                                        <td>
-                                            <?php echo $row['fname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['mname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['lname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $EmployeeDesig_row['designation']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $EmployeeDept_row['dept_name']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['state']; ?>
-                                        </td>
-
-                                        <td>
-                                            <?php echo $row['contact']; ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="./emp_viewmore.php?id=<?php echo $row['emp_code'] ?> " class="btn btn-primary">View More</a>
-                                            <a href="./employee.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i></a>
-                                            &nbsp;
-                                            <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem; color: black;"></i></a>
-                                        </td>
-                                    </tr>
-                            <?php }
-                            }
-                            ?>
-                    <?php
-                        }
-                    }
-                    ?>
-                    <?php
-                    if (mysqli_num_rows($results) > 0) {
-                        while ($row = mysqli_fetch_array($results)) { ?>
-                            <?php
-                            $desigid = $row['designation'];
-                            $queryEmployeeDesig = mysqli_query($conn, "SELECT * FROM employee_designation WHERE id='$desigid' OR designation = '$desigid'");
-                            $EmployeeDesig_row = mysqli_fetch_assoc($queryEmployeeDesig);
-                            ?>
-                            <?php
-                            $deptid = $row['department'];
-                            $queryEmpDept = mysqli_query($conn, "SELECT * FROM employee_dept WHERE dept_id='$deptid'");
-                            $EmployeeDept_row = mysqli_fetch_assoc($queryEmpDept);
-                            ?>
-                            <?php
-                            $roomid = $row['room_id'];
-                            $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '$roomid'");
-                           while( $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom));
-                            ?>
-                            <?php
-                            // $accid = $EmployeeRoom_row['acc_id'];
-
-                            if (isset($EmployeeRoom_row['acc_id']) && !empty($EmployeeRoom_row['acc_id'])) {
-                                $queryAcc = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
-                                $Acc_row = mysqli_fetch_assoc($queryAcc);
-                                $accName = $Acc_row['acc_name'];
-                            } else {
-                                $accName = 'N/A';
-                            }
-
-                            ?>
-
-                            <tr>
-                                <th scope="row"><?php echo $row['emp_code']; ?></th>
-                                <td>
-                                    <?php echo $row['fname']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['mname']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['lname']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $EmployeeDesig_row['designation']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $EmployeeDept_row['dept_name']; ?>
-                                </td>
-                                <td>
-                                    <?php echo date('d-m-Y', strtotime($row['joining_date'])); ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['state']; ?>
-                                </td>
-
-                                <td>
-                                    <?php echo $row['contact']; ?>
-                                </td>
-                                <td style="text-align: center;">
-                                    <a href="./emp_viewmore.php?id=<?php echo $row['emp_code'] ?> " class="btn btn-primary">View More</a>
-
-                                    <a href="./employee.php?edit=<?php echo $row['emp_code']; ?>" class="edit_btn">
-                                        <i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i>
-                                    </a>
-                                    &nbsp;
-                                    <a href="../../controllers/employee_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem; color: black;"></i></a>
-                                </td>
-                            </tr>
-                    <?php }
-                    }
-                    ?>
+                        } else { ?> 
+                            <label style="color:white;">No entries found</label> 
+                        <?php  } ?>
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <?php for ($page = 1; $page <= $number_of_pages; $page++) : ?>
-                        <li class="page-item <?php if ($page == $current_page)
-                                                    echo 'active'; ?>">
-                            <a class="page-link" href="employee_table.php?page=<?php echo $page; ?>">
-                                <?php echo $page; ?>
-                            </a>
-                        </li>
-                    <?php endfor; ?>
-                </ul>
-            </nav>
         </div>
     </div>
 

@@ -43,7 +43,7 @@ if ($rights['rights_employee_details'] > 0) {
             var input, filter, listing, i, txtValue;
             input = document.getElementById("form1");
             filter = input.value.toUpperCase();
-            listing = document.getElementsByTagName("tr");
+            listing = document.getElementsByClassName("live");
             // Loop through all 
             for (i = 0; i < listing.length; i++) {
                 if (listing[i]) {
@@ -52,14 +52,10 @@ if ($rights['rights_employee_details'] > 0) {
                         listing[i].style.display = "";
                     } else {
                         listing[i].style.display = "none";
-                        //   document.getElementById("demo").innerHTML = "No Results Found";
+                        // document.getElementById("demo").innerHTML = "No Results Found";
                     }
                 }
             }
-        }
-
-        function formReset() {
-            document.getElementsByClassName("myForm").reset();
         }
     </script>
 </head>
@@ -72,24 +68,31 @@ if ($rights['rights_employee_details'] > 0) {
     ?>
 
     <h1 class="tc f1 lh-title spr">Employee Details</h1>
-    <div class="item fl w-60 pl4">
+    <div class="item fl w-50 pa1">
         <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
     </div>
-
-
-    <!-- <div class="fl w-40 tr pr5">
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-            <h5><i class="bi bi-filter-circle">Filter</i></h5>
-        </button>
-    </div> -->
+    <div class="fl w-50 pa1">
+        <form action="" method="post" class="myForm">
+            <div class="input-group mb-3">
+                <select name="sort_alpha" class="form-control">
+                    <option value="">--Select Option--</option>
+                    <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
+                    <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
+                </select>
+                <button class="btn btn-light btn-outline-dark">
+                    <i class="bi bi-filter-circle">Sort By</i>
+                </button>
+            </div>
+        </form>
+    </div>
 
     <!-- FILTERING DATA -->
-    <div class="item fl w-60 pl4">
+    <div class="pa1">
         <br>
         <form action="" method="GET">
             <label style="color:white;">Filter By</label>
-            <button type="sumbit" class="btn btn-primary">Go</button>
-
+            <button type="sumbit" class="btn btn-light">Go</button>
+            <button type="reset" class="btn btn-light">Reset</button>
             <br>
             <br>
             <table class="table">
@@ -167,52 +170,53 @@ if ($rights['rights_employee_details'] > 0) {
             </table>
         </form>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
     <?php
-$sql="SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1";
-if(isset($_GET['designation'])){
-    $designation_checked = [];
-    $designation_checked = $_GET['designation'];
-    $sql.=" and ( ";
-    foreach ($designation_checked as $row_desig) {
-        $sql .= " employee.designation=$row_desig or";
+    $sort_condition = "";
+    if (isset($_POST['sort_alpha'])) {
+        if ($_POST['sort_alpha'] == "a-z") {
+            $sort_condition = "ASC";
+        } else if ($_POST['sort_alpha'] == "z-a") {
+            $sort_condition = "DESC";
+        }
     }
-    $sql=substr($sql,0,strripos($sql,"or"));  
-    $sql.=" ) ";
-    // echo $sql;
-}
-if(isset($_GET['department'])){
-    $department_checked = [];
-    $department_checked = $_GET['department'];
-    $sql.=" and ( ";
-    foreach ($department_checked as $row_dept) {
-        $sql .= " employee.department=$row_dept or";
-    }
-    $sql=substr($sql,0,strripos($sql,"or"));  
-    $sql.=" ) ";
-    // echo $sql;
-}
-if (isset($_GET['start_date'])) {
-    // $start_date=date("Y-m-d",($_GET['start_date'])); 
-    // echo $start_date;
-    $_GET['start_date']!=""?$sql .= " and joining_date>='{$_GET['start_date']}' ":$a=0;
+
+    $sql="SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1";
+    if(isset($_GET['designation'])){
+        $designation_checked = [];
+        $designation_checked = $_GET['designation'];
+        $sql.=" and ( ";
+        foreach ($designation_checked as $row_desig) {
+            $sql .= " employee.designation=$row_desig or";
+        }
+        $sql=substr($sql,0,strripos($sql,"or"));  
+        $sql.=" ) ";
         // echo $sql;
+    }
+    if(isset($_GET['department'])){
+        $department_checked = [];
+        $department_checked = $_GET['department'];
+        $sql.=" and ( ";
+        foreach ($department_checked as $row_dept) {
+            $sql .= " employee.department=$row_dept or";
+        }
+        $sql=substr($sql,0,strripos($sql,"or"));  
+        $sql.=" ) ";
+        // echo $sql;
+    }
+    if (isset($_GET['start_date'])) {
+        // $start_date=date("Y-m-d",($_GET['start_date'])); 
+        // echo $start_date;
+        $_GET['start_date']!=""?$sql .= " and joining_date>='{$_GET['start_date']}' ":$a=0;
+            // echo $sql;
 
-}
-if (isset($_GET['end_date'])) {
-    // $end_date=date("Y-m-d",($_GET['end_date'])); 
-    $_GET['end_date']!=""?$sql .= " and joining_date<='{$_GET['end_date']}' ":$a=0;
-}
-
-$result=mysqli_query($conn,$sql);
+    }
+    if (isset($_GET['end_date'])) {
+        // $end_date=date("Y-m-d",($_GET['end_date'])); 
+        $_GET['end_date']!=""?$sql .= " and joining_date<='{$_GET['end_date']}' ":$a=0;
+    }
+    $sql .=" ORDER BY fname $sort_condition";
+    $result=mysqli_query($conn,$sql);
     ?>
     <!-- Displaying Database Table -->
     <div class="table-div" style="margin-top:100px">
@@ -224,7 +228,7 @@ $result=mysqli_query($conn,$sql);
                 ?>
             </div>
         <?php endif ?>
-        <div class="pa1 table-responsive">
+        <div class="pl1 pr1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
@@ -248,7 +252,7 @@ $result=mysqli_query($conn,$sql);
                     
                         if (mysqli_num_rows($result) > 0) {
                             while($row=mysqli_fetch_array($result)) { ?>
-                                <tr>
+                                <tr class="live">
                                     <td><?php echo $row['emp_code'] ?></td>
                                     <td><?php echo $row['fname'] ?></td>
                                     <td><?php echo $row['mname'] ?></td>

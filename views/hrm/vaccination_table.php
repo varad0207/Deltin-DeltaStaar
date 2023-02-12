@@ -79,13 +79,86 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     </div>
     </div>
 
-    <!-- Displaying Database Table -->
+    <!-- FILTERING DATA -->
+    <div class="pa1">
+        <br>
+        <form action="" method="GET">
+            <label style="color:white;">Filter By</label>
+            <button type="sumbit" class="btn btn-light">Go</button>
+            <!-- <button type="reset" class="btn btn-light">Reset</button> -->
+            <br>
+            <br>
+            <table class="table">
+                <thead>
+                    <th>Category : </th>
+                    <th>Administration Date : </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <?php
+                            $fetch_category = "SELECT * FROM vaccination_category";
+                            $fetch_category_run = mysqli_query($conn, $fetch_category);
+                            if (mysqli_num_rows($fetch_category_run) > 0) 
+                            {
+                                foreach ($fetch_category_run as $cat) 
+                                {
+                                    $checked1 = [];
+                                    if (isset($_GET['category'])) 
+                                    {
+                                        $checked1 = $_GET['category'];
+                                    }
+                                    ?>
+                                    <div>
+                                    <input type="checkbox" name="category[]" value="<?= $cat['category_id']; ?>" 
+                                    <?php 
+                                    if (in_array($cat['category_id'], $checked1)) 
+                                    {
+                                        echo "checked";
+                                    }
+                                    ?>>
+                                    <label><?= $cat['category_name']; ?></label>
+                                    </div>
+                                    <?php
+                                }
+                            } 
+                            else 
+                            {
+                                echo "No designation availabe";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <label>From : </label>
+                            <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
+                            echo $_POST['start_date']; ?>">
+                            <br>
+                            <br>
+                            <label>To : </label>
+                            <input type="date" name="end_date" value="<?php  if (isset($_POST['end_date']))
+                            echo $_POST['end_date']; ?>"><br>
 
+                        </td>
+                        <!-- <td>
+                        <div class="input-group mb-3">
+                            <select name="sort_alpha" class="form-control">
+                                <option value="">--Select Option--</option>
+                                <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
+                                <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
+                            </select>
+                        </div>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <!-- Displaying Database Table -->
     <?php  //Entries per-page
         $results_per_page = 5;
 
         //Number of results in the DB
-        $sql = "select * from vaccination";
+        $sql = "SELECT * FROM vaccination";
         $result = mysqli_query($conn, $sql);
         $number_of_results = mysqli_num_rows($result); 
         //number of pages
@@ -94,16 +167,41 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         // on which is the user
         if (!isset($_GET['page']))
         $page = 1;
-    else
+        else
         $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
-
-   // retrieve the selected results
-   $sqli = "SELECT * FROM vaccination LIMIT " . $this_page_first_result . ',' . $results_per_page;
-   $results = mysqli_query($conn, $sqli);
-
+        //starting limit number for the results
+        $this_page_first_result = ($page - 1) * $results_per_page;
     ?>
+
+    <?php
+    $sql="select last_dose.emp_id emp_id, employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id where 1=1";
+    if(isset($_GET['category']))
+    {
+        $category_checked = [];
+        $category_checked = $_GET['category'];
+        $sql.=" and ( ";
+        foreach ($category_checked as $row_cat) {
+            $sql .= " vaccination_category.category_id=$row_cat or";
+        }
+        $sql=substr($sql,0,strripos($sql,"or"));  
+        $sql.=" ) ";
+        
+    }
+    if (isset($_GET['start_date'])) 
+    {
+        $_GET['start_date']!=""?$sql .= " and date_of_administration>='{$_GET['start_date']}' ":$a=0;
+        
+
+    }
+    if (isset($_GET['end_date'])) {
+         
+        $_GET['end_date']!=""?$sql .= " and date_of_administration<='{$_GET['end_date']}' ":$a=0;
+    }
+    $sql .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
+    $result=mysqli_query($conn,$sql);
+    ?>
+    <!-- Displaying Database Table -->
+
 
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -114,8 +212,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     ?>
                 </div>
         <?php endif ?>
-        
-        <?php $results = mysqli_query($conn, "select last_dose.emp_id emp_id, employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id"); ?>
+    
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -129,7 +226,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
                     <?php $employeeid = $row['emp_id'];
                 
                     $categoryid = $row['category_id'];

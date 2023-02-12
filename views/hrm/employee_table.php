@@ -240,12 +240,10 @@ if ($rights['rights_employee_details'] > 0) {
                 </thead>
                 <tbody>
                     <?php
-
-                    
-
-                    
-                        if (mysqli_num_rows($result) > 0) {
-                            while($row=mysqli_fetch_array($result)) { ?>
+                        if (mysqli_num_rows($result) > 0) 
+                        {
+                            while($row=mysqli_fetch_array($result)) 
+                            { ?>
                                 <tr class="live">
                                     <td><?php echo $row['emp_code'] ?></td>
                                     <td><?php echo $row['fname'] ?></td>
@@ -266,14 +264,16 @@ if ($rights['rights_employee_details'] > 0) {
                                         <a href="../../controllers/employee_controller.php?del=<?php echo $row['emp_code']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;"></i></a>
                                     </td>
                                 </tr>
-                            <?php
+                                <?php
                             }
-                        } else { ?> 
+                        } 
+                        else 
+                        { ?> 
                             <label style="color:white;">No entries found</label> 
-                        <?php  } ?>
+                            <?php  
+                        } ?>
                 </tbody>
             </table>
-
         </div>
     </div>
 

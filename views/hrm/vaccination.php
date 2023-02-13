@@ -119,9 +119,6 @@ if (isset($_GET['edit'])) {
 
                                     <input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code ?>"
                                         disabled>
-
-
-
                                 </div>
                                 <div class="col-md-12 pa2">
                                     <label for="category">Vaccination Category</label>

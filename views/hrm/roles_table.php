@@ -322,10 +322,10 @@ $all = '<span class="material-icons">done_all</span>';
             </table>
             <?php
 
-            //display the links to the pages
-            for ($page = 1; $page <= $number_of_pages; $page++)
-                echo '<a href="roles_table.php?page=' . $page . '">' . $page . '</a>';
-            ?>
+            // //display the links to the pages
+            // for ($page = 1; $page <= $number_of_pages; $page++)
+            //     echo '<a href="roles_table.php?page=' . $page . '">' . $page . '</a>';
+            // ?>
         </div>
     </div>
 

@@ -197,6 +197,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
          
         $_GET['end_date']!=""?$sql .= " and date_of_administration<='{$_GET['end_date']}' ":$a=0;
     }
+    $vaccination_qry=$sql;
     $sql .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
     $result=mysqli_query($conn,$sql);
     ?>
@@ -275,9 +276,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+            <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="vaccination_export" value="<?php echo $vaccination_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+            </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">

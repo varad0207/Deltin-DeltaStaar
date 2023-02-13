@@ -245,6 +245,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
             
         }
         $sqli .=" ORDER BY acc_name $sort_condition";
+        $temp_qry=$sqli;
         // echo $sqli;
         // retrieve the selected results
         $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
@@ -347,7 +348,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
             <form action="excel.php" method="post">
-                <button class="btn btn-warning" name="excel" value="excel"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+                <button class="btn btn-warning" name="excel" value="<?php echo $temp_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
             </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>

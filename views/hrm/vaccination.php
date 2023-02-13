@@ -79,9 +79,10 @@ if (isset($_GET['edit'])) {
                                         <?php
                                         $emp_code = mysqli_query($conn, "SELECT * FROM employee");
 
-                                        foreach ($emp_code as $row) { ?>
-                                            <option name="employee_code" value="<?= $row["emp_id"] ?>">
-                                                <?= $row["emp_code"]; ?>
+                                        foreach ($emp_code as $row) 
+                                        {
+                                        ?>
+<option name="employee_code" value="<?= $row["emp_id"] ?>"><?= $row["emp_code"]; ?>
                                             </option>
                                         <?php
                                         }

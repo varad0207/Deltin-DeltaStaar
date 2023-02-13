@@ -336,9 +336,11 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     ?>
                 </tbody>
             </table>
-            <?php
+           
             
-            //display the links to the pages
+           
+            <?php
+             //display the links to the pages
             for($page=1;$page<=$number_of_pages;$page++)
                 echo '<a href="accomodation_table.php?page=' .$page .'">' .$page .'</a>';
             ?>

@@ -55,7 +55,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
     if(isset($_GET['del']))
     {
         $id = $_GET['del'];
-        mysqli_query($conn, "DELETE FROM complaints WHERE id = '$id'");
+        mysqli_query($conn, "DELETE FROM complaints WHERE id = $id");
         $_SESSION['message'] = "Complaint Deleted";
         header('location: ../views/complaint/complaint_table.php');
     }

@@ -244,7 +244,7 @@ if (mysqli_num_rows($check) > 0)
         
     }
     $sqli .=" ORDER BY t5.type $sort_condition";
-    echo $sqli;
+    // echo $sqli;
     $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
     $results = mysqli_query($conn, $sqli);
     ?>

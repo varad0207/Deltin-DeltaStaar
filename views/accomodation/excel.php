@@ -2,8 +2,8 @@
 include('../../controllers/includes/common.php');
 $output = '';
 if(isset($_POST["excel"]))
-{
-    $sql = "SELECT * FROM accomodation";
+{   
+    $sql =$_POST["excel"];
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result)>0) 
     {

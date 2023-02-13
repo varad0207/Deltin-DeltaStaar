@@ -80,7 +80,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="acc_code">Accomodation Code</label>
                                 <input class="form-control" type="text" name="code" value="<?php echo $acc_code ?>"
-                                    placeholder="Accomodation Code" required>
+                                    placeholder="Accomodation Code" <?php if(isset($_GET['edit'])) echo "readonly"; ?>>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
@@ -109,7 +109,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="location">Location</label>
                                 <select class="form-select mt-3" name="loc" required>
-                                    <option name="acc_loc" selected disabled value="">Select Designation</option>
+                                    <option name="acc_loc" selected disabled value="">Select Location</option>
                                     <?php
                                     $acc_loc = mysqli_query($conn, "SELECT * FROM acc_locations");
 

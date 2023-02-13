@@ -3210,3 +3210,6 @@ complaint_table.php
                                         </div>
                                         <?php echo $stat; ?>
                                     </div>
+
+                                    Warning: Undefined array key "rights_tanker" in C:\xampp\htdocs\frontend\controllers\includes\sidebar.php on line 205
+Visitor Log Form

@@ -43,7 +43,7 @@ $isPrivilaged = 0;
             <div class="form-content">
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Employee Outing Details</h1>
-                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_outing.php" method="post">
+                    <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_outing_controller.php" method="post">
                     
 
                     <div class="col-md-12 pa2">
@@ -74,7 +74,7 @@ $isPrivilaged = 0;
 
                       <div class="col-md-12 pa2">
                         <label for="description">Purpose</label>
-                        <textarea name="category"  placeholder="Enter the purpose of outing" cols="30" rows="10"></textarea>
+                        <textarea name="purpose"  placeholder="Enter the purpose of outing" cols="30" rows="10"></textarea>
                        </div>
                         <div class="form-button mt-3 tc">
                         <div class="form-button mt-3 tc">

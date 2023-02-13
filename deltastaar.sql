@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 12, 2023 at 02:25 PM
+-- Host: 127.0.0.1
+-- Generation Time: Feb 13, 2023 at 10:00 AM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -52,7 +52,7 @@ INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `lo
 (5, 'Acc2', 'Taj', 'Active', 2, 'Unisex', 4, 51, NULL, NULL, 'ABCD1234', 'ABG', 'NONE!'),
 (6, 'AC_123', 'Perl Taj', 'Active', 2, 'Unisex', 500, 100, 0, 100, 'E2014059', 'DELTIN', NULL),
 (7, 'AC_124', 'Blue Azul', 'Active', 1, 'Unisex', 500, 100, 0, 100, 'E2014051', 'DELTIN', NULL),
-(8, 'AC_125', 'Black Perl Stay', 'Active', 1, 'Male', 500, 100, 0, 100, 'E2014011', 'DELTIN', NULL),
+(8, 'AC_125', 'Black Perl Stay', 'Active', 1, 'Male', 505, 101, 0, 100, 'E2014011', 'DELTIN', NULL),
 (9, 'AC_126', 'Diamond Villa', 'Active', 1, 'Male', 400, 100, 0, 100, 'E2014019', 'Rented', NULL);
 
 -- --------------------------------------------------------
@@ -111,7 +111,8 @@ CREATE TABLE `complaints` (
 
 INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `tech_pending_timestamp`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`) VALUES
 (1, '2023-01-04 18:19:39', 1, 'light off', '2023-02-07 09:21:55', '2023-02-07 09:21:55', '2023-01-04 18:19:39', '2023-01-04 18:19:39', NULL, 'ABCD1234'),
-(2, '2023-01-05 19:24:10', 2, 'sink overflow', '2023-02-07 20:32:43', '2023-02-12 09:32:09', NULL, NULL, NULL, 'ABCD1234');
+(2, '2023-01-05 19:24:10', 2, 'sink overflow', '2023-02-07 20:32:43', '2023-02-12 09:32:09', NULL, NULL, NULL, 'ABCD1234'),
+(10, '2023-02-13 07:46:46', 3, 'broken table', NULL, NULL, NULL, NULL, NULL, 'ABCD1234');
 
 -- --------------------------------------------------------
 
@@ -164,9 +165,9 @@ INSERT INTO `contact` (`id`, `emp_id`, `primary_contact`, `secondary_contact`) V
 CREATE TABLE `employee` (
   `emp_id` int(11) NOT NULL,
   `emp_code` varchar(10) NOT NULL,
-  `fname` varchar(10) NOT NULL,
-  `mname` varchar(10) NOT NULL,
-  `lname` varchar(10) NOT NULL,
+  `fname` varchar(50) NOT NULL,
+  `mname` varchar(50) NOT NULL,
+  `lname` varchar(50) NOT NULL,
   `designation` int(11) NOT NULL,
   `dob` date NOT NULL,
   `contact` varchar(13) DEFAULT NULL,
@@ -274,9 +275,16 @@ CREATE TABLE `employee_outing` (
   `emp_id` int(11) NOT NULL,
   `approval` enum('Yes','No') DEFAULT NULL,
   `outing_date` date NOT NULL,
-  `arrival_date` date NOT NULL,
-  `category` varchar(10) NOT NULL
+  `arrival_date` date DEFAULT NULL,
+  `category` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `employee_outing`
+--
+
+INSERT INTO `employee_outing` (`emp_id`, `approval`, `outing_date`, `arrival_date`, `category`) VALUES
+(3, NULL, '2023-02-13', '2023-02-16', 'XAAsd');
 
 -- --------------------------------------------------------
 
@@ -434,7 +442,8 @@ CREATE TABLE `rooms` (
 INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
 (4, 3, '2', 4, 'Available', 4),
 (4, 4, '3', 4, 'Available', 1),
-(5, 5, '4', 4, 'Available', 2);
+(5, 5, '4', 4, 'Available', 2),
+(8, 6, '108', 5, '', 0);
 
 -- --------------------------------------------------------
 
@@ -742,7 +751,7 @@ ALTER TABLE `acc_locations`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
@@ -802,7 +811,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tankers`

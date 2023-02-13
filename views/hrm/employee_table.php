@@ -210,6 +210,7 @@ if ($rights['rights_employee_details'] > 0) {
         $_GET['end_date']!=""?$sql .= " and joining_date<='{$_GET['end_date']}' ":$a=0;
     }
     $sql .=" ORDER BY fname $sort_condition";
+    $emp_qry=$sql;
     $result=mysqli_query($conn,$sql);
     ?>
     <!-- Displaying Database Table -->
@@ -283,9 +284,9 @@ if ($rights['rights_employee_details'] > 0) {
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+        <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="emp_export" value="<?php echo $emp_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+            </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">

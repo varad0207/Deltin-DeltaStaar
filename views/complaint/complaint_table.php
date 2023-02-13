@@ -85,9 +85,9 @@ if (mysqli_num_rows($check) > 0)
             <table class="table">
                 <thead>
                     <th>Complain Category : </th>
-                    <th>Status : </th>
                     <th>Accommodation : </th>
                     <th>Sort By : </th>
+                   
                 </thead>
                 <tbody>
                     <tr>
@@ -115,9 +115,6 @@ if (mysqli_num_rows($check) > 0)
                                 echo "No Data available";
                             }
                             ?>
-                        </td>
-                        <td>
-                        
                         </td>
                         <td>
                         <?php
@@ -245,6 +242,7 @@ if (mysqli_num_rows($check) > 0)
     }
     $sqli .=" ORDER BY t5.type $sort_condition";
     // echo $sqli;
+    $complaint_qry=$sqli;
     $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
     $results = mysqli_query($conn, $sqli);
     ?>
@@ -413,18 +411,13 @@ if (mysqli_num_rows($check) > 0)
         </div>
     </div>
 
-    <!-- <div class="table-footer pa4">
+    <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+        <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="complaint_export" value="<?php echo $complaint_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+            </form>
         </div>
-        <div class="fl w-25 tr">
-            <button class="btn btn-light">
-                <h4><a href="tanker.php">Add Tanker</a></h4>
-            </button>   
-        </div>
-    </div> -->
+    </div>
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>

@@ -101,10 +101,10 @@ if ($rights['rights_employee_details'] > 0) {
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) {
-                                                                                                                        echo "checked";
-                                                                                                                    }
-                                                                                                                    ?>>
+                                        <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) 
+                                        {
+                               echo "checked";
+                           }?>>
                                         <label><?= $desig['designation']; ?></label>
                                     </div>
                             <?php
@@ -126,10 +126,11 @@ if ($rights['rights_employee_details'] > 0) {
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) {
-                                                                                                                        echo "checked";
-                                                                                                                    }
-                                                                                                                    ?>>
+                                        <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) 
+                                        {
+                                        echo "checked";
+                                        }
+                                        ?>>
                                         <label><?= $dept['dept_name']; ?></label>
                                     </div>
                             <?php
@@ -142,12 +143,12 @@ if ($rights['rights_employee_details'] > 0) {
                         <td>
                             <label>From : </label>
                             <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                                                            echo $_POST['start_date']; ?>">
+                            echo $_POST['start_date']; ?>">
                             <br>
                             <br>
                             <label>To : </label>
                             <input type="date" name="end_date" value="<?php  if (isset($_POST['end_date']))
-                                                                            echo $_POST['end_date']; ?>"><br>
+                            echo $_POST['end_date']; ?>"><br>
 
                         </td>
                         <td>
@@ -286,7 +287,7 @@ if ($rights['rights_employee_details'] > 0) {
         <div class="fl w-75 tl">
         <form action="../EXCEL_export.php" method="post">
                 <button class="btn btn-warning" name="emp_export" value="<?php echo $emp_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
-            </form>
+        </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">

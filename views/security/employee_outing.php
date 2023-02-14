@@ -10,7 +10,13 @@ $isPrivilaged = 0;
         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
     if ($isPrivilaged == 5 || $isPrivilaged == 4)
         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-    
+  
+  
+  if(isset($_GET['edit'])){ 
+    $emp_code=$_GET['edit'];
+    $details=mysqli_fetch_array(mysqli_query($conn,"select * from employee_outing where emp_code=$emp_code"));
+  }
+
 ?>
 <html>
 <head>
@@ -48,17 +54,24 @@ $isPrivilaged = 0;
 
                     <div class="col-md-12 pa2">
                         <label for="empcode">Employee Code</label>
+                        <?php if(isset($_GET['edit'])){ ?>
+                          <input type="text" name="emp_code"value=<?php echo $emp_code ?> readonly>
+
+                          <?php } 
+                          else {
+                            ?>
                             <select class="form-select mt-3" name="emp_code" required>
                                 <option selected disabled value="" name="employee_code">Select Employee Code</option>
                                 <?php
                                   $emp_code=mysqli_query($conn, "SELECT * FROM employee");
                                   
                                   foreach ($emp_code as $row){ ?>
-                                  <option name="employee_code" value="<?= $row["emp_id"]?>"><?= $row["emp_code"];?></option>	
+                                  <option name="employee_code" value="<?= $row["emp_code"]?>"><?= $row["emp_code"];?></option>	
                                   <?php } ?>
                            </select>
                             
                             <div class="invalid-feedback">Please select an option!</div>
+                            <?php } ?>
                         </div>
 
 
@@ -74,12 +87,18 @@ $isPrivilaged = 0;
 
                       <div class="col-md-12 pa2">
                         <label for="description">Purpose</label>
-                        <textarea name="purpose"  placeholder="Enter the purpose of outing" cols="30" rows="10"></textarea>
+                        <textarea name="purpose"  placeholder="Enter the purpose of outing" cols="30" rows="10" value="<?php $details['category'] ?>"></textarea>
                        </div>
                         <div class="form-button mt-3 tc">
                         <div class="form-button mt-3 tc">
+                        <?php if(!isset($_GET['edit'])){ ?>
+
                             <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
-                        </div>
+                        <?php } else{ ?>
+                          <button id="submit" name="update" value="update" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+
+                        <?php } ?> 
+                          </div>
                         </div>
                     </form>
                 </div>

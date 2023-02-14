@@ -10,12 +10,12 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $emp_code = $_POST['user'];
     $password = md5($_POST['pass']);
 
-    $check = mysqli_query($conn, "select e.emp_id from employee e join login_credentials c using(emp_id) where e.emp_code = '$emp_code' and e.role is not null") or die(mysqli_error($conn));
+    $check = mysqli_query($conn, "select e.emp_id,concat(e.fname,' ',e.lname) as user from employee e join login_credentials c using(emp_id) where e.emp_code = '$emp_code' and e.role is not null") or die(mysqli_error($conn));
 
     if (mysqli_num_rows($check) == 0) {
         echo '<script>alert("User not found, Please try again");window.location = history.back();</script>';
     } else {
-        $check = mysqli_query($conn, "select e.emp_id from employee e join login_credentials c using(emp_id) where e.emp_code = '$emp_code' && c.pass='$password'") or die(mysqli_error($conn));
+        $check = mysqli_query($conn, "select e.emp_id,concat(e.fname,' ',e.lname) as user from employee e join login_credentials c using(emp_id) where e.emp_code = '$emp_code' && c.pass='$password'") or die(mysqli_error($conn));
         if (mysqli_num_rows($check) == 0) {
             die('<script>alert("Incorrect Password, Please try again");window.location = history.back();</script>');
             // echo '<script>alert("Incorrect Password, Please try again");//window.location = history.back();</script>';   
@@ -23,6 +23,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         session_start();
         $row = mysqli_fetch_array($check);
         $emp_id = $row['emp_id'];
+        $user=$row['user'];
 
         $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
@@ -60,6 +61,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             $_SESSION['is_superadmin'] = $superadmin;
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['emp_code'] = $emp_code;
+            $_SESSION['user']=$user;
             $_SESSION['login_history_id'] = $last_insert_id;
             header("location:../views/dashboard.php");
         }

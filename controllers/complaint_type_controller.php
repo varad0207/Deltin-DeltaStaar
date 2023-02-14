@@ -16,7 +16,7 @@
 
         //change tracking code
         if($AllowTrackingChanges)
-        mysqli_query($conn,"insert into change_tracking_complaint_type(login,type,type_id,complaint_type,type_description) values ('{$_SESSION['emp_id']}','Insert','$last_insert_id','$type','$description')");
+        mysqli_query($conn,"insert into change_tracking_complaint_type(user,type,type_id,complaint_type,type_description) values ('{$_SESSION['user']}','Insert','$last_insert_id','$type','$description')");
 
         header("location: ../views/config/complaint_type_table.php");
     }
@@ -30,8 +30,8 @@
         //change tracking code
         if($AllowTrackingChanges){
             $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM complaint_type WHERE type_id=$id"));
-            mysqli_query($conn,"insert into change_tracking_complaint_type(login,type,type_id,complaint_type,type_description)
-            values ('{$_SESSION['emp_id']}','Update','{$row_affected['type_id']}', '{$row_affected['complaint_type']}','{$row_affected['type_description']}')");
+            mysqli_query($conn,"insert into change_tracking_complaint_type(user,type,type_id,complaint_type,type_description)
+            values ('{$_SESSION['user']}','Update','{$row_affected['type_id']}', '{$row_affected['complaint_type']}','{$row_affected['type_description']}')");
         }
 
         mysqli_query($conn, "UPDATE complaint_type SET complaint_type = '$type', type_description = '$description' WHERE type_id = $id");
@@ -46,8 +46,8 @@
         //change tracking code
         if($AllowTrackingChanges){
             $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM complaint_type WHERE type_id=$id"));
-            mysqli_query($conn,"insert into change_tracking_complaint_type(login,type,type_id,complaint_type,type_description)
-            values ('{$_SESSION['emp_id']}','Delete','{$row_affected['type_id']}', '{$row_affected['complaint_type']}','{$row_affected['type_description']}')");
+            mysqli_query($conn,"insert into change_tracking_complaint_type(user,type,type_id,complaint_type,type_description)
+            values ('{$_SESSION['user']}','Delete','{$row_affected['type_id']}', '{$row_affected['complaint_type']}','{$row_affected['type_description']}')");
         }
 
         mysqli_query($conn, "DELETE FROM complaint_type WHERE type_id = $id");

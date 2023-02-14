@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
     }
     mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary','$room_id')");
     $last_insert_id = mysqli_insert_id($conn);
-    
+
     // mysqli_query($conn, "INSERT INTO contact (emp_id, primary_contact,secondary_contact) VALUES ('$last_insert_id', '$contact1','$contact2')");
     // $last_insert_id = mysqli_insert_id($conn);
     // mysqli_query($conn, "UPDATE employee SET contact='$last_insert_id' WHERE emp_code='$emp_code'");
@@ -170,6 +170,15 @@ if (isset($_GET['del'])) {
         values ('{$_SESSION['user']}','Delete','{$row_affected['emp_id']}', '{$row_affected['emp_code']}','{$row_affected['fname']}','{$row_affected['mname']}','{$row_affected['lname']}','{$row_affected['designation']}',
         '{$row_affected['dob']}','{$row_affected['contact']}','{$row_affected['address']}','{$row_affected['state']}','{$row_affected['country']}','{$row_affected['pincode']}','{$row_affected['email']}','{$row_affected['department']}','{$row_affected['blood_group']}',
         '{$row_affected['joining_date']}','{$row_affected['aadhaar_number']}','{$row_affected['salary']}','{$row_affected['room_id']}','{$row_affected['role']}')");
+        
+        $outing_record=mysqli_query($conn,"select * FROM employee_outing WHERE emp_code='$emp_code'");
+        if(mysqli_num_rows($outing_record)>0){
+            while($record=mysqli_fetch_array($outing_record)){
+                mysqli_query($conn,"insert into change_tracking_employee_outing(user,type,emp_code, approval,outing_date,arrival_date,category)
+                values ('{$_SESSION['user']}','Delete','{$record['emp_code']}', '{$record['approval']}','{$record['outing_date']}','{$record['arrival_date']}','{$record['category']}')");
+            }
+            mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_code='$emp_code'");
+        }
     }
 
     mysqli_query($conn, "DELETE FROM employee WHERE emp_code='$emp_code'");

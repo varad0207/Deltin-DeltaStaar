@@ -119,7 +119,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
     <?php
     $sort_condition = "";
-    $sql="SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_id = employee.emp_id WHERE 1=1";
+    $sql="SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_code = employee.emp_code WHERE 1=1";
     if (isset($_GET['sort_alpha'])) 
     {
         if ($_GET['sort_alpha'] == "a-z") {
@@ -188,12 +188,12 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         <td>
                         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
 
-                            <a href="./employee_outing.php?edit=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
+                            <a href="./employee_outing.php?edit=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i></a>
                             <?php } ?>
                                 &nbsp;
                                 <?php if($isPrivilaged>=4){ ?>
-                            <a href="../../controllers/employee_outing_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/employee_outing_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
                                 class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                         <?php } ?>
                             </td>

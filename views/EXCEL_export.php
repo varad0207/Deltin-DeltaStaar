@@ -274,4 +274,63 @@ if(isset($_POST['outing_export']))
         header("Content-Disposition: attachment; filename=Outing_detail.xls");
         echo $output;
 }
+
+//TANKER EXPORT
+if(isset($_POST['tanker_export']))
+{
+    $sql=$_POST['tanker_export'];
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result)>0) 
+    {
+        $output='<table class="table" bordered="1">
+        <tr>
+        <th>
+        <th>Bill Number</th>
+        <th>Quality</th>
+        <th>Quantity</th>
+        <th>Accomodation</th>
+        <th>Vendor</th>
+        <th>Date</th>
+        <th>Time</th>
+        </th>
+        </tr>
+        ';
+        while($row=mysqli_fetch_array($result))
+        {
+            $vendor_id = $row['vendor_id'];
+            $queryvendorId = mysqli_query($conn, "SELECT * FROM tanker_vendors where id='$vendor_id'");
+            $vendor = mysqli_fetch_assoc($queryvendorId);
+            $accid = $row['acc_id'];
+            $queryAccId = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id = '$accid'");
+            $acc = mysqli_fetch_assoc($queryAccId);
+            $timestamp = strtotime($row['timestamp']);  
+            $date = date('d-m-Y', $timestamp);
+            $time = date('H:i:s', $timestamp);
+            $output .= '
+            <tr>
+            <td>' .$row['bill_no']. '</td>
+            <td>' .$row['quality_check']. '</td>
+            <td>' .$row['qty']. '</td>
+            <td>' .$acc['acc_name']. '</td>
+            <td>' .$vendor['vname']. '</td>
+            <td>' .$date. '</td>
+            <td>' .$time. '</td>
+            </tr>
+            ';
+        }
+    }
+    else
+    {
+        echo "Table is empty";
+    }
+    $output .= "</table>";
+        header("Content-Type: application/xls");
+        header("Content-Disposition: attachment; filename=Tanker_detail.xls");
+        echo $output;
+
+}
+
+                        
+                            
+                        
 ?>

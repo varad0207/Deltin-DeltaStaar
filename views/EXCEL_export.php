@@ -54,6 +54,7 @@ if(isset($_POST["emp_export"]))
                 <td>' .$row['aadhaar_number']. '</td>
                 <td>' .$row['salary']. '</td>
                 <td>' .$row['room_id']. '</td>
+                </tr>
                 ';
         }
         $output .= "</table>";
@@ -92,6 +93,7 @@ if(isset($_POST['vaccination_export']))
                 <td>' .$row['date_of_administration']. '</td>
                 <td>' .$row['location']. '</td>
                 <td>' .$row['date_of_next_dose']. '</td>
+                </tr>
                 ';
         }
     }
@@ -172,6 +174,7 @@ if(isset($_POST['complaint_export']))
                 <td>' .$row['emp_code']. '</td>
                 <td>' .$row['acc_name']. '</td>
                 <td>' .$room_no. '</td>
+                </tr>
                 ';
         }
     
@@ -183,6 +186,47 @@ if(isset($_POST['complaint_export']))
     $output .= "</table>";
         header("Content-Type: application/xls");
         header("Content-Disposition: attachment; filename=Complaints_detail.xls");
+        echo $output;
+}
+
+//ROOM EXPORT
+if (isset($_POST['room_export'])) 
+{
+    $sql=$_POST['room_export'];
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result)>0) 
+    {
+        $output='<table class="table" bordered="1">
+        <tr>
+        <th>
+        <th>Accomodation Name</th>
+        <th>Room Number</th>
+        <th>Room Capacity</th>
+        <th>Status</th>
+        <th>Current room occupancy</th>
+        </th>
+        </tr>
+        ';
+        while($row=mysqli_fetch_array($result))
+        {
+            $output .= '
+            <tr>
+            <td>' .$row['acc_name']. '</td>
+            <td>' .$row['room_no']. '</td>
+            <td>' .$row['room_capacity']. '</td>
+            <td>' .$row['status']. '</td>
+            <td>' .$row['current_room_occupancy'].'</td>
+            </tr>
+            ';
+        }
+    }
+    else
+    {
+        echo "Table is empty";
+    }
+    $output .= "</table>";
+        header("Content-Type: application/xls");
+        header("Content-Disposition: attachment; filename=Rooms_detail.xls");
         echo $output;
 }
 ?>

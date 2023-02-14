@@ -44,11 +44,17 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
 
         echo "<script>console.log('1')</script>";
 
-        $insert = "insert into accomodation (acc_id, acc_code, acc_name, bldg_status, location, gender, no_of_rooms, warden_emp_code, owner, remark) values ('', '$acc_code', '$acc_name', '$bldg_status', '$location', '$gender', '$no_of_rooms', '$warden_emp_code', '$owner', '$remark')";
+        $insert = "insert into accomodation (acc_code, acc_name, bldg_status, location, gender, no_of_rooms, warden_emp_code, owner, remark) values ('$acc_code', '$acc_name', '$bldg_status', '$location', '$gender', '$no_of_rooms', '$warden_emp_code', '$owner', '$remark')";
 
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+        $last_insert_id = mysqli_insert_id($conn);
         $_SESSION['message'] = "Accomodation Info Added!";
+
+        //change tracking code
+        if($AllowTrackingChanges)
+        mysqli_query($conn,"insert into change_tracking_accomodation (login,type,acc_id, acc_code, acc_name, bldg_status, location, gender, no_of_rooms, warden_emp_code, owner, remark) values ('{$_SESSION['emp_id']}','Insert','$last_insert_id', '$acc_code', '$acc_name', '$bldg_status', '$location', '$gender', '$no_of_rooms', '$warden_emp_code', '$owner', '$remark')");
+
         header("location: ../views/accomodation/accomodation_table.php");
     }
 	$update = false;
@@ -68,16 +74,28 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $owner = $_POST['owner'];
         $remark = $_POST['remark'];
     
-    
-        mysqli_query($conn, "UPDATE accomodation SET acc_name='$acc_name',bldg_status='$bldg_status',location='$location',gender='$gender', no_of_rooms='$no_of_rooms', warden_emp_code='$warden_emp_code',owner='$owner',remark='$remark' WHERE acc_code='$acc_code'");
+        //change tracking code
+        if($AllowTrackingChanges){
+            $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM accomodation WHERE acc_code='$acc_code'"));
+            mysqli_query($conn,"insert into change_tracking_accomodation (login,type,acc_id, acc_code, acc_name, bldg_status, location, gender, no_of_rooms, warden_emp_code, owner, remark) 
+                values ('{$_SESSION['emp_id']}','Update','{$row_affected['acc_id']}', '{$row_affected['acc_code']}', '{$row_affected['acc_name']}', '{$row_affected['bldg_status']}', '{$row_affected['location']}', '{$row_affected['gender']}', '{$row_affected['no_of_rooms']}', '{$row_affected['warden_emp_code']}', '{$row_affected['owner']}', '{$row_affected['remark']}')");
+        }
 
-        $_SESSION['message'] = "Accomodation Info updated!"; 
-        
+        mysqli_query($conn, "UPDATE accomodation SET acc_name='$acc_name',bldg_status='$bldg_status',location='$location',gender='$gender', no_of_rooms='$no_of_rooms', warden_emp_code='$warden_emp_code',owner='$owner',remark='$remark' WHERE acc_code='$acc_code'");
+        $_SESSION['message'] = "Accomodation Info updated!";    
         header('location: ../views/accomodation/accomodation_table.php');
     }
 
     if (isset($_GET['del'])) {
         $acc_code = $_GET['del'];
+
+        //change tracking code
+        if($AllowTrackingChanges){
+            $row_affected=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM accomodation WHERE acc_code=$acc_code"));
+            mysqli_query($conn,"insert into change_tracking_accomodation (login,type,acc_id, acc_code, acc_name, bldg_status, location, gender, no_of_rooms, warden_emp_code, owner, remark) 
+            values ('{$_SESSION['emp_id']}','Delete','{$row_affected['acc_id']}', '{$row_affected['acc_code']}', '{$row_affected['acc_name']}', '{$row_affected['bldg_status']}', '{$row_affected['location']}', '{$row_affected['gender']}', '{$row_affected['no_of_rooms']}', '{$row_affected['warden_emp_code']}', '{$row_affected['owner']}', '{$row_affected['remark']}')");
+        }
+
         mysqli_query($conn, "DELETE FROM accomodation WHERE acc_code=$acc_code");
         $_SESSION['message'] = "Accomodation deleted!"; 
         header('location: ../views/accomodation/accomodation_table.php');

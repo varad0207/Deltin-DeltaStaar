@@ -16,7 +16,8 @@ if ($isPrivilaged == 5 || $isPrivilaged == 4)
 if (isset($_GET['edit'])) {
     $emp_code = $_GET['edit'];
     $update = true;
-    $record = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code=$emp_code");
+    // echo $emp_code;
+    $record = mysqli_query($conn, "SELECT * FROM employee WHERE emp_code='$emp_code'");
 
     $n = mysqli_fetch_array($record);
     $emp_id = $n['emp_id'];
@@ -216,7 +217,7 @@ if (isset($_GET['edit'])) {
                                 <div class="invalid-feedback">field cannot be blank!</div> -->
                                 <label for="department">Department</label>
                                 <select class="form-select mt-3" name="department" required>
-                                    <option name="employee_dept" selected disabled value="">Select Designation</option>
+                                    <option name="employee_dept" selected disabled value="">Select Department</option>
                                     <?php
                                     $emp_dept = mysqli_query($conn, "SELECT * FROM employee_dept");
 

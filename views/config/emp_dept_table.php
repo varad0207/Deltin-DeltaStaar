@@ -100,7 +100,7 @@ if ($_SESSION['is_superadmin'] == 0)
         </div>
         <div class="fl w-25 tr">
             <button class="btn btn-light">
-                <h4><a href="emp_desig.php">Add Employee Department</a></h4>
+                <h4><a href="emp_dept.php">Add Employee Department</a></h4>
             </button>   
         </div>
     </div>

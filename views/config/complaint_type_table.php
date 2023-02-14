@@ -86,7 +86,7 @@ if ($_SESSION['is_superadmin'] == 0)
                 <thead>
                 <tr>
                     <th>Complaint Type</th>
-                    <th>Raised Description</th>
+                    <th>Description</th>
                     <th colspan="2">Action</th>
                 </tr>
                 </thead>
@@ -94,17 +94,17 @@ if ($_SESSION['is_superadmin'] == 0)
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
                         <td>
-                            <?php echo $row['type']; ?>
+                            <?php echo $row['complaint_type']; ?>
                         </td>
                         <td>
-                            <?php echo $row['description']; ?>
+                            <?php echo $row['type_description']; ?>
                         </td>
                         <td>
-                            <a href="complaint_type.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
-                                class="edit_btn">Raise Job</a>
+                            <a href="complaint_type.php?edit=<?php echo '%27' ?><?php echo $row['type_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn">Edit</a>
                         </td>
                         <td>
-                            <a href="../../controllers/complaint_type_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/complaint_type_controller.php?del=<?php echo '%27' ?><?php echo $row['type_id']; ?><?php echo '%27' ?>"
                                 class="del_btn">Delete</a>
                         </td>
                     </tr>

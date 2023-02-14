@@ -24,13 +24,20 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
 
     if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         $emp_code = mysqli_real_escape_string($conn, $_POST['emp_code']);
+        $row_emp=mysqli_fetch_array(mysqli_query($conn,"select acc_id FROM employee join rooms on employee.room_id=rooms.id join accomodation using(acc_id) WHERE emp_code='$emp_code'"));
         $category = mysqli_real_escape_string($conn, $_POST['category']);
         $description = mysqli_real_escape_string($conn, $_POST['description']);
         echo "<script>console.log('1')</script>";
-        $insert = "insert into complaints(emp_code, type, description) values ('$emp_code','$category','$description')";
+        $insert = "insert into complaints(emp_code, type, description,acc_id) values ('$emp_code','$category','$description','{$row_emp['acc_id']}')";
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+        $last_insert_id = mysqli_insert_id($conn);
         $_SESSION['message'] = "Complaint Info Added!";
+
+        //change tracking code
+        if($AllowTrackingChanges)
+        mysqli_query($conn,"insert into change_tracking_complaints(user,type,emp_code,complaint_id,complaint_type, description,acc_id) values ('{$_SESSION['user']}','Insert','$emp_code','$last_insert_id','$category','$description','{$row_emp['acc_id']}')");
+
         header("location: ../views/complaint/complaint_table.php");
     }
 
@@ -47,7 +54,14 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
         $remarks = $_POST['remarks'];
         $emp_code = $_POST['emp_code'];
 
-        mysqli_query($conn, "UPDATE complaints SET emp_code='$emp_code', category='$category',description='$description' WHERE id='$id'");
+        //change tracking code
+        if($AllowTrackingChanges){
+            $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM complaints WHERE id=$id"));
+            mysqli_query($conn,"insert into change_tracking_complaints (user,type,complaint_id,complaint_type, description,emp_code) 
+            values ('{$_SESSION['user']}','Update','{$row_affected['id']}', '{$row_affected['type']}','{$row_affected['description']}','{$row_affected['emp_code']}')");
+        }
+
+        mysqli_query($conn, "UPDATE complaints SET emp_code='$emp_code', type='$category',description='$description' WHERE id='$id'");
         $_SESSION['message'] = "Complaint Info Updated!";
         header('location: ../views/complaint/complaint_table.php');
     }
@@ -55,6 +69,15 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])||isse
     if(isset($_GET['del']))
     {
         $id = $_GET['del'];
+
+        //change tracking code
+        if($AllowTrackingChanges){
+            $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM complaints WHERE id=$id"));
+            mysqli_query($conn,"insert into change_tracking_complaints 
+            (user,                  type,    complaint_id,           complaint_type,            description,                    emp_code,                      tech_pending_timestamp,                     tech_closure_timestamp,                     sec_closure_timestamp,                     warden_closure_timestamp,                     remarks)values 
+            ('{$_SESSION['user']}','Delete','{$row_affected['id']}','{$row_affected['type']}','{$row_affected['description']}','{$row_affected['emp_code']}','{$row_affected['tech_pending_timestamp']}','{$row_affected['tech_closure_timestamp']}','{$row_affected['sec_closure_timestamp']}','{$row_affected['warden_closure_timestamp']}','{$row_affected['remarks']}')");
+        }
+
         mysqli_query($conn, "DELETE FROM complaints WHERE id = $id");
         $_SESSION['message'] = "Complaint Deleted";
         header('location: ../views/complaint/complaint_table.php');

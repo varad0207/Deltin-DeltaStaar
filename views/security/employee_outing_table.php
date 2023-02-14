@@ -76,29 +76,72 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     </div>
 
     <!-- Displaying Database Table -->
-    <?php  //Entries per-page
-        $results_per_page = 5;
+    <div class="pa1">
+        <br>
+        <form action="" method="GET">
+            <label style="color:white;">Filter By</label>
+            <button type="sumbit" class="btn btn-light">Go</button>
+            <!-- <button type="reset" class="btn btn-light">Reset</button> -->
+            <br>
+            <br>
+            <table class="table">
+                <thead>
+                    <th>Outing Date : </th>
+                    <th>Sort By : </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>From : </label>
+                            <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
+                            echo $_POST['start_date']; ?>">
+                            <br>
+                            <br>
+                            <label>To : </label>
+                            <input type="date" name="end_date" value="<?php  if (isset($_POST['end_date']))
+                            echo $_POST['end_date']; ?>"><br>
 
-        //Number of results in the DB
-        $sql = "SELECT * FROM employee_outing";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result); 
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
+                        </td>
+                        <td>
+                        <div class="input-group mb-3">
+                            <select name="sort_alpha" class="form-control">
+                                <option value="">--Select Option--</option>
+                                <option value="a-z" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "a-z") echo "selected"; ?>>A-Z(Ascending Order)</option>
+                                <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
+                            </select>
+                        </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
 
-        // on which is the user
-        if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
+    <?php
+    $sort_condition = "";
+    $sql="SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_id = employee.emp_id WHERE 1=1";
+    if (isset($_GET['sort_alpha'])) 
+    {
+        if ($_GET['sort_alpha'] == "a-z") {
+            $sort_condition = "ASC";
+        } else if ($_GET['sort_alpha'] == "z-a") {
+            $sort_condition = "DESC";
+        }
+    }
+    if (isset($_GET['start_date'])) {
+    
+        $_GET['start_date']!=""?$sql .= " and outing_date>='{$_GET['start_date']}' ":$a=0;
+        
 
-   // retrieve the selected results
-   $sqli = "SELECT * FROM employee_outing LIMIT " . $this_page_first_result . ',' . $results_per_page;
-   $results = mysqli_query($conn, $sqli);
-
-        ?>
+    }
+    if (isset($_GET['end_date'])) {
+        
+        $_GET['end_date']!=""?$sql .= " and outing_date<='{$_GET['end_date']}' ":$a=0;
+    }
+    $sql .=" ORDER BY fname $sort_condition";
+    $outing_qry=$sql;
+    $result=mysqli_query($conn,$sql);
+    ?>
 
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -109,8 +152,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     ?>
                 </div>
         <?php endif ?>
-        
-        <?php $results = mysqli_query($conn, "SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_id = employee.emp_id"); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -123,7 +164,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
                     <?php
                     $empid = $row['emp_id'];
                     $queryEmpID = mysqli_query($conn, "SELECT * FROM employee where emp_id='$empid'");
@@ -160,20 +201,14 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <?php } ?>
                 </tbody>
             </table>
-            <?php
-            
-            //display the links to the pages
-            for($page=1;$page<=$number_of_pages;$page++)
-                echo '<a href="employee_outing_table.php?page=' .$page .'">' .$page .'</a>';
-            ?>
         </div>
     </div>
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+        <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="outing_export" value="<?php echo  $outing_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+        </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">

@@ -229,4 +229,49 @@ if (isset($_POST['room_export']))
         header("Content-Disposition: attachment; filename=Rooms_detail.xls");
         echo $output;
 }
+
+//OUTING EXPORT
+if(isset($_POST['outing_export']))
+{
+    $sql=$_POST['outing_export'];
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result)>0) 
+    {
+        $output='<table class="table" bordered="1">
+        <tr>
+        <th>
+        <th>Employee Name</th>
+        <th>Outing Date</th>
+        <th>Arrival Date</th>
+        <th>Purpose of Outing</th>
+        </th>
+        </tr>
+        ';
+        while($row=mysqli_fetch_array($result))
+        {
+            $empid = $row['emp_id'];
+            $queryEmpID = mysqli_query($conn, "SELECT * FROM employee where emp_id='$empid'");
+            $EmpID_row = mysqli_fetch_assoc($queryEmpID);
+            $fname=$EmpID_row['fname'];
+            $lname=$EmpID_row['lname'];
+            $empname=$fname." ".$lname;
+            $output .= '
+            <tr>
+            <td>' .$empname. '</td>
+            <td>' .$row['outing_date']. '</td>
+            <td>' .$row['arrival_date']. '</td>
+            <td>' .$row['category']. '</td>
+            </tr>
+            ';
+        }
+    }
+    else
+    {
+        echo "Table is empty";
+    }
+    $output .= "</table>";
+        header("Content-Type: application/xls");
+        header("Content-Disposition: attachment; filename=Outing_detail.xls");
+        echo $output;
+}
 ?>

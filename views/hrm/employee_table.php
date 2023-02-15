@@ -9,9 +9,11 @@ $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_employee_details'] > 0) {
     $isPrivilaged = $rights['rights_employee_details'];
-} else
+} 
+else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
+/* ***************** PAGINATION ***************** */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -212,7 +214,23 @@ if ($rights['rights_employee_details'] > 0) {
     }
     $sql .=" ORDER BY fname $sort_condition";
     $emp_qry=$sql;
+    
+
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sql .=" LIMIT $start,$limit";
     $result=mysqli_query($conn,$sql);
+
+    $q1="SELECT * FROM employee";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
+
     ?>
     <!-- Displaying Database Table -->
     <div class="table-div" style="margin-top:100px">
@@ -243,7 +261,7 @@ if ($rights['rights_employee_details'] > 0) {
                 <tbody>
                     <?php
                         if (mysqli_num_rows($result) > 0) 
-                        {
+                        {   
                             while($row=mysqli_fetch_array($result)) 
                             { ?>
                                 <tr class="live">
@@ -271,6 +289,7 @@ if ($rights['rights_employee_details'] > 0) {
                                     </td>
                                 </tr>
                                 <?php
+                                
                             }
                         } 
                         else 
@@ -282,6 +301,18 @@ if ($rights['rights_employee_details'] > 0) {
             </table>
         </div>
     </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">

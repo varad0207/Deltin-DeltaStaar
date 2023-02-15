@@ -89,8 +89,10 @@ $all = '<span class="material-icons">done_all</span>';
                 ?>
             </div>
         <?php endif ?>
-
-        <?php $results = mysqli_query($conn, "SELECT * FROM roles JOIN rights ON rights = id"); ?>
+            
+        <?php 
+        $sql="SELECT * FROM roles JOIN rights ON rights = id";
+        $results = mysqli_query($conn,$sql); ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -125,6 +127,23 @@ $all = '<span class="material-icons">done_all</span>';
                 </thead>
             </table>
         </div>
+
+        <?php
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sql .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sql);
+
+    $q1="SELECT * FROM roles";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
+    ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -320,15 +339,20 @@ $all = '<span class="material-icons">done_all</span>';
                     <?php } ?>
                 </tbody>
             </table>
-            <?php
-
-            // //display the links to the pages
-            // for ($page = 1; $page <= $number_of_pages; $page++)
-            //     echo '<a href="roles_table.php?page=' . $page . '">' . $page . '</a>';
-            // ?>
         </div>
     </div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="roles_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="roles_table.php?page=.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="roles_table.php?page=.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
     <div class="table-footer pa4">
         <!-- <div class="fl w-25 tl">
             <button class="btn btn-warning">

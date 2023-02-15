@@ -3,7 +3,7 @@
     $conn=mysqli_connect("localhost","root","","deltastaar")or die(mysqli_error($conn));
 
     //fail safe for change tracking
-    $AllowTrackingChanges=false;
+    $AllowTrackingChanges=true;
     
     if(!isset($_SESSION['emp_id'])){
         session_start();

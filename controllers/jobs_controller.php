@@ -1,15 +1,6 @@
 <?php
-if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
-    include('../controllers/includes/common.php');
-}else{
-    include('../../controllers/includes/common.php');
-}
-?>
-<?php
 
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    include('../../controllers/includes/common.php');
 
         $complaint_id = "";
         $technician_id = "";
@@ -32,7 +23,13 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $insert = "insert into jobs(complaint_id, technician_id, warden_emp_code, raise_timestamp, description, completion_date, remarks) values ('$complaint_id','$technician_id', '$warden_emp_code', '$raise_timestamp', '$description', '$completion_date', '$remarks')";
         echo mysqli_error($conn);
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+        $last_insert_id = mysqli_insert_id($conn);
         $_SESSION['message'] = "Job Raised!";
+
+         //change tracking code
+         if($AllowTrackingChanges)
+         mysqli_query($conn,"insert into change_tracking_jobs(user,type,job_id,complaint_id, technician_id, warden_emp_code, raise_timestamp, description, completion_date, remarks) values ('{$_SESSION['user']}','Insert','$last_insert_id','$complaint_id','$technician_id', '$warden_emp_code', '$raise_timestamp', '$description', '$completion_date', '$remarks')");
+ 
         header("location: ../views/complaint/jobs_table.php");
     }
 
@@ -48,6 +45,13 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $remarks = $_POST['remarks'];
         $emp_code = $_POST['emp_code'];
 
+        //change tracking code
+        if($AllowTrackingChanges){
+            $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM jobs WHERE id=$id"));
+            mysqli_query($conn,"insert into change_tracking_jobs (user,type,job_id,complaint_id, technician_id, warden_emp_code, raise_timestamp, description, completion_date, remarks) 
+            values ('{$_SESSION['user']}','Update','{$row_affected['id']}', '{$row_affected['complaint_id']}','{$row_affected['technician_id']}','{$row_affected['warden_emp_code']}','{$row_affected['raise_timestamp']}','{$row_affected['description']}','{$row_affected['completion_date']}','{$row_affected['remarks']}')");
+        }
+
         mysqli_query($conn, "UPDATE jobs SET emp_code='$emp_code', category='$category',description='$description' WHERE id='$id'");
         $_SESSION['message'] = "Complaint Info Updated!";
         header('location: ../views/complaint/jobs_table.php');
@@ -56,6 +60,13 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
     if(isset($_GET['del']))
     {
         $id = $_GET['del'];
+
+        if($AllowTrackingChanges){
+            $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM jobs WHERE id=$id"));
+            mysqli_query($conn,"insert into change_tracking_jobs (user,type,job_id,complaint_id, technician_id, warden_emp_code, raise_timestamp, description, completion_date, remarks) 
+            values ('{$_SESSION['user']}','Delete','{$row_affected['id']}', '{$row_affected['complaint_id']}','{$row_affected['technician_id']}','{$row_affected['warden_emp_code']}','{$row_affected['raise_timestamp']}','{$row_affected['description']}','{$row_affected['completion_date']}','{$row_affected['remarks']}')");
+        }
+
         mysqli_query($conn, "DELETE FROM jobs WHERE id = '$id'");
         $_SESSION['message'] = "Job Deleted";
         header('location: ../views/complaint/jobs_table.php');

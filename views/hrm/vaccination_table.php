@@ -153,25 +153,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
             </table>
         </form>
     </div>
-    <!-- Displaying Database Table -->
-    <?php  //Entries per-page
-        $results_per_page = 5;
-
-        //Number of results in the DB
-        $sql = "SELECT * FROM vaccination";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result); 
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
-
-        // on which is the user
-        if (!isset($_GET['page']))
-        $page = 1;
-        else
-        $page = $_GET['page'];
-        //starting limit number for the results
-        $this_page_first_result = ($page - 1) * $results_per_page;
-    ?>
 
     <?php
     $sql="select last_dose.emp_id emp_id, employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id where 1=1";
@@ -198,7 +179,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         $_GET['end_date']!=""?$sql .= " and date_of_administration<='{$_GET['end_date']}' ":$a=0;
     }
     $vaccination_qry=$sql;
-    $result=mysqli_query($conn,$sql);
     ?>
     <!-- Displaying Database Table -->
     <?php

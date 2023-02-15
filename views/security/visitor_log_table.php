@@ -76,29 +76,24 @@
     </div>
 
     <!-- Displaying Database Table -->
-    <?php  //Entries per-page
-        $results_per_page = 5;
 
-        //Number of results in the DB
-        $sql = "select * from visitor_log";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result); 
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
+<?php
+    $sql="SELECT * FROM visitor_log where 1=1";
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sql .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sql);
 
-        // on which is the user
-        if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
-
-   // retrieve the selected results
-   $sqli = "SELECT * FROM visitor_log LIMIT " . $this_page_first_result . ',' . $results_per_page;
-   $results = mysqli_query($conn, $sqli);
-
-        ?>
+    $q1="SELECT * FROM vaccination";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
+    ?>
 
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -109,8 +104,6 @@
                     ?>
                 </div>
         <?php endif ?>
-        
-        <?php $results = mysqli_query($conn, "SELECT * FROM visitor_log"); ?>
 
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
@@ -130,7 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) {?>
+                    <?php while ($row = mysqli_fetch_array($result)) {?>
                     <tr>
                     <th scope="row"><?php echo $row['id']; ?></th>
                         
@@ -183,15 +176,20 @@
                     <?php } ?>
                 </tbody>
             </table>
-            <?php
-            
-            //display the links to the pages
-            for($page=1;$page<=$number_of_pages;$page++)
-                echo '<a href="visitor_log_table.php?page=' .$page .'">' .$page .'</a>';
-            ?>
         </div>
     </div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
             <button class="btn btn-warning">

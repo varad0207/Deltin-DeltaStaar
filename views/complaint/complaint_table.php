@@ -103,11 +103,11 @@ if (mysqli_num_rows($check) > 0)
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="type[]" value="<?= $filter['id']; ?>" <?php if (in_array($filter['id'], $checked1)) {
+                                        <input type="checkbox" name="type[]" value="<?= $filter['complaint_type']; ?>" <?php if (in_array($filter['complaint_type'], $checked1)) {
                                                                                                                         echo "checked";
                                                                                                                     }
                                                                                                                     ?>>
-                                        <label><?= $filter['type']; ?></label>
+                                        <label><?= $filter['complaint_type']; ?></label>
                                     </div>
                             <?php
                                 }
@@ -160,7 +160,6 @@ if (mysqli_num_rows($check) > 0)
     </div>
 
     <div class="table-header">
-        <!-- Displaying Database Table -->
         <?php if (!isset($_SESSION['emp_id'])) { ?>
             <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
@@ -200,7 +199,7 @@ if (mysqli_num_rows($check) > 0)
         $filter_checked = $_GET['type'];
         $sqli .= " AND ( ";
         foreach($filter_checked as $row_filter){
-            $sqli .= " complaint_type.id='$row_filter' OR"; 
+            $sqli .= " complaint_type='$row_filter' OR"; 
         }
         $sqli =substr($sqli,0,strripos($sqli,"OR"));  
         $sqli .=" ) ";
@@ -217,10 +216,26 @@ if (mysqli_num_rows($check) > 0)
         $sqli .=" ) ";
         
     }
-    $sqli .=" ORDER BY complaint_type.type $sort_condition";
+    $sqli .=" ORDER BY complaint_type $sort_condition";
     // echo $sqli;
     $complaint_qry=$sqli;
-    $results = mysqli_query($conn, $sqli);
+   // $results = mysqli_query($conn, $sqli);
+    ?>
+    <?php
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sqli .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sqli);
+
+    $q1="SELECT * FROM vaccination";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
     ?>
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -250,6 +265,7 @@ if (mysqli_num_rows($check) > 0)
                             <th>Description </th>
                             <th>Status </th>
                             <th>Closure Time<br>(Technician)</th>
+
                             <th>Closure Time<br>(Security) </th>
                             <th>Closure Time<br>(Warden) </th>
                             <th>Remarks </th>
@@ -261,7 +277,7 @@ if (mysqli_num_rows($check) > 0)
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = mysqli_fetch_array($results)) { 
+                        <?php while ($row = mysqli_fetch_array($result)) { 
                             $emp_code = $row['emp_code'];
                             $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'"));
                             $EmployeeRoom_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'"));
@@ -366,9 +382,19 @@ if (mysqli_num_rows($check) > 0)
                     </tbody>
                 </table>
             <?php } ?>
-    
         </div>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="complaint_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="complaint_table.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="complaint_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">

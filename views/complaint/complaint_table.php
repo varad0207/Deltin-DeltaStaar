@@ -103,11 +103,11 @@ if (mysqli_num_rows($check) > 0)
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="type[]" value="<?= $filter['complaint_type']; ?>" <?php if (in_array($filter['complaint_type'], $checked1)) {
+                                        <input type="checkbox" name="type[]" value="<?= $filter['id']; ?>" <?php if (in_array($filter['id'], $checked1)) {
                                                                                                                         echo "checked";
                                                                                                                     }
                                                                                                                     ?>>
-                                        <label><?= $filter['complaint_type']; ?></label>
+                                        <label><?= $filter['type']; ?></label>
                                     </div>
                             <?php
                                 }
@@ -161,29 +161,6 @@ if (mysqli_num_rows($check) > 0)
 
     <div class="table-header">
         <!-- Displaying Database Table -->
-        <?php //Entries per-page
-        $results_per_page = 5;
-
-        //Number of results in the DB
-        $sql = "select * from complaints";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result);
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
-
-        // on which is the user
-        if (!isset($_GET['page']))
-            $page = 1;
-        else
-            $page = $_GET['page'];
-        //starting limit number for the results
-        $this_page_first_result = ($page - 1) * $results_per_page;
-
-        // retrieve the selected results
-        // $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
-        // $results = mysqli_query($conn, $sqli);
-
-        ?>
         <?php if (!isset($_SESSION['emp_id'])) { ?>
             <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
@@ -223,7 +200,7 @@ if (mysqli_num_rows($check) > 0)
         $filter_checked = $_GET['type'];
         $sqli .= " AND ( ";
         foreach($filter_checked as $row_filter){
-            $sqli .= " complaint_type='$row_filter' OR"; 
+            $sqli .= " complaint_type.id='$row_filter' OR"; 
         }
         $sqli =substr($sqli,0,strripos($sqli,"OR"));  
         $sqli .=" ) ";
@@ -240,10 +217,9 @@ if (mysqli_num_rows($check) > 0)
         $sqli .=" ) ";
         
     }
-    $sqli .=" ORDER BY complaint_type $sort_condition";
+    $sqli .=" ORDER BY complaint_type.type $sort_condition";
     // echo $sqli;
     $complaint_qry=$sqli;
-    $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
     $results = mysqli_query($conn, $sqli);
     ?>
     <div class="table-div">
@@ -274,7 +250,6 @@ if (mysqli_num_rows($check) > 0)
                             <th>Description </th>
                             <th>Status </th>
                             <th>Closure Time<br>(Technician)</th>
-
                             <th>Closure Time<br>(Security) </th>
                             <th>Closure Time<br>(Warden) </th>
                             <th>Remarks </th>
@@ -391,12 +366,7 @@ if (mysqli_num_rows($check) > 0)
                     </tbody>
                 </table>
             <?php } ?>
-            <?php
-
-            //display the links to the pages
-            for ($page = 1; $page <= $number_of_pages; $page++)
-                echo '<a href="complaint_table.php?page=' . $page . '">' . $page . '</a>';
-            ?>
+    
         </div>
     </div>
 

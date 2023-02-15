@@ -25,7 +25,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
         $emp_id = $row['emp_id'];
         $user=$row['user'];
 
-        $insert = "insert into login_history(emp_id) values ('{$row['emp_id']}')";
+        $insert = "insert into login_history(emp_id,user) values ('{$row['emp_id']}','{$row['user']}')";
         $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
 
         $last_insert_id = mysqli_insert_id($conn);

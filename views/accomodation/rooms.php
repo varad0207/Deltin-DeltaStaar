@@ -66,6 +66,7 @@ if (isset($_GET['edit'])) {
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Room Details</h1>
                         <form class="requires-validation f3 lh-copy" novalidate
                             action="../../controllers/rooms_controller.php" method="post">
+                            <input class="form-control" type="hidden" name="id" value="<?php echo $room_id ?>">
 
                             <div class="col-md-12 pa2">
                                 <label for="accomodation">Accomodation</label>

@@ -4,17 +4,30 @@ include('../../controllers/includes/common.php');
 if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
+
+if($_SESSION['is_superadmin']){
+    
+}
+
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_jobs'] > 0) {
     $isPrivilaged = $rights['rights_jobs'];
-} else
+} 
+// else
+//     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+// $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
+// if(mysqli_num_rows($sql)==0) 
+//     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
+
+if(!$isPrivilaged)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
-if(mysqli_num_rows($sql)==0) 
+if(mysqli_num_rows($sql)>0) 
+    $technician_id = mysqli_fetch_array($sql);
+else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-$technician_id = mysqli_fetch_array($sql);
-
 ?>
 
 <!DOCTYPE html>

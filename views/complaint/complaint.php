@@ -2,7 +2,7 @@
 require '../../controllers/includes/common.php';
 require '../../controllers/complaint_controller.php';
 
-if(isset($_SESSION['emp_id'])){
+if(isset($_SESSION['emp_id']) && isset($_GET['edit'])){
     $acc = mysqli_fetch_array(mysqli_query($conn, 
         "SELECT acc_code 
         FROM employee 

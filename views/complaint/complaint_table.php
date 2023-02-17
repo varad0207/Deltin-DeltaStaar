@@ -251,7 +251,6 @@ if (mysqli_num_rows($check) > 0)
             if (isset($_POST['save']) || (isset($_SESSION['emp_id']) && $isPrivilaged)) {
             if (isset($_POST['Id']))
                 $emp_code = $_POST['Id'];
-            echo "<script>console.log('$emp_code')</script>";
             // $results = isset($_SESSION['emp_id']) ? mysqli_query($conn, "SELECT * FROM complaints") : mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
             ?>
 

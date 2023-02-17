@@ -5,7 +5,7 @@
     //fail safe for change tracking
     $AllowTrackingChanges=true;
     
-    if(!isset($_SESSION['emp_id'])){
+    if(!isset($_SESSION)){
         session_start();
     } 
 ?>  

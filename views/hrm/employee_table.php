@@ -12,8 +12,6 @@ if ($rights['rights_employee_details'] > 0) {
 } 
 else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
-/* ***************** PAGINATION ***************** */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +57,13 @@ else
             }
         }
     </script>
+
+    <!-- TESTING -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 </head>
 
 <body class="bg">
@@ -68,12 +73,23 @@ else
     include '../../controllers/includes/navbar.php';
     ?>
 
-    <h1 class="tc f1 lh-title spr">Employee Details</h1>
-    <div class="pa1">
-        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
-    </div>
 
+    <div class="table-header">
+    <h1 class="tc f1 lh-title spr">Employee Details</h1>
+    <div class="fl w-75 form-outline srch">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
+        <h4 id="demo"></h4>
+    </div>
+    <div class="fl w-25 tr">
+    <button class="btn btn-dark" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    <i class="bi bi-filter-circle"> Sort By</i> </button>
+        
+    </div>
+    </div>
+<br>
+    
     <!-- FILTERING DATA -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <div class="pa1">
         <br>
         <form action="" method="GET">
@@ -166,6 +182,7 @@ else
                 </tbody>
             </table>
         </form>
+    </div>
     </div>
 
     <?php

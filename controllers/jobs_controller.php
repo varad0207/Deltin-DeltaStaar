@@ -1,6 +1,6 @@
 <?php
 
-    include('../../controllers/includes/common.php');
+    require 'includes/common.php';
 
         $complaint_id = "";
         $technician_id = "";
@@ -28,7 +28,7 @@
 
          //change tracking code
          if($AllowTrackingChanges)
-         mysqli_query($conn,"insert into change_tracking_jobs(user,type,job_id,complaint_id, technician_id, warden_emp_code, raise_timestamp, description, completion_date, remarks) values ('{$_SESSION['user']}','Insert','$last_insert_id','$complaint_id','$technician_id', '$warden_emp_code', '$raise_timestamp', '$description', '$completion_date', '$remarks')");
+         mysqli_query($conn,"insert into change_tracking_jobs(user,type,jobs_id,complaint_id, technician_id, warden_emp_code, raise_timestamp, description, completion_date, remarks) values ('{$_SESSION['user']}','Insert','$last_insert_id','$complaint_id','$technician_id', '$warden_emp_code', '$raise_timestamp', '$description', '$completion_date', '$remarks')");
  
         header("location: ../views/complaint/jobs_table.php");
     }

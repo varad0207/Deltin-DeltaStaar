@@ -185,7 +185,7 @@ if (mysqli_num_rows($check) > 0)
     </div>
 
     <?php
-    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_id) WHERE 1=1";
+    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_code) WHERE 1=1";
     $sort_condition = "";
     if (isset($_GET['sort_alpha'])) {
         if ($_GET['sort_alpha'] == "a-z") {

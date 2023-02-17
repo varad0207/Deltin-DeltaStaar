@@ -352,7 +352,7 @@ if (mysqli_num_rows($check) > 0)
                                     if ($query) {
                                         if (mysqli_num_rows($query) > 0) {
                                             ?>
-                                            <a href="jobs_table.php ?>" class="edit_btn"
+                                            <a href="jobs_table.php" class="edit_btn"
                                                         style="color: green;">Job Raised</a>
                                             <!-- <b style="color: green;">Job Raised</b> -->
                                             <?php

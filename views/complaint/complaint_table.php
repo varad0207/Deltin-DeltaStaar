@@ -185,7 +185,7 @@ if (mysqli_num_rows($check) > 0)
     </div>
 
     <?php
-    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_id) WHERE 1=1";
+    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_code) WHERE 1=1";
     $sort_condition = "";
     if (isset($_GET['sort_alpha'])) {
         if ($_GET['sort_alpha'] == "a-z") {
@@ -280,7 +280,8 @@ if (mysqli_num_rows($check) > 0)
                             $emp_code = $row['emp_code'];
                             $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'"));
                             $EmployeeRoom_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'"));
-                            $AccName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'"));
+
+                            $AccName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM accomodation where acc_code='{$row['acc_code']}'"));
                     
                             $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
 
@@ -352,7 +353,7 @@ if (mysqli_num_rows($check) > 0)
                                     if ($query) {
                                         if (mysqli_num_rows($query) > 0) {
                                             ?>
-                                            <a href="jobs_table.php ?>" class="edit_btn"
+                                            <a href="jobs_table.php" class="edit_btn"
                                                         style="color: green;">Job Raised</a>
                                             <!-- <b style="color: green;">Job Raised</b> -->
                                             <?php

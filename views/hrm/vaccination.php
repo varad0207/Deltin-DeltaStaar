@@ -79,11 +79,9 @@ if (isset($_GET['edit'])) {
                                         <?php
                                         $emp_code = mysqli_query($conn, "SELECT * FROM employee");
 
-                                        foreach ($emp_code as $row) 
-                                        {
-                                        ?>
-<option name="employee_code" value="<?= $row["emp_id"] ?>"><?= $row["emp_code"]; ?>
-                                            </option>
+                                        foreach ($emp_code as $row) {?>
+                                        <option name="employee_code" value="<?= $row["emp_id"] ?>"><?= $row["emp_code"]; ?>
+                                        </option>
                                         <?php
                                         }
 
@@ -118,10 +116,7 @@ if (isset($_GET['edit'])) {
                                     <label for="empcode">Employee Code</label>
 
                                     <input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code ?>"
-                                        disabled>
-
-
-
+                                        readonly>
                                 </div>
                                 <div class="col-md-12 pa2">
                                     <label for="category">Vaccination Category</label>

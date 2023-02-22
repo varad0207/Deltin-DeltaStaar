@@ -101,10 +101,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="location[]" value="<?= $loc['loc_id']; ?>" <?php if (in_array($loc['loc_id'], $checked1)) {
-                                                                                                                        echo "checked";
-                                                                                                                    }
-                                                                                                                    ?>>
+                                        <input type="checkbox" name="location[]" value="<?= $loc['loc_id']; ?>" <?php if (in_array($loc['loc_id'], $checked1)) 
+                                        {echo "checked";}?>>
                                         <label><?= $loc['location']; ?></label>
                                     </div>
                             <?php
@@ -126,10 +124,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="bldg_status[]" value="<?= $stat['bldg_status']; ?>" <?php if (in_array($stat['bldg_status'], $checked1)) {
-                                                                                                                        echo "checked";
-                                                                                                                    }
-                                                                                                                    ?>>
+                                        <input type="checkbox" name="bldg_status[]" value="<?= $stat['bldg_status']; ?>" <?php if (in_array($stat['bldg_status'], $checked1)) 
+                                        {echo "checked";} ?>>
                                         <label><?= $stat['bldg_status']; ?></label>
                                     </div>
                             <?php
@@ -182,25 +178,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     
 
     <!-- Displaying Database Table -->
-        <?php  //Entries per-page
-        $results_per_page = 5;
-
-        //Number of results in the DB
-        $sql = "SELECT * FROM accomodation";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result); 
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
-
-        // on which is the user
-        if (!isset($_GET['page']))
-        $page = 1;
-        else
-        $page = $_GET['page'];
-        //starting limit number for the results
-        $this_page_first_result = ($page - 1) * $results_per_page;
-
-        ?>
         <?php 
         $sqli = "SELECT * FROM accomodation t1 JOIN acc_locations t2 ON t1.location=t2.loc_id JOIN employee t3 ON t1.warden_emp_code=t3.emp_code WHERE 1=1";
         $sort_condition = "";
@@ -246,11 +223,25 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         }
         $sqli .=" ORDER BY acc_name $sort_condition";
         $temp_qry=$sqli;
-        // echo $sqli;
-        // retrieve the selected results
-        $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
         $results = mysqli_query($conn, $sqli);
-        ?>    
+        ?> 
+        
+    <?php
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sqli .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sqli);
+
+    $q1="SELECT * FROM accomodation";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
+    ?>
 
         <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -336,17 +327,20 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     ?>
                 </tbody>
             </table>
-           
-            
-           
-            <?php
-             //display the links to the pages
-            for($page=1;$page<=$number_of_pages;$page++)
-                echo '<a href="accomodation_table.php?page=' .$page .'">' .$page .'</a>';
-            ?>
         </div>
     </div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="accomodation_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="accomodation_table.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="accomodation_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
             <form action="excel.php" method="post">
@@ -361,6 +355,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         </div>
         <?php } ?>
     </div>
+
+    
     
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>

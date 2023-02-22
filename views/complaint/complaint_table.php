@@ -85,9 +85,9 @@ if (mysqli_num_rows($check) > 0)
             <table class="table">
                 <thead>
                     <th>Complain Category : </th>
-                    <th>Status : </th>
                     <th>Accommodation : </th>
                     <th>Sort By : </th>
+                   
                 </thead>
                 <tbody>
                     <tr>
@@ -103,11 +103,11 @@ if (mysqli_num_rows($check) > 0)
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="type[]" value="<?= $filter['type']; ?>" <?php if (in_array($filter['type'], $checked1)) {
+                                        <input type="checkbox" name="type[]" value="<?= $filter['complaint_type']; ?>" <?php if (in_array($filter['complaint_type'], $checked1)) {
                                                                                                                         echo "checked";
                                                                                                                     }
                                                                                                                     ?>>
-                                        <label><?= $filter['type']; ?></label>
+                                        <label><?= $filter['complaint_type']; ?></label>
                                     </div>
                             <?php
                                 }
@@ -115,9 +115,6 @@ if (mysqli_num_rows($check) > 0)
                                 echo "No Data available";
                             }
                             ?>
-                        </td>
-                        <td>
-                        
                         </td>
                         <td>
                         <?php
@@ -163,30 +160,6 @@ if (mysqli_num_rows($check) > 0)
     </div>
 
     <div class="table-header">
-        <!-- Displaying Database Table -->
-        <?php //Entries per-page
-        $results_per_page = 5;
-
-        //Number of results in the DB
-        $sql = "select * from complaints";
-        $result = mysqli_query($conn, $sql);
-        $number_of_results = mysqli_num_rows($result);
-        //number of pages
-        $number_of_pages = ceil($number_of_results / $results_per_page);
-
-        // on which is the user
-        if (!isset($_GET['page']))
-            $page = 1;
-        else
-            $page = $_GET['page'];
-        //starting limit number for the results
-        $this_page_first_result = ($page - 1) * $results_per_page;
-
-        // retrieve the selected results
-        // $sqli = "SELECT * FROM complaints LIMIT " . $this_page_first_result . ',' . $results_per_page;
-        // $results = mysqli_query($conn, $sqli);
-
-        ?>
         <?php if (!isset($_SESSION['emp_id'])) { ?>
             <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="Id">
@@ -212,7 +185,7 @@ if (mysqli_num_rows($check) > 0)
     </div>
 
     <?php
-    $sqli = "SELECT * FROM complaints t1 JOIN employee t2 USING(emp_code) JOIN rooms t3 ON t2.room_id=t3.id JOIN accomodation t4 USING(acc_id) JOIN complaint_type t5 ON t1.type=t5.id WHERE 1=1";
+    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_code) WHERE 1=1";
     $sort_condition = "";
     if (isset($_GET['sort_alpha'])) {
         if ($_GET['sort_alpha'] == "a-z") {
@@ -226,7 +199,7 @@ if (mysqli_num_rows($check) > 0)
         $filter_checked = $_GET['type'];
         $sqli .= " AND ( ";
         foreach($filter_checked as $row_filter){
-            $sqli .= " t5.type='$row_filter' OR"; 
+            $sqli .= " complaint_type='$row_filter' OR"; 
         }
         $sqli =substr($sqli,0,strripos($sqli,"OR"));  
         $sqli .=" ) ";
@@ -237,16 +210,32 @@ if (mysqli_num_rows($check) > 0)
         $filter_checked = $_GET['acc_name'];
         $sqli .= " AND ( ";
         foreach($filter_checked as $row_filter){
-            $sqli .= " t4.acc_name='$row_filter' OR"; 
+            $sqli .= " acc_name='$row_filter' OR"; 
         }
         $sqli =substr($sqli,0,strripos($sqli,"OR"));  
         $sqli .=" ) ";
         
     }
-    $sqli .=" ORDER BY t5.type $sort_condition";
+    $sqli .=" ORDER BY complaint_type $sort_condition";
     // echo $sqli;
-    $sqli .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
-    $results = mysqli_query($conn, $sqli);
+    $complaint_qry=$sqli;
+   // $results = mysqli_query($conn, $sqli);
+    ?>
+    <?php
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sqli .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sqli);
+
+    $q1="SELECT * FROM vaccination";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
     ?>
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
@@ -262,7 +251,6 @@ if (mysqli_num_rows($check) > 0)
             if (isset($_POST['save']) || (isset($_SESSION['emp_id']) && $isPrivilaged)) {
             if (isset($_POST['Id']))
                 $emp_code = $_POST['Id'];
-            echo "<script>console.log('$emp_code')</script>";
             // $results = isset($_SESSION['emp_id']) ? mysqli_query($conn, "SELECT * FROM complaints") : mysqli_query($conn, "SELECT * FROM complaints where emp_code='$emp_code'");
             ?>
 
@@ -288,23 +276,13 @@ if (mysqli_num_rows($check) > 0)
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = mysqli_fetch_array($results)) { ?>
-                            <?php
+                        <?php while ($row = mysqli_fetch_array($result)) { 
                             $emp_code = $row['emp_code'];
-                            $queryEmpName = mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'");
-                            $EmpName_row = mysqli_fetch_assoc($queryEmpName);
+                            $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'"));
+                            $EmployeeRoom_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'"));
 
-                            $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'");
-                            $EmployeeRoom_row = mysqli_fetch_assoc($queryRoom);
-
-                            $queryAccName = mysqli_query($conn, "SELECT * FROM accomodation where acc_id='{$EmployeeRoom_row['acc_id']}'");
-                            $AccName_row = mysqli_fetch_assoc($queryAccName);
-
-                            ?>
-                            <?php
-                            $comp_type = $row['type'];
-                            $queryCompType = mysqli_query($conn, "SELECT * FROM complaint_type WHERE id='$comp_type'");
-                            $CompType_row = mysqli_fetch_assoc($queryCompType);
+                            $AccName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM accomodation where acc_code='{$row['acc_code']}'"));
+                    
                             $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
 
                             ?>
@@ -317,7 +295,7 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch complaint category -->
                                 <td>
-                                    <?php echo $row['type']; ?>
+                                    <?php echo $row['complaint_type']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['description']; ?>
@@ -351,21 +329,21 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch emp name -->
                                 <td>
-                                    <?php echo $row['fname']; ?>
+                                    <?php echo $EmpName_row['fname']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['emp_code']; ?>
                                 </td>
                                 <!-- fetch acc name -->
                                 <td>
-                                    <?php echo $row['acc_name']; ?>
+                                    <?php echo $AccName_row['acc_name']; ?>
                                 </td>
                                 <td>
                                     <?php
-                                    if (isset($row['room_no']) && !empty($row['room_no'])) {
-                                        echo $row['room_no'];
+                                    if (isset($EmployeeRoom_row['room_no']) && !empty($EmployeeRoom_row['room_no'])) {
+                                        echo $EmployeeRoom_row['room_no'];
                                     } else {
-                                        echo $row['room_no'] = 'N/A';
+                                        echo $EmployeeRoom_row['room_no'] = 'N/A';
                                     }
                                     ?>
                                 </td>
@@ -375,7 +353,7 @@ if (mysqli_num_rows($check) > 0)
                                     if ($query) {
                                         if (mysqli_num_rows($query) > 0) {
                                             ?>
-                                            <a href="jobs_table.php ?>" class="edit_btn"
+                                            <a href="jobs_table.php" class="edit_btn"
                                                         style="color: green;">Job Raised</a>
                                             <!-- <b style="color: green;">Job Raised</b> -->
                                             <?php
@@ -404,27 +382,27 @@ if (mysqli_num_rows($check) > 0)
                     </tbody>
                 </table>
             <?php } ?>
-            <?php
-
-            //display the links to the pages
-            for ($page = 1; $page <= $number_of_pages; $page++)
-                echo '<a href="complaint_table.php?page=' . $page . '">' . $page . '</a>';
-            ?>
         </div>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="complaint_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="complaint_table.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="complaint_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
 
-    <!-- <div class="table-footer pa4">
+    <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+        <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="complaint_export" value="<?php echo $complaint_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+            </form>
         </div>
-        <div class="fl w-25 tr">
-            <button class="btn btn-light">
-                <h4><a href="tanker.php">Add Tanker</a></h4>
-            </button>   
-        </div>
-    </div> -->
+    </div>
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>

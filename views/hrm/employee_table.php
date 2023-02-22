@@ -9,9 +9,9 @@ $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_employee_details'] > 0) {
     $isPrivilaged = $rights['rights_employee_details'];
-} else
+} 
+else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +57,13 @@ if ($rights['rights_employee_details'] > 0) {
             }
         }
     </script>
+
+    <!-- TESTING -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 </head>
 
 <body class="bg">
@@ -66,12 +73,23 @@ if ($rights['rights_employee_details'] > 0) {
     include '../../controllers/includes/navbar.php';
     ?>
 
-    <h1 class="tc f1 lh-title spr">Employee Details</h1>
-    <div class="pa1">
-        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
-    </div>
 
+    <div class="table-header">
+    <h1 class="tc f1 lh-title spr">Employee Details</h1>
+    <div class="fl w-75 form-outline srch">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
+        <h4 id="demo"></h4>
+    </div>
+    <div class="fl w-25 tr">
+    <button class="btn btn-dark" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    <i class="bi bi-filter-circle"> Sort By</i> </button>
+        
+    </div>
+    </div>
+<br>
+    
     <!-- FILTERING DATA -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <div class="pa1">
         <br>
         <form action="" method="GET">
@@ -101,10 +119,10 @@ if ($rights['rights_employee_details'] > 0) {
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) {
-                                                                                                                        echo "checked";
-                                                                                                                    }
-                                                                                                                    ?>>
+                                        <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) 
+                                        {
+                               echo "checked";
+                           }?>>
                                         <label><?= $desig['designation']; ?></label>
                                     </div>
                             <?php
@@ -126,10 +144,11 @@ if ($rights['rights_employee_details'] > 0) {
                                     }
                             ?>
                                     <div>
-                                        <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) {
-                                                                                                                        echo "checked";
-                                                                                                                    }
-                                                                                                                    ?>>
+                                        <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) 
+                                        {
+                                        echo "checked";
+                                        }
+                                        ?>>
                                         <label><?= $dept['dept_name']; ?></label>
                                     </div>
                             <?php
@@ -142,12 +161,12 @@ if ($rights['rights_employee_details'] > 0) {
                         <td>
                             <label>From : </label>
                             <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                                                            echo $_POST['start_date']; ?>">
+                            echo $_POST['start_date']; ?>">
                             <br>
                             <br>
                             <label>To : </label>
                             <input type="date" name="end_date" value="<?php  if (isset($_POST['end_date']))
-                                                                            echo $_POST['end_date']; ?>"><br>
+                            echo $_POST['end_date']; ?>"><br>
 
                         </td>
                         <td>
@@ -163,6 +182,7 @@ if ($rights['rights_employee_details'] > 0) {
                 </tbody>
             </table>
         </form>
+    </div>
     </div>
 
     <?php
@@ -210,7 +230,24 @@ if ($rights['rights_employee_details'] > 0) {
         $_GET['end_date']!=""?$sql .= " and joining_date<='{$_GET['end_date']}' ":$a=0;
     }
     $sql .=" ORDER BY fname $sort_condition";
+    $emp_qry=$sql;
+    
+
+    /* ***************** PAGINATION ***************** */
+    $limit=10;
+    $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
+    $sql .=" LIMIT $start,$limit";
     $result=mysqli_query($conn,$sql);
+
+    $q1="SELECT * FROM employee";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    $Previous=$page-1;
+    $Next=$page+1;
+    /* ************************************************ */
+
     ?>
     <!-- Displaying Database Table -->
     <div class="table-div" style="margin-top:100px">
@@ -241,7 +278,7 @@ if ($rights['rights_employee_details'] > 0) {
                 <tbody>
                     <?php
                         if (mysqli_num_rows($result) > 0) 
-                        {
+                        {   
                             while($row=mysqli_fetch_array($result)) 
                             { ?>
                                 <tr class="live">
@@ -269,6 +306,7 @@ if ($rights['rights_employee_details'] > 0) {
                                     </td>
                                 </tr>
                                 <?php
+                                
                             }
                         } 
                         else 
@@ -281,11 +319,23 @@ if ($rights['rights_employee_details'] > 0) {
         </div>
     </div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for($i=1;$i<=$pages;$i++) :?>
+    <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$i?>">
+                <?php echo $i; ?>
+            </a></li>
+            <?php endfor;?>
+            <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
+
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+        <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="emp_export" value="<?php echo $emp_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+        </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">

@@ -53,7 +53,8 @@ if (isset($_GET['edit']))
                     <h1 class="f2 lh-copy tc" style="color: white;">Enter Department Details</h1>
                     <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/emp_dept_controller.php" method="post">
                       
-                       
+                    <input class="form-control" type="hidden" name="id" value="<?php echo $id ?>">
+
                         <div class="col-md-12 pa2">
                             <label for="dept_name">Department Name</label>
                               <input class="form-control" type="text" name="dept" value="<?php echo $dept ?>" placeholder="Department" required>

@@ -68,11 +68,22 @@ if (mysqli_num_rows($check) > 0)
     include '../../controllers/includes/navbar.php';
     ?>
 
-    <h1 class="tc f1 lh-title spr">All Complaints</h1>
-    <div class="pa1">
+    <div class="table-header">
+    <h1 class="tc f1 lh-title spr">Complaint Details</h1>
+    <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
+        <h4 id="demo"></h4>
     </div>
+    <div class="fl w-25 tr pa1">
+    <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    <i class="bi bi-filter-circle"> Sort By</i> </button>
+    
+    </div>
+    </div>
+
+    
     <!-- FILTERING DATA -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <div class="pa1">
         <br>
         <form action="" method="GET" class="myForm">
@@ -158,7 +169,7 @@ if (mysqli_num_rows($check) > 0)
             </table>
         </form>
     </div>
-
+    </div>
     <div class="table-header">
         <?php if (!isset($_SESSION['emp_id'])) { ?>
             <form class="requires-validation f3 lh-copy tc" novalidate action="complaint_table.php" method="post">

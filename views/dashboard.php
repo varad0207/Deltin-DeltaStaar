@@ -72,7 +72,8 @@ if ($_SESSION['is_superadmin']) {
         include '../controllers/includes/navbar.php';
         ?>
 
-        <div class="tc f1 lh-title txt7">Welcome back, 
+        <div class="tc f1 lh-title txt7">
+            Welcome back, 
             <span class="spr">
                 <?php echo $emp_details['fname']; ?>
             </span>!

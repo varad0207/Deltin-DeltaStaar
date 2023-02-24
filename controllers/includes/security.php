@@ -6,7 +6,7 @@ include 'common.php';
 
     <div class="left">
         <div class="security-logo">
-            <img src="../images/guard.png" alt="security_logo">
+            <img src="../images/guard.png" alt="security_logo" width="80%">
         </div>
 
     </div>

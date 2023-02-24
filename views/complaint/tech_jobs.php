@@ -4,17 +4,30 @@ include('../../controllers/includes/common.php');
 if (!isset($_SESSION["emp_id"]))
     header("location:../../views/login.php");
 // check rights
+
+if($_SESSION['is_superadmin']){
+    
+}
+
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_jobs'] > 0) {
     $isPrivilaged = $rights['rights_jobs'];
-} else
+} 
+// else
+//     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+// $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
+// if(mysqli_num_rows($sql)==0) 
+//     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
+
+if(!$isPrivilaged)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
-if(mysqli_num_rows($sql)==0) 
+if(mysqli_num_rows($sql)>0) 
+    $technician_id = mysqli_fetch_array($sql);
+else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-$technician_id = mysqli_fetch_array($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -166,25 +179,19 @@ $technician_id = mysqli_fetch_array($sql);
                                 <?php echo $row['job_comp_time']; ?>
                             </td>
 
-                            <td>
-                                <a id="buttonId" class="del_btn">Add remark</a>
-                                <script>
-                                    
-                                    document.getElementById("buttonId").addEventListener("click", function () {
-                                        var button = document.getElementById("buttonId");
-                                        var textbox = document.createElement("input");
-                                        textbox.type = "text";
-                                        var submitButton = document.createElement("input");
-                                        submitButton.type = "submit";
-                                        button.parentNode.replaceChild(textbox, button);
-                                        textbox.parentNode.insertBefore(submitButton, textbox.nextSibling);
-
-                                    });
-                                </script>
+                            <td style="text-align:center;">
+                                <?php if (!isset($row['tech_pending_timestamp'])) { ?>
+                                    <a href="../../controllers/complaint_controller.php?tech_pending=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
+                                        class="del_btn">Material</a><br>
+                                <?php } else { ?>
+                                    <p class="del_btn"
+                                        style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; margin-bottom: 0px; text-align: center; display: inline-block;"
+                                        disabled>Closed</p><br>
+                                <?php } ?>
                             </td>
 
                             <td style="text-align:center;">
-                                <?php if (!isset($row3['tech_closure_timestamp'])) { ?>
+                                <?php if (!isset($row['tech_closure_timestamp'])) { ?>
                                     <a href="../../controllers/complaint_controller.php?tech=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
                                         class="del_btn">Done</a><br>
                                 <?php } else { ?>

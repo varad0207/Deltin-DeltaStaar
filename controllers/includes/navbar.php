@@ -1,23 +1,17 @@
 <?php 
 require 'common.php';
 
-$isDashboard=0;
-if (basename($_SERVER['PHP_SELF'],'.php') == "dashboard")
-    $isDashboard = 1;
+$link = "";
+if (basename($_SERVER['PHP_SELF'],'.php') != "dashboard")
+    $link = "../";
 ?>
 
 <nav class="navbar  navbar-expand-lg navbar-dark f3 lh-copy pa3 fw4">
         <div class="container-fluid">
         <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
             <a class="navbar-brand" href="#">
-                <?php if($isDashboard){ ?>
-                <img src="../images/logo-no-name.png" height="50px" alt="Deltin Logo"
+                <img src="../<?php echo $link; ?>images/logo-no-name.png" height="50px" alt="Deltin Logo"
                     class="d-inline-block align-text-top" style="border-radius: 50px;">
-                    <?php }
-                    else{ ?>
-                <img src="../../images/logo-no-name.png" height="50px" alt="Deltin Logo"
-                    class="d-inline-block align-text-top" style="border-radius: 50px;">
-                    <?php } ?>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -57,7 +51,7 @@ if (basename($_SERVER['PHP_SELF'],'.php') == "dashboard")
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <!-- only superadmin will see the configure button -->
-                        <?php if($_SESSION['is_superadmin'] && $isDashboard) {?>
+                        <?php if($_SESSION['is_superadmin'] && basename($_SERVER['PHP_SELF'],'.php') == "dashboard") {?>
                         <li class="nav-item">
                             <div class="dropdown">
                                 <a class="nav-link active " id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"
@@ -74,17 +68,23 @@ if (basename($_SERVER['PHP_SELF'],'.php') == "dashboard")
                                     <a class="dropdown-item" href="../views/config/vaccination_category.php">Add Vaccination
                                         category</a>
                                     <a class="dropdown-item" href="../views/config/emp_desig.php">Add Employee Designation</a>
+                                    <a class="dropdown-item" href="../views/config/emp_dept.php">Add Employee Department</a>
+                                    <a class="dropdown-item" href="../views/config/acc_loc.php">Add Accommodation Location</a>
                                     <a class="dropdown-item" href="../views/config/tanker_vendor.php">Add Tanker Vendors</a>
                                     <a class="dropdown-item" href="../views/config/security.php">Define Security</a>
                                     <a class="dropdown-item" href="../views/config/technician.php">Define/Add Technician</a>
                                     <a class="dropdown-item" href="../views/config/complaint_type.php">Complaint Type</a>
+                                    
                                 </div>
                             </div>
                         </li>
                         <?php } 
-                        if(!$isDashboard){?>
+                        if(basename($_SERVER['PHP_SELF'],'.php') != "dashboard"){?>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../../views/dashboard.php">Home</a>
+                        </li>
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link active1" aria-current="page" onclick="window.history.back()">Back</a>
                         </li>
                         
                         <!-- <li class="nav-item">
@@ -93,9 +93,7 @@ if (basename($_SERVER['PHP_SELF'],'.php') == "dashboard")
                         <!-- <li class="nav-item">
                             <a class="nav-link active" href="../../views/complaint/complaint.php" >Complain+</a>
                         </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link active1" id="adminlogin" href="../../controllers/logout.php">Log Out</a>
-                        </li>
+                        
                         <?php } 
                         else{ ?>
                         <li class="nav-item">
@@ -104,10 +102,10 @@ if (basename($_SERVER['PHP_SELF'],'.php') == "dashboard")
                         <li class="nav-item">
                             <a class="nav-link active" href="../views/complaint/complaint.php" >Complain+</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active1" id="adminlogin" href="../controllers/logout.php">Log Out</a>
-                        </li>
                         <?php } ?>
+                        <li class="nav-item">
+                            <a class="nav-link active1" id="adminlogin" href="../<?php echo $link; ?>controllers/logout.php">Log Out</a>
+                        </li>
                     </ul>
                 </div>
                 <?php } ?>

@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
 @font-face {
-    font-family: Seasons;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: Seasons; */
     src: url(Fontspring-DEMO-theseasons-bd.otf);
 }
 
 .container {
     display: flex;
-
 }
 
 .left-side {
@@ -19,11 +21,11 @@
     padding: 20px;
 }
 
-.welcome-message {
+/* .welcome-message {
+    font-family: 'Poppins', sans-serif;
     font-size: 50px;
     margin-bottom: 20px;
-    font-family: Seasons;
-}
+} */
 
 .parent-con {
     display: flex;

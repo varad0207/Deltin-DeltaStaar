@@ -1,6 +1,11 @@
 <?php
 require '../../controllers/includes/common.php';
 require '../../controllers/complaint_type_controller.php';
+if (!isset($_SESSION["emp_id"]))
+    header("location:../../views/login.php");
+if ($_SESSION['is_superadmin'] == 0)
+    die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +86,7 @@ require '../../controllers/complaint_type_controller.php';
                 <thead>
                 <tr>
                     <th>Complaint Type</th>
-                    <th>Raised Description</th>
+                    <th>Description</th>
                     <th colspan="2">Action</th>
                 </tr>
                 </thead>
@@ -89,17 +94,17 @@ require '../../controllers/complaint_type_controller.php';
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
                         <td>
-                            <?php echo $row['type']; ?>
+                            <?php echo $row['complaint_type']; ?>
                         </td>
                         <td>
-                            <?php echo $row['description']; ?>
+                            <?php echo $row['type_description']; ?>
                         </td>
                         <td>
-                            <a href="complaint_type.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
-                                class="edit_btn">Raise Job</a>
+                            <a href="complaint_type.php?edit=<?php echo '%27' ?><?php echo $row['type_id']; ?><?php echo '%27' ?>"
+                                class="edit_btn">Edit</a>
                         </td>
                         <td>
-                            <a href="../../controllers/complaint_type_controller.php?del=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="../../controllers/complaint_type_controller.php?del=<?php echo '%27' ?><?php echo $row['type_id']; ?><?php echo '%27' ?>"
                                 class="del_btn">Delete</a>
                         </td>
                     </tr>

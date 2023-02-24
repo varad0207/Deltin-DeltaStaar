@@ -56,6 +56,13 @@ else
                 }
             }
         }
+        $(document).ready(function () { 
+        $(document).click(function () {
+            // if($(".navbar-collapse").hasClass("in")){
+            $('.navbar-collapse').collapse('hide');
+            // }
+        });
+        });
     </script>
 
     <!-- TESTING -->
@@ -67,26 +74,44 @@ else
 </head>
 
 <body class="bg">
+    <style>
+        .navbar-collapse{
+        z-index:2;
+        
+        }
+        .navbar-toggler{
+        position:absolute;
+        top:0;
+        left:0;
+        height:100%;
+        width:100%;
+        z-index:1;
+        cursor:pointer;
+        }
+        .navbar-toggler.collapsed{
+        z-index:-1;
+        }
+    </style>
     <!-- Sidebar and Navbar-->
     <?php
     include '../../controllers/includes/sidebar.php';
     include '../../controllers/includes/navbar.php';
     ?>
 
-
+    
     <div class="table-header">
     <h1 class="tc f1 lh-title spr">Employee Details</h1>
     <div class="fl w-75 form-outline srch">
         <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
         <h4 id="demo"></h4>
     </div>
-    <div class="fl w-25 tr">
-    <button class="btn btn-dark" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    <div class="fl w-25 tr pa1">
+    <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
     <i class="bi bi-filter-circle"> Sort By</i> </button>
-        
+    
     </div>
     </div>
-<br>
+
     
     <!-- FILTERING DATA -->
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -355,7 +380,7 @@ else
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> -->
 </body>
 
 </html>

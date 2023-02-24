@@ -32,7 +32,8 @@
 <body>
 
     <?php
-    include '../charts/complaintTypes_Doughnut.php';
+    include '../charts/waterTankers_Line.php';
+    /*include '../charts/complaintStatus_Pie.php';*/
     ?>
 
 </body>

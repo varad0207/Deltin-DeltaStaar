@@ -1,3 +1,42 @@
+<?php
+// Change this connection code to commom.php
+
+$username = "root";
+$password = "";
+$database = "chartjs";
+
+try {
+    $pdo = new PDO("mysql:host=localhost;database=$database", $username, $password);
+    // Set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("ERROR: Could not connect. " . $e->getMessage());
+}
+
+// Attempt select query execution
+try {
+    $sql = "SELECT * FROM chartjs.barchart";
+    $result = $pdo->query($sql);
+    if ($result->rowCount() > 0) {
+
+        $revenue = array();
+        while ($row = $result->fetch()) {
+            $revenue[] = $row["revenue"];
+
+        }
+
+        unset($result);
+    } else {
+        echo "No records matching your query were found.";
+    }
+} catch (PDOException $e) {
+    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+}
+
+// Close connection
+unset($pdo);
+?>
+
 <style>
     .chart-container {
         display: flex;

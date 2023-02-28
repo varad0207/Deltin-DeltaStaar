@@ -282,13 +282,13 @@ if (isset($_GET['edit'])) {
                                     <option name="employee_room" selected disabled value="">Select room
                                     </option>
                                     <?php
-                                    // $accid = $empAcc_row['acc_id'];
+                                    //$accid = $empAcc_row['acc_id'];
                                     $emp_room = mysqli_query($conn, "SELECT * FROM rooms");
 
                                     foreach ($emp_room as $row) {
                                         if ($row['status'] == 'Occupied') {
                                     ?>
-                                            <option name="employee_room" disabled value="<?= $row["id"] ?>">
+                                            <option name="employee_room" readonly value="<?= $row["id"] ?>">
                                                 <?= $row["room_no"]; ?>
                                             </option>
                                         <?php } elseif ($row['status'] == 'Available') {

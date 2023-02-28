@@ -129,7 +129,7 @@ if (isset($_GET['edit'])) {
                                 <select class="form-select mt-3" name="gender" value="<?php echo $gender ?>" required>
                                     <option selected disabled value="">Select Gender</option>
                                     <option value="Male">Male</option>
-                                    <option value="Female">Femlae</option>
+                                    <option value="Female">Female</option>
                                     <option value="Unisex">Unisex</option>
                                 </select>
 

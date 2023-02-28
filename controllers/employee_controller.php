@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
 
         // $submitAcc = mysqli_query($conn, $updateAcc) or die(mysqli_error($conn));
     }
-    mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary','nullif('$room_id',' ')')");
+    mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
     $last_insert_id = mysqli_insert_id($conn);
 
     // mysqli_query($conn, "INSERT INTO contact (emp_id, primary_contact,secondary_contact) VALUES ('$last_insert_id', '$contact1','$contact2')");

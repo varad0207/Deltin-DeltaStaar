@@ -98,7 +98,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                                 <a class="nav-link active" href="../views/aboutus.html">About Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="../views/complaint/complaint.php">Complain+</a>
+                                <a class="nav-link active" href="../views/complaint/complaint.php">Complaint+</a>
                             </li>
                         <?php } ?>
                         <li class="nav-item">

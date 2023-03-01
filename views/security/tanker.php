@@ -129,8 +129,8 @@ if(isset($_GET['edit']))
                       </div>
 
                       <div class="col-md-12 pa2">
-                        <label for="billno">Bill Number</label>
-                          <input class="form-control" type="number" name="billno" placeholder="Bill Number" required>
+                        <label for="billno">Delivery Challan</label>
+                          <input class="form-control" type="text" name="billno" placeholder="Bill Number" required>
                           <div class="valid-feedback">field is valid!</div>
                           <div class="invalid-feedback">field cannot be blank!</div>
                       </div>

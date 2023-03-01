@@ -69,7 +69,6 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body class="b ma2">
-
     <!-- Sidebar and Navbar -->
     <?php
     include '../../controllers/includes/sidebar.php';
@@ -177,14 +176,7 @@ if (isset($_GET['edit'])) {
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="contact2">Secondary Contact Number</label>
-                                <input class="form-control" type="number" name="contact2" placeholder="Contact Number"
-                                    value="<?php //echo $contact2; 
-                                            ?>">
-                                 <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
+                            
 
                             <div class="col-md-12 pa2">
                                 <label for="email">Email</label>
@@ -208,13 +200,10 @@ if (isset($_GET['edit'])) {
                                 </select>
                                 <div class="invalid-feedback">Please select an option!</div>
                             </div>
-
+                            
+                            
                             <div class="col-md-12 pa2">
-                                <!-- <label for="dept">Department</label>
-                                <input class="form-control" type="text" name="department" placeholder="Department"
-                                    value="<?php echo $department; ?>" value="??php echo $department; ??" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div> -->
+                                
                                 <label for="department">Department</label>
                                 <select class="form-select mt-3" name="department" required>
                                     <option name="employee_dept" selected disabled value="">Select Department</option>
@@ -258,54 +247,65 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_id">Accomodation</label>
-                                <select class="form-select mt-3" name="acc_id" id="accList" onchange="myfunc()">
-                                    <option name="employee_accomodation" selected disabled value="">Select Accomodation
-                                    </option>
+                                
+                                    <select class="form-select mt-3" name="acc_id" onchange="func1()" id="select_acc">
+                                        <option name="employee_accomodation" selected disabled value="">Select Accomodation
+                                        </option>
 
-                                    <?php $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
-                                    $empAcc_row = mysqli_fetch_assoc($emp_acc);
-                                    foreach ($emp_acc as $row) { ?>
-                                        <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
-                                            <?= $row["acc_name"]; ?>
+                                        <?php 
+                                        $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
+                                        // $empAcc_row = mysqli_fetch_assoc($emp_acc);
+                                        foreach ($emp_acc as $row) { ?>
+                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
+                                                <?= $row["acc_name"]; ?>
+                                            </option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                
+                                <div class="invalid-feedback">Please select an option!</div>
+                                
+                            </div>
+                            <script>
+                                function func1(){
+                                    let d = document.getElementById("select_acc").value;
+                                    // alert(d);
+                                    console.log(d);
+                                    // document.cookie = "cookie1=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                                    cname = "cookie1";
+                                    document.cookie = cname + "=" + d;
+                                    // alert(document.cookie);
+                                }
+                            </script>
+                            <?php
+                            $myPHPvar = $_COOKIE["cookie1"];
+                            // echo $myPHPvar;
+                            ?>
+                                <div class="col-md-12 pa2">
+                                <label for="room_id">Room</label>
+                                
+                                <select class="form-select mt-3" name="room_id">
+                                    <option name="employee_room" selected disabled value="">Select Room
+                                    </option>
+                                    <?php 
+                                    $sql_query = mysqli_query($conn,"SELECT * FROM rooms WHERE acc_id='$myPHPvar'");
+                                    foreach ($sql_query as $row) { ?>
+                                        <option name="emp_room" value="<?= $row["id"] ?>">
+                                            <?= $row["room_no"]; ?>
                                         </option>
                                     <?php
                                     }
                                     ?>
-                                </select>
-                                <div class="invalid-feedback">Please select an option!</div>
-                            </div>
-
-                            <div class="col-md-12 pa2">
-                                <label for="room_id">Room</label>
-                                <select class="form-select mt-3" name="room_id">
-
-                                    <option name="employee_room" selected disabled value="">Select room
-                                    </option>
+                                    <!-- <?php 
+                                    $sql_query = mysqli_query($conn,"SELECT * FROM rooms");
+                                    foreach ($sql_query as $row) { ?>
+                                        <option name="emp_room" value="<?= $row["id"] ?>">
+                                            <?= $row["room_no"]; ?>
+                                        </option>
                                     <?php
-                                    //$accid = $empAcc_row['acc_id'];
-                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms");
-
-                                    foreach ($emp_room as $row) {
-                                        if ($row['status'] == 'Occupied') {
-                                    ?>
-                                            <option name="employee_room" readonly value="<?= $row["id"] ?>">
-                                                <?= $row["room_no"]; ?>
-                                            </option>
-                                        <?php } elseif ($row['status'] == 'Available') {
-                                        ?>
-                                            <option name="employee_room" value="<?= $row["id"] ?>">
-                                                <?= $row["room_no"]; ?>
-                                            </option>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <option name="employee_room" value="<?= $row["id"] ?>">
-                                                <?= $row["room_no"]; ?>
-                                            </option>
-                                    <?php
-                                        }
                                     }
-                                    ?>
+                                    ?> -->
                                 </select>
 
                                 <div class="invalid-feedback">Please select an option!</div>

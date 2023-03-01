@@ -248,16 +248,15 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="acc_id">Accomodation</label>
                                 
-                                    <select class="form-select mt-3" name="acc_id" onchange="func1()" id="select_acc">
-                                        <option name="employee_accomodation" selected disabled value="">Select Accomodation
-                                        </option>
-
+                                    <select class="form-select mt-3" name="acc_id" id="select_acc" onchange="GetDetail(this.value)">
+                                    <!-- <option selected value="abc" ></option> -->
+                                    <option selected disabled value=""> Select Accommodation </option>
                                         <?php 
                                         $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
                                         // $empAcc_row = mysqli_fetch_assoc($emp_acc);
                                         foreach ($emp_acc as $row) { ?>
-                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
-                                                <?= $row["acc_name"]; ?>
+                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>" >
+                                                <?= $row["acc_name"]; ?> 
                                             </option>
                                         <?php
                                         }
@@ -267,49 +266,15 @@ if (isset($_GET['edit'])) {
                                 <div class="invalid-feedback">Please select an option!</div>
                                 
                             </div>
-                            <script>
-                                function func1(){
-                                    let d = document.getElementById("select_acc").value;
-                                    // alert(d);
-                                    console.log(d);
-                                    // document.cookie = "cookie1=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-                                    cname = "cookie1";
-                                    document.cookie = cname + "=" + d;
-                                    // alert(document.cookie);
-                                }
-                            </script>
-                            <?php
-                            $myPHPvar = $_COOKIE["cookie1"];
-                            // echo $myPHPvar;
-                            ?>
+                            
                                 <div class="col-md-12 pa2">
                                 <label for="room_id">Room</label>
-                                
-                                <select class="form-select mt-3" name="room_id">
-                                    <option name="employee_room" selected disabled value="">Select Room
-                                    </option>
-                                    <?php 
-                                    $sql_query = mysqli_query($conn,"SELECT * FROM rooms WHERE acc_id='$myPHPvar'");
-                                    foreach ($sql_query as $row) { ?>
-                                        <option name="emp_room" value="<?= $row["id"] ?>">
-                                            <?= $row["room_no"]; ?>
-                                        </option>
-                                    <?php
-                                    }
-                                    ?>
-                                    <!-- <?php 
-                                    $sql_query = mysqli_query($conn,"SELECT * FROM rooms");
-                                    foreach ($sql_query as $row) { ?>
-                                        <option name="emp_room" value="<?= $row["id"] ?>">
-                                            <?= $row["room_no"]; ?>
-                                        </option>
-                                    <?php
-                                    }
-                                    ?> -->
-                                </select>
+                                <select class="form-select mt-3" name="room_no" id="room">
+                                <option selected disabled value=""> Select Room Number</option>                              
 
+                                </select>  
                                 <div class="invalid-feedback">Please select an option!</div>
-                            </div>
+                        </div>
 
                             <!-- <div class="col-md-12 pa2">
                         <label for="desig_id">Designation ID</label>
@@ -335,9 +300,35 @@ if (isset($_GET['edit'])) {
 
     <!-- Script files -->
     <script>
-        function myfunc() {
-            var x = document.getElementById("accList").value;
-            func(x);
+
+        function GetDetail(str) {
+            var select = document.getElementById("room");
+            while (select.firstChild) {
+                select.removeChild(select.firstChild);
+            }
+            var selectedValue = document.getElementById("select_acc").value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    var elmts =  myObj[0];
+                    var el = document.createElement("option");
+                    el.textContent = "Select Room Number";
+                    el.value = "";
+                    el.disabled = true;
+                    el.defaultSelected = true; 
+                    select.appendChild(el);
+                    for (var i = 0; i < elmts.length; i++) {
+                        var optn = elmts;
+                        var el = document.createElement("option");
+                        el.textContent = optn;
+                        el.value = optn;
+                        select.appendChild(el);
+                    }
+                }
+            };
+            xmlhttp.open("GET", "../../controllers/validation.php?acc=" + selectedValue, true);
+            xmlhttp.send();
         }
     </script>
     <script src="../../js/form.js"></script>

@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
             }
             mysqli_query($conn,"UPDATE rooms SET current_room_occupancy = '$curr_room_occ' WHERE id='$room_id'");
             mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
-            // $last_insert_id = mysqli_insert_id($conn);
+            $last_insert_id = mysqli_insert_id($conn);
             $_SESSION['message'] = "Employee Details Saved";
         }
         else {

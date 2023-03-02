@@ -17,15 +17,14 @@ if(isset($_REQUEST['emp_code'])){
 }
 if(isset($_REQUEST['acc'])){
     $acc = $_REQUEST['acc'];
-    $rooms=[];
-        $query = mysqli_query($conn, "SELECT id,room_no FROM rooms WHERE acc_id='$acc'");
-        while($row = mysqli_fetch_array($query)){
-            $rooms+=array($row['room_no']);
-        }
-        
-    
-    $result = array($rooms);
-    $myJSON = json_encode($result);
+    $rooms=array();
+    $query = mysqli_query($conn, "SELECT id,room_no FROM rooms WHERE acc_id='$acc'");
+    while($row = mysqli_fetch_array($query)){
+        // array_push($rooms,$row['room_no']);
+        $rooms[$row['id']] = $row['room_no'];
+    }        
+    // $result = array($rooms);
+    $myJSON = json_encode($rooms);
     echo $myJSON;
 }
 ?>

@@ -269,7 +269,7 @@ if (isset($_GET['edit'])) {
                             
                                 <div class="col-md-12 pa2">
                                 <label for="room_id">Room</label>
-                                <select class="form-select mt-3" name="room_no" id="room">
+                                <select class="form-select mt-3" name="room_id" id="room">
                                 <option selected disabled value=""> Select Room Number</option>                              
 
                                 </select>  
@@ -302,27 +302,30 @@ if (isset($_GET['edit'])) {
     <script>
 
         function GetDetail(str) {
+
             var select = document.getElementById("room");
             while (select.firstChild) {
                 select.removeChild(select.firstChild);
             }
             var selectedValue = document.getElementById("select_acc").value;
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var myObj = JSON.parse(this.responseText);
-                    var elmts =  myObj[0];
                     var el = document.createElement("option");
                     el.textContent = "Select Room Number";
+                    // console.log(selectedValue);
+
                     el.value = "";
                     el.disabled = true;
                     el.defaultSelected = true; 
                     select.appendChild(el);
-                    for (var i = 0; i < elmts.length; i++) {
-                        var optn = elmts;
+
+                    for (var key in myObj) {
                         var el = document.createElement("option");
-                        el.textContent = optn;
-                        el.value = optn;
+                        el.textContent = myObj[key];
+                        el.value = key;
                         select.appendChild(el);
                     }
                 }

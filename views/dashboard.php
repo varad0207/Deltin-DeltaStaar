@@ -13,7 +13,7 @@ if ($_SESSION['is_superadmin']) {
     $isSuperadmin = 1;
 } else {
     if (mysqli_num_rows($check_technician) > 0 && mysqli_num_rows($check_security) > 0) {
-        //security is also techinician
+        //security is also technician
     } else if (mysqli_num_rows($check_technician) > 0) {
         $isTechnician = 1;
     } else if (mysqli_num_rows($check_security) > 0) {

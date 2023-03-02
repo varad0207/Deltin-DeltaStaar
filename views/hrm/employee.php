@@ -248,7 +248,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="acc_id">Accomodation</label>
                                 
-                                    <select class="form-select mt-3" name="acc_id" id="select_acc" onchange="GetDetail(this.value)">
+                                    <select class="form-select mt-3" name="acc_id" id="select_acc" onchange="GetDetail()">
                                     <!-- <option selected value="abc" ></option> -->
                                     <option selected disabled value=""> Select Accommodation </option>
                                         <?php 
@@ -300,15 +300,14 @@ if (isset($_GET['edit'])) {
 
     <!-- Script files -->
     <script>
-
-        function GetDetail(str) {
+        function GetDetail() {
 
             var select = document.getElementById("room");
             while (select.firstChild) {
                 select.removeChild(select.firstChild);
             }
             var selectedValue = document.getElementById("select_acc").value;
-
+            console.log(selectedValue)
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -333,6 +332,8 @@ if (isset($_GET['edit'])) {
             xmlhttp.open("GET", "../../controllers/validation.php?acc=" + selectedValue, true);
             xmlhttp.send();
         }
+        window.onload=GetDetail;
+
     </script>
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>

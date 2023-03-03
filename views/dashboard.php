@@ -120,18 +120,25 @@ if ($_SESSION['is_superadmin']) {
     
 
     <!--End of Main content-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
 
     <script>
-
-        if (!localStorage.getItem('visited')) {
-            // If not, show the overlay
-            document.getElementById('overlay').style.display = "flex";
-            // Set the "visited" flag in local storage
-            localStorage.setItem('visited', true);
+window.onload = function() {
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                console.log(myObj[0]);
+                if(CryptoJS.MD5("password").toString()==myObj[0])
+                    document.getElementById('overlay').style.display = "flex";
+                else
+                    document.getElementById('overlay').style.display = "none";
             }
-            else{
-                document.getElementById('overlay').style.display = "none";
-        }
+        };
+        xmlhttp.open("GET", "../controllers/validation.php?id=" + <?php echo $_SESSION['emp_id']; ?>, true);
+        xmlhttp.send(); 
+};
     </script>
 
     <script src="../js/Sidebar/sidebar.js"></script>

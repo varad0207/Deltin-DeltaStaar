@@ -29,10 +29,7 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         $row3 = mysqli_fetch_array($sql3);
         $tot_cap = $row3['Room_Capacity'];
         $tot_cap += $room_cap;
-        // echo $tot_cap;
-
-        // echo "Room count in rooms table: ".$room_count;
-        // echo "Number of rooms in accommodation table: ".$no_of_rooms;
+        
         if($room_count < $no_of_rooms){
             mysqli_query($conn,"INSERT INTO rooms (acc_id, room_no, room_capacity) VALUES ('$acc_id', '$room_no', '$room_cap')");
             mysqli_query($conn,"UPDATE accomodation SET tot_capacity = '$tot_cap' WHERE acc_id = '$acc_id'");
@@ -40,7 +37,6 @@ if (isset($_POST['submit'])|| isset($_POST['update'])||isset($_GET['del'])) {
         }
         else{
             $_SESSION['message'] = "Room Limit Reached!";
-            // echo '<script>alert("Room Limit Reached!")</script>';
         }
         
         //change tracking code

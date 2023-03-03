@@ -113,3 +113,44 @@ function validateAcc(){
     else
         return false;
 }
+
+function validateRoom(){
+    var t1 = t2 = false;
+    const numReg = /^[0-9]+$/;
+
+    var roomno = document.myForm.room_no.value;
+    var roomcap = document.myForm.room_cap.value;
+
+    if(numReg.test(roomno)){
+        t1 = true;
+        document.getElementById("valid-roomno").innerHTML = "Field is valid";
+    }
+    else
+        document.getElementById("valid-roomno").innerHTML = "Enter a valid room number!";
+    if(numReg.test(roomcap)){
+        t2 = true;
+        document.getElementById("valid-roomcap").innerHTML = "Field is valid!";
+    }
+    else
+        document.getElementById("valid-roomcap").innerHTML = "Enter a valid room capacity!";
+
+    if(t1 && t2)
+        return true;
+    else
+        return false;
+}
+
+function validateTanker(){
+    const numReg = /^[0-9]+$/;
+
+    var qty = document.myForm.qty.value;
+
+    if(numReg.test(qty)){
+        document.getElementById("valid-qty").innerHTML = "Field is valid!";
+        return true;
+    }
+    else{
+        document.getElementById("valid-qty").innerHTML = "Enter a valid quantity!";
+        return false;
+    }
+}

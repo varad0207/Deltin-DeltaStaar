@@ -214,3 +214,44 @@ function validateVacCat() {
         return false;
     }
 }
+
+function validateTankerVendor() {
+    var t1 = t2 = t3 = t4 = false;
+    const textReg = /^[A-Za-z]+$/;
+    const numReg = /^[0-9]+$/;
+
+    var vname = document.myForm.vname.value;
+    var cname = document.myForm.cname.value;
+    var num = document.myForm.num.value;
+    var add = document.myForm.add.value;
+
+    if(textReg.test(vname)){
+        document.getElementById("valid-vname").innerHTML = "Field is valid!";
+        t1 = true;
+    }
+    else
+        document.getElementById("valid-vname").innerHTML = "Enter a valid vendor name";
+    if(textReg.test(cname)){
+        document.getElementById("valid-cname").innerHTML = "Field is valid!";
+        t2 = true;
+    }
+    else
+    document.getElementById("valid-cname").innerHTML = "Enter a valid company name";
+    if(numReg.test(num)){
+        document.getElementById("valid-num").innerHTML = "Field is valid!";
+        t3 = true;
+    }
+    else
+        document.getElementById("valid-num").innerHTML = "Enter a valid vendor number";
+    if(add.length != ""){
+        document.getElementById("valid-add").innerHTML = "Field is valid!";
+        t4 = true;
+    }
+    else
+        document.getElementById("valid-add").innerHTML = "Enter a valid address";
+
+    if(t1 && t2 && t3 && t4)
+        return true;
+    else
+        return false;
+}

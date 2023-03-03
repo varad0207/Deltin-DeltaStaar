@@ -110,3 +110,30 @@ function validateEmp() {
     else
     	return false;
 } 
+
+function validateAcc(){
+    var t1 = t2 = false;
+    const textReg = /^[A-Za-z]+$/;
+    const numReg = /^[0-9]+$/;
+
+    var accname = document.myForm.name.value;
+    var rooms = document.myForm.nor.value;
+
+    if(textReg.test(accname)){
+        t1 = true;
+        document.getElementById("valid-accname").innerHTML = "Field is valid!";
+    }
+    else
+        document.getElementById("valid-accname").innerHTML = "Enter a valid accommodation name!";
+    if(numReg.test(rooms)){
+        t2 = true;
+        document.getElementById("valid-room").innerHTML = "Field is valid!";
+    }
+    else
+        document.getElementById("valid-room").innerHTML = "Enter a valid number of rooms!";
+
+    if(t1 && t2)
+        return true;
+    else
+        return false;
+}

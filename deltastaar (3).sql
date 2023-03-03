@@ -351,7 +351,7 @@ CREATE TABLE `change_tracking_tankers` (
   `security_emp_id` int(11) NOT NULL,
   `quality_check` enum('Yes','No') NOT NULL,
   `qty` int(11) NOT NULL,
-  `bill_no` int(11) NOT NULL,
+  `bill_no` varchar(255) NOT NULL,
   `vendor_id` int(11) NOT NULL,
   `tanker_timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -719,7 +719,7 @@ CREATE TABLE `tankers` (
   `security_emp_id` int(11) NOT NULL,
   `quality_check` enum('Yes','No') NOT NULL,
   `qty` int(11) NOT NULL,
-  `bill_no` int(11) NOT NULL,
+  `bill_no` varchar(255) NOT NULL,
   `vendor_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

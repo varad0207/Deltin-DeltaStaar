@@ -13,6 +13,7 @@
 .overlay-window {
     width: 40vw;
     max-width:500px;
+    min-width:20vh;
     min-height:10vw;
     height:200px;
     background: #ffffff;
@@ -39,9 +40,12 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
-
+@media only screen and (max-width: 695px) {
+    .name {
+      display:none;
+    }
+  }
 .close {
     width: 40px;
     height: 40px;

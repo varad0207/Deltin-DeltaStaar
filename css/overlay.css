@@ -36,6 +36,7 @@
     font-weight: bold;
     /* color: #eeeeee; */
     background: -webkit-linear-gradient(#FEBE10, #F0E68C);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 

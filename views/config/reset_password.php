@@ -86,7 +86,8 @@
 
                             <div class="col-md-12 pa2">
                             <label class="d-block mb-4">New Password</label>
-								<input type="password" name="new_password" id="newpassword" disabled onkeyup="document.getElementById('confirmpassword').disabled =false"> 
+								<input type="password" name="new_password" id="newpassword" disabled onkeyup="newPass(this.value)"> 
+                                <p id="message" style="margin-top:5px">&nbsp</p>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -127,8 +128,25 @@
             }
         };
         xmlhttp.open("GET", "../../controllers/validation.php?id=" + id, true);
-        xmlhttp.send();
-    
+        xmlhttp.send(); 
+  }
+  function newPass(str){
+    document.getElementById('confirmpassword').disabled =false;
+    var message = document.getElementById("message");
+    if(str=="password"){	
+        document.getElementById('confirmpassword').disabled =true;		
+        document.getElementById('newpassword').style.color = "red";	
+		message.innerHTML = "Your new password cannot be same as old password!";
+        message.style.color="red";
+        message.style.fontSize="10px";	
+        message.style.marginTop="5px";
+    }
+    else{
+        message.innerHTML = "&nbsp";
+        message.style.marginTop="5px";
+        document.getElementById('confirmpassword').disabled =false;	
+        document.getElementById('newpassword').style.color = "grey";			
+    }
   }
   function confirmPass(str){
     if(str==document.getElementById('newpassword').value){
@@ -141,6 +159,7 @@
         document.getElementById('confirmpassword').style.color = "red";
     }
   }
+  
 </script>
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->

@@ -27,4 +27,11 @@ if(isset($_REQUEST['acc'])){
     $myJSON = json_encode($rooms);
     echo $myJSON;
 }
+if(isset($_REQUEST['id'])){
+    $id = $_REQUEST['id'];
+    $row = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM login_credentials WHERE emp_id='$id'"));
+    $result = array($row['pass']);
+    $myJSON = json_encode($result);
+    echo $myJSON;
+}
 ?>

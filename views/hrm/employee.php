@@ -74,47 +74,45 @@ if (isset($_GET['edit'])) {
     include '../../controllers/includes/sidebar.php';
     include '../../controllers/includes/navbar.php';
     ?>
-
+    <style>
+        span{
+            color: gold;
+            font-size: 14px;
+        }
+    </style>
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Employee Details</h1>
-                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_controller.php" method="post">
+                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_controller.php" method="post" name="myForm" onsubmit = "return validateForm()">
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
-                            <!-- <input type="hidden" name="contacts_id" value="<?php //echo $contact_id; 
-                                                                                ?>"> -->
                             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 
 
                             <div class="col-md-12 pa2">
-                                <label for="acc_code">Employee Code</label>
-
-                                <input class="form-control" type="text" name="emp_code" placeholder="Employee Code" value="<?php echo $emp_code; ?>" value="??php echo $emp_code; ??" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <label for="emp_code">Employee Code</label>
+                                <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>" required>
+                                <span id="valid-empcode"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="fname">First Name</label>
                                 <input class="form-control" type="text" name="fname" placeholder="First Name" value="<?php echo $fname; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-fname"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="mname">Middle Name</label>
                                 <input class="form-control" type="text" name="mname" placeholder="Middle Name" value="<?php echo $mname; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-mname"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="lname">Last Name</label>
                                 <input class="form-control" type="text" name="lname" placeholder="Last Name" value="<?php echo $lname; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-lname"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -133,56 +131,49 @@ if (isset($_GET['edit'])) {
 
                                     ?>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span id="valid-desig"></span>
                             </div>
                             <div class="col-md-12 pa2">
                                 <label for="dob">Date of Birth</label>
                                 <input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-dob"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="address">Address</label>
                                 <input class="form-control" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-add"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="state">State</label>
                                 <input class="form-control" type="text" name="state" placeholder="State" value="<?php echo $state; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-state"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="country">Country</label>
                                 <input class="form-control" type="text" name="country" placeholder="Country" value="<?php echo $country; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-country"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="pincode">Pincode</label>
                                 <input class="form-control" type="number" name="pincode" placeholder="Pincode" value="<?php echo $pincode; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-pincode"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="contact1">Contact Number</label>
                                 <input class="form-control" type="tel" name="contact1" placeholder="Contact Number" value="<?php echo $contact; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-phone"></span>
                             </div>
                             
 
                             <div class="col-md-12 pa2">
                                 <label for="email">Email</label>
                                 <input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-email"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -198,12 +189,10 @@ if (isset($_GET['edit'])) {
                                     <option value="AB+">AB+</option>
                                     <option value="AB-">AB-</option>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <div id="valid-bloodgrp"></div>
                             </div>
                             
-                            
                             <div class="col-md-12 pa2">
-                                
                                 <label for="department">Department</label>
                                 <select class="form-select mt-3" name="department" required>
                                     <option name="employee_dept" selected disabled value="">Select Department</option>
@@ -216,33 +205,26 @@ if (isset($_GET['edit'])) {
                                         </option>
                                     <?php
                                     }
-
                                     ?>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span id="valid-dept"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="joiningdate">Joining Date</label>
                                 <input class="form-control" type="date" name="joining_date" value="<?php echo $joining_date; ?>">
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
-
-
 
                             <div class="col-md-12 pa2">
                                 <label for="aadhar_no">Aadhar Number</label>
                                 <input class="form-control" type="number" name="aadhaar_number" value="<?php echo $aadhaar_number; ?>" placeholder="Aadhar Number">
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-aadhar"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="salary">Salary</label>
                                 <input class="form-control" type="number" name="salary" placeholder="Salary" value="<?php echo $salary; ?>">
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-salary"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -262,26 +244,16 @@ if (isset($_GET['edit'])) {
                                         }
                                         ?>
                                     </select>
-                                
-                                <div class="invalid-feedback">Please select an option!</div>
-                                
+                                    <span id="valid-acc"></span>
                             </div>
                             
-                                <div class="col-md-12 pa2">
+                            <div class="col-md-12 pa2">
                                 <label for="room_id">Room</label>
                                 <select class="form-select mt-3" name="room_id" id="room">
                                 <option selected disabled value=""> Select Room Number</option>                              
-
                                 </select>  
-                                <div class="invalid-feedback">Please select an option!</div>
-                        </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                        <label for="desig_id">Designation ID</label>
-                          <input class="form-control" type="number" name="desig_id" placeholder="Designation ID" required>
-                          <div class="valid-feedback">field is valid!</div>
-                          <div class="invalid-feedback">field cannot be blank!</div>
-                      </div> -->
+                                <span id="valid-room"></span>
+                            </div>
 
                             <div class="form-button mt-3 tc">
                                 <?php if ($update == true) : ?>
@@ -337,6 +309,7 @@ if (isset($_GET['edit'])) {
     </script>
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
+    <script src="../../js/validation.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->

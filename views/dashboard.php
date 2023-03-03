@@ -107,7 +107,7 @@ if ($_SESSION['is_superadmin']) {
         <div class="overlay" id="overlay"> 
             <div class="overlay-window">
                 <div class="overlay-window-titlebar">
-                    <span class="overlay-title">Welcome</span>
+                    <span class="overlay-title">Welcome <?php echo $emp_details['fname']; ?></span>
                     <button class="close material-icons">close</button>
                 </div>
                 <div class="overlay-content" style="color:black">

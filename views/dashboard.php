@@ -125,19 +125,28 @@ if ($_SESSION['is_superadmin']) {
 
     <script>
 window.onload = function() {
-    var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var myObj = JSON.parse(this.responseText);
-                console.log(myObj[0]);
-                if(CryptoJS.MD5("password").toString()==myObj[0])
-                    document.getElementById('overlay').style.display = "flex";
-                else
-                    document.getElementById('overlay').style.display = "none";
-            }
-        };
-        xmlhttp.open("GET", "../controllers/validation.php?id=" + <?php echo $_SESSION['emp_id']; ?>, true);
-        xmlhttp.send(); 
+    console.log(localStorage.getItem('visited'));
+    if (!localStorage.getItem('visited')) {
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    console.log(myObj[0]);
+                    if(CryptoJS.MD5("password").toString()==myObj[0]){
+                        document.getElementById('overlay').style.display = "flex";
+                        localStorage.setItem('visited', true);
+                    }
+                    else{
+                        localStorage.setItem('visited', false);
+                        document.getElementById('overlay').style.display = "none";
+                    }
+                }
+            };
+            xmlhttp.open("GET", "../controllers/validation.php?id=" + <?php echo $_SESSION['emp_id']; ?>, true);
+            xmlhttp.send(); 
+    }
+    else
+        document.getElementById('overlay').style.display = "none";
 };
     </script>
 

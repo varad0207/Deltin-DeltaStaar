@@ -1,5 +1,4 @@
-function validateForm() {
-    alert("heyyo");
+function validateEmp() {
 	var t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = t11 = t12 = t13 = t14 = false;
 	const textReg = /^[A-Za-z]+$/;
     const numReg = /^[0-9]+$/;
@@ -25,7 +24,7 @@ function validateForm() {
     var phonestr = phone.toString();
     var aadharstr = aadhar.toString();
     var salarystr = salary.toString();
-    
+
     if(empcode.length == ""){
         document.getElementById("valid-empcode").innerHTML = "Field cannot be empty!";
     }

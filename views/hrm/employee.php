@@ -86,7 +86,7 @@ if (isset($_GET['edit'])) {
                 <div class="form-content">
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Employee Details</h1>
-                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_controller.php" method="post" name="myForm" onsubmit = "return validateForm()">
+                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_controller.php" method="post" name="myForm" onsubmit = "return validateEmp()">
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
                             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 

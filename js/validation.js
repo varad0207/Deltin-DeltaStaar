@@ -87,7 +87,7 @@ function validateEmp() {
     	return false;
 } 
 
-function validateAcc(){
+function validateAcc() {
     var t1 = t2 = false;
     const textReg = /^[A-Za-z]+$/;
     const numReg = /^[0-9]+$/;
@@ -114,7 +114,7 @@ function validateAcc(){
         return false;
 }
 
-function validateRoom(){
+function validateRoom() {
     var t1 = t2 = false;
     const numReg = /^[0-9]+$/;
 
@@ -140,7 +140,7 @@ function validateRoom(){
         return false;
 }
 
-function validateTanker(){
+function validateTanker() {
     const numReg = /^[0-9]+$/;
 
     var qty = document.myForm.qty.value;
@@ -151,6 +151,66 @@ function validateTanker(){
     }
     else{
         document.getElementById("valid-qty").innerHTML = "Enter a valid quantity!";
+        return false;
+    }
+}
+
+function validateAccLoc() {
+    const textReg = /^[A-Za-z]+$/;
+
+    var accloc = document.myForm.loc.value;
+
+    if(textReg.test(accloc)){
+        document.getElementById("valid-field").innerHTML = "Field is valid!";
+        return true;
+    }
+    else{
+        document.getElementById("valid-field").innerHTML = "Enter a valid input!";
+        return false;
+    }
+}
+
+function validateEmpDept() {
+    const textReg = /^[A-Za-z]+$/;
+
+    var empdept = document.myForm.dept.value;
+
+    if(textReg.test(empdept)){
+        document.getElementById("valid-field").innerHTML = "Field is valid!";
+        return true;
+    }
+    else{
+        document.getElementById("valid-field").innerHTML = "Enter a valid input!";
+        return false;
+    }
+}
+
+function validateEmpDesig() {
+    const textReg = /^[A-Za-z]+$/;
+
+    var empdesig = document.myForm.designation.value;
+
+    if(textReg.test(empdesig)){
+        document.getElementById("valid-field").innerHTML = "Field is valid!";
+        return true;
+    }
+    else{
+        document.getElementById("valid-field").innerHTML = "Enter a valid input!";
+        return false;
+    }
+}
+
+function validateVacCat() {
+    const textReg = /^[A-Za-z]+$/;
+
+    var vacccat = document.myForm.category_name.value;
+
+    if(textReg.test(vacccat)){
+        document.getElementById("valid-field").innerHTML = "Field is valid!";
+        return true;
+    }
+    else{
+        document.getElementById("valid-field").innerHTML = "Enter a valid input!";
         return false;
     }
 }

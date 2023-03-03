@@ -1,10 +1,9 @@
 function validateEmp() {
-	var t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = t11 = t12 = t13 = t14 = false;
+	var t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = false;
 	const textReg = /^[A-Za-z]+$/;
     const numReg = /^[0-9]+$/;
     const emailReg = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
 
-    var empcode = document.getElementById("empcode").value;
     var fname = document.myForm.fname.value;
     var mname = document.myForm.mname.value;
     var lname = document.myForm.lname.value;
@@ -15,21 +14,12 @@ function validateEmp() {
     var email = document.myForm.email.value;
     var aadhar = document.myForm.aadhaar_number.value;
     var salary = document.myForm.salary.value;
-    var dob = document.myForm.dob.value;
-    var address = document.myForm.address.value;
-    var dept = document.myForm.department.value;
-    var desig = document.myForm.designation.value;
 
     var pinstr = pincode.toString();
     var phonestr = phone.toString();
     var aadharstr = aadhar.toString();
     var salarystr = salary.toString();
 
-    if(empcode.length == ""){
-        document.getElementById("valid-empcode").innerHTML = "Field cannot be empty!";
-    }
-    else
-        t12 = true;
     if(textReg.test(fname) && fname.length != ""){
     	t1 = true;
     	document.getElementById("valid-fname").innerHTML = "Field is valid!";
@@ -90,22 +80,8 @@ function validateEmp() {
     }
     else
     	document.getElementById("valid-salary").innerHTML = "Enter a valid salary!";
-    if(dob.length == "" || address.length == ""){
-    	document.getElementById("valid-dob").innerHTML = "Field cannot be empty!";
-    	document.getElementById("valid-add").innerHTML = "Field cannot be empty!";
-    }
-    else
-        t11 = true;
-    if(dept.length == "")
-        document.getElementById("valid-dept").innerHTML = "Field cannot be empty!";
-    else
-        t13 = true;
-    if(desig.length == "")
-        document.getElementById("valid-desig").innerHTML = "Field cannot be empty!";
-    else
-        t14 = true;
 
-    if(t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8 && t9 && t10 && t11)
+    if(t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8 && t9 && t10)
     	return true;
     else
     	return false;

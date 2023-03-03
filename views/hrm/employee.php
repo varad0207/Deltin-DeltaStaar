@@ -94,7 +94,8 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="emp_code">Employee Code</label>
                                 <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>" required>
-                                <span id="valid-empcode"></span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -128,21 +129,24 @@ if (isset($_GET['edit'])) {
                                         </option>
                                     <?php
                                     }
-
                                     ?>
                                 </select>
-                                <span id="valid-desig"></span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
+
                             <div class="col-md-12 pa2">
                                 <label for="dob">Date of Birth</label>
                                 <input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>" required>
-                                <span id="valid-dob"></span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="address">Address</label>
                                 <input class="form-control" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>" required>
-                                <span id="valid-add"></span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -189,7 +193,8 @@ if (isset($_GET['edit'])) {
                                     <option value="AB+">AB+</option>
                                     <option value="AB-">AB-</option>
                                 </select>
-                                <div id="valid-bloodgrp"></div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
                             
                             <div class="col-md-12 pa2">
@@ -207,7 +212,8 @@ if (isset($_GET['edit'])) {
                                     }
                                     ?>
                                 </select>
-                                <span id="valid-dept"></span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -244,7 +250,7 @@ if (isset($_GET['edit'])) {
                                         }
                                         ?>
                                     </select>
-                                    <span id="valid-acc"></span>
+                                    <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                             </div>
                             
                             <div class="col-md-12 pa2">
@@ -252,7 +258,7 @@ if (isset($_GET['edit'])) {
                                 <select class="form-select mt-3" name="room_id" id="room">
                                 <option selected disabled value=""> Select Room Number</option>                              
                                 </select>  
-                                <span id="valid-room"></span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                             </div>
 
                             <div class="form-button mt-3 tc">

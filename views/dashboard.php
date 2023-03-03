@@ -107,7 +107,7 @@ if ($_SESSION['is_superadmin']) {
         <div class="overlay" id="overlay"> 
             <div class="overlay-window">
                 <div class="overlay-window-titlebar">
-                    <span class="overlay-title">Welcome</span>
+                    <span class="overlay-title">Welcome <?php echo $emp_details['fname']; ?></span>
                     <button class="close material-icons">close</button>
                 </div>
                 <div class="overlay-content" style="color:black">
@@ -120,18 +120,34 @@ if ($_SESSION['is_superadmin']) {
     
 
     <!--End of Main content-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
 
     <script>
-
-        if (!localStorage.getItem('visited')) {
-            // If not, show the overlay
-            document.getElementById('overlay').style.display = "flex";
-            // Set the "visited" flag in local storage
-            localStorage.setItem('visited', true);
-            }
-            else{
-                document.getElementById('overlay').style.display = "none";
-        }
+window.onload = function() {
+    console.log(localStorage.getItem('visited'));
+    if (!localStorage.getItem('visited')) {
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    console.log(myObj[0]);
+                    if(CryptoJS.MD5("password").toString()==myObj[0]){
+                        document.getElementById('overlay').style.display = "flex";
+                        localStorage.setItem('visited', true);
+                    }
+                    else{
+                        localStorage.setItem('visited', false);
+                        document.getElementById('overlay').style.display = "none";
+                    }
+                }
+            };
+            xmlhttp.open("GET", "../controllers/validation.php?id=" + <?php echo $_SESSION['emp_id']; ?>, true);
+            xmlhttp.send(); 
+    }
+    else
+        document.getElementById('overlay').style.display = "none";
+};
     </script>
 
     <script src="../js/Sidebar/sidebar.js"></script>

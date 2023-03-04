@@ -27,6 +27,8 @@ $all = '<span class="material-icons">done_all</span>';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/overlay.css">
+
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
 
@@ -331,8 +333,11 @@ $all = '<span class="material-icons">done_all</span>';
                                     <a href="./roles.php?edit=<?php echo '%27' ?><?php echo $row['role_id']; ?><?php echo '%27' ?>" class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                                     </a>
                                     &nbsp;
-                                    <a href="../../controllers/role_controller.php?del=<?php echo $row['role_id']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
+                                    <a class="del_btn" onclick="myfunc('<?php echo $row['role_id']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i>
                                     </a>
+                                    <form id="del_response" action="../../controllers/role_controller.php" method="get">
+                                            <input type="hidden" id="hidden-del" name="del" value="" />
+                                    </form>
                                 <?php } ?>
                             </td>
                         </tr>
@@ -378,6 +383,17 @@ $all = '<span class="material-icons">done_all</span>';
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+    <?php include '../../controllers/overlays/deleteOverlay.php'; ?>
+
+<script>
+    function myfunc(code) {
+        console.log(code);
+        document.getElementById("hidden-del").value = code;
+        document.getElementById('overlay').style.display = 'flex';
+    }
+</script>
+    <script src="../../js/Overlay.js"></script>
+
 </body>
 
 </html>

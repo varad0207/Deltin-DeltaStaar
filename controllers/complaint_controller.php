@@ -29,7 +29,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 
     //change tracking code
     if ($AllowTrackingChanges && isset($_SESSION['emp_id']))
-        mysqli_query($conn, "insert into change_tracking_complaints(user,type,emp_code,complaint_id,complaint_type, description,acc_id,acc_code) values ('{$_SESSION['user']}','Insert','$emp_code','$last_insert_id','$category','$description','{$row_emp['acc_id']}','$acc_code')");
+       mysqli_query($conn, "insert into change_tracking_complaints(user,type,emp_code,complaint_id,complaint_type, description,acc_id,acc_code) values ('{$_SESSION['user']}','Insert','$emp_code','$last_insert_id','$category','$description',NULLIF('{$row_emp['acc_id']}',''),'$acc_code')");
 
     if(isset($_SESSION['emp_id']))
     header("location: ../views/complaint/complaint_table.php");

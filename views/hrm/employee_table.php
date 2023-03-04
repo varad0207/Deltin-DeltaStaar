@@ -12,6 +12,7 @@ if ($rights['rights_employee_details'] > 0) {
 } 
 else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -330,30 +331,14 @@ else
                                         <?php } 
                                          if($isPrivilaged>=4){  ?>
 
-                                        <a class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" onclick="document.getElementById('overlay').style.display='flex'"></i></a>
-                                   <?php 
-                                
-                                //    
-                                if(isset($_POST['delete'])=="true"){ 
-                                    ?>
-                                    <script> console.log("1"); </script>
-                                    <form name="del_response" action="../../controllers/employee_controller.php" method="get">
-                                        <input type="hidden" name="del" value="<?php echo $row['emp_code']; ?>" />
-                                    </form>
-                                    <script type="text/javascript">document.del_response.submit();</script>
-
-                               <?php }
-                             // 
-                                
-                                }  
-                                   
-                                
-                                   ?>
+                                        <a class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" onclick="myfunc('<?php echo $row['emp_code']; ?>')"></i></a>
+                                        <form id="del_response" action="../../controllers/employee_controller.php" method="get">
+                                            <input type="hidden" id="hidden-del" name="del" value="" />
+                                        </form>
+                                        <?php } ?>
                                     </td>
                                 </tr>
-                                <?php
-                                
-                            }
+                                <?php }
                         } 
                         else 
                         { ?> 
@@ -397,6 +382,21 @@ else
 
     <?php include '../../controllers/overlays/deleteOverlay.php'; ?>
 
+    <script>
+        function myfunc(code){
+              
+             
+                                    console.log(code); 
+                                    document.getElementById("hidden-del").value=code;
+                                    document.getElementById('overlay').style.display='flex';
+                                    // <form name="del_response" action="../../controllers/employee_controller.php" method="get">
+                                    //     <input type="hidden" name="del" value="<?php //echo $row['emp_code']; ?>" />
+                                    // </form>
+                                    // document.del_response.submit();
+
+                            
+        }
+    </script>
 
     <!-- Script Files -->
     <script src="../../js/Overlay.js"></script>
@@ -405,5 +405,6 @@ else
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 </body>
+
 
 </html>

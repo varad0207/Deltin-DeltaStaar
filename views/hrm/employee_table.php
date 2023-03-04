@@ -20,7 +20,8 @@ else
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/overlay.css">
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>DELTA@STAAR | Employee Details</title>
@@ -56,13 +57,19 @@ else
                 }
             }
         }
-        $(document).ready(function () { 
-        $(document).click(function () {
-            // if($(".navbar-collapse").hasClass("in")){
-            $('.navbar-collapse').collapse('hide');
-            // }
-        });
-        });
+
+// error
+
+
+        // $(document).ready(function () { 
+        // $(document).click(function () {
+        //     // if($(".navbar-collapse").hasClass("in")){
+        //     $('.navbar-collapse').collapse('hide');
+        //     // }
+        // });
+        // });
+
+        // ***********************
     </script>
 
     <!-- TESTING -->
@@ -323,8 +330,25 @@ else
                                         <?php } 
                                          if($isPrivilaged>=4){  ?>
 
-                                        <a href="../../controllers/employee_controller.php?del=<?php echo $row['emp_code']; ?>" class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;"></i></a>
-                                   <?php } ?>
+                                        <a class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" onclick="document.getElementById('overlay').style.display='flex'"></i></a>
+                                   <?php 
+                                
+                                //    
+                                if(isset($_POST['delete'])=="true"){ 
+                                    ?>
+                                    <script> console.log("1"); </script>
+                                    <form name="del_response" action="../../controllers/employee_controller.php" method="get">
+                                        <input type="hidden" name="del" value="<?php echo $row['emp_code']; ?>" />
+                                    </form>
+                                    <script type="text/javascript">document.del_response.submit();</script>
+
+                               <?php }
+                             // 
+                                
+                                }  
+                                   
+                                
+                                   ?>
                                     </td>
                                 </tr>
                                 <?php
@@ -371,7 +395,11 @@ else
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 
+    <?php include '../../controllers/overlays/deleteOverlay.php'; ?>
+
+
     <!-- Script Files -->
+    <script src="../../js/Overlay.js"></script>
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>

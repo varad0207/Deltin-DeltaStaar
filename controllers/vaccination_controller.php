@@ -20,14 +20,14 @@ $update = false;
 
 if (isset($_POST['submit'])) {
     
-    $vaccination_id = $_POST['vaccination_id'];
+    // $vaccination_id = $_POST['vaccination_id'];
     $emp_id= $_POST['emp_id'];
     $category=$_POST['cat_id'];
     $dateofadministration=date('Y-m-d',strtotime($_POST['doa']));
     $nextdose=date('Y-m-d',strtotime($_POST['dond']));
     $location=$_POST['loc'];
 
-    $emp_row=mysqli_fetch_array(mysqli_query($conn,"select emp_code from employee where emp_id='$emp_id"));
+    $emp_row=mysqli_fetch_array(mysqli_query($conn,"select emp_code from employee where emp_id='$emp_id'"));
 
     mysqli_query($conn, "INSERT INTO vaccination(emp_id,emp_code,category_id,date_of_administration,location,date_of_next_dose) VALUES ('$emp_id','{$emp_row['emp_code']}','$category','$dateofadministration','$location','$nextdose')");
     $last_insert_id = mysqli_insert_id($conn);

@@ -5,7 +5,7 @@
     <div class="overlay" id="overlay"> 
         <div class="overlay-window">
             <div class="overlay-window-titlebar">
-                <span class="overlay-title">Confirm <span class="name">Delete</span></span>
+                <span class="overlay-title">Confirm Delete</span>
                 <button class="close material-icons" onclick="document.getElementById('overlay').style.display='none'">close</button>
             </div>
             <div class="overlay-content" style="color:black;text-align:center">

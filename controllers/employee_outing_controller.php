@@ -73,12 +73,12 @@ if (isset($_GET['del'])) {
 
      //change tracking code
      if($AllowTrackingChanges){
-        $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM employee_outing WHERE emp_code = $emp_code"));
+        $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM employee_outing WHERE emp_code = '$emp_code'"));
         mysqli_query($conn,"insert into change_tracking_employee_outing(user,type,emp_code, outing_date, arrival_date, category)
         values ('{$_SESSION['user']}','Delete','{$row_affected['emp_code']}', '{$row_affected['outing_date']}',NULLIF('{$row_affected['arrival_date']}',''),'{$row_affected['category']}')");
     }
 
-    mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_code = $emp_code");
+    mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_code = '$emp_code'");
     $_SESSION['message'] = "Employee Outing Info Deleted!";
     header("location: ../views/security/employee_outing_table.php");
 }

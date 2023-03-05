@@ -10,15 +10,9 @@
             </div>
             <div class="overlay-content" style="color:black;text-align:center">
                 This action cannot be un-done<br><br>
-                    <div class="table-footer pa4">
-                        <!-- <form> -->
-                            <div class="fl w-75 tl">
-                                <Button class="btn btn-warning"  onclick="document.getElementById('del_response').submit();document.getElementById('overlay').style.display='none'">Yes,Delete</Button>
-                            </div>
-                        <!-- </form> -->
-                        <div class="fl w-25 tr">
-                            <Button class="btn btn-secondary" onclick="document.getElementById('overlay').style.display='none'">No,Cancel</Button>
-                        </div>
+                    <div class="btns">
+                            <Button class="btn btn-warning btn1"  onclick="document.getElementById('del_response').submit();document.getElementById('overlay').style.display='none'">Yes,Delete</Button>
+                            <Button class="btn btn-secondary btn2" onclick="document.getElementById('overlay').style.display='none'">No,Cancel</Button>
                     </div>
             </div>
         </div>

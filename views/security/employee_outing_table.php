@@ -22,6 +22,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>DELTA@STAAR | Employee Outing</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/overlay.css">
     
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -211,8 +214,10 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             <?php } ?>
                                 &nbsp;
                                 <?php if($isPrivilaged>=4){ ?>
-                            <a href="../../controllers/employee_outing_controller.php?del=<?php echo '%27' ?><?php echo $row['emp_code']; ?><?php echo '%27' ?>"
-                                class="del_btn"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                            <a class="del_btn" onclick="myfunc('<?php echo $row['emp_code']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                                <form id="del_response" action="../../controllers/employee_outing_controller.php" method="get">
+                                    <input type="hidden" id="hidden-del" name="del" value="" />
+                                </form>
                         <?php } ?>
                             </td>
                     </tr>
@@ -251,5 +256,15 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+    <?php include '../../controllers/overlays/deleteOverlay.php'; ?>
+
+<script>
+    function myfunc(code) {
+        console.log(code);
+        document.getElementById("hidden-del").value = code;
+        document.getElementById('overlay').style.display = 'flex';
+    }
+</script>
+    <script src="../../js/Overlay.js"></script>
 </body>
 </html>

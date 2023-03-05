@@ -275,21 +275,19 @@ else
     $total=mysqli_num_rows($result1);
     $pages=ceil($total/$limit);
     //check if current page is less then or equal 1
-    if ($page <=1) 
-    {
-        $page=1;
-    } 
-    else 
+    if(($page>1)||($page<$pages))
     {
         $Previous=$page-1;
         $Next=$page+1;
     }
+    if($page<=1)
+    {
+        $Previous=1;
+    }
     if($page>=$pages)
     {
-        $page=$pages;
+        $Next=$pages;
     }
-
-   
     /* ************************************************ */
 
     ?>
@@ -371,7 +369,8 @@ else
     <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$i?>">
                 <?php echo $i; ?>
             </a></li>
-            <?php endfor;?>
+            <?php endfor;
+            ?>
             <li class="page-item"><a class="page-link" href="employee_table.php?page=<?=$Next;?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
         </ul>
     </nav>

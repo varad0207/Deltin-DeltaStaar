@@ -586,7 +586,8 @@ CREATE TABLE `employee_outing` (
   `approval` enum('Yes','No') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `outing_date` date NOT NULL,
   `arrival_date` date DEFAULT NULL,
-  `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL
+  `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -658,7 +659,25 @@ CREATE TABLE `login_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+--
+-- Table structure for table `outing_type`
+--
 
+CREATE TABLE `outing_type` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `outing_type`
+--
+
+INSERT INTO `outing_type` (`id`, `type`) VALUES
+(1, 'Permanent Leave'),
+(2, 'Vacation'),
+(3, 'Personal');
+
+-- --------------------------------------------------------
 --
 -- Table structure for table `rights`
 --
@@ -1016,7 +1035,8 @@ ALTER TABLE `employee_designation`
 -- Indexes for table `employee_outing`
 --
 ALTER TABLE `employee_outing`
-  ADD KEY `emp_id` (`emp_code`);
+  ADD KEY `emp_id` (`emp_code`),
+  ADD KEY `fk_outing_type` (`type`);
 
 --
 -- Indexes for table `jobs`

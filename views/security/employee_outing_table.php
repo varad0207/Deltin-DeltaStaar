@@ -193,6 +193,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Outing Date</th>
                     <th scope="col">Arrival Date</th>
                     <th scope="col">Purpose of Outing</th>
+                    <th>Description</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -202,6 +203,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     $empid = $row['emp_id'];
                     $queryEmpID = mysqli_query($conn, "SELECT * FROM employee where emp_id='$empid'");
                     $EmpID_row = mysqli_fetch_assoc($queryEmpID);
+                    $sql1 = mysqli_query($conn, "SELECT * FROM outing_type");
+                    $row1 = mysqli_fetch_array($sql1);
                     ?>
                     <tr>
                     <th scope="row">
@@ -213,6 +216,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <td>
                             <?php echo $row['arrival_date']; ?>
+                        </td>
+                        <td>
+                            <?php echo $row1['type']; ?>
                         </td>
                         <td>
                             <?php echo $row['category']; ?>

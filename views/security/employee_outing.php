@@ -14,7 +14,12 @@ $isPrivilaged = 0;
   
   if(isset($_GET['edit'])){ 
     $emp_code=$_GET['edit'];
-    $details=mysqli_fetch_array(mysqli_query($conn,"select * from employee_outing where emp_code=$emp_code"));
+    $details=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM employee_outing WHERE emp_code=$emp_code"));
+
+    $outing_date = $details['outing_date'];
+    $arrival_date = $details['arrival_date'];
+    $purpose = $details['category'];
+    $type = $details['type'];
   }
 
 ?>
@@ -77,17 +82,35 @@ $isPrivilaged = 0;
 
                       <div class="col-md-12 pa2">
                         <label for="quantity">Outing Start Date</label>
-                          <input class="form-control" type="date" name="start_date" required>
+                          <input class="form-control" type="date" name="start_date" value="<?= $outing_date ?>" required>
                       </div>
 
                       <div class="col-md-12 pa2">
                         <label for="quantity">Arrival Date (Optional)</label>
-                          <input class="form-control" type="date" name="arrival_date">
+                          <input class="form-control" type="date" name="arrival_date" value="<?= $arrival_date ?>">
                       </div>
 
                       <div class="col-md-12 pa2">
-                        <label for="description">Purpose</label>
-                        <textarea name="purpose"  placeholder="Enter the purpose of outing" cols="30" rows="10" value="<?php $details['category'] ?>"></textarea>
+                          <label for="type">Type of Outing</label>
+                          <select class="form-select mt-3" name="type" required>
+                                <option selected disabled value="" name="outing_type">Select Outing Type</option>
+                                  <?php
+                                  $sql1=mysqli_query($conn, "SELECT * FROM outing_type");
+                                  
+                                  foreach ($sql1 as $row1){ ?>
+                                  <option name="outing_type" value="<?= $row1["id"]?>"
+                                  <?php if($type == $row1['id']) { ?>
+                                    selected
+                                  <?php } ?>><?= $row1["type"];?></option>	
+                                  <?php } ?>
+                           </select>
+                            
+                            <div class="invalid-feedback">Please select an option!</div>
+                            
+                      </div>
+                      <div class="col-md-12 pa2">
+                        <label for="description">Description (Optional)</label>
+                        <textarea name="purpose" cols="30" rows="10" value="<?php $purpose ?>"></textarea>
                        </div>
                         <div class="form-button mt-3 tc">
                         <div class="form-button mt-3 tc">

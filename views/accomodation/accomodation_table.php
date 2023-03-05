@@ -252,8 +252,20 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     $result1=mysqli_query($conn,$q1);
     $total=mysqli_num_rows($result1);
     $pages=ceil($total/$limit);
-    $Previous=$page-1;
-    $Next=$page+1;
+    //check if current page is less then or equal 1
+    if(($page>1)||($page<$pages))
+    {
+        $Previous=$page-1;
+        $Next=$page+1;
+    }
+    if($page<=1)
+    {
+        $Previous=1;
+    }
+    if($page>=$pages)
+    {
+        $Next=$pages;
+    }
     /* ************************************************ */
     ?>
 

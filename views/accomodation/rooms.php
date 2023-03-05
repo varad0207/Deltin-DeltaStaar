@@ -14,7 +14,7 @@ if ($isPrivilaged == 5 || $isPrivilaged == 4)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 $update = "";
-
+$acc_id = "";
 if (isset($_GET['edit'])) {
     $room_id = $_GET['edit'];
     $update = true;
@@ -23,6 +23,7 @@ if (isset($_GET['edit'])) {
     $n = mysqli_fetch_array($record);
 
     $acc_id = $n['acc_id'];
+    echo $acc_id;
     $room_no = $n['room_no'];
     $room_cap = $n['room_capacity'];
     $status = $n['status'];
@@ -79,9 +80,13 @@ if (isset($_GET['edit'])) {
                                     <option selected disabled value="">Select Accomodation</option>
                                     <?php
                                     $acc_code = mysqli_query($conn, "SELECT * FROM accomodation");
-
                                     foreach ($acc_code as $row) { ?>
-                                        <option name="acc" value="<?= $row["acc_id"] ?>"><?= $row["acc_name"]; ?></option>
+                                    <option name="acc" value="<?= $row["acc_id"] ?>"
+                                        <?php if($acc_id == $row['acc_id']) { ?> 
+                                            selected 
+                                        <?php } ?>>
+                                        <?= $row["acc_name"]; ?>
+                                    </option>
                                     <?php
                                     }
                                     ?>

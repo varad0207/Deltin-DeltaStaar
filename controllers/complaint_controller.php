@@ -19,9 +19,9 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $row_emp = mysqli_fetch_array(mysqli_query($conn, "select acc_id FROM employee join rooms on employee.room_id=rooms.id join accomodation using(acc_id) WHERE emp_code='$emp_code'"));
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $acc_code=mysqli_real_escape_string($conn, $_POST['acc_code']);
+    $acc_id=mysqli_real_escape_string($conn, $_POST['acc_id']);
     echo "<script>console.log('1')</script>";
-    $insert = "insert into complaints(emp_code, type, description,acc_id,acc_code) values ('$emp_code','$category','$description',NULLIF('{$row_emp['acc_id']}',''),'$acc_code')";
+    $insert = "insert into complaints(emp_code, type, description,acc_id) values ('$emp_code','$category','$description','$acc_id')";
     echo mysqli_error($conn);
     $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
     $last_insert_id = mysqli_insert_id($conn);

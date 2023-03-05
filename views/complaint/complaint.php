@@ -31,6 +31,7 @@ if (isset($_GET['edit'])) {
 	$remarks = $n['remarks'];
 	$emp_code = $n['emp_code'];
     $acc_code=$n['acc_code'];
+    $acc_name=$n['acc_name'];
 
 }
 ?>
@@ -88,13 +89,31 @@ if (isset($_GET['edit'])) {
                                 <?php } ?>
                             </div>
 
-                            <div class="col-md-12 pa2">
+                            <!-- <div class="col-md-12 pa2">
                                 <label for="accCode">Accomodation Code</label>
                                 <input class="form-control" value="<?php echo $acc_code; ?>" type="text" id="acccode" name="acc_code" placeholder="eg.ACC1234" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
+                            </div> -->
+                         <!--Accomodation code not getting fetched properly-->
+                            <div class="col-md-12 pa2">
+                                <label for="type">Accomodation name</label>
+                                <select class="form-select mt-3" name="category" required>
+                                <option selected disabled value="">Select accomodation</option>
+                                    <?php
+                                    $comp_type = mysqli_query($conn, "SELECT * FROM accomodation");
+
+                                    foreach ($comp_type as $row) { ?>
+                                        <option name="acc_id" value="<?= $row["acc_id"] ?>">
+                                            <?= $row["acc_name"]; ?>
+                                        </option>
+                                    <?php
+                                    }
+
+                                    ?>
+                                </select>
+                                <div class="invalid-feedback">Please select an option!</div>
                             </div>
-                        
                         <!-- <div class="col-md-12 pa2">
                             <label for="category">Category</label>
                                 <select class="form-select mt-3" name="category" value="<?php //echo $category; ?>" required>

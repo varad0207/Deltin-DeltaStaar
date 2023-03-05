@@ -124,9 +124,14 @@ if (isset($_GET['edit'])) {
                                     $emp_desig = mysqli_query($conn, "SELECT * FROM employee_designation");
 
                                     foreach ($emp_desig as $row) { ?>
-                                        <option name="employee_desig" value="<?= $row["id"] ?>">
-                                            <?= $row["designation"]; ?>
-                                        </option>
+                                    <option 
+                                        value="<?= $row["id"] ?>"
+                                        
+                                        name="employee_desig"
+                                        <?php if($designation == $row['id']) { ?>
+                                            selected
+                                        <?php } ?>><?= $row["designation"]; ?> 
+                                    </option>
                                     <?php
                                     }
                                     ?>
@@ -184,14 +189,40 @@ if (isset($_GET['edit'])) {
                                 <label for="blood_group">Blood Group</label>
                                 <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>">
                                     <option selected disabled value="">Select Blood Group</option>
-                                    <option value="A+">A+</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B-">B-</option>
-                                    <option value="O+">O+</option>
-                                    <option value="O-">O-</option>
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
+                                    <option value="A+" 
+                                    <?php if($blood_group == 'A+') { ?>
+                                        selected 
+                                    <?php } ?> 
+                                    >A+</option>
+                                    <option value="A-" 
+                                    <?php if($blood_group == 'A-') { ?>
+                                        selected
+                                    <?php } ?>>A-</option>
+                                    <option value="B+" <?php if($blood_group == 'B+') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >B+</option>
+                                    <option value="B-" <?php if($blood_group == 'B-') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >B-</option>
+                                    <option value="O+" <?php if($blood_group == 'O+') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >O+</option>
+                                    <option value="O-" <?php if($blood_group == 'O-') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >O-</option>
+                                    <option value="AB+" <?php if($blood_group == 'AB+') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >AB+</option>
+                                    <option value="AB-" 
+                                    <?php if($blood_group == 'AB-') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >AB-</option>
                                 </select>
                                 <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                                 <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
@@ -205,7 +236,10 @@ if (isset($_GET['edit'])) {
                                     $emp_dept = mysqli_query($conn, "SELECT * FROM employee_dept");
 
                                     foreach ($emp_dept as $row) { ?>
-                                        <option name="employee_dept" value="<?= $row["dept_id"] ?>">
+                                        <option name="employee_dept" value="<?= $row["dept_id"] ?>"
+                                        <?php if($department == $row['dept_id']) { ?> 
+                                            selected 
+                                        <?php } ?>>
                                             <?= $row["dept_name"]; ?>
                                         </option>
                                     <?php
@@ -237,13 +271,12 @@ if (isset($_GET['edit'])) {
                                 <label for="acc_id">Accomodation</label>
                                 
                                     <select class="form-select mt-3" name="acc_id" id="select_acc" onchange="GetDetail()">
-                                    <!-- <option selected value="abc" ></option> -->
                                     <option selected disabled value=""> Select Accommodation </option>
                                         <?php 
                                         $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
-                                        // $empAcc_row = mysqli_fetch_assoc($emp_acc);
+                                        
                                         foreach ($emp_acc as $row) { ?>
-                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>" >
+                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
                                                 <?= $row["acc_name"]; ?> 
                                             </option>
                                         <?php
@@ -256,7 +289,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="room_id">Room</label>
                                 <select class="form-select mt-3" name="room_id" id="room">
-                                <option selected disabled value=""> Select Room Number</option>                              
+                                    <option selected disabled value="">Select Room Number</option>                          
                                 </select>  
                                 <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                             </div>

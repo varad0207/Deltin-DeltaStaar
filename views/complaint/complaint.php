@@ -184,6 +184,7 @@ if (isset($_GET['edit'])) {
             if (this.readyState == 4 && this.status == 200) {
                 var myObj = JSON.parse(this.responseText);
                 document.getElementById("acccode").value = myObj[0];
+                
             }
         };
         xmlhttp.open("GET", "../../controllers/validation.php?emp_code=" + str, true);

@@ -12,13 +12,13 @@ function validateText() {
     }
 }
 
-function validateNum() {
-    if(numReg.test(document.myForm.rooms.value) && document.myForm.rooms.value.length != 0) {
-        document.getElementById("valid-room").innerHTML = "Field is valid!";
+function validateNum(t,i) {
+    if(numReg.test(t) && t.length != 0) {
+        document.getElementsByClassName("valid-field")[i].innerHTML = "Field is valid!";
         return true;
     }
     else{
-        document.getElementById("valid-room").innerHTML = "Please enter numeric values only!";
+        document.getElementsByClassName("valid-field")[i].innerHTML = "Please enter numeric values only!";
         return false;
     }
 }

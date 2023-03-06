@@ -173,8 +173,8 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="no_of_rooms">Number of Rooms</label>
                                 <input class="form-control" type="number" id="nor" name="rooms"
-                                    value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required onkeyup = "return validateNum()">
-                                <span id="valid-room"></span>
+                                    value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required onkeyup = "return validateNum(document.myForm.rooms.value,0)">
+                                <span class="valid-field"></span>
                                 <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 

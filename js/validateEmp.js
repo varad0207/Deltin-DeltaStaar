@@ -66,3 +66,9 @@ function validateEmail() {
         return false;
     }
 }
+
+function validateEmpCode(t) {
+    var d = document.getElementById("phpJS").textContent;
+    console.log(d);
+    // console.log(t);
+}

@@ -93,10 +93,21 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="emp_code">Employee Code</label>
-                                <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>" required>
+                                <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>" required onkeyup = "return validateEmpCode(document.myForm.emp_code.value)">
                                 <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                                 <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
+                            <div id="phpJS">
+                                <?php 
+                                $sql1 = mysqli_query($conn, "SELECT * FROM employee");
+                                $a = array();
+                                foreach($sql1 as $row1){
+                                    $op = $row1['emp_code'];
+                                    array_push($a,$op); 
+                                }
+                                print_r($a);
+                                ?>
+                            </div>    
 
                             <div class="col-md-12 pa2">
                                 <label for="fname">First Name</label>

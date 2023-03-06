@@ -81,7 +81,7 @@ if (isset($_GET['edit'])) {
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Accomodation Details</h1>
                         <form class="requires-validation f3 lh-copy" novalidate
-                            action="../../controllers/accomodation_controller.php" method="post" name="myForm" onsubmit="return validateAcc()">
+                            action="../../controllers/accomodation_controller.php" method="post" name="myForm">
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_code">Accomodation Code</label>
@@ -94,8 +94,9 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="acc_name">Accomodation Name</label>
                                 <input class="form-control" type="text" name="name" value="<?php echo $acc_name ?>"
-                                    placeholder="Accomodation Name" required>
+                                    placeholder="Accomodation Name" required onkeyup = "return validateText()">
                                 <span id="valid-accname"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -172,8 +173,9 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="no_of_rooms">Number of Rooms</label>
                                 <input class="form-control" type="number" id="nor" name="rooms"
-                                    value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required>
+                                    value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required onkeyup = "return validateNum()">
                                 <span id="valid-room"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -205,6 +207,7 @@ if (isset($_GET['edit'])) {
                                 <input class="form-control" type="text" name="owner" value="<?php echo $owner ?>"
                                     placeholder="Owner" required>
                                 <span id="valid-owner"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -247,7 +250,7 @@ if (isset($_GET['edit'])) {
     <!-- Script files -->
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
-    <script src="../../js/validation.js"></script>
+    <script src="../../js/validateAcc.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

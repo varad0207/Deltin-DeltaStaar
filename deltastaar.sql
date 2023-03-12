@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 04, 2023 at 06:31 PM
+-- Generation Time: Mar 12, 2023 at 06:27 AM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -48,8 +48,8 @@ CREATE TABLE `accomodation` (
 --
 
 INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `warden_emp_code`, `owner`, `remark`) VALUES
-(6, 'Acc10', 'queens', 'Active', 3, 'Female', 10, 5, NULL, NULL, 'ABCD1234', 'Self owned', ''),
-(7, 'Acc3', 'Rosa Maria', 'Active', 4, 'Female', 20, 2, 1, 1, 'ABCD1234', 'Self owned', ''),
+(6, 'Acc10', 'queens', 'Active', 3, 'Female', 0, 5, NULL, NULL, 'ABCD1234', 'Self owned', ''),
+(7, 'Acc3', 'Rosa Maria', 'Active', 4, 'Female', 10, 2, 1, 1, 'ABCD1234', 'Self owned', ''),
 (9, 'Acc1', 'Kings', 'Permanently Closed', 3, 'Female', NULL, 4, NULL, NULL, 'ABCD1234', 'Suresh', '');
 
 -- --------------------------------------------------------
@@ -198,6 +198,13 @@ CREATE TABLE `change_tracking_complaint_type` (
   `type_description` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `change_tracking_complaint_type`
+--
+
+INSERT INTO `change_tracking_complaint_type` (`id`, `user`, `timestamp`, `type`, `type_id`, `complaint_type`, `type_description`) VALUES
+(1, 'Chinmay Joshi', '2023-03-04 19:37:19', 'Delete', 3, 'Carpentry', 'Anything related to furniture and woodwork');
+
 -- --------------------------------------------------------
 
 --
@@ -261,6 +268,13 @@ CREATE TABLE `change_tracking_employee_dept` (
   `dept_name` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `change_tracking_employee_dept`
+--
+
+INSERT INTO `change_tracking_employee_dept` (`id`, `user`, `timestamp`, `type`, `dept_id`, `dept_name`) VALUES
+(1, 'Chinmay Joshi', '2023-03-04 19:45:45', 'Delete', 8, 'House keeping');
+
 -- --------------------------------------------------------
 
 --
@@ -281,7 +295,8 @@ CREATE TABLE `change_tracking_employee_designation` (
 --
 
 INSERT INTO `change_tracking_employee_designation` (`id`, `user`, `timestamp`, `type`, `desig_id`, `designation`) VALUES
-(1, 'Chinmay Joshi', '2023-02-28 03:54:56', 'Insert', 14, 'Warden');
+(1, 'Chinmay Joshi', '2023-02-28 03:54:56', 'Insert', 14, 'Warden'),
+(2, 'Chinmay Joshi', '2023-03-04 19:43:57', 'Delete', 12, 'Shift manager');
 
 -- --------------------------------------------------------
 
@@ -298,16 +313,20 @@ CREATE TABLE `change_tracking_employee_outing` (
   `approval` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `outing_date` date NOT NULL,
   `arrival_date` date DEFAULT NULL,
-  `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL
+  `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `outing_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `change_tracking_employee_outing`
 --
 
-INSERT INTO `change_tracking_employee_outing` (`id`, `user`, `timestamp`, `type`, `emp_code`, `approval`, `outing_date`, `arrival_date`, `category`) VALUES
-(1, 'Chinmay Joshi', '2023-03-04 18:05:45', 'Insert', 'ABCD1234', NULL, '2023-03-10', '2023-04-01', 'vacation'),
-(2, 'Chinmay Joshi', '2023-03-04 18:09:21', 'Delete', 'ABCD1234', NULL, '2023-03-10', '2023-04-01', 'vacation');
+INSERT INTO `change_tracking_employee_outing` (`id`, `user`, `timestamp`, `type`, `emp_code`, `approval`, `outing_date`, `arrival_date`, `category`, `outing_type`) VALUES
+(1, 'Chinmay Joshi', '2023-03-04 18:05:45', 'Insert', 'ABCD1234', NULL, '2023-03-10', '2023-04-01', 'vacation', 0),
+(2, 'Chinmay Joshi', '2023-03-04 18:09:21', 'Delete', 'ABCD1234', NULL, '2023-03-10', '2023-04-01', 'vacation', 0),
+(3, 'Chinmay Joshi', '2023-03-12 06:07:45', 'Insert', 'ABCD1234', NULL, '2023-03-12', '2023-03-12', '', 0),
+(4, 'Chinmay Joshi', '2023-03-12 06:17:07', 'Insert', 'ABCD1234', NULL, '2023-03-12', '2023-03-12', '', 2),
+(5, 'Chinmay Joshi', '2023-03-12 06:26:10', 'Delete', 'ABCD1234', NULL, '2023-03-12', '2023-03-12', '', 2);
 
 -- --------------------------------------------------------
 
@@ -358,7 +377,11 @@ INSERT INTO `change_tracking_rooms` (`id`, `user`, `timestamp`, `type`, `acc_id`
 (2, 'Chinmay Joshi', '2023-02-28 13:56:05', 'Insert', 6, 10, '102', 2, NULL, NULL),
 (3, 'Chinmay Joshi', '2023-02-28 13:56:18', 'Insert', 6, 11, '103', 4, NULL, NULL),
 (4, 'Chinmay Joshi', '2023-02-28 13:57:45', 'Delete', 6, 9, '101', 4, '', NULL),
-(5, 'Chinmay Joshi', '2023-03-04 17:53:00', 'Delete', 7, 15, '703', 10, '', 1);
+(5, 'Chinmay Joshi', '2023-03-04 17:53:00', 'Delete', 7, 15, '703', 10, '', 1),
+(6, 'Chinmay Joshi', '2023-03-04 18:37:06', 'Delete', 7, 13, '701', 10, 'Occupied', 10),
+(7, 'Chinmay Joshi', '2023-03-04 18:37:09', 'Delete', 7, 4, '704', 10, '', NULL),
+(8, 'Chinmay Joshi', '2023-03-04 18:37:21', 'Delete', 6, 11, '103', 4, 'Available', 1),
+(9, 'Chinmay Joshi', '2023-03-04 18:37:23', 'Delete', 6, 10, '102', 2, 'Occupied', -1);
 
 -- --------------------------------------------------------
 
@@ -387,7 +410,9 @@ CREATE TABLE `change_tracking_tankers` (
 
 INSERT INTO `change_tracking_tankers` (`id`, `user`, `timestamp`, `type`, `tanker_id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `vendor_id`, `tanker_timestamp`) VALUES
 (1, 'Chinmay Joshi', '2023-03-04 18:25:13', 'Insert', 1, 7, 2, 'Yes', 7000, '1', 1, '2023-03-04 18:25:13'),
-(2, 'Chinmay Joshi', '2023-03-04 18:28:44', 'Delete', 1, 7, 2, 'Yes', 7000, '1', 1, '');
+(2, 'Chinmay Joshi', '2023-03-04 18:28:44', 'Delete', 1, 7, 2, 'Yes', 7000, '1', 1, ''),
+(3, 'Chinmay Joshi', '2023-03-04 18:33:42', 'Insert', 2, 7, 2, 'Yes', 7000, '2', 1, '2023-03-04 18:33:42'),
+(4, 'Chinmay Joshi', '2023-03-04 18:42:18', 'Delete', 3, 7, 2, 'Yes', 7000, '2', 1, '');
 
 -- --------------------------------------------------------
 
@@ -481,7 +506,6 @@ CREATE TABLE `complaint_type` (
 INSERT INTO `complaint_type` (`type_id`, `complaint_type`, `type_description`) VALUES
 (1, 'Electrical', 'Anything related to electrical work and appliances'),
 (2, 'Plumbing', 'Anything related to water and plumbing'),
-(3, 'Carpentry', 'Anything related to furniture and woodwork'),
 (5, 'Other', 'Miscellaneous');
 
 -- --------------------------------------------------------
@@ -542,7 +566,6 @@ INSERT INTO `employee_dept` (`dept_id`, `dept_name`) VALUES
 (4, 'Food & Beverage'),
 (5, 'Human Resources'),
 (6, 'Marketing'),
-(8, 'House keeping'),
 (9, 'DECK');
 
 -- --------------------------------------------------------
@@ -571,7 +594,6 @@ INSERT INTO `employee_designation` (`id`, `designation`) VALUES
 (8, 'Intern'),
 (9, 'Security'),
 (11, 'Floor staff'),
-(12, 'Shift manager'),
 (13, 'Software Engg'),
 (14, 'Warden');
 
@@ -587,7 +609,7 @@ CREATE TABLE `employee_outing` (
   `outing_date` date NOT NULL,
   `arrival_date` date DEFAULT NULL,
   `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` int(11) DEFAULT NULL
+  `type` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -658,26 +680,40 @@ CREATE TABLE `login_history` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `login_history`
+--
+
+INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`) VALUES
+(2, 'Chinmay Joshi', '2023-03-06 14:16:05', '2023-03-10 12:43:03', 1),
+(2, 'Chinmay Joshi', '2023-03-10 12:43:15', '2023-03-10 12:44:59', 2),
+(2, 'Chinmay Joshi', '2023-03-10 12:45:49', '2023-03-10 12:50:14', 3),
+(2, 'Chinmay Joshi', '2023-03-10 12:50:25', '2023-03-10 12:58:07', 4),
+(2, 'Chinmay Joshi', '2023-03-10 13:03:45', '2023-03-10 13:03:45', 5);
+
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `outing_type`
 --
 
 CREATE TABLE `outing_type` (
-  `id` int(11) NOT NULL,
-  `type` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `type_id` int(11) NOT NULL,
+  `type_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `outing_type`
 --
 
-INSERT INTO `outing_type` (`id`, `type`) VALUES
-(1, 'Permanent Leave'),
-(2, 'Vacation'),
-(3, 'Personal');
+INSERT INTO `outing_type` (`type_id`, `type_name`) VALUES
+(1, 'One day (approved)'),
+(2, 'One day (un-approved)'),
+(3, 'Vacation'),
+(4, 'Permanent');
 
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `rights`
 --
@@ -747,9 +783,6 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
 (7, 4, '704', 10, NULL, NULL),
-(6, 10, '102', 2, 'Occupied', -1),
-(6, 11, '103', 4, 'Available', 1),
-(7, 13, '701', 10, 'Occupied', 10),
 (7, 14, '702', 10, NULL, 10);
 
 -- --------------------------------------------------------
@@ -762,13 +795,6 @@ CREATE TABLE `security` (
   `emp_id` int(11) NOT NULL,
   `acc_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `security`
---
-
-INSERT INTO `security` (`emp_id`, `acc_id`) VALUES
-(2, 7);
 
 -- --------------------------------------------------------
 
@@ -819,13 +845,6 @@ CREATE TABLE `technician` (
   `emp_id` int(11) NOT NULL,
   `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `technician`
---
-
-INSERT INTO `technician` (`id`, `emp_id`, `role`) VALUES
-(46, 46, 'electrician');
 
 -- --------------------------------------------------------
 
@@ -1036,7 +1055,7 @@ ALTER TABLE `employee_designation`
 --
 ALTER TABLE `employee_outing`
   ADD KEY `emp_id` (`emp_code`),
-  ADD KEY `fk_outing_type` (`type`);
+  ADD KEY `type` (`type`);
 
 --
 -- Indexes for table `jobs`
@@ -1059,6 +1078,12 @@ ALTER TABLE `login_credentials`
 ALTER TABLE `login_history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `emp_id` (`emp_id`);
+
+--
+-- Indexes for table `outing_type`
+--
+ALTER TABLE `outing_type`
+  ADD PRIMARY KEY (`type_id`);
 
 --
 -- Indexes for table `rights`
@@ -1139,7 +1164,7 @@ ALTER TABLE `visitor_log`
 -- AUTO_INCREMENT for table `accomodation`
 --
 ALTER TABLE `accomodation`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `acc_locations`
@@ -1169,7 +1194,7 @@ ALTER TABLE `change_tracking_complaints`
 -- AUTO_INCREMENT for table `change_tracking_complaint_type`
 --
 ALTER TABLE `change_tracking_complaint_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee`
@@ -1181,19 +1206,19 @@ ALTER TABLE `change_tracking_employee`
 -- AUTO_INCREMENT for table `change_tracking_employee_dept`
 --
 ALTER TABLE `change_tracking_employee_dept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee_designation`
 --
 ALTER TABLE `change_tracking_employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee_outing`
 --
 ALTER TABLE `change_tracking_employee_outing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_jobs`
@@ -1205,13 +1230,13 @@ ALTER TABLE `change_tracking_jobs`
 -- AUTO_INCREMENT for table `change_tracking_rooms`
 --
 ALTER TABLE `change_tracking_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_tankers`
 --
 ALTER TABLE `change_tracking_tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_vaccination`
@@ -1229,7 +1254,7 @@ ALTER TABLE `change_tracking_visitor_log`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
@@ -1265,7 +1290,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `outing_type`
+--
+ALTER TABLE `outing_type`
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rights`
@@ -1277,19 +1308,19 @@ ALTER TABLE `rights`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tankers`
 --
 ALTER TABLE `tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tanker_vendors`
@@ -1301,13 +1332,13 @@ ALTER TABLE `tanker_vendors`
 -- AUTO_INCREMENT for table `technician`
 --
 ALTER TABLE `technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vaccination_category`
@@ -1340,6 +1371,12 @@ ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`),
   ADD CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`) ON DELETE SET NULL,
   ADD CONSTRAINT `fk_emp_dept` FOREIGN KEY (`department`) REFERENCES `employee_dept` (`dept_id`);
+
+--
+-- Constraints for table `employee_outing`
+--
+ALTER TABLE `employee_outing`
+  ADD CONSTRAINT `employee_outing_ibfk_1` FOREIGN KEY (`type`) REFERENCES `outing_type` (`type_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

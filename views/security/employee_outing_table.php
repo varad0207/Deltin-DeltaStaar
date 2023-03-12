@@ -203,7 +203,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     $empid = $row['emp_id'];
                     $queryEmpID = mysqli_query($conn, "SELECT * FROM employee where emp_id='$empid'");
                     $EmpID_row = mysqli_fetch_assoc($queryEmpID);
-                    $sql1 = mysqli_query($conn, "SELECT * FROM outing_type");
+                    $sql1 = mysqli_query($conn, "SELECT * FROM outing_type where type_id='{$row['type']}'");
                     $row1 = mysqli_fetch_array($sql1);
                     ?>
                     <tr>
@@ -215,10 +215,12 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             <?php echo $row['outing_date']; ?>
                         </td>
                         <td>
-                            <?php echo $row['arrival_date']; ?>
+                            <?php 
+                            echo $row['arrival_date']; ?>
                         </td>
                         <td>
-                            <?php echo $row1['type']; ?>
+                            <?php 
+                                echo $row1['type_name']; ?>
                         </td>
                         <td>
                             <?php echo $row['category']; ?>

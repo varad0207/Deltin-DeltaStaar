@@ -49,86 +49,69 @@ $isPrivilaged = 0;
     ?>
   
     <div class="form-body">
-    <div class="row">
-        <div class="form-holder">
-            <div class="form-content">
+      <div class="row">
+            <div class="form-holder">
+              <div class="form-content">
                 <div class="form-items">
                     <h1 class="f2 lh-copy tc" style="color: white;">Employee Outing Details</h1>
                     <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_outing_controller.php" method="post">
-                    
-
-                    <div class="col-md-12 pa2">
+                      <div class="col-md-12 pa2">
                         <label for="empcode">Employee Code</label>
                         <?php if(isset($_GET['edit'])){ ?>
-                          <input type="text" name="emp_code"value=<?php echo $emp_code ?> readonly>
-
-                          <?php } 
-                          else {
-                            ?>
-                            <select class="form-select mt-3" name="emp_code" required>
-                                <option selected disabled value="" name="employee_code">Select Employee Code</option>
-                                <?php
-                                  $emp_code=mysqli_query($conn, "SELECT * FROM employee");
-                                  
-                                  foreach ($emp_code as $row){ ?>
-                                  <option name="employee_code" value="<?= $row["emp_code"]?>"><?= $row["emp_code"];?></option>	
-                                  <?php } ?>
-                           </select>
-                            
-                            <div class="invalid-feedback">Please select an option!</div>
-                            <?php } ?>
-                        </div>
-
-
+                        <input type="text" name="emp_code"value=<?php echo $emp_code ?> readonly>
+                        <?php 
+                        } 
+                        else {  ?>
+                        <select class="form-select mt-3" name="emp_code" required >
+                          <option selected disabled value="" name="employee_code" onchange="freq()">Select Employee Code</option>
+                          <?php
+                          $emp_code=mysqli_query($conn, "SELECT * FROM employee");
+                          foreach ($emp_code as $row){ ?>
+                          <option name="employee_code" value="<?= $row["emp_code"]?>"><?= $row["emp_code"];?></option>	
+                          <?php } ?>
+                        </select>
+                        <div class="invalid-feedback">Please select an option!</div>
+                        <span class="outing-freq"></span>
+                        <?php } ?>
+                      </div>
                       <div class="col-md-12 pa2">
                         <label for="quantity">Outing Start Date</label>
-                          <input class="form-control" type="date" name="start_date" value="<?= $outing_date ?>" required>
+                        <input class="form-control" type="date" name="start_date" value="<?= $outing_date ?>" required>
                       </div>
-
                       <div class="col-md-12 pa2">
                         <label for="quantity">Arrival Date (Optional)</label>
-                          <input class="form-control" type="date" name="arrival_date" value="<?= $arrival_date ?>">
+                        <input class="form-control" type="date" name="arrival_date" value="<?= $arrival_date ?>">
                       </div>
-
                       <div class="col-md-12 pa2">
-                          <label for="type">Type of Outing</label>
-                          <select class="form-select mt-3" name="type" required>
-                                <option selected disabled value="" name="outing_type">Select Outing Type</option>
-                                  <?php
-                                  $sql1=mysqli_query($conn, "SELECT * FROM outing_type");
-                                  
-                                  foreach ($sql1 as $row1){ ?>
-                                  <option name="outing_type" value="<?= $row1["id"]?>"
-                                  <?php if($type == $row1['id']) { ?>
-                                    selected
-                                  <?php } ?>><?= $row1["type"];?></option>	
-                                  <?php } ?>
-                           </select>
-                            
-                            <div class="invalid-feedback">Please select an option!</div>
-                            
+                        <label for="type">Type of Outing</label>
+                        <select class="form-select mt-3" name="type" required>
+                          <option selected disabled value="" name="outing_type">Select Outing Type</option>
+                          <?php
+                          $sql1=mysqli_query($conn, "SELECT * FROM outing_type");
+                          foreach ($sql1 as $row1){ ?>
+                          <option name="outing_type" value="<?= $row1["type_id"]?>"><?= $row1["type_name"];?></option>	                          <?php } ?>
+                        </select>
+                        <div class="invalid-feedback">Please select an option!</div>
                       </div>
                       <div class="col-md-12 pa2">
                         <label for="description">Description (Optional)</label>
                         <textarea name="purpose" cols="30" rows="10" value="<?php $purpose ?>"></textarea>
-                       </div>
+                      </div>
+                      <div class="form-button mt-3 tc">
                         <div class="form-button mt-3 tc">
-                        <div class="form-button mt-3 tc">
-                        <?php if(!isset($_GET['edit'])){ ?>
-
-                            <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
-                        <?php } else{ ?>
+                          <?php if(!isset($_GET['edit'])){ ?>
+                          <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                          <?php } else{ ?>
                           <button id="submit" name="update" value="update" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
-
-                        <?php } ?> 
-                          </div>
+                          <?php } ?> 
                         </div>
+                      </div>
                     </form>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-  </div>
+          </div>
 
   <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 
@@ -163,6 +146,11 @@ $isPrivilaged = 0;
         });
       }, false);
     })();
+
+
+    function freq(){
+      console.log("str");
+    }
   </script>
   
 </body>

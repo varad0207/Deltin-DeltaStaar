@@ -105,7 +105,7 @@ if (isset($_GET['edit'])) {
                                     $op = $row1['emp_code'];
                                     array_push($a,$op); 
                                 }
-                                print_r($a);
+                                // print_r($a);
                                 ?>
                             </div>    
 

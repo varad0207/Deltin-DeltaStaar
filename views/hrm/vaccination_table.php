@@ -233,7 +233,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Category</th>
                     <th scope="col">Date of Administration</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Date of Next Dose</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -255,9 +254,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <td>
                             <?php echo $row['location']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['date_of_next_dose']; ?>
                         </td>
                         <td>
                         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>

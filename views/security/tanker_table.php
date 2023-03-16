@@ -259,7 +259,7 @@
             <table class="table table-bordered tc">
                 <thead>
                     <tr>
-                    <th scope="col">Bill Number</th>
+                    <th scope="col">Delivery Challan</th>
                     <th scope="col">Quality</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Accommodation</th>

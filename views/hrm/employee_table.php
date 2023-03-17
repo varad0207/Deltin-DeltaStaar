@@ -332,8 +332,7 @@ if ($rights['rights_employee_details'] > 0) {
                                 <td><?php echo $row['state'] ?></td>
                                 <td><?php echo $row['contact'] ?></td>
                                 <td style="text-align: center;">
-                                    <a href="./emp_viewmore.php?id=<?php echo $row['emp_code'] ?> " class="btn btn-primary">View More
-                                    </a>
+                                    <a class="btn btn-primary" onclick="view('<?php echo $row['emp_code']; ?>')">View More </a>
                                     <?php if ($isPrivilaged > 1 && $isPrivilaged != 5 && $isPrivilaged != 4) { ?>
 
                                         <a href="./employee.php?edit=<?php echo $row['emp_code']; ?>" class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i>
@@ -389,15 +388,50 @@ if ($rights['rights_employee_details'] > 0) {
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
-
-    <?php include '../../controllers/overlays/deleteOverlay.php'; ?>
+    <span class="viewmore_ovelay"></span>
+    <span class="delete_ovelay">
+        <?php 
+        include '../../controllers/overlays/deleteOverlay.php'; 
+        ?>
+    </span>
+   
 
     <script>
         function myfunc(code) {
-            console.log(code);
+            const viewmore_overlay_span = document.querySelector('.viewmore_ovelay');
+            const overlay_viewmore = viewmore_overlay_span.querySelector('.overlay');
+            overlay_viewmore.style.display = 'none';
+            const del_overlay_span = document.querySelector('.delete_ovelay');
+            const overlay_del = del_overlay_span.querySelector('.overlay');
             document.getElementById("hidden-del").value = code;
-            document.getElementById('overlay').style.display = 'flex';
+            overlay_del.style.display = 'flex';
         }
+        function view(str) {
+            console.log(str);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = this.responseText;
+                    if(myObj){
+                        console.log(myObj);
+                        const viewmore_overlay_span = document.querySelector('.viewmore_ovelay');
+                        viewmore_overlay_span.innerHTML=myObj;
+                        const overlay_viewmore = viewmore_overlay_span.querySelector('.overlay');
+                        overlay_viewmore.style.display = 'flex';
+                        const del_overlay_span = document.querySelector('.delete_ovelay');
+                        const overlay_del = del_overlay_span.querySelector('.overlay');
+                        overlay_del.style.display = 'none';
+                    }
+                }
+            };
+            xmlhttp.open("GET", "../../controllers/overlays/employeeViewMore.php?employeecode=" + str, true);
+            xmlhttp.send();
+            
+
+            
+            
+    }
+       
     </script>
 
     <!-- Script Files -->

@@ -1,4 +1,4 @@
-#overlay {
+.overlay {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -67,6 +67,7 @@
     justify-content: space-around;
 }
 
+
 @media only screen and (max-width: 695px) {
     .name {
       display:none;
@@ -76,5 +77,8 @@
         align-items: center;
         justify-content: space-around;
 
+      }
+      .wrap{
+        flex-direction: column;
       }
   }

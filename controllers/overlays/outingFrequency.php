@@ -15,13 +15,15 @@ if(isset($_REQUEST['employeecode'])){
 <style>
     #outing-freq {
       position: fixed;
-      width: 100%;
+      max-width:240px;
+      /* width: 100%; */
       display: none;
       transition: display 1s ease-in-out;
       margin-right: 70vw;
       margin-left: 0;
       margin-bottom: 70vh;
       justify-content: center;
+      pointer-events: auto;
     }
     .titlebar{
     height: 5px;
@@ -51,6 +53,7 @@ if(isset($_REQUEST['employeecode'])){
     border: 3px solid #fff;
     padding: 10px;
     color:white;
+    font-size: smaller;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;

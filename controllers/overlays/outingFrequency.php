@@ -26,24 +26,26 @@ if(isset($_REQUEST['employeecode'])){
       pointer-events: auto;
     }
     .titlebar{
-    height: 5px;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: right;
+        height: 5px;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: right;
     }
     .close {
-    width: 20px;
-    height: 20px;
-    outline: none;
-    border: none;
-    background: red;
-    color: #eeeeee;
-    cursor: pointer;
-    border-radius: 50%;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+        font-size: smaller;
+        font-weight: bold;
+        width: 20px;
+        height: 20px;
+        outline: none;
+        border: none;
+        background: red;
+        color: #eeeeee;
+        cursor: pointer;
+        border-radius: 50%;
+        align-items: center;
+        display: flex;
+        justify-content: center;
 }
 
 .close:active {

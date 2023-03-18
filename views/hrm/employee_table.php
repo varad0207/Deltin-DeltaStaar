@@ -311,7 +311,7 @@ if ($rights['rights_employee_details'] > 0) {
                         <th scope="col">Last Name</th>
                         <th scope="col">Designation</th>
                         <th scope="col">Department</th>
-                        <th scope="col">Joining Date</th>
+                        <!-- <th scope="col">Joining Date</th> -->
                         <th scope="col">State</th>
                         <th scope="col">Contact Number</th>
                         <th scope="col" colspan="2">Action</th>
@@ -328,7 +328,7 @@ if ($rights['rights_employee_details'] > 0) {
                                 <td><?php echo $row['lname'] ?></td>
                                 <td><?php echo $row['designation'] ?></td>
                                 <td><?php echo $row['dept_name'] ?></td>
-                                <td><?php echo $row['joining_date'] ?></td>
+                                <!-- <td><?php //echo $row['joining_date'] ?></td> -->
                                 <td><?php echo $row['state'] ?></td>
                                 <td><?php echo $row['contact'] ?></td>
                                 <td style="text-align: center;">

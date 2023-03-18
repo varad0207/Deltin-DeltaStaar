@@ -33,6 +33,7 @@ if (isset($_GET['edit'])) {
   <!--Favicon link-->
   <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
   <title>Delta@STAAR | Employee Outing</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link rel="stylesheet" href="../../css/form.css">
   <link rel="stylesheet" href="../../css/style1.css">
@@ -47,15 +48,7 @@ if (isset($_GET['edit'])) {
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-  <style>
-    #outing-freq {
-      width: 100%;
-      display: none;
-      transition: display 1s ease-in-out;
-      margin-top: 10px;
-      justify-content: center;
-    }
-  </style>
+  
 </head>
 
 <body class="b ma2">
@@ -87,30 +80,6 @@ if (isset($_GET['edit'])) {
                     <?php } ?>
                   </select>
                   <div class="invalid-feedback">Please select an option!</div>
-                  <div id="outing-freq">
-                    <!-- Frequency div -->
-                    <div class="table-div">
-
-                      <div class="pa1 table-responsive">
-                        <table class="table table-bordered tc">
-                          <thead>
-                            <tr>
-                              <th scope="col">Employee Name</th>
-
-                              <th scope="col">Frequency</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Chinmay Joshi</td>
-                              <td>5</td>
-                    </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                  </div>
                 <?php } ?>
               </div>
               <div class="col-md-12 pa2">
@@ -147,7 +116,10 @@ if (isset($_GET['edit'])) {
               </div>
             </form>
           </div>
+
+
         </div>
+        <div id="outing-freq"> </div>
       </div>
     </div>
   </div>
@@ -180,13 +152,33 @@ if (isset($_GET['edit'])) {
       }, false);
     })();
 
+    document.querySelector("#empcode").onclick = (event)=>{
+      var selectedValue = document.getElementById("empcode").value;
+
+   if(selectedValue){
+    freq();
+
+   }
+   
+}
 
     function freq() {
       var selectedValue = document.getElementById("empcode").value;
-      // do something with the selected value
-      console.log(selectedValue);
-      document.getElementById('outing-freq').style.display = 'flex';
-      console.log("str");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var myObj = this.responseText;
+          console.log(myObj)
+          if(myObj){
+            const freq_div = document.querySelector('#outing-freq');
+            freq_div.innerHTML=myObj;
+            document.getElementById('outing-freq').style.display = 'flex';
+          }
+        }
+      };
+      xmlhttp.open("GET", "../../controllers/overlays/outingFrequency.php?employeecode=" + selectedValue, true);
+      xmlhttp.send();
+
     }
   </script>
 

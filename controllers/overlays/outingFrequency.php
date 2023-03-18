@@ -47,6 +47,17 @@ if(isset($_REQUEST['employeecode'])){
 .close:active {
     transform: scale(0.9);
 }
+.f-div{
+    border: 3px solid #fff;
+    padding: 10px;
+    color:white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    text-align: left;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
     @media only screen and (max-width: 1130px) {
       #outing-freq {
         margin-right: 75vw;
@@ -61,25 +72,13 @@ if(isset($_REQUEST['employeecode'])){
     }
   </style>
 <!-- Frequency div -->
-<div class="table-div" style="max-width:262px">
-    <div class="titlebar">
-        <button id="close" class="close material-icons" onclick="document.querySelectorAll('.table-div').forEach(a=>a.style.display = 'none');">close</button>
+<div class="titlebar">
+        <button id="close" class="close material-icons" onclick="document.querySelectorAll('#outing-freq').forEach(a=>a.style.display = 'none');">close</button>
     </div>
-    <div class="pa1 table-responsive">
-        <table class="table table-bordered tc">
-            <thead>
-            <tr>
-                <th scope="col">Employee Name</th>
-
-                <th scope="col">Frequency</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><?php echo $row12['fname']; ?></td>
-                <td>5</td>
-            </tr>
-            </tbody>
-        </table>
+<div class="f-div" style="max-width:262px">
+    
+    <div>
+        <p>Employee Name: <?php echo $row12['fname']; ?></p>
+        <p>Frequency: 5</p>
     </div>
 </div>

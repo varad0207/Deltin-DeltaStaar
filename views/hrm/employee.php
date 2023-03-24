@@ -69,53 +69,65 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body class="b ma2">
-
     <!-- Sidebar and Navbar -->
     <?php
     include '../../controllers/includes/sidebar.php';
     include '../../controllers/includes/navbar.php';
     ?>
-
+    <style>
+        span{
+            color: gold;
+            font-size: 14px;
+        }
+    </style>
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Employee Details</h1>
-                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_controller.php" method="post">
+                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/employee_controller.php" method="post" name="myForm">
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
-                            <!-- <input type="hidden" name="contacts_id" value="<?php //echo $contact_id; 
-                                                                                ?>"> -->
                             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 
 
                             <div class="col-md-12 pa2">
-                                <label for="acc_code">Employee Code</label>
-
-                                <input class="form-control" type="text" name="emp_code" placeholder="Employee Code" value="<?php echo $emp_code; ?>" value="??php echo $emp_code; ??" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <label for="emp_code">Employee Code</label>
+                                <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>" required onkeyup = "return validateEmpCode(document.myForm.emp_code.value)">
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
+                            <div id="phpJS">
+                                <?php 
+                                $sql1 = mysqli_query($conn, "SELECT * FROM employee");
+                                $a = array();
+                                foreach($sql1 as $row1){
+                                    $op = $row1['emp_code'];
+                                    array_push($a,$op); 
+                                }
+                                // print_r($a);
+                                ?>
+                            </div>    
 
                             <div class="col-md-12 pa2">
                                 <label for="fname">First Name</label>
-                                <input class="form-control" type="text" name="fname" placeholder="First Name" value="<?php echo $fname; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="text" name="fname" placeholder="First Name" value="<?php echo $fname; ?>" required onkeyup="return validateText(document.myForm.fname.value,0)">
+                                <span class="valid-text"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="mname">Middle Name</label>
-                                <input class="form-control" type="text" name="mname" placeholder="Middle Name" value="<?php echo $mname; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="text" name="mname" placeholder="Middle Name" value="<?php echo $mname; ?>" required onkeyup="return validateText(document.myForm.mname.value,1)">
+                                <span class="valid-text"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="lname">Last Name</label>
-                                <input class="form-control" type="text" name="lname" placeholder="Last Name" value="<?php echo $lname; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="text" name="lname" placeholder="Last Name" value="<?php echo $lname; ?>" required onkeyup="return validateText(document.myForm.lname.value,2)">
+                                <span class="valid-text"></span>  
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>                          
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -126,95 +138,116 @@ if (isset($_GET['edit'])) {
                                     $emp_desig = mysqli_query($conn, "SELECT * FROM employee_designation");
 
                                     foreach ($emp_desig as $row) { ?>
-                                        <option name="employee_desig" value="<?= $row["id"] ?>">
-                                            <?= $row["designation"]; ?>
-                                        </option>
+                                    <option 
+                                        value="<?= $row["id"] ?>"
+                                        
+                                        name="employee_desig"
+                                        <?php if($designation == $row['id']) { ?>
+                                            selected
+                                        <?php } ?>><?= $row["designation"]; ?> 
+                                    </option>
                                     <?php
                                     }
-
                                     ?>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
+
                             <div class="col-md-12 pa2">
                                 <label for="dob">Date of Birth</label>
                                 <input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="address">Address</label>
                                 <input class="form-control" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="state">State</label>
-                                <input class="form-control" type="text" name="state" placeholder="State" value="<?php echo $state; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="text" name="state" placeholder="State" value="<?php echo $state; ?>" required onkeyup="return validateText(document.myForm.state.value,3)">
+                                <span class="valid-text"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="country">Country</label>
-                                <input class="form-control" type="text" name="country" placeholder="Country" value="<?php echo $country; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="text" name="country" placeholder="Country" value="<?php echo $country; ?>" required onkeyup="return validateText(document.myForm.country.value,4)">
+                                <span class="valid-text"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="pincode">Pincode</label>
-                                <input class="form-control" type="number" name="pincode" placeholder="Pincode" value="<?php echo $pincode; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="number" name="pincode" placeholder="Pincode" value="<?php echo $pincode; ?>" required onkeyup="return validateNum(document.myForm.pincode.value,0)">
+                                <span class="valid-num"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="contact1">Contact Number</label>
-                                <input class="form-control" type="tel" name="contact1" placeholder="Contact Number" value="<?php echo $contact; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="tel" name="contact1" placeholder="Contact Number" value="<?php echo $contact; ?>" required onkeyup="return validateNum(document.myForm.contact1.value,1)">
+                                <span class="valid-num"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="contact2">Secondary Contact Number</label>
-                                <input class="form-control" type="number" name="contact2" placeholder="Contact Number"
-                                    value="<?php //echo $contact2; 
-                                            ?>">
-                                 <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
+                            
 
                             <div class="col-md-12 pa2">
                                 <label for="email">Email</label>
-                                <input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required onkeyup = "return validateEmail()">
+                                <span id="valid-email"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="blood_group">Blood Group</label>
                                 <select class="form-select mt-3" name="blood_group" value="<?php echo $blood_group ?>">
                                     <option selected disabled value="">Select Blood Group</option>
-                                    <option value="A+">A+</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B-">B-</option>
-                                    <option value="O+">O+</option>
-                                    <option value="O-">O-</option>
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
+                                    <option value="A+" 
+                                    <?php if($blood_group == 'A+') { ?>
+                                        selected 
+                                    <?php } ?> 
+                                    >A+</option>
+                                    <option value="A-" 
+                                    <?php if($blood_group == 'A-') { ?>
+                                        selected
+                                    <?php } ?>>A-</option>
+                                    <option value="B+" <?php if($blood_group == 'B+') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >B+</option>
+                                    <option value="B-" <?php if($blood_group == 'B-') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >B-</option>
+                                    <option value="O+" <?php if($blood_group == 'O+') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >O+</option>
+                                    <option value="O-" <?php if($blood_group == 'O-') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >O-</option>
+                                    <option value="AB+" <?php if($blood_group == 'AB+') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >AB+</option>
+                                    <option value="AB-" 
+                                    <?php if($blood_group == 'AB-') { ?>
+                                        selected 
+                                    <?php } ?>
+                                    >AB-</option>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
-
+                            
                             <div class="col-md-12 pa2">
-                                <!-- <label for="dept">Department</label>
-                                <input class="form-control" type="text" name="department" placeholder="Department"
-                                    value="<?php echo $department; ?>" value="??php echo $department; ??" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div> -->
                                 <label for="department">Department</label>
                                 <select class="form-select mt-3" name="department" required>
                                     <option name="employee_dept" selected disabled value="">Select Department</option>
@@ -222,101 +255,63 @@ if (isset($_GET['edit'])) {
                                     $emp_dept = mysqli_query($conn, "SELECT * FROM employee_dept");
 
                                     foreach ($emp_dept as $row) { ?>
-                                        <option name="employee_dept" value="<?= $row["dept_id"] ?>">
+                                        <option name="employee_dept" value="<?= $row["dept_id"] ?>"
+                                        <?php if($department == $row['dept_id']) { ?> 
+                                            selected 
+                                        <?php } ?>>
                                             <?= $row["dept_name"]; ?>
                                         </option>
                                     <?php
                                     }
-
                                     ?>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="joiningdate">Joining Date</label>
                                 <input class="form-control" type="date" name="joining_date" value="<?php echo $joining_date; ?>">
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
                             </div>
-
-
 
                             <div class="col-md-12 pa2">
                                 <label for="aadhar_no">Aadhar Number</label>
-                                <input class="form-control" type="number" name="aadhaar_number" value="<?php echo $aadhaar_number; ?>" placeholder="Aadhar Number">
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="number" name="aadhaar_number" value="<?php echo $aadhaar_number; ?>" placeholder="Aadhar Number" onkeyup="return validateNum(document.myForm.aadhaar_number.value,2)">
+                                <span class="valid-num"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="salary">Salary</label>
-                                <input class="form-control" type="number" name="salary" placeholder="Salary" value="<?php echo $salary; ?>">
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <input class="form-control" type="number" name="salary" placeholder="Salary" value="<?php echo $salary; ?>" onkeyup="return validateNum(document.myForm.salary.value,3)">
+                                <span class="valid-num"></span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_id">Accomodation</label>
-                                <select class="form-select mt-3" name="acc_id" id="accList" onchange="myfunc()">
-                                    <option name="employee_accomodation" selected disabled value="">Select Accomodation
-                                    </option>
-
-                                    <?php $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
-                                    $empAcc_row = mysqli_fetch_assoc($emp_acc);
-                                    foreach ($emp_acc as $row) { ?>
-                                        <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
-                                            <?= $row["acc_name"]; ?>
-                                        </option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                                <div class="invalid-feedback">Please select an option!</div>
-                            </div>
-
-                            <div class="col-md-12 pa2">
-                                <label for="room_id">Room</label>
-                                <select class="form-select mt-3" name="room_id">
-
-                                    <option name="employee_room" selected disabled value="">Select room
-                                    </option>
-                                    <?php
-                                    // $accid = $empAcc_row['acc_id'];
-                                    $emp_room = mysqli_query($conn, "SELECT * FROM rooms");
-
-                                    foreach ($emp_room as $row) {
-                                        if ($row['status'] == 'Occupied') {
-                                    ?>
-                                            <option name="employee_room" disabled value="<?= $row["id"] ?>">
-                                                <?= $row["room_no"]; ?>
-                                            </option>
-                                        <?php } elseif ($row['status'] == 'Available') {
-                                        ?>
-                                            <option name="employee_room" value="<?= $row["id"] ?>">
-                                                <?= $row["room_no"]; ?>
+                                
+                                    <select class="form-select mt-3" name="acc_id" id="select_acc" onchange="GetDetail()">
+                                    <option selected disabled value=""> Select Accommodation </option>
+                                        <?php 
+                                        $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
+                                        
+                                        foreach ($emp_acc as $row) { ?>
+                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
+                                                <?= $row["acc_name"]; ?> 
                                             </option>
                                         <?php
-                                        } else {
-                                        ?>
-                                            <option name="employee_room" value="<?= $row["id"] ?>">
-                                                <?= $row["room_no"]; ?>
-                                            </option>
-                                    <?php
                                         }
-                                    }
-                                    ?>
-                                </select>
-
-                                <div class="invalid-feedback">Please select an option!</div>
+                                        ?>
+                                    </select>
+                                    <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                             </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                        <label for="desig_id">Designation ID</label>
-                          <input class="form-control" type="number" name="desig_id" placeholder="Designation ID" required>
-                          <div class="valid-feedback">field is valid!</div>
-                          <div class="invalid-feedback">field cannot be blank!</div>
-                      </div> -->
+                            
+                            <div class="col-md-12 pa2">
+                                <label for="room_id">Room</label>
+                                <select class="form-select mt-3" name="room_id" id="room">
+                                    <option selected disabled value="">Select Room Number</option>                          
+                                </select>  
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                            </div>
 
                             <div class="form-button mt-3 tc">
                                 <?php if ($update == true) : ?>
@@ -335,13 +330,44 @@ if (isset($_GET['edit'])) {
 
     <!-- Script files -->
     <script>
-        function myfunc() {
-            var x = document.getElementById("accList").value;
-            func(x);
+        function GetDetail() {
+
+            var select = document.getElementById("room");
+            while (select.firstChild) {
+                select.removeChild(select.firstChild);
+            }
+            var selectedValue = document.getElementById("select_acc").value;
+            console.log(selectedValue)
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    var el = document.createElement("option");
+                    el.textContent = "Select Room Number";
+                    // console.log(selectedValue);
+
+                    el.value = "";
+                    el.disabled = true;
+                    el.defaultSelected = true; 
+                    select.appendChild(el);
+
+                    for (var key in myObj) {
+                        var el = document.createElement("option");
+                        el.textContent = myObj[key];
+                        el.value = key;
+                        select.appendChild(el);
+                    }
+                }
+            };
+            xmlhttp.open("GET", "../../controllers/validation.php?acc=" + selectedValue, true);
+            xmlhttp.send();
         }
+        window.onload=GetDetail;
+
     </script>
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
+    <script src="../../js/validateEmp.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->

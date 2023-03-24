@@ -15,7 +15,7 @@ if ($rights['rights_accomodation'] > 1) {
 if ($isPrivilaged == 5 || $isPrivilaged == 4)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
-$acc_code = $acc_name = $bldg_status = $location = $gender = $tot_capacity = $no_of_rooms = $occupied_rooms = $available_rooms = $owner = $remark = "";
+$acc_code = $acc_name = $bldg_status = $location = $gender = $tot_capacity = $no_of_rooms = $occupied_rooms = $available_rooms = $owner = $remark = $warden_emp_code = "";
 if (isset($_GET['edit'])) {
     $acc_code = $_GET['edit'];
     $update = true;
@@ -62,12 +62,18 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body class="b ma2">
-
+    <style>
+        span{
+            color: gold;
+            font-size: 14px;
+        }
+    </style>
     <!-- Sidebar and Navbar-->
     <?php
     include '../../controllers/includes/sidebar.php';
     include '../../controllers/includes/navbar.php';
     ?>
+
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
@@ -75,22 +81,22 @@ if (isset($_GET['edit'])) {
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Accomodation Details</h1>
                         <form class="requires-validation f3 lh-copy" novalidate
-                            action="../../controllers/accomodation_controller.php" method="post">
+                            action="../../controllers/accomodation_controller.php" method="post" name="myForm">
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_code">Accomodation Code</label>
                                 <input class="form-control" type="text" name="code" value="<?php echo $acc_code ?>"
-                                    placeholder="Accomodation Code" <?php if(isset($_GET['edit'])) echo "readonly"; ?>>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                    placeholder="Accomodation Code" <?php if(isset($_GET['edit'])) echo "readonly"; ?> required>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="acc_name">Accomodation Name</label>
                                 <input class="form-control" type="text" name="name" value="<?php echo $acc_name ?>"
-                                    placeholder="Accomodation Name" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                    placeholder="Accomodation Name" required onkeyup = "return validateText()">
+                                <span id="valid-accname"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -98,12 +104,24 @@ if (isset($_GET['edit'])) {
                                 <select class="form-select mt-3" name="bldg" value="<?php echo $bldg_status ?>"
                                     required>
                                     <option selected disabled value="">Select status</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Permanently Closed">Permanently Closed</option>
-                                    <option value="Temporarily Closed">Temporarily Closed</option>
+                                    <option value="Active"
+                                    <?php if($bldg_status == 'Active') { ?>
+                                        selected
+                                    <?php } ?>
+                                    >Active</option>
+                                    <option value="Permanently Closed" 
+                                    <?php if($bldg_status == 'Permanently Closed') { ?>
+                                        selected
+                                    <?php } ?>
+                                    >Permanently Closed</option>
+                                    <option value="Temporarily Closed" 
+                                    <?php if($bldg_status == 'Temporarily Closed') { ?>
+                                        selected
+                                    <?php } ?>
+                                    >Temporarily Closed</option>
                                 </select>
-                                <!-- <div class="valid-feedback">You selected a position!</div> -->
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -114,48 +132,54 @@ if (isset($_GET['edit'])) {
                                     $acc_loc = mysqli_query($conn, "SELECT * FROM acc_locations");
 
                                     foreach ($acc_loc as $row) { ?>
-                                        <option name="acc_loc" value="<?= $row["loc_id"] ?>">
+                                        <option name="acc_loc" value="<?= $row["loc_id"] ?>"
+                                        <?php if($location == $row['loc_id']) { ?>
+                                            selected
+                                        <?php } ?>>
                                             <?= $row["location"]; ?>
                                         </option>
                                         <?php
                                     }
                                     ?>
                                 </select>
-                                <div class="invalid-feedback">Please select an option!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
-                                <label for="gender">Gender</label>
+                                <label for="gender">Gender (Accommodation for which gender)</label>
                                 <select class="form-select mt-3" name="gender" value="<?php echo $gender ?>" required>
                                     <option selected disabled value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Femlae</option>
-                                    <option value="Unisex">Unisex</option>
+                                    <option value="Male"
+                                    <?php if($gender == 'Male') { ?>
+                                        selected
+                                    <?php } ?>
+                                    >Male</option>
+                                    <option value="Female"
+                                    <?php if($gender == 'Female') { ?>
+                                        selected
+                                    <?php } ?>
+                                    >Female</option>
+                                    <option value="Unisex"
+                                    <?php if($gender == 'Unisex') { ?>
+                                        selected
+                                    <?php } ?>
+                                    >Unisex</option>
                                 </select>
-
-                                <div class="invalid-feedback">Please select a gender!</div>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="tot_capacity">Total Capacity</label>
-                                <input class="form-control" type="number" name="cap" value="<?php echo $tot_capacity ?>"
-                                    placeholder="Total Capacity" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
 
                             <div class="col-md-12 pa2">
                                 <label for="no_of_rooms">Number of Rooms</label>
                                 <input class="form-control" type="number" id="nor" name="rooms"
-                                    value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                    value="<?php echo $no_of_rooms ?>" placeholder="Number of Rooms" required onkeyup = "return validateNum(document.myForm.rooms.value,0)">
+                                <span class="valid-field"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
-                                <label class="d-block mb-4"> <span class="d-block mb-2">Warden Employee Code
-                                        <span></span>
-
+                                <label class="d-block mb-4">Warden Employee Code</label>
                                         <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"
                                             name="warden_emp_code">
                                             <option name="employee_code" selected>Choose...</option>
@@ -164,46 +188,32 @@ if (isset($_GET['edit'])) {
                                             $emp_det = mysqli_query($conn, "SELECT * FROM employee");
 
                                             foreach ($emp_det as $row) { ?>
-                                                <option name="employee_code" value="<?= $row["emp_code"] ?>"><?=
-                                                      $row["emp_code"]; ?>
+                                                <option name="employee_code" value="<?= $row["emp_code"] ?>"
+                                                <?php if($warden_emp_code == $row['emp_code']) { ?>
+                                                    selected
+                                                <?php } ?>>
+                                                <?= $row["emp_code"]; ?>
                                                 </option>
                                             <?php
                                             }
 
                                             ?>
                                         </select>
+                                    
                             </div>
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="occupied_rooms">Occupied Rooms</label>
-                                <input class="form-control" type="number" id="occnor" name="orooms"
-                                    value="<?php echo $occupied_rooms ?>" placeholder="Number of Rooms Occupied"
-                                    required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
-                            </div> -->
-
-                            <!-- <div class="col-md-12 pa2">
-                                <label for="available_rooms">Available Number of Rooms</label>
-                                <input class="form-control" type="number" id="avr" name="arooms"
-                                    value="<?php echo $available_rooms ?>" placeholder="Availabe number of Rooms"
-                                    onclick="calc()" required>
-                                <p id="avrp" style="display: none;color:red;">Invalid Input!</p>
-
-                            </div> -->
 
                             <div class="col-md-12 pa2">
                                 <label for="owner">Owner</label>
                                 <input class="form-control" type="text" name="owner" value="<?php echo $owner ?>"
                                     placeholder="Owner" required>
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                <span id="valid-owner"></span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="description">Remark</label>
                                 <textarea name="remark" value="<?php echo $remark ?>" placeholder="Enter remark if any"
-                                    cols="30" rows="10"></textarea>
+                                cols="30" rows="10"></textarea>
                             </div>
 
 
@@ -238,8 +248,9 @@ if (isset($_GET['edit'])) {
         }
     </script>
     <!-- Script files -->
-
+    <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
+    <script src="../../js/validateAcc.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

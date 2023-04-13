@@ -20,17 +20,18 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $acc_id=mysqli_real_escape_string($conn, $_POST['acc_id']);
-    echo "<script>console.log('1')</script>";
-    $insert = "insert into complaints(emp_code, type, description,acc_id) values ('$emp_code','$category','$description','$acc_id')";
+    $acc_code=mysqli_fetch_array(mysqli_query($conn, "select acc_code from accomodation where acc_id='$acc_id'"))['acc_code'];
+    echo $acc_code;
+    $insert = "insert into complaints(emp_code, type, description,acc_id,acc_code) values ('$emp_code','$category','$description','$acc_id','$acc_code')";
     echo mysqli_error($conn);
     $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
     $last_insert_id = mysqli_insert_id($conn);
     $_SESSION['message'] = "Complaint Info Added!";
 
     //change tracking code
-    if ($AllowTrackingChanges && isset($_SESSION['emp_id']))
+    if ($AllowTrackingChanges && isset($_SESSION['emp_id'])){
        mysqli_query($conn, "insert into change_tracking_complaints(user,type,emp_code,complaint_id,complaint_type, description,acc_id,acc_code) values ('{$_SESSION['user']}','Insert','$emp_code','$last_insert_id','$category','$description',NULLIF('{$row_emp['acc_id']}',''),'$acc_code')");
-
+    }
     if(isset($_SESSION['emp_id']))
     header("location: ../views/complaint/complaint_table.php");
     else 

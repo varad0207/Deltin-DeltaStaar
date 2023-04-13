@@ -110,13 +110,13 @@ if (isset($_GET['edit'])) {
                          <!--Accomodation code not getting fetched properly-->
                             <div class="col-md-12 pa2">
                                 <label for="type">Accomodation name</label>
-                                <select class="form-select mt-3" name="category" required>
+                                <select class="form-select mt-3" name="acc_id" required>
                                 <option selected disabled value="">Select accomodation</option>
                                     <?php
                                     $comp_type = mysqli_query($conn, "SELECT * FROM accomodation");
 
                                     foreach ($comp_type as $row) { ?>
-                                        <option name="acc_id" value="<?= $row["acc_id"] ?>">
+                                        <option  value="<?php echo $row["acc_id"]; ?>">
                                             <?= $row["acc_name"]; ?>
                                         </option>
                                     <?php

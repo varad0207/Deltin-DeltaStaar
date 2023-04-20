@@ -238,29 +238,32 @@ if (mysqli_num_rows($check) > 0)
     <?php
     /* ***************** PAGINATION ***************** */
     $limit=10;
+    $pages = 0;
     $page=isset($_GET['page'])?$_GET['page']:1;
-    $start=($page-1) * $limit;
-    $sqli .=" LIMIT $start,$limit";
-    $result=mysqli_query($conn,$sqli);
-
-    $q1="SELECT * FROM vaccination";
-    $result1=mysqli_query($conn,$q1);
-    $total=mysqli_num_rows($result1);
-    $pages=ceil($total/$limit);
     //check if current page is less then or equal 1
-    if(($page>1)||($page<$pages))
+    if(($page>=1)||($page<$pages))
     {
+        $start=($page-1) * $limit;
         $Previous=$page-1;
         $Next=$page+1;
     }
-    if($page<=1)
+    if($page<1)
     {
         $Previous=1;
+        $start = 1;
     }
     if($page>=$pages)
     {
         $Next=$pages;
     }
+    $sqli .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sqli);
+
+    $q1="SELECT * FROM complaints";
+    $result1=mysqli_query($conn,$q1);
+    $total=mysqli_num_rows($result1);
+    $pages=ceil($total/$limit);
+    
     /* ************************************************ */
     ?>
     <div class="table-div">
@@ -302,7 +305,7 @@ if (mysqli_num_rows($check) > 0)
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = mysqli_fetch_array($result)) { 
+                        <?php while ($row = mysqli_fetch_array($result1)) { 
                             $emp_code = $row['emp_code'];
                             $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'"));
                             $EmployeeRoom_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'"));
@@ -321,7 +324,7 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch complaint category -->
                                 <td>
-                                    <?php echo $row['complaint_type']; ?>
+                                    <?php echo $row['type']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['description']; ?>

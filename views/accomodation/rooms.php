@@ -116,7 +116,7 @@ if (isset($_GET['edit'])) {
                                     <button id="submit" name="update" value="update" type="submit"
                                         class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
                                 <?php else: ?>
-                                    <button id="submit" name="submit" value="sumbit" type="submit"
+                                    <button id="submit" name="submit" value="submit" type="submit"
                                         class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
                                 <?php endif ?>
                             </div>

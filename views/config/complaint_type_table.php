@@ -62,16 +62,17 @@ if ($_SESSION['is_superadmin'] == 0)
 
     <div class="table-header">
         <h1 class="tc f1 lh-title spr">Complaint Types</h1>
-        <div class="fl w-75 form-outline srch">
+        <div class="fl w-100 form-outline srch">
             <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search"
                 oninput="search()" />
             <h4 id="demo"></h4>
         </div>
-        <div class="fl w-25 tr">
+        
+        <!-- <div class="fl w-25 tr">
             <button class="btn btn-dark">
-                <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
-            </button>
-        </div>
+                <h5><i class="bi bi-filter-circle"> Sort By</i></h5> 
+            </button> 
+        </div> -->
     </div>
    
     <div class="table-div">

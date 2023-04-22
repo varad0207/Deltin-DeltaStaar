@@ -66,11 +66,11 @@ if (isset($_GET['del'])) {
     $vaccination_id = $_GET['del'];
 
     //change tracking code
-    if($AllowTrackingChanges){
-        $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM vaccination WHERE vaccination_id=$vaccination_id"));
-        mysqli_query($conn,"insert into change_tracking_vaccination (user,type,vaccination_id,emp_id,emp_code,category_id,date_of_administration,location)
-            values ('{$_SESSION['user']}','Delete','{$row_affected['vaccination_id']}', '{$row_affected['emp_id']}', '{$row_affected['emp_code']}', '{$row_affected['category_id']}', '{$row_affected['date_of_administration']}', '{$row_affected['location']}', '{$row_affected['date_of_next_dose']}')");
-    }
+    // if($AllowTrackingChanges){
+    //     $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM vaccination WHERE vaccination_id=$vaccination_id"));
+    //     mysqli_query($conn,"insert into change_tracking_vaccination (user,type,vaccination_id,emp_id,emp_code,category_id,date_of_administration,location)
+    //         values ('{$_SESSION['user']}','Delete','{$row_affected['vaccination_id']}', '{$row_affected['emp_id']}', '{$row_affected['emp_code']}', '{$row_affected['category_id']}', '{$row_affected['date_of_administration']}', '{$row_affected['location']}', '{$row_affected['date_of_next_dose']}')");
+    // }
 
     /*
 to delete entirely, # DELETE FROM vaccination WHERE emp_id=$emp_id #

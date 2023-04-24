@@ -52,7 +52,7 @@
 
         //change tracking code
         if($AllowTrackingChanges)
-        mysqli_query($conn,"insert into change_tracking_visitor_log(user,type,log_id,acc_code,security_emp_id,visitor_name,vehicle_no,type,check_in,check_out,purpose,phone_no) values ('{$_SESSION['user']}','Insert','$last_insert_id','{$row_acc['acc_code']}','$security_emp_id','$visitor_name','$vehicle_no','$type','$check_in','','$purpose','$phone_no')");
+        mysqli_query($conn,"insert into change_tracking_visitor_log(user,timestamp,type,log_id,security_emp_id,acc_code,visitor_name,vehicle_no,visit_type,check_in,check_out,purpose,phone_no) values ('{$_SESSION['user']}','Insert','$last_insert_id','{$row_acc['acc_code']}','$security_emp_id','$visitor_name','$vehicle_no','$type','$check_in','','$purpose','$phone_no')");
 
         header('location: ../views/security/visitor_log_table.php');
     }
@@ -77,7 +77,7 @@
         $temp=mysqli_query($conn, "SELECT contact FROM employee where emp_id='$emp_id'");
         $row = $temp->fetch_assoc();
         $phone_no=$row['contact'];
-        mysqli_query($conn, "INSERT INTO visitor_log(acc_code,emp_id,security_emp_id,visitor_name,vehicle_no,visit_type,check_in,check_out,purpose,phone_no) VALUES ('{$row_acc['acc_code']}','$emp_id','$security_emp_id','$visitor_name','$vehicle_no','$type','$check_in','','$purpose','$phone_no')");
+        mysqli_query($conn, "INSERT INTO visitor_log(acc_code,emp_id,security_emp_id,visitor_name,vehicle_no,type,check_in,check_out,purpose,phone_no) VALUES ('{$row_acc['acc_code']}','$emp_id','$security_emp_id','$visitor_name','$vehicle_no','$type','$check_in','','$purpose','$phone_no')");
         $last_insert_id = mysqli_insert_id($conn);
         $_SESSION['message'] = "visitor details saved";
 

@@ -5,7 +5,7 @@ if(isset($_REQUEST['employeecode'])){
 
     $employeecode = $_REQUEST['employeecode'];
     if ($employeecode != "") {
-        $row12 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation AND employee.emp_code='$employeecode'"));
+        $row12 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation JOIN employee_dept ON employee_dept.dept_id = employee.department AND employee.emp_code='$employeecode'"));
     }
 }
 
@@ -34,7 +34,7 @@ if(isset($_REQUEST['employeecode'])){
                     <div class="wrap" style="display:flex;justify-content:space-around;">
                         <div class="left" style="display:block;text-align: left;">
                             <p class="card-text">Employee code :<b><?php echo $row12['emp_code']; ?></b></p>
-                            <p class="card-text">Department : <b><?php echo $row12['department']; ?></b></p>
+                            <p class="card-text">Department : <b><?php echo $row12['dept_name']; ?></b></p>
 
                             <p class="card-text">Designation : <b><?php echo $row12['designation']; ?></b></p>
                             <p class="card-text">Salary : <b><?php echo $row12['salary']; ?></b></p>                        

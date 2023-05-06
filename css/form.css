@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
-*, body, .b {
+*,
+body,
+.b {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -8,7 +10,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-html, body, .b {
+html,
+body,
+.b {
     height: 100%;
     background-color: #1b1c1e;
     /* overflow: hidden; */
@@ -21,12 +25,12 @@ html, body, .b {
 }
 
 .form-holder {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
 }
 
 .form-holder .form-content {
@@ -80,11 +84,16 @@ html, body, .b {
 }
 
 
-.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+.form-content label,
+.was-validated .form-check-input:invalid~.form-check-label,
+.was-validated .form-check-input:valid~.form-check-label {
     color: #fff;
 }
 
-.form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+.form-content input[type=text],
+.form-content input[type=password],
+.form-content input[type=email],
+.form-content select {
     width: 100%;
     padding: 9px 20px;
     text-align: left;
@@ -101,29 +110,31 @@ html, body, .b {
 }
 
 
-a.btn-primary{
+a.btn-primary {
     background-color: blue;
     outline: none;
-     box-shadow: none;
-    border:0px;
-     font-size:12px;
- border-radius:7px;
-    margin:4px 2px;
-    display:inline-block;
-    margin-top:5px;
-    -moz-border-radius:6px;
-    margin-bottom:10px;
-    margin-left:7px;
-    margin-right:8px;
-   
+    box-shadow: none;
+    border: 0px;
+    font-size: 12px;
+    border-radius: 7px;
+    margin: 4px 2px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 6px;
+    margin-bottom: 10px;
+    margin-left: 7px;
+    margin-right: 8px;
+
 }
 
-a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active{
+a.btn-primary:hover,
+a.btn-primary:focus,
+a.btn-primary:active {
     background-color: #1AA7EC;
     outline: none !important;
     border: none !important;
-     box-shadow: none; 
-    
+    box-shadow: none;
+
 }
 
 .form-content textarea {
@@ -145,26 +156,29 @@ a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active{
     margin-bottom: 14px;
 }
 
-.form-content textarea:hover, .form-content textarea:focus {
+.form-content textarea:hover,
+.form-content textarea:focus {
     border: 0;
     background-color: #ebeff8;
     color: #8D8D8D;
 }
 
-.mv-up{
+.mv-up {
     margin-top: -9px !important;
     margin-bottom: 8px !important;
 }
 
-.invalid-feedback{
-    color: #ff606e;
+.invalid-feedback {
+    color: #FF2400 !important;
+    font-size: 0.85rem !important;
 }
 
-.valid-feedback{
-   color: #2acc80;
+.valid-feedback {
+    color: #0FFF50 !important;
+    font-size: 0.85rem !important;
 }
 
-nav{
+nav {
     font-family: poppins;
 }
 
@@ -196,7 +210,3 @@ nav{
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
-
-
-

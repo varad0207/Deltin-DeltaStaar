@@ -58,14 +58,15 @@ if (isset($_GET['edit'])) {
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Add Employees</title>
-    <link rel="stylesheet" href="../../css/sidebar.css">
-    <link rel="stylesheet" href="../../css/form.css">
-    <link rel="stylesheet" href="../../css/style1.css">
-
+    
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+
+    <link rel="stylesheet" href="../../css/sidebar.css">
+    <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/style1.css">
 </head>
 
 <body class="b ma2">
@@ -74,12 +75,7 @@ if (isset($_GET['edit'])) {
     include '../../controllers/includes/sidebar.php';
     include '../../controllers/includes/navbar.php';
     ?>
-    <style>
-        span{
-            color: gold;
-            font-size: 14px;
-        }
-    </style>
+    
     <div class="form-body">
         <div class="row">
             <div class="form-holder">
@@ -90,12 +86,11 @@ if (isset($_GET['edit'])) {
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
                             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 
-
                             <div class="col-md-12 pa2">
                                 <label for="emp_code">Employee Code</label>
                                 <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>" required onkeyup = "return validateEmpCode(document.myForm.emp_code.value)">
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-feedback">Field is valid!</span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
                             <div id="phpJS">
                                 <?php 
@@ -112,22 +107,22 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="fname">First Name</label>
                                 <input class="form-control" type="text" name="fname" placeholder="First Name" value="<?php echo $fname; ?>" required onkeyup="return validateText(document.myForm.fname.value,0)">
-                                <span class="valid-text"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-text valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="mname">Middle Name</label>
                                 <input class="form-control" type="text" name="mname" placeholder="Middle Name" value="<?php echo $mname; ?>" required onkeyup="return validateText(document.myForm.mname.value,1)">
-                                <span class="valid-text"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-text valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="lname">Last Name</label>
                                 <input class="form-control" type="text" name="lname" placeholder="Last Name" value="<?php echo $lname; ?>" required onkeyup="return validateText(document.myForm.lname.value,2)">
-                                <span class="valid-text"></span>  
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>                          
+                                <span class="valid-text valid-feedback"></span>  
+                                <span class="invalid-feedback">Field cannot be empty!</span>                          
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -150,58 +145,58 @@ if (isset($_GET['edit'])) {
                                     }
                                     ?>
                                 </select>
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-feedback">Field is valid!</span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="dob">Date of Birth</label>
                                 <input class="form-control" type="date" name="dob" value="<?php echo $dob; ?>" required>
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-feedback">Field is valid!</span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="address">Address</label>
                                 <input class="form-control" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>" required>
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-feedback">Field is valid!</span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="state">State</label>
                                 <input class="form-control" type="text" name="state" placeholder="State" value="<?php echo $state; ?>" required onkeyup="return validateText(document.myForm.state.value,3)">
-                                <span class="valid-text"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-text valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="country">Country</label>
                                 <input class="form-control" type="text" name="country" placeholder="Country" value="<?php echo $country; ?>" required onkeyup="return validateText(document.myForm.country.value,4)">
-                                <span class="valid-text"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-text valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="pincode">Pincode</label>
                                 <input class="form-control" type="number" name="pincode" placeholder="Pincode" value="<?php echo $pincode; ?>" required onkeyup="return validateNum(document.myForm.pincode.value,0)">
-                                <span class="valid-num"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-num valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="contact1">Contact Number</label>
                                 <input class="form-control" type="tel" name="contact1" placeholder="Contact Number" value="<?php echo $contact; ?>" required onkeyup="return validateNum(document.myForm.contact1.value,1)">
-                                <span class="valid-num"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-num valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
                             
 
                             <div class="col-md-12 pa2">
                                 <label for="email">Email</label>
                                 <input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required onkeyup = "return validateEmail()">
-                                <span id="valid-email"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span id="valid-email valid-feedback"></span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -243,8 +238,8 @@ if (isset($_GET['edit'])) {
                                     <?php } ?>
                                     >AB-</option>
                                 </select>
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-feedback">Field is valid!</span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
                             
                             <div class="col-md-12 pa2">
@@ -265,8 +260,8 @@ if (isset($_GET['edit'])) {
                                     }
                                     ?>
                                 </select>
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <span class="valid-feedback">Field is valid!</span>
+                                <span class="invalid-feedback">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
@@ -302,7 +297,7 @@ if (isset($_GET['edit'])) {
                                         }
                                         ?>
                                     </select>
-                                    <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                    <span class="valid-feedback">Field is valid!</span>
                             </div>
                             
                             <div class="col-md-12 pa2">
@@ -310,7 +305,7 @@ if (isset($_GET['edit'])) {
                                 <select class="form-select mt-3" name="room_id" id="room">
                                     <option selected disabled value="">Select Room Number</option>                          
                                 </select>  
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="valid-feedback">Field is valid!</span>
                             </div>
 
                             <div class="form-button mt-3 tc">

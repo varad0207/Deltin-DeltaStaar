@@ -41,21 +41,24 @@ if (isset($_GET['edit'])) {
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>Delta@STAAR | Add Room</title>
+    <link rel="stylesheet" href="../../css/sidebar.css">
+    <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/style1.css">
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-
-    <link rel="stylesheet" href="../../css/sidebar.css">
-    <link rel="stylesheet" href="../../css/form.css">
-    <link rel="stylesheet" href="../../css/style1.css">
-
 </head>
 
 <body class="b ma2">
-    
+    <style>
+        span{
+            color: gold;
+            font-size: 14px;
+        }
+    </style>
     <!-- Sidebar and Navbar-->
     <?php
     include '../../controllers/includes/sidebar.php';
@@ -88,15 +91,15 @@ if (isset($_GET['edit'])) {
                                     }
                                     ?>
                                 </select>
-                                <span class="valid-feedback">Field is valid!</span>
-                                <span class="invalid-feedback">Field cannot be empty!</span>
+                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="room_no">Room Number</label>
                                 <input class="form-control" type="number" name="room_no" value="<?php echo $room_no ?>"
                                     placeholder="Room Number" required onkeyup = "return validateNum(document.myForm.room_no.value,0)">
-                                <span class="valid-field valid-feedback"></span>
+                                <span class="valid-field"></span>
                                 <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 
@@ -104,7 +107,7 @@ if (isset($_GET['edit'])) {
                                 <label for="room_cap">Room Capacity</label>
                                 <input class="form-control" type="number" name="room_cap"
                                     value="<?php echo $room_cap ?>" placeholder="Room Capacity" required onkeyup = "return validateNum(document.myForm.room_cap.value,1)">
-                                <span class="valid-field valid-feedback"></span>
+                                <span class="valid-field"></span>
                                 <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                             </div>
 

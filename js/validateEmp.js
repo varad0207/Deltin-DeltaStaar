@@ -190,12 +190,11 @@ const showSuccess = (input) => {
 };
 
 form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
     if(checkFname() && checkMname() && checkLname() && checkPhone() && checkEmail() && checkState() && checkCountry() && checkPincode() && checkDesig() && checkDept() && checkAadhar() && checkDOB()){
         return true;
     } else{
         alert("Please fill the required details");
+        e.preventDefault();
     }
 })
 

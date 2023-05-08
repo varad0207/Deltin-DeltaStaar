@@ -263,7 +263,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
                         <td style="text-align:center;">
                             <?php if (!isset($row3['warden_closure_timestamp'])) { ?>
-                                <?php    if (!isset($row3['tech_closure_timestamp']) && !isset($row3['sec_closure_timestamp'])) { ?>
+                                
+                                    <?php    if (!isset($row3['tech_closure_timestamp'])) { ?>
                                     <a href="../../controllers/complaint_controller.php?warden=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>"
                                 class="btn btn-secondary" style="pointer-events: none;"
                                 >Done</a><br>

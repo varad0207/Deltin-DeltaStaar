@@ -70,13 +70,12 @@ if (isset($_GET['edit'])) {
                 <div class="form-content">
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Enter Room Details</h1>
-                        <form class="requires-validation f3 lh-copy" novalidate
-                            action="../../controllers/rooms_controller.php" method="post" name="myForm" >
+                        <form class="f3 lh-copy" action="../../controllers/rooms_controller.php" method="post" id="myForm" >
                             <input class="form-control" type="hidden" name="id" value="<?php echo $room_id ?>">
 
                             <div class="col-md-12 pa2">
                                 <label for="accomodation">Accomodation</label>
-                                <select class="form-select mt-3" name="acc" required>
+                                <select class="form-select mt-3" name="acc" id="acc">
                                     <option selected disabled value="">Select Accomodation</option>
                                     <?php
                                     $acc_code = mysqli_query($conn, "SELECT * FROM accomodation");
@@ -91,24 +90,19 @@ if (isset($_GET['edit'])) {
                                     }
                                     ?>
                                 </select>
-                                <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <small></small>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="room_no">Room Number</label>
-                                <input class="form-control" type="number" name="room_no" value="<?php echo $room_no ?>"
-                                    placeholder="Room Number" required onkeyup = "return validateNum(document.myForm.room_no.value,0)">
-                                <span class="valid-field"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <input class="form-control" type="number" name="room_no" id="rommno" value="<?php echo $room_no ?>" placeholder="Room Number">
+                                <small></small>
                             </div>
 
                             <div class="col-md-12 pa2">
                                 <label for="room_cap">Room Capacity</label>
-                                <input class="form-control" type="number" name="room_cap"
-                                    value="<?php echo $room_cap ?>" placeholder="Room Capacity" required onkeyup = "return validateNum(document.myForm.room_cap.value,1)">
-                                <span class="valid-field"></span>
-                                <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                                <input class="form-control" type="number" name="room_cap" id="roomcap" value="<?php echo $room_cap ?>" placeholder="Room Capacity">
+                                <small></small>
                             </div>
 
                             <div class="form-button mt-3 tc">
@@ -131,7 +125,7 @@ if (isset($_GET['edit'])) {
     <!-- Script files -->
     <script src="../../js/form.js"></script>
     <script src="../../js/Sidebar/sidebar.js"></script>
-    <script src="../../js/validateAcc.js"></script>
+    <script src="../../js/validateRoom.js"></script>
     <script src="https://kit.fontawesome.com/319379cac6.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

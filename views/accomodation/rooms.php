@@ -79,16 +79,26 @@ if (isset($_GET['edit'])) {
                                     <option selected disabled value="">Select Accomodation</option>
                                     <?php
                                     $acc_code = mysqli_query($conn, "SELECT * FROM accomodation");
+                                    // $accrow = mysqli_fetch_assoc($acc_code);
+                                    // $no_of_rooms = $accrow['no_of_rooms'];
                                     foreach ($acc_code as $row) { ?>
-                                    <option name="acc" value="<?= $row["acc_id"] ?>"
-                                        <?php if($acc_id == $row['acc_id']) { ?> 
-                                            selected 
-                                        <?php } ?>>
-                                        <?= $row["acc_name"]; ?>
-                                    </option>
-                                    <?php
-                                    }
-                                    ?>
+                                        <option name="acc" value="<?= $row["acc_id"] ?>"
+                                            <?php 
+                                            $acc_id = $row['acc_id'];
+                                            $sql2 = mysqli_query($conn, "SELECT COUNT(id) AS count_room FROM `rooms` WHERE acc_id='$acc_id' GROUP BY `acc_id`");
+                                            $roomCount = mysqli_fetch_array($sql2);
+                                            $room_count = $roomCount['count_room'];
+                                            if($acc_id == $row['acc_id']) { 
+                                                if($room_count < $row['no_of_rooms']) { ?> 
+                                                 
+                                            <?php } 
+                                            else { ?>
+                                                disabled
+                                            <?php } ?>>
+                                            <?= $row['acc_name']; ?>
+                                            <?php } ?>
+                                        </option>
+                                    <?php } ?>
                                 </select>
                                 <small></small>
                             </div>

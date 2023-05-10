@@ -117,7 +117,7 @@ if (isset($_POST['update'])) {
             }
             mysqli_query($conn,"UPDATE rooms SET current_room_occupancy = '$curr_room_occ' WHERE id='$room_id'");
             
-            mysqli_query($conn, "UPDATE employee SET emp_code='$emp_code',fname='$fname',mname='$mname',lname='$lname',designation='$designation',dob='$dob',contact='$contact',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',department='$department',blood_group='$blood_group',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',room_id=nullif('$room_id',' ')");
+            mysqli_query($conn, "UPDATE employee SET emp_code='$emp_code',fname='$fname',mname='$mname',lname='$lname',designation='$designation',dob='$dob',contact='$contact',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',department='$department',blood_group='$blood_group',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',room_id=nullif('$room_id',' ') where emp_code='$emp_code'");
             // $last_insert_id = mysqli_insert_id($conn);
             $_SESSION['message'] = "Employee Details Saved";
         }

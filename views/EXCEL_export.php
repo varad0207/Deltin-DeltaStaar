@@ -93,8 +93,8 @@ if(isset($_POST["emp_export"]))
                 <td>' .$row['joining_date']. '</td>
                 <td>' .$row['aadhaar_number']. '</td>
                 <td>' .$row['salary']. '</td>
-                <td>'.$room_no.'</td>
-                <td>'.$acc_name.'</td>
+                <td style="background-color:#00FFCA;">'.$room_no.'</td>
+                <td style="background-color:#00FFCA;">'.$acc_name.'</td>
                 </tr>
                 ';
             }

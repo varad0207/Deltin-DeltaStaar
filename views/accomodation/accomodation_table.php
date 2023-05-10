@@ -326,10 +326,10 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <td>
                             <?php 
-                            if($room_row['current_room_occupancy'] == NULL){
-                                $room_row['current_room_occupancy'] = 0;
+                            if(@$room_row['current_room_occupancy'] == NULL){
+                                @$room_row['current_room_occupancy'] = 0;
                             }
-                            echo $row['tot_capacity']; ?>/<?php echo $room_row['current_room_occupancy'] ; ?>
+                            echo $row['tot_capacity']; ?>/<?php echo @$room_row['current_room_occupancy'] ; ?>
                         </td>
                         <td>
                             <?php echo $row['no_of_rooms']; ?>

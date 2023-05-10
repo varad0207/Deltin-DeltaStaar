@@ -333,7 +333,7 @@ if (mysqli_num_rows($check) > 0)
                                 <td>
                                     <?php
 
-                                    if (isset($row['tech_closure_timestamp']) && isset($row['sec_closure_timestamp']) && isset($row['warden_closure_timestamp'])) {
+                                    if (isset($row['tech_closure_timestamp']) && isset($row['sec_closure_timestamp']) || isset($row['warden_closure_timestamp'])) {
                                         echo "<p>Completed</p>";
                                     } else if (isset($row['tech_pending_timestamp']) && !isset($row['tech_closure_timestamp']) && !isset($row['sec_closure_timestamp']) && !isset($row['warden_closure_timestamp'])) {
                                         echo "<p>Waiting for material</p>";

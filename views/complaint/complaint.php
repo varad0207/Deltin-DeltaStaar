@@ -55,6 +55,8 @@ if (isset($_GET['edit'])) {
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
 </head>
 
 <body class="b ma2">
@@ -85,24 +87,25 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="empcode">Employee Name</label>
-                                <?php $empdet="select emp_code,concat(fname,' ',lname,' - ',emp_code) as name from employee";
-                                $detresult=mysqli_query($conn,$empdet);
-                                $detdata=array();
-                                while($detrow=mysqli_fetch_assoc($detresult)){
-                                    $detdata[]=$detrow['name'];
-                                } ?>
+                                <?php
+                                $empdet = "select emp_code,concat(fname,' ',lname,' - ',emp_code) as name from employee";
+                                $detresult = mysqli_query($conn, $empdet);
+                                $detdata = array();
+                                while ($detrow = mysqli_fetch_assoc($detresult)) {
+                                    $detdata[] = $detrow['name'];
+                                }
+                                ?>
                                 <?php if (isset($_SESSION['emp_id']) && !$update) { ?>
-                                    <input class="form-control" id="empcode" style="pointer-events: none;"  type="text" name="emp_code" value="<?php echo $_SESSION['emp_code']; ?>">
-                                <?php } else {?>
-                                <input class="form-control" id="empcode" value="" type="text" name="emp_code" placeholder="Start typing" required autocomplete="off" list="options_list" onkeyup="GetDetail(this.value)">
-                                <datalist id="options_list">
-                                    <?php foreach($detdata as $option): ?>
-                                        <option value="<?= $option; ?>">
-                                    <?php endforeach; ?>
-                                </datalist>    
-                                <!-- <input class="form-control" id="empcode" value="" type="text" name="emp_code" placeholder="eg.HV1234" required onkeyup="GetDetail(this.value)"> -->
-                                <div class="valid-feedback">field is valid!</div>
-                                <div class="invalid-feedback">field cannot be blank!</div>
+                                    <input class="form-control" id="empcode" value="<?php echo $_SESSION['emp_code']; ?>" type="text" name="emp_code" style="pointer-events: auto;">
+                                <?php } else { ?>
+                                    <input class="form-control" id="empcode" value="" type="text" name="emp_code" placeholder="Start typing" required autocomplete="off" list="options_list" onkeyup="GetDetail(this.value)">
+                                    <datalist id="options_list">
+                                        <?php foreach ($detdata as $option) : ?>
+                                            <option value="<?= $option; ?>">
+                                            <?php endforeach; ?>
+                                    </datalist>
+                                    <div class="valid-feedback">field is valid!</div>
+                                    <div class="invalid-feedback">field cannot be blank!</div>
                                 <?php } ?>
                             </div>
 
@@ -211,50 +214,42 @@ if (isset($_GET['edit'])) {
         // }
 
         function GetDetail(str) {
-    var empcode = str.split(' - ')[1];
-        $('#empcode').val(empcode);
-    if (str.length == 0) {
-        document.getElementById("acccode").value = "";
-        return;
-    }
-    else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var myObj = JSON.parse(this.responseText);
-                document.getElementById("acccode").value = myObj[0];
-
+            if (str.length != 0) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myObj = JSON.parse(this.responseText);
+                        $("#acc option[value='14']").prop('selected', true);
                     }
                 };
-        xmlhttp.open("GET", "../../controllers/validation.php?emp_code=" + empcode, true);
-        xmlhttp.send();
-    }
-  }
-</script>
+                xmlhttp.open("GET", "../../controllers/validation.php?emp_code=" + str, true);
+                xmlhttp.send();
+            }
+        }
+    </script>
 
-<!-- Include jQuery and the autocomplete plugin -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
 
-<!-- Initialize the autocomplete plugin -->
-<script>
-    $(document).ready(function() {
-        $('#empcode').autoComplete({
-            minChars: 1,
-            source: function(term, suggest){
-                term = term.toLowerCase();
-                var suggestions = [];
-                <?php foreach ($detdata as $option): ?>
-                    if (~<?php echo json_encode(strtolower($option)); ?>.indexOf(term)) {
-                        suggestions.push('<?php echo addslashes($option); ?>');
-      }
-      <?php endforeach; ?>
-      suggest(suggestions);
-    }
-  });
-});
-</script>
-<script src="../../js/form.js"></script>
+
+    <!-- Initialize the autocomplete plugin -->
+    <script>
+        $(document).ready(function() {
+            $('#empcode').autocomplete({
+                minChars: 1,
+                source: function(term, response) {
+                    term = term.toLowerCase();
+                    var suggestions = [];
+                    <?php foreach ($detdata as $option) : ?>
+                        if (~<?php echo json_encode(strtolower($option)); ?>.indexOf(term)) {
+                            suggestions.push('<?php echo addslashes($option); ?>');
+                        }
+                    <?php endforeach; ?>
+                    response(suggestions);
+                }
+            });
+        });
+    </script>
+
+    <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>

@@ -359,14 +359,20 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch emp name -->
                                 <td>
-                                    <?php echo $EmpName_row['fname']; ?>
+                                <?php
+                                    if (isset($EmpName_row['fname']) && !empty($EmpName_row['fname'])) {
+                                        echo @$EmpName_row['fname'];
+                                    } else {
+                                        echo @$EmpName_row['fname'] = 'N/A';
+                                    }
+                                    ?>
                                 </td>
                                 <td>
                                     <?php echo $row['emp_code']; ?>
                                 </td>
                                 <!-- fetch acc name -->
                                 <td>
-                                    <?php echo $AccName_row['acc_name']; ?>
+                                    <?php echo @$AccName_row['acc_name']; ?>
                                 </td>
                                 <td>
                                     <?php

@@ -7,11 +7,11 @@ if(isset($_REQUEST['emp_code'])){
         $row = mysqli_fetch_array($query);
         $room = $row["room_id"];
         if($room!=''){
-            $acc=mysqli_fetch_array(mysqli_query($conn,"select acc_code from accomodation join rooms using(acc_id) where rooms.id='$room'"));
-            $acc_code=$acc['acc_code'];
+            $acc=mysqli_fetch_array(mysqli_query($conn,"select acc_id from accomodation join rooms using(acc_id) where rooms.id='$room'"));
+            $acc_id=$acc['acc_id'];
         }
     }
-    $result = array("$acc_code");
+    $result = array("$acc_id");
     $myJSON = json_encode($result);
     echo $myJSON;
 }

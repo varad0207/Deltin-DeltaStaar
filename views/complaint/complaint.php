@@ -36,7 +36,6 @@ if (isset($_GET['edit'])) {
     $emp_code = $n['emp_code'];
     $acc_code = $n['acc_code'];
     $acc_name = $n['acc_name'];
-
 }
 ?>
 <!DOCTYPE html>
@@ -54,8 +53,7 @@ if (isset($_GET['edit'])) {
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
@@ -75,7 +73,7 @@ if (isset($_GET['edit'])) {
                 <div class="form-content">
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Raise a Complaint</h1>
-                        <?php if (isset($_SESSION['message'])): ?>
+                        <?php if (isset($_SESSION['message'])) : ?>
                             <div class="msg">
                                 <?php
                                 echo $_SESSION['message'];
@@ -83,8 +81,7 @@ if (isset($_GET['edit'])) {
                                 ?>
                             </div>
                         <?php endif ?>
-                        <form class="requires-validation f3 lh-copy" novalidate
-                            action="../../controllers/complaint_controller.php" method="post">
+                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/complaint_controller.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <input type="hidden" name="acc_code" value="<?php echo $acc_code; ?>">
 
@@ -99,13 +96,11 @@ if (isset($_GET['edit'])) {
                                 }
                                 ?>
                                 <?php if (isset($_SESSION['emp_id']) && !$update) { ?>
-                                    <input class="form-control" id="empcode" value="<?php echo $_SESSION['emp_code']; ?>"
-                                        type="text" name="emp_code" style="pointer-events: auto;">
+                                    <input class="form-control" id="empcode" value="<?php echo $_SESSION['emp_code']; ?>" type="text" name="emp_code" style="pointer-events: auto;">
                                 <?php } else { ?>
-                                    <input class="form-control" id="empcode" value="" type="text" name="emp_code"
-                                        placeholder="Start typing" required autocomplete="off" list="options_list">
+                                    <input class="form-control" id="empcode" value="" type="text" name="emp_code" placeholder="Start typing" required autocomplete="off" list="options_list" onkeyup="GetDetail(this.value)">
                                     <datalist id="options_list">
-                                        <?php foreach ($detdata as $option): ?>
+                                        <?php foreach ($detdata as $option) : ?>
                                             <option value="<?= $option; ?>">
                                             <?php endforeach; ?>
                                     </datalist>
@@ -116,14 +111,14 @@ if (isset($_GET['edit'])) {
 
                             <!-- <div class="col-md-12 pa2">
                                 <label for="accCode">Accomodation Code</label>
-                                <input class="form-control" value="<?php echo $acc_code; ?>" type="text" id="acccode" name="acc_code" placeholder="eg.ACC1234" required>
+                                <input class="form-control" value="<?php //echo $acc_code; ?>" type="text" id="acccode" name="acc_code" placeholder="eg.ACC1234" required>
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>
                             </div> -->
                             <!--Accomodation code not getting fetched properly-->
                             <div class="col-md-12 pa2">
                                 <label for="type">Accomodation name</label>
-                                <select class="form-select mt-3" name="acc_id" required>
+                                <select class="form-select mt-3" name="acc_id" id="acc" required>
                                     <option selected disabled value="">Select accomodation</option>
                                     <?php
                                     $comp_type = mysqli_query($conn, "SELECT * FROM accomodation");
@@ -132,7 +127,7 @@ if (isset($_GET['edit'])) {
                                         <option value="<?php echo $row["acc_id"]; ?>">
                                             <?= $row["acc_name"]; ?>
                                         </option>
-                                        <?php
+                                    <?php
                                     }
 
                                     ?>
@@ -141,7 +136,8 @@ if (isset($_GET['edit'])) {
                             </div>
                             <!-- <div class="col-md-12 pa2">
                             <label for="category">Category</label>
-                                <select class="form-select mt-3" name="category" value="<?php //echo $category; ?>" required>
+                                <select class="form-select mt-3" name="category" value="<?php //echo $category; 
+                                                                                        ?>" required>
                                     <option selected disabled value="">Select a category of complaint</option>
                                     <option value="1">Electrical</option>
                                     <option value="2">Plumbing</option>
@@ -163,7 +159,7 @@ if (isset($_GET['edit'])) {
                                         <option name="category" value="<?= $row["type_id"] ?>">
                                             <?= $row["complaint_type"]; ?>
                                         </option>
-                                        <?php
+                                    <?php
                                     }
 
                                     ?>
@@ -175,20 +171,16 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="description">Complaint Description</label>
-                                <textarea name="description" placeholder="Please describe your problem" cols="30"
-                                    rows="10" value="<?php echo $description; ?>"></textarea>
+                                <textarea name="description" placeholder="Please describe your problem" cols="30" rows="10" value="<?php echo $description; ?>"></textarea>
                             </div>
 
 
                             <div class="form-button mt-3 tc">
 
-                                <?php if ($update == true): ?>
-                                    <button id="submit" class="btn btn-warning f3 lh-copy" style="color: white;"
-                                        type="submit" name="update" value="update"
-                                        style="background: #556B2F;">update</button>
-                                <?php else: ?>
-                                    <button id="submit" class="btn btn-warning f3 lh-copy" style="color: white;"
-                                        type="submit" name="submit" value="submit">Submit</button>
+                                <?php if ($update == true) : ?>
+                                    <button id="submit" class="btn btn-warning f3 lh-copy" style="color: white;" type="submit" name="update" value="update" style="background: #556B2F;">update</button>
+                                <?php else : ?>
+                                    <button id="submit" class="btn btn-warning f3 lh-copy" style="color: white;" type="submit" name="submit" value="submit">Submit</button>
                                 <?php endif ?>
                             </div>
                         </form>
@@ -200,23 +192,37 @@ if (isset($_GET['edit'])) {
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
 
     <script>
+        // function GetDetail(str) {
+        //     var empcode = str.split(' - ')[1];
+        //     $('#empcode').val(empcode);
+        //     if (str.length == 0) {
+        //         document.getElementById("acccode").value = "";
+        //         return;
+        //     }
+        //     else {
+        //         var xmlhttp = new XMLHttpRequest();
+        //         xmlhttp.onreadystatechange = function () {
+        //             if (this.readyState == 4 && this.status == 200) {
+        //                 var myObj = JSON.parse(this.responseText);
+        //                 document.getElementById("acccode").value = myObj[0];
+
+        //             }
+        //         };
+        //         xmlhttp.open("GET", "../../controllers/validation.php?emp_code=" + empcode, true);
+        //         xmlhttp.send();
+        //     }
+        // }
+
         function GetDetail(str) {
-            var empcode = str.split(' - ')[1];
-            $('#empcode').val(empcode);
-            if (str.length == 0) {
-                document.getElementById("acccode").value = "";
-                return;
-            }
-            else {
+            if (str.length != 0) {
                 var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
+                xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var myObj = JSON.parse(this.responseText);
-                        document.getElementById("acccode").value = myObj[0];
-
+                        $("#acc option[value='14']").prop('selected', true);
                     }
                 };
-                xmlhttp.open("GET", "../../controllers/validation.php?emp_code=" + empcode, true);
+                xmlhttp.open("GET", "../../controllers/validation.php?emp_code=" + str, true);
                 xmlhttp.send();
             }
         }
@@ -226,13 +232,13 @@ if (isset($_GET['edit'])) {
 
     <!-- Initialize the autocomplete plugin -->
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#empcode').autocomplete({
                 minChars: 1,
-                source: function (term, response) {
+                source: function(term, response) {
                     term = term.toLowerCase();
                     var suggestions = [];
-                    <?php foreach ($detdata as $option): ?>
+                    <?php foreach ($detdata as $option) : ?>
                         if (~<?php echo json_encode(strtolower($option)); ?>.indexOf(term)) {
                             suggestions.push('<?php echo addslashes($option); ?>');
                         }
@@ -245,9 +251,7 @@ if (isset($_GET['edit'])) {
 
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>

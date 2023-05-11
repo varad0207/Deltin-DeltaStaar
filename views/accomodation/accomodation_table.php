@@ -287,7 +287,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Building Status</th>
                     <th scope="col">Location</th>
                     <th scope="col">Gender</th>
-                    <th scope="col">Total Capacity/Current Occupency</th>
+                    <th scope="col">Total Capacity/Current Occupancy</th>
                     <th scope="col">Number of Rooms</th>
                     <th scope="col">Warden</th>
                     <!-- <th scope="col">Occupied Rooms</th>

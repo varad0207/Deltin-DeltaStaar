@@ -15,6 +15,16 @@ if(isset($_REQUEST['emp_code'])){
     $myJSON = json_encode($result);
     echo $myJSON;
 }
+if(isset($_REQUEST['y'])){
+    $emps=mysqli_query($conn,"select concat(fname,' ',mname,' ',lname,' - ',emp_code) as name from employee");
+    $employees=array();
+     while($result =mysqli_fetch_array($emps)){
+                array_push($employees,$result['name']);
+
+     }
+    $myJSON = json_encode($result);
+    echo $myJSON;
+}
 if(isset($_REQUEST['acc'])){
     $acc = $_REQUEST['acc'];
     $rooms=array();

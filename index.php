@@ -18,14 +18,11 @@ if (isset($_SESSION["emp_id"])) {
 	<link rel="icon" type="image/x-icon" href="images/logo-no-name-circle.png">
 	<title>Delta@STAAR | HOME</title>
 
-
-
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<!-- Bootstrap Icons -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
 
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -34,15 +31,13 @@ if (isset($_SESSION["emp_id"])) {
 	<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 	<!--Custom CSS-->
 	<link rel="stylesheet" href="./css/style.css">
-
-
-
 	<link rel="stylesheet" href="./css/logincss.css">
+
 </head>
 
 <body class="bgcolor">
 	<!-- Navigation Bar -->
-	<nav class="navbar  navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
+	<nav class="navbar navbar-expand-lg navbar-dark f4 lh-copy pa3 fw4">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
 				<img src="./images/logo-no-name.png" height="50px" alt="Deltin Logo"
@@ -60,16 +55,16 @@ if (isset($_SESSION["emp_id"])) {
 						aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
-					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+					<ul class="navbar-nav justify-content-end flex-grow-1">
 						<li class="nav-item">
 							<a class="nav-link active" href="./views/aboutus.html">About Us</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="./views/complaint/complaint.php">Complaints+</a>
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a class="nav-link active1" href="./views/login.php">Login</a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -89,7 +84,7 @@ if (isset($_SESSION["emp_id"])) {
 			<!--<h1>Welcome to <span class="txtgold">Delta@STAAR</span></h1>-->
 			<!--<a type="button" class="btn btn-secondary btn-lg" href="./views/login.php">Start / Login</a>-->
 
-			<div class="card rounded-3 gradient-custom-2 p-md-5">
+			<div class="card rounded-3 gradient-custom-2">
 
 				<div class="text-center form-head">
 					<img src="./images/logo-no-name.png" style="width: 60%;" alt="logo">

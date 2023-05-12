@@ -38,5 +38,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     include '../../controllers/includes/navbar.php';
     ?>
 
+    <navbar></navbar>
 </body>
 </html>

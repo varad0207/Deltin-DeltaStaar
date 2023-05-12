@@ -74,17 +74,17 @@ if ($rights['rights_jobs'] > 0) {
 
     <div class="table-header">
         <h1 class="tc f1 lh-title spr">Raised Jobs</h1>
-        <!-- <div class="fl w-75 form-outline srch">
-        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
+         
+    <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" class="fl w-75" />
         <h4 id="demo"></h4>
-    </div> -->
         <!-- Displaying Database Table -->
         <!-- <div class="tr">
         <button class="btn btn-dark">
-            <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
+            <h5><i class="bi bi-filter-circle"></i></h5>
         </button>
-    </div> -->
+    </div>  -->
     </div>
+
 
     <?php //Entries per-page
     $results_per_page = 5;

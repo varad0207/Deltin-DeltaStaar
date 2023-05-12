@@ -9,7 +9,7 @@ if ($rights['rights_visitor_log'] > 1) {
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 if ($isPrivilaged == 5 || $isPrivilaged == 4)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-if(isset($_SESSION['is_superadmin']) == 1){
+if($_SESSION['is_superadmin'] == 1){
     die('<script>alert("You dont have access to this page, Please contact security");window.location = history.back();</script>');
 }
 ?>
@@ -58,7 +58,7 @@ if(isset($_SESSION['is_superadmin']) == 1){
                             <div id="employee-form" style="display: none;">
                                 <div class="col-md-12">
                                     <label for="empcode">Employee Code</label>
-                                    <select class="form-select mt-3" name="emp_id" required>
+                                    <select class="form-select mt-3" name="emp_id" id="empid">
                                         <option selected disabled value="" name="employee_code">Select Employee Code</option>
                                         <?php $emp_code = mysqli_query($conn, "SELECT * FROM employee");
                                         foreach ($emp_code as $row) { ?>

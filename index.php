@@ -84,7 +84,7 @@ if (isset($_SESSION["emp_id"])) {
 			<!--<h1>Welcome to <span class="txtgold">Delta@STAAR</span></h1>-->
 			<!--<a type="button" class="btn btn-secondary btn-lg" href="./views/login.php">Start / Login</a>-->
 
-			<div class="card rounded-3 gradient-custom-2">
+			<div class="card rounded-4 gradient-custom-2">
 
 				<div class="text-center form-head">
 					<img src="./images/logo-no-name.png" style="width: 60%;" alt="logo">

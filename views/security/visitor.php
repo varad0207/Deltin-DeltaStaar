@@ -9,7 +9,9 @@ if ($rights['rights_visitor_log'] > 1) {
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 if ($isPrivilaged == 5 || $isPrivilaged == 4)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
+if(isset($_SESSION['is_superadmin']) == 1){
+    die('<script>alert("You dont have access to this page, Please contact security");window.location = history.back();</script>');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,13 +44,14 @@ if ($isPrivilaged == 5 || $isPrivilaged == 4)
                 <div class="form-content">
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">VISITOR LOG FORM</h1>
-                        <form class="requires-validation f3 lh-copy" novalidate action="../../controllers/visitor_log_controller.php" method="post">
+                        <form class="f3 lh-copy" id="myForm" action="../../controllers/visitor_log_controller.php" method="post">
                             <label for="visitor-type">Visitor Type:</label>
                             <select id="visitor-type" name="visitor-type">
                                 <option value="Nota">Select Visitor Category</option>
                                 <option name="emp" value="employee">Employee</option>
                                 <option name="non-emp" value="non-employee">Non Employee</option>
                             </select>
+                            <small></small>
                             <br><br>
 
                             <!-- div for employee form -->
@@ -68,10 +71,11 @@ if ($isPrivilaged == 5 || $isPrivilaged == 4)
                                     <br>
                                 </div>
                                 <label name="vehicle-no"for="vehicle-number">Vehicle Number:</label>
-                                <input type="text" id="vehicle-number" name="vehiclenumber" required>
+                                <input type="text" id="vehicle-number" name="vehiclenumber">
                                 <br><br>
                                 <label name="purpose"for="purpose-of-visit">Purpose of Visit:</label>
-                                <input type="text" id="purpose-of-visit" name="purposeofvisit" required>
+                                <input type="text" id="purpose-of-visit" name="purposeofvisit">
+                                <small></small>
                             </div>
 
                             <!-- div for non-employee form -->
@@ -80,14 +84,15 @@ if ($isPrivilaged == 5 || $isPrivilaged == 4)
                                 <input type="text" id="visitor-name" name="visitor-name" placeholder="Your Name">
                                 <br><br>
                                 <label for="vehicle-number">Vehicle Number:</label>
-                                <input type="text" id="vehicle-number" name="vehicle-number" placeholder="Your Vehicle Number" required>
+                                <input type="text" id="vehicle-number" name="vehicle-number" placeholder="Your Vehicle Number">
                                 <br><br>
                                 <label for="purpose-of-visit">Purpose of Visit:</label>
-                                <input type="text" id="purpose-of-visit" name="purpose-of-visit" required placeholder="Purpose of the visit">
+                                <input type="text" id="purpose-of-visit" name="purpose-of-visit" placeholder="Purpose of the visit">
                                 <br><br>
                                 <label for="visitor-phone">Visitor Phone:</label>
                                 <br><br>
                                 <input type="tel" id="visitor-phone" name="visitor-phone" placeholder="Phone Number" style="border-radius:5px;">
+                                <small></small>
                             </div>
 
                             <br><br>
@@ -120,6 +125,7 @@ if ($isPrivilaged == 5 || $isPrivilaged == 4)
             }
         });
     </script>
+    <script src="../../js/validateVisitor.js"></script>
 </body>
 
 </html>

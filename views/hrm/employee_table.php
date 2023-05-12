@@ -265,7 +265,7 @@ if ($rights['rights_employee_details'] > 0) {
         $sql .= " ) ";
         // echo $sql;
     }
-
+    
     if (isset($_GET['start_date'])) {
         // $start_date=date("Y-m-d",($_GET['start_date'])); 
         // echo $start_date;

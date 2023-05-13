@@ -6,7 +6,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
     $link = "../";
 ?>
 
-<nav class="navbar  navbar-expand-lg navbar-dark f3 lh-copy pa3 fw4">
+<nav class="navbar navbar-expand-lg navbar-dark f3 lh-copy pa3 fw4">
     <div class="container-fluid">
         <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
         <a class="navbar-brand" href="#">

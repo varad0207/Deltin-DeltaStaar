@@ -34,8 +34,8 @@ const checkVPhone = () => {
     let valid = false;
     if (Phone === '') {
         showError(phone, "Contact Number cannot be blank");
-    } else if (!/^\+[0-9]{2} [0-9]{10}$/.test(Phone)) {
-        showError(phone, "Number is invalid, contact must be of the form (+cc) (10 digit phone no)");
+    } else if (!/^[0-9]{10}$/.test(Phone)) {
+        showError(phone, "Number is invalid, enter a 10 digit phone number");
     } else {
         showSuccess(phone);
         valid = true;

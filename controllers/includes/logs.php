@@ -56,9 +56,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#collapsed5" role="button" aria-expanded="false" aria-controls="collapsed5">Jobs</a>        
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#collapsed6" role="button" aria-expanded="false" aria-controls="collapsed6">Visitor Log</a>        
-        </li>
+        </li> -->
     </ul>
 
     <div class="collapse" id="collapsed1">
@@ -79,8 +79,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_array($result)) { ?>
                                 <tr class="live">
-                                    <td><?php echo $row['emp_code'] ?></td>
                                     <td><?php echo $row['emp_id'] ?></td>
+                                    <td><?php echo $row['emp_code'] ?></td>
                                     <td><?php echo $row['user'] ?></td>
                                     <td><?php echo $row['timestamp'] ?></td>
                                     <td><?php echo $row['type'] ?></td>
@@ -95,5 +95,144 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
             </div>
         </div>
     </div>
+    <div class="collapse" id="collapsed2">
+        <div class="pl1 pr1 table-responsive">
+                <table class="table table-bordered tc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Accommodation ID</th>
+                            <th scope="col">Accommodation Code</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Type of Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $result = mysqli_query($conn, "SELECT * FROM change_tracking_accomodation");
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) { ?>
+                                <tr class="live">
+                                    <td><?php echo $row['acc_id'] ?></td>
+                                    <td><?php echo $row['acc_code'] ?></td>
+                                    <td><?php echo $row['user'] ?></td>
+                                    <td><?php echo $row['timestamp'] ?></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <label style="color:white;">No entries found</label>
+                        <?php
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapsed3">
+        <div class="pl1 pr1 table-responsive">
+                <table class="table table-bordered tc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Room ID</th>
+                            <th scope="col">Accommodation ID</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Type of Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $result = mysqli_query($conn, "SELECT * FROM change_tracking_rooms");
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) { ?>
+                                <tr class="live">
+                                    <td><?php echo $row['room_id'] ?></td>
+                                    <td><?php echo $row['acc_id'] ?></td>
+                                    <td><?php echo $row['user'] ?></td>
+                                    <td><?php echo $row['timestamp'] ?></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <label style="color:white;">No entries found</label>
+                        <?php
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapsed4">
+        <div class="pl1 pr1 table-responsive">
+                <table class="table table-bordered tc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Complaint ID</th>
+                            <th scope="col">Complaint Type</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Type of Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $result = mysqli_query($conn, "SELECT * FROM change_tracking_complaints");
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) { ?>
+                                <tr class="live">
+                                    <td><?php echo $row['complaint_id'] ?></td>
+                                    <td><?php echo $row['complaint_type'] ?></td>
+                                    <td><?php echo $row['user'] ?></td>
+                                    <td><?php echo $row['timestamp'] ?></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <label style="color:white;">No entries found</label>
+                        <?php
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapsed5">
+        <div class="pl1 pr1 table-responsive">
+                <table class="table table-bordered tc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Jobs ID</th>
+                            <th scope="col">Complaint ID</th>
+                            <th scope="col">Technician ID</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Type of Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $result = mysqli_query($conn, "SELECT * FROM change_tracking_jobs");
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) { ?>
+                                <tr class="live">
+                                    <td><?php echo $row['jobs_id'] ?></td>
+                                    <td><?php echo $row['complaint_id'] ?></td>
+                                    <td><?php echo $row['technician_id'] ?></td>
+                                    <td><?php echo $row['user'] ?></td>
+                                    <td><?php echo $row['timestamp'] ?></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <label style="color:white;">No entries found</label>
+                        <?php
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

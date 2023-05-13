@@ -259,8 +259,17 @@ if (mysqli_num_rows($check) > 0)
     $sqli .=" LIMIT $start,$limit";
     $result=mysqli_query($conn,$sqli);
 
+//     if($isWarden){
+//     $sess_emp_code=mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_id='{$_SESSION["emp_id"]}'"));
+//     // $c1=mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where complaints.emp_code=employee.emp_code"));
+//     // $c2=mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM rooms where rooms.id='{$c1['room_id']}'"));
+//     // $c3=mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM accomodation where accomodation.acc_id='{$c2['acc_id']}'"));
+//     $q1="SELECT * FROM complaints where {$sess_emp_code['']}";
+//     $result1=mysqli_query($conn,$q1);
+// }else{
     $q1="SELECT * FROM complaints";
     $result1=mysqli_query($conn,$q1);
+// }
     $total=mysqli_num_rows($result1);
     $pages=ceil($total/$limit);
     

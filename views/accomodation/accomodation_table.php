@@ -349,7 +349,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             <?php } ?>
-                            &nbsp;
+                        </td>
+                        <td>
                             <?php if($isPrivilaged>=4){ ?>
                             <a class="del_btn" onclick="myfunc('<?php echo $row['acc_code']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                             <form id="del_response" action="../../controllers/accomodation_controller.php" method="get">

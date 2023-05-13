@@ -16,9 +16,9 @@ if(isset($_GET['edit']))
 	$n = mysqli_fetch_array($record);
 
     $vname = $n['vname'];
-    $cname = $n['cname'];
-    $add = $n['add'];
-    $num = $n['num'];
+    // $cname = $n['cname'];
+    // $add = $n['add'];
+    // $num = $n['num'];
 }
 ?>
 <!DOCTYPE html>

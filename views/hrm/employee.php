@@ -39,6 +39,11 @@ if (isset($_GET['edit'])) {
     $salary = $n['salary'];
     $room_id = $n['room_id'];
     $contact = $n['contact'];
+    $accid = '';
+
+    $sql2 = mysqli_query($conn,"SELECT * FROM rooms WHERE id='$room_id'");
+    $n1 = mysqli_fetch_assoc($sql2);
+    @$accid = $n1['acc_id'];
 }
 ?>
 
@@ -268,9 +273,11 @@ if (isset($_GET['edit'])) {
                                     <option selected disabled value=""> Select Accommodation </option>
                                         <?php 
                                         $emp_acc = mysqli_query($conn, "SELECT * FROM accomodation");
-                                        
                                         foreach ($emp_acc as $row) { ?>
-                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>">
+                                            <option name="employee_accomodation" value="<?= $row["acc_id"] ?>"
+                                            <?php if(@$accid == $row['acc_id']) { ?>
+                                                selected
+                                            <?php } ?>>
                                                 <?= $row["acc_name"]; ?> 
                                             </option>
                                         <?php
@@ -283,7 +290,18 @@ if (isset($_GET['edit'])) {
                             <div class="form-field col-md-12 pa2">
                                 <label for="room_id">Room</label>
                                 <select class="form-select mt-3" name="room_id" id="room">
-                                    <option selected disabled value="">Select Room Number</option>                          
+                                    <option selected disabled value="">Select Room Number</option>   
+                                    <?php
+                                    $emp_room = mysqli_query($conn,"SELECT * FROM rooms");
+                                    foreach($emp_room as $row) { ?>
+                                        <option name="emp_room" value="<?= $row['id'] ?>"
+                                        <?php if($room_id == $row['id']) { ?>
+                                            selected
+                                        <?php } ?>>
+                                        <?= $row['room_no']; ?>
+                                        </option>
+                                    <?php } ?>
+                                                     
                                 </select>  
                                 <small></small>
                             </div>

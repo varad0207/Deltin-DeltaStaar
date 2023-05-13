@@ -1,5 +1,7 @@
 <?php
     require "includes/common.php";
+    include('includes/common.php');
+
 // initialize variables
 $emp_code = $fname = $mname = $lname = $designation = $dob = $address = $state = $country = $pincode = $contact = $email = $blood_group = $department = $joining_date = $aadhaar_number = $salary = $room_id = $curr_room_occ = "";
 
@@ -72,6 +74,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
+    $empcode_edit = $emp_code;
     $emp_code = $_POST['emp_code'];
     $emp_id = $_POST['emp_id'];
     $fname = $_POST['fname'];
@@ -94,9 +97,6 @@ if (isset($_POST['update'])) {
     $room_id=NULL;
     
     if(isset($_POST['room_id'])){
-        $previous_room_id=mysqli_fetch_array(mysqli_query($conn,"SELECT * from employee where emp_id=$emp_id"));
-        $previous_room_id=$previous_room_id['room_id'];
-        $new_room_id=$_POST['room_id'];
         $room_id = $_POST['room_id'];
         $sql1 = mysqli_query($conn,"SELECT * FROM rooms WHERE id='$room_id'");
         $row1 = mysqli_fetch_array($sql1);
@@ -104,8 +104,22 @@ if (isset($_POST['update'])) {
         $stat = $row1['status'];
         $room_cap = $row1['room_capacity'];
         $acc_id = $row1['acc_id'];
+
+        $sql4 = mysqli_query($conn,"SELECT * FROM employee WHERE emp_code='$emp_code'");
+        $row4 = mysqli_fetch_assoc($sql4);
+        $sql5 = mysqli_query($conn,"SELECT * FROM rooms WHERE id='{$row4['room_id']}'");
+        $row5 = mysqli_fetch_assoc($sql5);
+        $old_curr_occ = $row5['current_room_occupancy'];
+        $old_room_id = $row5['id'];
+
         if($curr_room_occ < $room_cap){
             $curr_room_occ+=1;
+            
+            if($old_room_id != $room_id){
+                $old_curr_occ -= 1;
+                mysqli_query($conn,"UPDATE rooms set current_room_occupancy='$old_curr_occ' WHERE id='$old_room_id'");
+            }
+
             if($curr_room_occ == $room_cap){
                 $stat = "Occupied";
                 $sql2 = mysqli_query($conn,"SELECT * FROM accomodation WHERE acc_id='$acc_id'");
@@ -119,15 +133,6 @@ if (isset($_POST['update'])) {
                 mysqli_query($conn,"UPDATE accomodation SET occupied_rooms = '$new_occ_rooms', available_rooms = '$new_avail_rooms' WHERE acc_id='$acc_id'");
             }
             mysqli_query($conn,"UPDATE rooms SET current_room_occupancy = '$curr_room_occ' WHERE id='$room_id'");
-            
-        //   ----------------------
-        // PREVIOUS ROOM -1
-            $current_occupancy=mysqli_fetch_array(mysqli_query($conn,"SELECT * rooms where id=$previous_room_id"));
-            $current_occupancy=$current_occupancy['current_room_occupancy'];
-            $current_occupancy-=1;
-
-            mysqli_query($conn,"UPDATE rooms SET current_room_occupancy=$current_occupancy where id=$previous_room_id");
-        // ------------------------------
             
             mysqli_query($conn, "UPDATE employee SET emp_code='$emp_code',fname='$fname',mname='$mname',lname='$lname',designation='$designation',dob='$dob',contact='$contact',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',department='$department',blood_group='$blood_group',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',room_id=nullif('$room_id',' ') where emp_code='$emp_code'");
             // $last_insert_id = mysqli_insert_id($conn);

@@ -150,13 +150,16 @@ if ($rights['rights_jobs'] > 0) {
 
                         ?>
                         <?php
-                        $tech_id = mysqli_query($conn, "SELECT * FROM technician");
+                        $tech_id = mysqli_query($conn, "SELECT * FROM technician where id='{$row['technician_id']}'");
 
 
 
                         $row2 = mysqli_fetch_array($tech_id);
                         $emp_det = mysqli_query($conn, "SELECT * FROM employee where emp_id={$row2["emp_id"]}");
                         $row1 = mysqli_fetch_array($emp_det);
+
+                        $warden_emp_det = mysqli_query($conn, "SELECT * FROM employee where emp_code='{$row["warden_emp_code"]}'");
+                        $row4 = mysqli_fetch_array($warden_emp_det);
 
                         $total_time_pending = strtotime($row['completion_date']) - strtotime($row['raise_timestamp']);
                         $time_elapsed = time() - strtotime($row['raise_timestamp']);
@@ -186,20 +189,25 @@ if ($rights['rights_jobs'] > 0) {
                             <td>
                                 <?= $row1["fname"] ?>
                                 <?= " " ?>
-                                <?= $row1["lname"] ?>(
-                                <?= $row1["emp_code"]; ?>)
+                                <?= $row1["lname"] ?>
+                                (<?= $row1["emp_code"]; ?>)
                             </td>
                             <td>
-                                <?php echo $row['warden_emp_code']; ?>
+                            <?= $row4["fname"] ?>
+                                <?= " " ?>
+                                <?= $row4["lname"] ?>
+                                (<?= $row4["emp_code"]; ?>)
                             </td>
                             <td>
-                                <?php echo $row['raise_timestamp']; ?>
+                            <?php echo date('d-m-Y', strtotime($row['raise_timestamp'])); ?>
+                                
                             </td>
                             <td>
                                 <?php echo $row['description']; ?>
                             </td>
                             <td>
-                                <?php echo $row['completion_date']; ?>
+                            <?php echo date('d-m-Y', strtotime($row['completion_date'])); ?>
+                                
                             </td>
                             <td>
                                 <div class="progress-bar">

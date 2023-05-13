@@ -72,22 +72,97 @@ if ($rights['rights_visitor_log'] > 0) {
             <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
             <h4 id="demo"></h4>
         </div>
-        <div class="fl w-25 tr">
-            <button class="btn btn-dark">
-                <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
-            </button>
+        <div class="fl w-25 tr pa1">
+            <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+                <i class="bi bi-filter-circle"> Sort By</i> </button>
+
         </div>
     </div>
-
+    <!-- APPLYING FILTERS -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="pa1">
+            <br>
+            <form action="" method="GET">
+                <label style="color:white;">Filter By</label>
+                <button type="sumbit" class="btn btn-light">Go</button>
+                <!-- <button type="reset" class="btn btn-light">Reset</button> -->
+                <br>
+                <br>
+                <table class="table">
+                    <thead>
+                        <th>Visitor Type : </th>
+                        <th>Date : </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                            <div class="input-group mb-3">
+                            <select name="visitor" class="form-control">
+                                    <option value="">--Select Option--</option>
+                                    <option value="emp">Employee</option>
+                                    <option value="nonemp">Non Employee</option>
+                            </select>
+                            </div>
+                                
+                            </td>
+                            <td>
+                            <label>From : </label>
+                                <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
+                                echo $_POST['start_date']; ?>">
+                                <br>
+                                <br>
+                                <label>To : </label>
+                                <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
+                                echo $_POST['end_date']; ?>"><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
     <!-- Displaying Database Table -->
 
     <?php
     $sql = "SELECT * FROM visitor_log where 1=1";
+    if(isset($_GET['visitor']))
+    {
+        $visitor_type=$_GET['visitor'];
+        echo $visitor_type;
+        if($visitor_type=="emp")
+        {
+            $sql .=" AND ( `type`='employee' or";
+            $sql = substr($sql, 0, strripos($sql, "or"));
+            $sql .= " ) ";
+        }
+        else if($visitor_type=="nonemp")
+        {
+            $sql .=" AND ( `type`='non-employee' or";
+            $sql = substr($sql, 0, strripos($sql, "or"));
+            $sql .= " ) ";
+        }
+        
+    }
+
+    if (isset($_GET['start_date'])) 
+    {
+        $start_date=$_GET['start_date'];
+        echo $start_date;
+        $sql.=" AND ( check_in";
+
+    }
+    
+    if (isset($_GET['end_date'])) 
+    {
+        $end_date=$_GET['end_date'];
+        echo $end_date;
+    }
     /* ***************** PAGINATION ***************** */
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
     $sql .= " LIMIT $start,$limit";
+    $visitor_log_qry=$sql;
     $result = mysqli_query($conn, $sql);
 
     $q1 = "SELECT * FROM visitor_log";
@@ -123,8 +198,6 @@ if ($rights['rights_visitor_log'] > 0) {
                 <thead>
                     <tr>
                         <th scope="col">Sr.No</th>
-                        <th scope="col">Employee ID</th>
-                        <th scope="col">Security ID</th>
                         <th scope="col">Visitor Name</th>
                         <th scope="col">Vehicle No</th>
                         <th scope="col">Type of visitor</th>
@@ -136,16 +209,9 @@ if ($rights['rights_visitor_log'] > 0) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($result)) { ?>
+                    <?php $i=1;while ($row = mysqli_fetch_array($result)) { ?>
                         <tr>
-                            <th scope="row"><?php echo $row['id']; ?></th>
-
-                            <td>
-                                <?php echo $row['emp_id']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['security_emp_id']; ?>
-                            </td>
+                            <th scope="row"><?php echo $i; ?></th>
                             <td>
                                 <?php echo $row['visitor_name']; ?>
                             </td>
@@ -199,7 +265,7 @@ if ($rights['rights_visitor_log'] > 0) {
                                 <?php } ?>
                             </td>
                         </tr>
-                    <?php } ?>
+                    <?php $i++;} ?>
                 </tbody>
             </table>
         </div>
@@ -217,10 +283,10 @@ if ($rights['rights_visitor_log'] > 0) {
         </ul>
     </nav>
     <div class="table-footer pa4">
-        <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
+    <div class="fl w-75 tl">
+        <form action="../EXCEL_export.php" method="post">
+        <button class="btn btn-warning" name="visitor_log_export" value="<?php echo $visitor_log_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+            </form>
         </div>
         <?php if ($isPrivilaged > 1 && $isPrivilaged != 5 && $isPrivilaged != 4) { ?>
             <div class="fl w-25 tr">

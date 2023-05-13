@@ -22,10 +22,11 @@ $acc_id = "";
 
 if (isset($_POST['submit'])) 
 {
-    echo "Hello";
+    
     date_default_timezone_set('Asia/Kolkata');
     $checkin = date('Y-m-d H:i:s');
     $security_emp_id = $_SESSION['emp_id'];
+    echo $security_emp_id;
     $acc_select = "SELECT * FROM security where emp_id=$security_emp_id";
     $res = mysqli_query($conn, $acc_select);
     $row = mysqli_fetch_array($res);
@@ -36,7 +37,8 @@ if (isset($_POST['submit']))
         $vehicle_no = $_POST['vehicle-number'];
         $purpose = $_POST['purpose-of-visit'];
         $phone = $_POST['visitor-phone'];
-
+        echo $acc_id;
+        echo $security_emp_id;
         $qry = "INSERT INTO `visitor_log`(`security_emp_id`,`acc_code`, `visitor_name`, `vehicle_no`,`type`,`check_in`,`purpose`,`phone_no`) VALUES($security_emp_id,$acc_id,'$visitor_name','$vehicle_no','$visitor_type','$checkin','$purpose',$phone);";
         if (mysqli_query($conn, $qry)) {
             echo "Checkin value inserted successfully";

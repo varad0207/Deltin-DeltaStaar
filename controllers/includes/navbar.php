@@ -83,7 +83,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                                         <a class="dropdown-item" href="../views/config/technician.php">Define/Add Technician</a>
                                         <a class="dropdown-item" href="../views/config/complaint_type.php">Complaint Type</a>
                                         <a class="dropdown-item" href="../controllers/includes/logs.php">Logs</a>
-                                        <a class="dropdown-item" href="../../../frontend/phpimport/excel_import.php">Data Import</a>
+                                        <a class="dropdown-item" href="..//phpimport/excel_import.php">Data Import</a>
                                         <?php } ?>
 
                                     </div>

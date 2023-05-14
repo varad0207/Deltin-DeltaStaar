@@ -172,16 +172,16 @@ if (isset($_POST['vaccination'])) {
             $_SESSION['message'] = "Succesfully Imported";
 
             echo $_SESSION['message'];
-            // header('Location:excel_import.php');
-            // exit(0);
+            header('Location:excel_import.php');
+            exit(0);
         } else {
             $_SESSION['message'] = " ! Succesfully Imported";
-            // header('Location:excel_import.php');
-            // exit(0);
+            header('Location:excel_import.php');
+            exit(0);
         }
     } else {
-        // $_SESSION['message'] = "Invalid File";
-        // header('Location:excel_import.php');
+        $_SESSION['message'] = "Invalid File";
+        header('Location:excel_import.php');
      }
 }
 

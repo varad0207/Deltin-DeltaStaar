@@ -76,13 +76,13 @@ if ($rights['rights_visitor_log'] > 0) {
         <div class="fl w-75 form-outline srch">
             <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search"
                 oninput="search()" />
-            <h4 id="demo"></h4>
         </div>
-        <div class="fl w-25 tr pa1">
+        <div class="sortBy fl w-25 tr pa1">
             <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
-                <i class="bi bi-filter-circle">Sort By</i>
+                aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="bi bi-filter-circle"> Sort</i>
             </button>
         </div>
     </div>

@@ -124,7 +124,8 @@ if ($rights['rights_visitor_log'] > 0) {
     <!-- Displaying Database Table -->
 
     <?php
-    $sql = "SELECT * FROM visitor_log where 1=1";
+    $logged_security_empid=$_SESSION['emp_id'];
+    $sql = "SELECT * FROM visitor_log where `security_emp_id`='$logged_security_empid' and 1=1";
     if(isset($_GET['visitor']))
     {
         $visitor_type=$_GET['visitor'];
@@ -165,7 +166,7 @@ if ($rights['rights_visitor_log'] > 0) {
     $visitor_log_qry=$sql;
     $result = mysqli_query($conn, $sql);
 
-    $q1 = "SELECT * FROM visitor_log";
+    $q1 = "SELECT * FROM visitor_log where `security_emp_id`='$logged_security_empid";
     $result1 = mysqli_query($conn, $q1);
     $total = mysqli_num_rows($result1);
     $pages = ceil($total / $limit);

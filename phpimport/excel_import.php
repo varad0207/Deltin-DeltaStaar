@@ -1,5 +1,4 @@
-<script>alert(<?php echo $_SESSION['message'];?>) </script>
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>

@@ -84,7 +84,7 @@ const checkState = () => {
     const min = 3, max = 20;
     if (State === '') {
         showError(state, "State cannot be blank");
-    } else if (!/^[a-zA-Z\s]+$/.test(State)) {
+    } else if (!/^[a-zA-Z]+$/.test(State)) {
         showError(state, "State is invalid");
     } else if(!isBetween(State.length,min,max)) {
         showError(state, "Min 3, Max 20 letters")
@@ -100,7 +100,7 @@ const checkCountry = () => {
     const min = 3, max = 25
     if (Country === '') {
         showError(country, "Country cannot be blank");
-    } else if (!/^[a-zA-Z\s]+$/.test(Country)) {
+    } else if (!/^[a-zA-Z]+$/.test(Country)) {
         showError(country, "Country is invalid");
     } else if(!isBetween(Country.length,min,max)) {
         showError(country, "Min 3, Max 20 letters")

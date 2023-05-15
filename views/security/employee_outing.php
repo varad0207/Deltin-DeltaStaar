@@ -91,11 +91,11 @@ if (isset($_GET['edit'])) {
               </div>
               <div class="col-md-12 pa2">
                 <label for="quantity">Outing Start Date</label>
-                <input class="form-control" type="date" name="start_date" value="<?= $outing_date ?>" required>
+                <input class="form-control" type="date" name="start_date" value="<?= $outing_date ?>" min="<?= date('Y-m-d'); ?>" required>
               </div>
               <div class="col-md-12 pa2">
                 <label for="quantity">Arrival Date (Optional)</label>
-                <input class="form-control" type="date" name="arrival_date" value="<?= $arrival_date ?>">
+                <input class="form-control" type="date" name="arrival_date" value="<?= $arrival_date ?>" min="<?= date('Y-m-d'); ?>">
               </div>
               <div class="col-md-12 pa2">
                 <label for="type">Type of Outing</label>

@@ -55,7 +55,7 @@ if (isset($_GET['edit'])) {
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h1 class="f2 lh-copy tc" style="color: white;">Create Role</h1>
+                    <h1 class="f2 lh-copy tc" style="color: white;"><?php if($update == true): ?>Update <?php else: echo("Create")?> <?php endif ?>Role</h1>
                         <form class=" f3 lh-copy" action="../../controllers/role_controller.php" method="post" id="myForm">
                             <input type="hidden" name="role_id" value="<?php echo $n['role_id']; ?>">
                             <input type="hidden" name="rights" value="<?php echo $n['rights']; ?>">

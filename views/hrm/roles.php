@@ -11,7 +11,7 @@ if (isset($_GET['edit'])) {
     $role_id = $_GET['edit'];
     $update = true;
     $record = mysqli_query($conn, "SELECT * FROM roles WHERE role_id=$role_id");
-
+   
     // if (count($record) == 1 ) {
     $n = mysqli_fetch_array($record);
 
@@ -57,8 +57,8 @@ if (isset($_GET['edit'])) {
                     <div class="form-items">
                         <h1 class="f2 lh-copy tc" style="color: white;">Create Role</h1>
                         <form class=" f3 lh-copy" action="../../controllers/role_controller.php" method="post" id="myForm">
-                            <input type="hidden" name="role_id" value="<?php echo $role_id; ?>">
-                            <input type="hidden" name="rights" value="<?php echo $rights; ?>">
+                            <input type="hidden" name="role_id" value="<?php echo $n['role_id']; ?>">
+                            <input type="hidden" name="rights" value="<?php echo $n['rights']; ?>">
 
                             <div class="col-md-12 pa2">
                                 <label for="role_name">Role Name</label>

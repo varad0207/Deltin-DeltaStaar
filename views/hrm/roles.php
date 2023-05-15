@@ -377,7 +377,7 @@ if (isset($_GET['edit'])) {
             let valid = false;
             if (name === '') {
                 showError(rolename, "Name cannot be blank");
-            } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+            } else if (!/^[a-zA-Z]+[0-9]*$/.test(name)) {
                 showError(rolename, "Name is invalid");
             } else {
                 showSuccess(rolename);

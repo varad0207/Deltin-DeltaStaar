@@ -359,7 +359,7 @@ if ($rights['rights_employee_details'] > 0) {
                                     <?php }
                                     if ($isPrivilaged >= 4) {  ?>
 
-                                        <a class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" onclick="myfunc('<?php echo $row['emp_code']; ?>')"></i></a>
+                                        <a class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" ></i></a>
                                         <form id="del_response" action="../../controllers/employee_controller.php" method="get">
                                             <input type="hidden" id="hidden-del" name="del" value="" />
                                         </form>

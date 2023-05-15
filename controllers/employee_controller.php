@@ -200,14 +200,17 @@ if (isset($_GET['del'])) {
             }
         }
     }
-
+    $new_room_occ = 0;
     $sql1 = mysqli_query($conn,"SELECT * FROM rooms JOIN employee ON rooms.id = employee.room_id");
     $row1 = mysqli_fetch_array($sql1);
     $curr_room_occ = $row1['current_room_occupancy'];
     $room_id = $row1['id'];
+    echo $curr_room_occ;
     $new_room_occ = $curr_room_occ - 1;
+    echo $new_room_occ;
     mysqli_query($conn,"UPDATE rooms SET current_room_occupancy='$new_room_occ' WHERE id='$room_id'");
     mysqli_query($conn, "DELETE FROM employee WHERE emp_code='$emp_code'");
+    mysqli_query($conn,"UPDATE rooms SET status = '' WHERE id='$room_id'");
     $_SESSION['message'] = "Employee Deleted!";
     header('location: ../views/hrm/employee_table.php');
 }

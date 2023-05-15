@@ -72,9 +72,15 @@ include 'common.php';
 <div class="containerrr">
 
     <div class="one">
+        <?php if($isSecurity): ?>
+    <div class="security-logo">
+            <img src="../images/guard.png" alt="security_logo" width="80%">
+        </div>
+        <?php else: ?>
         <div class="employee-logo">
             <img src="../images/employee.png" alt="employee_logo" width="80%">
         </div>
+        <?php endif ?>
 
     </div>
     <div class="two">

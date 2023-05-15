@@ -1,10 +1,9 @@
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'deltastaar');
 require 'vendor/autoload.php';
-
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
+use PhpOffice\PhpSpreadsheet\Settings;
 // if(isset($_POST['excel'])) 
 // {
 //     $fileName=$_FILES['excel_import']['name'];
@@ -48,9 +47,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 //EMPLOYEE IMPORT
 if (isset($_POST['employee'])) {
+
     $fileName = $_FILES['employee_import']['name'];
     $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
-
+    echo "Hello";
     $allowed_ext = ['xls', 'csv', 'xlsx'];
     if (in_array($file_ext, $allowed_ext)) {
         $inputFileName = $_FILES['employee_import']['tmp_name'];
@@ -75,10 +75,8 @@ if (isset($_POST['employee'])) {
             $joining_date = $row['14'];
             $aadhar_number = $row['15'];
             $salary = $row['16'];
-            $room_id = $row['17'];
-
             // insertion code
-            mysqli_query($conn, "INSERT INTO `employee`(`emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`) VALUES ('$emp_code','$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhar_number','$salary','$room_id')");
+            mysqli_query($conn, "INSERT INTO `employee`(`emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`) VALUES ('$emp_code','$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhar_number','$salary')");
             $msg = true;
         }
         if (isset($msg)) {
@@ -116,28 +114,24 @@ if (isset($_POST['accomodation'])) {
             $gender=$row['4'];
             $tot_capacity=$row['5'];
             $no_of_rooms=$row['6'];
-            $occupied_rooms=$row['7'];
-            $availabe_rooms=$row['8'];
-            $warden_emp_code=$row['9'];
-            $owner=$row['10'];
-            $remark=$row['11'];
+            $owner=$row['7'];
             
-            mysqli_query($conn,"INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `warden_emp_code`, `owner`, `remark`) VALUES ('$acc_code','$acc_name','$bldg_status','$location','$gender','$tot_capacity','$no_of_rooms','$occupied_rooms','$availabe_rooms','$warden_emp_code','$owner','$remark')");
+            mysqli_query($conn,"INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`,`owner`) VALUES ('$acc_code','$acc_name','$bldg_status','$location','$gender','$tot_capacity','$no_of_rooms','$owner')");
             // insertion code
             $msg = true;
         }
         if (isset($msg)) {
-            $_SESSION['message'] = "Succesfully Imported";
-            header('Location:excel_import.php');
-            exit(0);
+            // $_SESSION['message'] = "Succesfully Imported";
+            // header('Location:excel_import.php');
+            // exit(0);
         } else {
-            $_SESSION['message'] = " ! Succesfully Imported";
-            header('Location:excel_import.php');
-            exit(0);
+            // $_SESSION['message'] = " ! Succesfully Imported";
+            // header('Location:excel_import.php');
+            // exit(0);
         }
     } else {
-        $_SESSION['message'] = "Invalid File";
-        header('Location:excel_import.php');
+        // $_SESSION['message'] = "Invalid File";
+        // header('Location:excel_import.php');
     }
 }
 
@@ -202,24 +196,23 @@ if (isset($_POST['rooms'])) {
             $acc_id=$row['0'];
             $room_no=$row['1'];
             $room_capacity=$row['2'];
-            $status=$row['3'];
-            $current_room_occupancy=$row['4'];
+            
             
             // Insert Query
-            mysqli_query($conn,"INSERT INTO `rooms`(`acc_id`,`room_no`,`room_capacity`, `status`,`current_room_occupancy`) VALUES ('$acc_id','$room_no','$room_capacity','$status','$current_room_occupancy')");
+            mysqli_query($conn,"INSERT INTO `rooms`(`acc_id`,`room_no`,`room_capacity`) VALUES ('$acc_id','$room_no','$room_capacity')");
             $msg = true;
         }
         if (isset($msg)) {
-            $_SESSION['message'] = "Succesfully Imported";
-            header('Location:excel_import.php');
-            exit(0);
+            // $_SESSION['message'] = "Succesfully Imported";
+            // header('Location:excel_import.php');
+            // exit(0);
         } else {
-            $_SESSION['message'] = " ! Succesfully Imported";
-            header('Location:excel_import.php');
-            exit(0);
+            // $_SESSION['message'] = " ! Succesfully Imported";
+            // header('Location:excel_import.php');
+            // exit(0);
         }
     } else {
-        $_SESSION['message'] = "Invalid File";
-        header('Location:excel_import.php');
+        // $_SESSION['message'] = "Invalid File";
+        // header('Location:excel_import.php');
     }
 }

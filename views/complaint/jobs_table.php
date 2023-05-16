@@ -276,7 +276,7 @@
                             </td>
 
                             <td style="text-align:center;">
-                                <?php if (isset($row['sec_closure_timestamp']) || isset($row3['warden_closure_timestamp'])) { ?>
+                                <?php if (isset($row['sec_closure_timestamp']) || isset($row['warden_closure_timestamp'])) { ?>
 
                                     <p class="del_btn" style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; margin-bottom: 0px; text-align: center; display: inline-block;" disabled>Closed</p><br>
                                     <span class="closure-label">Security</span>
@@ -293,7 +293,7 @@
                             </td>
 
                             <td style="text-align:center;">
-                                <?php if (isset($row['sec_closure_timestamp']) || isset($row3['warden_closure_timestamp'])) { ?>
+                                <?php if (isset($row['sec_closure_timestamp']) || isset($row['warden_closure_timestamp'])) { ?>
 
                                     <p class="del_btn" style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; margin-bottom: 0px; text-align: center; display: inline-block;" disabled>Closed</p><br>
                                     <span class="closure-label">Warden</span>

@@ -11,7 +11,7 @@ if ($rights['rights_complaints'] > 0) {
 } else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $isWarden = 0;
-$check = mysqli_query($conn, "select emp_id from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}'");
+$check = mysqli_query($conn, "select emp_id,emp_code from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}' and emp_code in (select warden_emp_code from accomodation)");
 if (mysqli_num_rows($check) > 0)
     $isWarden = 1;
 ?>

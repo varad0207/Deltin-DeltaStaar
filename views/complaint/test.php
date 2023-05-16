@@ -124,7 +124,7 @@
 
     <!-- APPLYING FILTERS -->
     <?php
-    $sql = "SELECT * FROM jobs join complaints on jobs.complaint_id=complaints.id join technician on jobs.technician_id=technician.id where 1=1";
+    $sql = "SELECT *,jobs.id as 'job_id' FROM jobs join complaints on jobs.complaint_id=complaints.id join technician on jobs.technician_id=technician.id where 1=1";
 
     // CHECK FOR TECHNICIAN CATEGORY 
     if (isset($_GET['emp_id'])) {
@@ -133,6 +133,33 @@
         $sql = substr($sql, 0, strripos($sql, "or"));
         $sql .= " ) ";
     }
+
+    /* ***************** PAGINATION ***************** */
+    $limit = 10;
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $start = ($page - 1) * $limit;
+    $sql .= " LIMIT $start,$limit";
+    $result = mysqli_query($conn, $sql);
+
+    $q1 = "SELECT * FROM jobs";
+    $result1 = mysqli_query($conn, $q1);
+    $total = mysqli_num_rows($result1);
+    $pages = ceil($total / $limit);
+    //check if current page is less then or equal 1
+    if(($page>1)||($page<$pages))
+    {
+        $Previous=$page-1;
+        $Next=$page+1;
+    }
+    if($page<=1)
+    {
+        $Previous=1;
+    }
+    if($page>=$pages)
+    {
+        $Next=$pages;
+    }
+    /* ************************************************ */
 
     ?>
     <div class="table-div">
@@ -144,10 +171,6 @@
                 ?>
             </div>
         <?php endif ?>
-
-        <?php
-        $results = mysqli_query($conn, $sql);
-        ?>
 
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
@@ -166,7 +189,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                    <?php 
+                    while ($row = mysqli_fetch_array($result)) { ?>
                         <?php
                         $total_time_pending = strtotime($row['completion_date']) - strtotime($row['raise_timestamp']);
                         $time_elapsed = time() - strtotime($row['raise_timestamp']);
@@ -192,14 +216,12 @@
                         } else {
                             $progress_text = round($progress) . '%';
                         }
-
-
                         ?>
-
                         <tr>
                             <td>
-                                <?php echo $row['id']; ?>
+                                <?php echo $row['job_id']; ?>
                             </td>
+
                             <td>
                                 <?php echo $row['complaint_id']; ?>
                             </td>
@@ -210,7 +232,12 @@
                                 echo $row1['fname'] . " " . $row1['lname'] . " " . $row['emp_id'] ?>
                             </td>
                             <td>
-                                <?php echo $row['warden_emp_code']; ?>
+                                <?php 
+                                $warden_code=$row['warden_emp_code'];
+                                $row2 = mysqli_fetch_array(mysqli_query($conn, "select fname,mname,lname,emp_code from employee where emp_code='$warden_code'"));
+                                echo $row2['fname'] . " " . $row2['lname'] . " " . $row2['emp_code'];
+                                
+                                ?>
                             </td>
                             <td>
                                 <?php echo $row['raise_timestamp']; ?>
@@ -221,7 +248,7 @@
                             <td>
                                 <?php echo $row['completion_date']; ?>
                             </td>
-                            <td>
+                            
                             <td>
                                 <div class="progress-bar">
                                     <?php if ($is_closed) { ?>
@@ -233,7 +260,7 @@
                                     <?php } ?>
                                 </div>
                             </td>
-                            </td>
+                            
                             <td>
                                 <?php echo $row['remarks']; ?>
                             </td>
@@ -287,6 +314,19 @@
             </table>
         </div>
     </div>
+
+    <!-- Pagination numbers -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="test.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                <li class="page-item"><a class="page-link" href="test.php?page=<?= $i ?>">
+                        <?php echo $i; ?>
+                    </a></li>
+            <?php endfor; ?>
+            <li class="page-item"><a class="page-link" href="test.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">

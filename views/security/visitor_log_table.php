@@ -147,7 +147,6 @@ if ($rights['rights_visitor_log'] > 0) {
 
     if (isset($_GET['visitor'])) {
         $visitor_type = $_GET['visitor'];
-        echo $visitor_type;
 
         if ($visitor_type == "emp") {
             $sql .= " AND (`type` = 'employee')";

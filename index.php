@@ -30,7 +30,7 @@ if (isset($_SESSION["emp_id"])) {
 	<!-- Tachyons -->
 	<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 	<!--Custom CSS-->
-	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/style.css?v=1.1">
 	<link rel="stylesheet" href="./css/logincss.css">
 
 </head>

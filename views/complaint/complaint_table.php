@@ -375,7 +375,13 @@ if (mysqli_num_rows($check) > 0)
                                 </td>
                                 <!-- fetch acc name -->
                                 <td>
-                                    <?php echo $AccName_row['acc_name']; ?>
+                                <?php
+                                    if (isset($AccName_row['acc_name']) && !empty($AccName_row['acc_name'])) {
+                                        echo $AccName_row['acc_name'];
+                                    } else {
+                                        echo $AccName_row['acc_name'] = 'N/A';
+                                    }
+                                ?>
                                 </td>
                                 <td>
                                     <?php

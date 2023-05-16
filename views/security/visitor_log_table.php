@@ -96,24 +96,24 @@ if ($rights['rights_visitor_log'] > 0) {
                     <tbody>
                         <tr>
                             <td>
-                            <div class="input-group mb-3">
-                            <select name="visitor" class="form-control">
-                                    <option value="">--Select Option--</option>
-                                    <option value="emp">Employee</option>
-                                    <option value="nonemp">Non Employee</option>
-                            </select>
-                            </div>
-                                
+                                <div class="input-group mb-3">
+                                    <select name="visitor" class="form-control">
+                                        <option value="">--Select Option--</option>
+                                        <option value="emp">Employee</option>
+                                        <option value="nonemp">Non Employee</option>
+                                    </select>
+                                </div>
+
                             </td>
                             <td>
-                            <label>From : </label>
+                                <label>From : </label>
                                 <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                echo $_POST['start_date']; ?>">
+                                                                                echo $_POST['start_date']; ?>">
                                 <br>
                                 <br>
                                 <label>To : </label>
                                 <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
-                                echo $_POST['end_date']; ?>"><br>
+                                                                                echo $_POST['end_date']; ?>"><br>
                             </td>
                         </tr>
                     </tbody>
@@ -124,49 +124,47 @@ if ($rights['rights_visitor_log'] > 0) {
     <!-- Displaying Database Table -->
 
     <?php
-    $logged_security_empid=$_SESSION['emp_id'];
-    $sql = "SELECT * FROM visitor_log where `security_emp_id`='$logged_security_empid' and 1=1";
-    if(isset($_GET['visitor']))
-    {
-        $visitor_type=$_GET['visitor'];
+    // $sql = "SELECT * FROM visitor_log where 1=1";
+    // if(isset($_GET['visitor']))
+    // {
+    //     $visitor_type=$_GET['visitor'];
+    //     echo $visitor_type;
+    //     if($visitor_type=="emp")
+    //     {
+    //         $sql .=" and ( `type`='employee' or";
+    //         $sql = substr($sql, 0, strripos($sql, "or"));
+    //         $sql .= " ) ";
+    //     }
+    //     else if($visitor_type=="nonemp")
+    //     {
+    //         $sql .=" and ( `type`='non-employee' or";
+    //         $sql = substr($sql, 0, strripos($sql, "or"));
+    //         $sql .= " ) ";
+    //     }
+
+    // }
+    $sql = "SELECT * FROM visitor_log WHERE 1=1";
+
+    if (isset($_GET['visitor'])) {
+        $visitor_type = $_GET['visitor'];
         echo $visitor_type;
-        if($visitor_type=="emp")
-        {
-            $sql .=" AND ( `type`='employee' or";
-            $sql = substr($sql, 0, strripos($sql, "or"));
-            $sql .= " ) ";
+
+        if ($visitor_type == "emp") {
+            $sql .= " AND (`type` = 'employee')";
+        } else if ($visitor_type == "nonemp") {
+            $sql .= " AND (`type` = 'non-employee')";
         }
-        else if($visitor_type=="nonemp")
-        {
-            $sql .=" AND ( `type`='non-employee' or";
-            $sql = substr($sql, 0, strripos($sql, "or"));
-            $sql .= " ) ";
-        }
-        
     }
 
-    if (isset($_GET['start_date'])) 
-    {
-        $start_date=$_GET['start_date'];
-        echo $start_date;
-        $sql.=" AND ( check_in";
-
-    }
-    
-    if (isset($_GET['end_date'])) 
-    {
-        $end_date=$_GET['end_date'];
-        echo $end_date;
-    }
     /* ***************** PAGINATION ***************** */
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
     $sql .= " LIMIT $start,$limit";
-    $visitor_log_qry=$sql;
+    $visitor_log_qry = $sql;
     $result = mysqli_query($conn, $sql);
 
-    $q1 = "SELECT * FROM visitor_log where `security_emp_id`='$logged_security_empid";
+    $q1 ="SELECT * FROM visitor_log where 1=1";
     $result1 = mysqli_query($conn, $q1);
     $total = mysqli_num_rows($result1);
     $pages = ceil($total / $limit);
@@ -210,7 +208,8 @@ if ($rights['rights_visitor_log'] > 0) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1;while ($row = mysqli_fetch_array($result)) { ?>
+                    <?php $i = 1;
+                    while ($row = mysqli_fetch_array($result)) { ?>
                         <tr>
                             <th scope="row"><?php echo $i; ?></th>
                             <td>
@@ -250,7 +249,7 @@ if ($rights['rights_visitor_log'] > 0) {
 
                                         $co = strtotime($row['check_out']);
                                         $date = date('d M Y ', $co);
-                                        echo $date.", ";
+                                        echo $date . ", ";
                                         $time = date('H:i', $co);
                                         echo $time;
                                     }
@@ -266,7 +265,8 @@ if ($rights['rights_visitor_log'] > 0) {
                                 <?php } ?>
                             </td>
                         </tr>
-                    <?php $i++;} ?>
+                    <?php $i++;
+                    } ?>
                 </tbody>
             </table>
         </div>
@@ -284,9 +284,11 @@ if ($rights['rights_visitor_log'] > 0) {
         </ul>
     </nav>
     <div class="table-footer pa4">
-    <div class="fl w-75 tl">
-        <form action="../EXCEL_export.php" method="post">
-        <button class="btn btn-warning" name="visitor_log_export" value="<?php echo $visitor_log_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+        <div class="fl w-75 tl">
+            <form action="../EXCEL_export.php" method="post">
+                <button class="btn btn-warning" name="visitor_log_export" value="<?php echo $visitor_log_qry; ?>">
+                    <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
+                </button>
             </form>
         </div>
         <?php if ($isPrivilaged > 1 && $isPrivilaged != 5 && $isPrivilaged != 4) { ?>

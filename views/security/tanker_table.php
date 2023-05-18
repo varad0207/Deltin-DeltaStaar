@@ -184,7 +184,7 @@
         }
     }
 
-    $sql="SELECT tanker_vendors.*,t.id entry_id,t.acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id where 1=1";
+    $sql="SELECT tanker_vendors.*,t.id entry_id,t.acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.amount amount,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id where 1=1";
     if(isset($_GET['accomodation']))
     {
         $accomodation_checked = [];
@@ -267,6 +267,7 @@
                     <th scope="col">Vendor</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
+                    <th scope="col">Amount (In Thousand Rs.)</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -309,12 +310,16 @@
                             <?php $time = date('H:i:s', $timestamp); echo $time; ?>
                         </td>
                         <td>
+                            <?php echo $row['amount']; ?>
+                        </td>
+                        <td>
                         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
                             <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             <?php } ?>
-                            &nbsp;
+                        </td>
+                        <td>
                             <?php if($isPrivilaged>=4){ ?>
                             <a class="del_btn" onclick="myfunc('<?php echo $row['entry_id']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                             <form id="del_response" action="../../controllers/tanker_controller.php" method="get">

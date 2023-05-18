@@ -128,15 +128,15 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                 <img src="../images/checklistHand.png" alt="forms_logo">
             </div>
             <div class="links">
-                <h4>Forms</h4>
+                <h4>HRM</h4>
 
                 <div class="button-con">
-                    <a href="">
-                        <button class="button-56" role="button">Add Details</button>
+                    <a href="../views/hrm/employee_table.php">
+                        <button class="button-56" role="button">Employee Details Table</button>
                     </a>
                 </div>
                 <div class="button-con">
-                    <a href="">
+                    <a href="../views/accomodation/accomodation_table.php">
                         <button class="button-56" role="button">Vaccination Form</button>
                     </a>
                 </div>
@@ -155,12 +155,12 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
             <h4>Complaints</h4>
 
             <div class="button-con">
-                <a href="">
+                <a href="../views/complaint/complaint.php">
                     <button class="button-56" role="button">Lodge a Complaint</button>
                 </a>
             </div>
             <div class="button-con">
-                <a href="">
+                <a href="../views/complaint/complaint_table.php">
                     <button class="button-56" role="button">Check Complaint Status</button>
                 </a>
             </div>
@@ -181,7 +181,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                 </a>
             </div>
             <div class="button-con">
-                <a href="../views/security/employee_outing_table.php">
+                <a href="../views/security/tanker_table.php">
                     <button class="button-56" role="button">Tanker Details Table</button>
                 </a>
             </div>

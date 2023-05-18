@@ -5,7 +5,7 @@ $tech_id = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM technician wher
 $complaint_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT count(*) as count FROM jobs where technician_id='{$tech_id['id']}'"));
 $count_array = array();
 
-$pending=mysqli_fetch_assoc(mysqli_query($conn, "select count(*) as pending_count from complaints join jobs on complaints.id=jobs.complaint_id join technician on jobs.technician_id=technician.id where complaints.tech_closure_timestamp is NULL and jobs.technician_id='2'"));
+$pending=mysqli_fetch_assoc(mysqli_query($conn, "select count(*) as pending_count from complaints join jobs on complaints.id=jobs.complaint_id join technician on jobs.technician_id=technician.id where complaints.tech_closure_timestamp is NULL and jobs.technician_id='{$tech_id['id']}'"));
 
 // $count_array = $complaint_count['count'];
 array_push($count_array,$complaint_count['count']);

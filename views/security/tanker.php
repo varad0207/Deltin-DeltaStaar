@@ -10,7 +10,7 @@
     if ($isPrivilaged == 5 || $isPrivilaged == 4)
         die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
     $update = false;
-$accid = $empsecid = $venid = $quality = $qty = $billno = $timestamp = "";
+$accid = $empsecid = $venid = $quality = $qty = $billno = $amount = $timestamp = "";
 if(isset($_GET['edit']))
 {
     $id = $_GET['edit'];
@@ -24,6 +24,7 @@ if(isset($_GET['edit']))
     $quality = $n['quality_check'];
     $qty = $n['qty'];
     $billno = $n['bill_no'];
+    $amount = $n['amount'];
     $timestamp = $n['timestamp'];
 }
 ?>
@@ -161,6 +162,13 @@ if(isset($_GET['edit']))
                       <div class="col-md-12 pa2">
                         <label for="billno">Delivery Challan</label>
                             <input class="form-control" type="text" name="billno" placeholder="Bill Number" value="<?= $billno ?>" required>
+                            <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
+                            <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
+                      </div>
+
+                      <div class="col-md-12 pa2">
+                        <label for="amount">Amount (In Thousand Rupees)</label>
+                            <input class="form-control" type="text" name="amount" placeholder="Amount" value="<?= $amount ?>" required>
                             <span class="valid-feedback" style="color: gold; font-size: 14px;">Field is valid!</span>
                             <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>
                       </div>

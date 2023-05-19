@@ -359,7 +359,7 @@ if ($rights['rights_employee_details'] > 0) {
                                     <?php }
                                     if ($isPrivilaged >= 4) {  ?>
 
-                                        <a class="del_btn"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" ></i></a>
+                                        <a class="del_btn" onclick="myfunc('<?php echo $row['emp_code']; ?>')"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" ></i></a>
                                         <form id="del_response" action="../../controllers/employee_controller.php" method="get">
                                             <input type="hidden" id="hidden-del" name="del" value="" />
                                         </form>
@@ -418,7 +418,7 @@ if ($rights['rights_employee_details'] > 0) {
     <script>
         function myfunc(code) {
             const viewmore_overlay_span = document.querySelector('.viewmore_ovelay');
-            const overlay_viewmore = viewmore_overlay_span.querySelector('.overlay');
+            const overlay_viewmore = document.querySelector('.overlay');
             overlay_viewmore.style.display = 'none';
             const del_overlay_span = document.querySelector('.delete_ovelay');
             const overlay_del = del_overlay_span.querySelector('.overlay');

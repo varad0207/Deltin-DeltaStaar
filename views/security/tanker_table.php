@@ -184,7 +184,25 @@
         }
     }
 
-    $sql="SELECT tanker_vendors.*,t.id entry_id,t.acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.amount amount,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id where 1=1";
+    $sql="SELECT
+    tanker_vendors.*,
+    t.id entry_id,
+    t.acc_id,
+    t.security_emp_id security_emp_id,
+    t.quality_check quality_check,
+    t.qty qty,
+    t.bill_no bill_no,
+    t.amount amount,
+    t.vendor_id vendor_id,
+    t.timestamp as timestamp,
+    COUNT(t.amount) AS total_entries,
+    SUM(t.amount) AS total_amount
+  FROM
+    tankers t
+  JOIN
+    tanker_vendors ON tanker_vendors.id = vendor_id
+  WHERE
+    1 = 1";
     if(isset($_GET['accomodation']))
     {
         $accomodation_checked = [];
@@ -295,10 +313,22 @@
                             <?php echo $row['qty']; ?>
                         </td>
                         <td>
-                            <?php echo $acc['acc_name']; ?>
+                        <?php
+                                    if (isset($acc['acc_name']) && !empty($acc['acc_name'])) {
+                                        echo $acc['acc_name'];
+                                    } else {
+                                        echo $acc['acc_name'] = 'N/A';
+                                    }
+                                ?>
                         </td>
                         <td>
-                            <?php echo $vendor['vname']; ?>
+                        <?php
+                                    if (isset($vendor['vname']) && !empty($vendor['vname'])) {
+                                        echo $vendor['vname'];
+                                    } else {
+                                        echo $vendor['vname'] = 'N/A';
+                                    }
+                                ?>
                         </td>
                         <td>
                             <?php 
@@ -329,6 +359,16 @@
                         </td>
                     </tr>
                     <?php } ?>
+                    <tr>
+                        <td colspan="8">Total Amount</td>
+                        <td colspan="2"><?php
+                                    if (isset($row['total_amount']) && !empty($row['total_amount'])) {
+                                        echo $row['total_amount'];
+                                    } else {
+                                        echo $row['total_amount'] = 'N/A';
+                                    }
+                                ?></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

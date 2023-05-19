@@ -8,6 +8,7 @@
 
     if(isset($_POST['submit']))
     {
+        date_default_timezone_set('Asia/Kolkata');
         $acc_id = $_POST['acc'];
         $emp_sec_id = $_POST['sec'];
         $ven_id = $_POST['ven'];
@@ -32,6 +33,7 @@
 
     if(isset($_POST['update']))
     {
+        date_default_timezone_set('Asia/Kolkata');
         $id = $_POST['id'];
         $acc_id = $_POST['acc'];
         $emp_sec_id = $_POST['sec'];

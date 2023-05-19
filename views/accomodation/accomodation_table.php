@@ -288,7 +288,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Location</th>
                     <th scope="col">Gender</th>
                     <th scope="col">Current Occupancy/Total Capacity</th>
-                    <th scope="col">Number of Rooms</th>
+                    <th scope="col">Max Number of Rooms</th>
                     <th scope="col">Warden</th>
                     <!-- <th scope="col">Occupied Rooms</th>
                     <th scope="col">Availabe Rooms</th> -->

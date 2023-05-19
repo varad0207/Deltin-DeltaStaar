@@ -7,14 +7,17 @@ if (!isset($_SESSION["emp_id"]))
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 
-if ($rights['rights_vaccination'] > 1) {
-  $isPrivilaged = $rights['rights_vaccination'];
+if ($rights['rights_employee_outing'] > 1) {
+  $isPrivilaged = $rights['rights_employee_outing'];
 } else
   die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 if ($isPrivilaged == 5 || $isPrivilaged == 4)
   die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
+if($_SESSION['is_superadmin'] == 1){
+    die('<script>alert("You dont have access to this page, Please contact security");window.location = history.back();</script>');
+}
 
 if (isset($_GET['edit'])) {
   $emp_code = $_GET['edit'];

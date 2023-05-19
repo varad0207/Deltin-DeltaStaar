@@ -74,7 +74,7 @@ if(isset($_GET['edit']))
                        </div>
 
                        <div class="col-md-12 pa2">
-                        <label for="number">Number</label>
+                        <label for="number">Contact Number</label>
                           <input class="form-control" type="number" name="num" placeholder="Number" value = "<?php $num ?>" required onkeyup = "return validateNum(document.myForm.num.value,0)">
                           <span class="valid-field"></span>
                           <span class="invalid-feedback" style="color: gold; font-size: 14px;">Field cannot be empty!</span>

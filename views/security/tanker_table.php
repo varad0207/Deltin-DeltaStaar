@@ -398,16 +398,18 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
                         </td>
                     </tr>
                     <?php } ?>
+                    <?php while ($roww = mysqli_fetch_array($result)){?>
                     <tr>
                         <td colspan="8">Total Amount</td>
                         <td colspan="2"><?php
-                                    if (isset($row['total_amount']) && !empty($row['total_amount'])) {
-                                        echo $row['total_amount'];
+                                    if (isset($roww['total_amount']) && !empty($roww['total_amount'])) {
+                                        echo $roww['total_amount'];
                                     } else {
-                                        echo $row['total_amount'] = 'N/A';
+                                        echo $roww['total_amount'] = 'N/A';
                                     }
                                 ?></td>
                     </tr>
+                    <?php }?>
                 </tbody>
             </table>
         </div>

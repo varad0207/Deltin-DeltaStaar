@@ -12,6 +12,12 @@ const state = document.querySelector('#state');
 const country = document.querySelector('#country');
 const desig = document.querySelector('#desig');
 const dept = document.querySelector('#dept');
+// const date = new Date();
+// let yr = date.getFullYear();
+// let mo = date.getMonth();
+// let d = date.getDate();
+// ageyr = yr - 18;
+dob.max = "2004-12-31";
 
 const checkFname = () => {
     const name = fname.value.trim();
@@ -160,10 +166,11 @@ const checkDOB = () => {
     let valid = false;
     if(dob.val() === '') {
         showError(dob, "Date of Birth cannot be empty");
-    } else{
+    }else{
         showSuccess(dob);
         valid = true;
     }
+    return valid;
 };
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
 

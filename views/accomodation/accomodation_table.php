@@ -267,7 +267,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         $Next=$pages;
     }
     /* ************************************************ */
-    echo $sqli;
     ?>
 
         <div class="table-div">

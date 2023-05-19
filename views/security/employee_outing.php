@@ -15,9 +15,9 @@ if ($rights['rights_employee_outing'] > 1) {
 if ($isPrivilaged == 5 || $isPrivilaged == 4)
   die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
-if($_SESSION['is_superadmin'] == 1){
-    die('<script>alert("You dont have access to this page, Please contact security");window.location = history.back();</script>');
-}
+// if($_SESSION['is_superadmin'] == 1){
+//     die('<script>alert("You dont have access to this page, Please contact security");window.location = history.back();</script>');
+// }
 
 if (isset($_GET['edit'])) {
   $emp_code = $_GET['edit'];

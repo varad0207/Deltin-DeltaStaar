@@ -3,12 +3,26 @@
     include('../../controllers/tanker_controller.php'); 
     if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
     $isPrivilaged = 0;
+    $isWarden = 0;
+$isSecurity = 0;
     $rights = unserialize($_SESSION['rights']);
     if ($rights['rights_tankers'] > 0) {
         $isPrivilaged = $rights['rights_tankers'];
     }
     else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    $sec = mysqli_query($conn, "select acc_id from security where emp_id='{$_SESSION['emp_id']}'");
+$ward = mysqli_query($conn, "select acc_id from accomodation where warden_emp_code='{$_SESSION['emp_code']}'");
+if (mysqli_num_rows($sec) > 0) {
+    $isSecurity = 1;
+    $aid = mysqli_fetch_array($sec);
+}
+if (mysqli_num_rows($ward) > 0) {
+    $isWarden = 1;
+    $aid = mysqli_fetch_array($ward);
+}
+if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
+
     ?> 
 
 <!DOCTYPE html>
@@ -213,7 +227,7 @@
   JOIN
     tanker_vendors ON tanker_vendors.id = vendor_id
   WHERE
-    1 = 1";
+    t.acc_id={$aid['acc_id']}";
     if(isset($_GET['accomodation']))
     {
         $accomodation_checked = [];
@@ -254,6 +268,7 @@
         
         $_GET['end_date']!=""?$sql .= " and DATE(timestamp)<='{$_GET['end_date']}' ":$a=0;
     }
+    // echo $sql;
     $tanker_qry = $sql;
     $result = mysqli_query($conn, $sql);
     

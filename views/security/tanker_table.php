@@ -92,7 +92,8 @@
                 <thead>
                     <th>Accomodation Name : </th>
                     <th>Vendor :</th>
-                    <th>Sort By :</th>
+                    <!-- <th>Sort By :</th> -->
+                    <th>Date : </th>
                 </thead>
                 <tbody>
                     <tr>
@@ -159,7 +160,7 @@
                         </td>
                         
                        
-                        <td>
+                        <!-- <td>
                         <div class="input-group mb-3">
                             <select name="sort_alpha" class="form-control">
                                 <option value="">--Select Option--</option>
@@ -167,7 +168,17 @@
                                 <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
                             </select>
                         </div>
-                        </td>
+                        </td> -->
+                        <td>
+                                <label>From : </label>
+                                <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
+                                echo $_POST['start_date']; ?>">
+                                <br>
+                                <br>
+                                <label>To : </label>
+                                <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
+                                echo $_POST['end_date']; ?>"><br>
+                            </td>
                     </tr>
                 </tbody>
             </table>
@@ -207,32 +218,45 @@
     {
         $accomodation_checked = [];
         $accomodation_checked = $_GET['accomodation'];
-        $sql.=" and ( ";
+        $sql .= " AND (";
         foreach ($accomodation_checked as $row_acc) {
-            $sql .= " t.acc_id=$row_acc or";
+            $sql .= " t.acc_id = $row_acc OR";
         }
-        $sql=substr($sql,0,strripos($sql,"or"));  
-        $sql.=" ) ";
-        // echo $sql;
+        $sql = substr($sql, 0, strripos($sql, "OR"));
+        $sql .= ")";
     }
-    if(isset($_GET['vendor']))
-    {
-        $vendor_checked=[];
-        $vendor_checked=$_GET['vendor'];
-        $sql .=" and ( ";
-        foreach($vendor_checked as $row_vendor)
-        {
-            $sql .=" t.vendor_id=$row_vendor or";
+    
+    if (isset($_GET['vendor'])) {
+        $vendor_checked = $_GET['vendor'];
+        $sql .= " AND (";
+        foreach ($vendor_checked as $row_vendor) {
+            $sql .= " t.vendor_id = $row_vendor OR";
         }
-        $sql=substr($sql,0,strripos($sql,"or"));
-        $sql.=" ) ";
-        //echo $sql;
-
+        $sql = substr($sql, 0, strripos($sql, "OR"));
+        $sql .= ")";
     }
-   // $sql .=" ORDER BY accomodation.acc_name $sort_condition";
-   $tanker_qry=$sql;
-   
-   $result=mysqli_query($conn,$sql);
+    // 
+    // if (isset($_GET['start_date'])) {
+    //     $start_date = $_GET['start_date'];
+    //     $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+    
+    //     // Convert start_date and end_date to MySQL date format
+    //     $start_date = date("Y-m-d", strtotime($start_date));
+    //     $end_date = date("Y-m-d", strtotime($end_date));
+    
+    //     $sql .= " AND (DATE(t.timestamp) BETWEEN '$start_date' AND '$end_date')";
+    // }
+    if (isset($_GET['start_date'])) {
+    
+        $_GET['start_date']!=""?$sql .= " and DATE(timestamp)>='{$_GET['start_date']}' ":$a=0;
+    }
+    if (isset($_GET['end_date'])) {
+        
+        $_GET['end_date']!=""?$sql .= " and DATE(timestamp)<='{$_GET['end_date']}' ":$a=0;
+    }
+    $tanker_qry = $sql;
+    $result = mysqli_query($conn, $sql);
+    
 ?>
 
 <?php

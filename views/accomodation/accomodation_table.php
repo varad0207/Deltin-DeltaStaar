@@ -267,6 +267,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         $Next=$pages;
     }
     /* ************************************************ */
+    echo $sqli;
     ?>
 
         <div class="table-div">
@@ -287,7 +288,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Building Status</th>
                     <th scope="col">Location</th>
                     <th scope="col">Gender</th>
-                    <th scope="col">Total Capacity/Current Occupancy</th>
+                    <th scope="col">Current Occupancy/Total Capacity</th>
                     <th scope="col">Number of Rooms</th>
                     <th scope="col">Warden</th>
                     <!-- <th scope="col">Occupied Rooms</th>
@@ -326,10 +327,10 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <td>
                             <?php 
-                            if(@$room_row['current_room_occupancy'] == NULL){
+                            if(@$room_row['current_room_occupancy'] == NULL || @$room_row['current_room_occupancy'] < 0){
                                 @$room_row['current_room_occupancy'] = 0;
                             }
-                            echo $row['tot_capacity']; ?>/<?php echo @$room_row['current_room_occupancy'] ; ?>
+                            echo @$room_row['current_room_occupancy']; ?>/<?php echo $row['tot_capacity'] ; ?>
                         </td>
                         <td>
                             <?php echo $row['no_of_rooms']; ?>

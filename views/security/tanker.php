@@ -109,9 +109,9 @@ if(isset($_GET['edit']))
                         </div>
 
                         <div class="col-md-12 pa2">
-                            <label for="vendorid">Vendor ID</label>
+                            <label for="vendorid">Vendor Name</label>
                             <select class="form-select mt-3" name="ven" id="ven">
-                                    <option selected disabled value="">Select Vendor</option>
+                                    <option selected disabled value="">Select Name</option>
                                     <?php
                                     $vendor_id = mysqli_query($conn, "SELECT * FROM tanker_vendors");
                                     
@@ -120,7 +120,7 @@ if(isset($_GET['edit']))
                                     <?php if($venid == $row['id']) { ?>
                                         selected
                                     <?php } ?>
-                                    ><?= $row["id"];?></option>	
+                                    ><?= $row["vname"];?></option>	
                                     <?php
                                     }
                                     ?>

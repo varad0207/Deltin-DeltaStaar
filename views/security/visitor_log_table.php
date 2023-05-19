@@ -108,12 +108,12 @@ if ($rights['rights_visitor_log'] > 0) {
                             <td>
                                 <label>From : </label>
                                 <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                                                                echo $_POST['start_date']; ?>">
+                                echo $_POST['start_date']; ?>">
                                 <br>
                                 <br>
                                 <label>To : </label>
                                 <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
-                                                                                echo $_POST['end_date']; ?>"><br>
+                                echo $_POST['end_date']; ?>"><br>
                             </td>
                         </tr>
                     </tbody>
@@ -122,27 +122,7 @@ if ($rights['rights_visitor_log'] > 0) {
         </div>
     </div>
     <!-- Displaying Database Table -->
-
     <?php
-    // $sql = "SELECT * FROM visitor_log where 1=1";
-    // if(isset($_GET['visitor']))
-    // {
-    //     $visitor_type=$_GET['visitor'];
-    //     echo $visitor_type;
-    //     if($visitor_type=="emp")
-    //     {
-    //         $sql .=" and ( `type`='employee' or";
-    //         $sql = substr($sql, 0, strripos($sql, "or"));
-    //         $sql .= " ) ";
-    //     }
-    //     else if($visitor_type=="nonemp")
-    //     {
-    //         $sql .=" and ( `type`='non-employee' or";
-    //         $sql = substr($sql, 0, strripos($sql, "or"));
-    //         $sql .= " ) ";
-    //     }
-
-    // }
     $sql = "SELECT * FROM visitor_log WHERE 1=1";
 
     if (isset($_GET['visitor'])) {

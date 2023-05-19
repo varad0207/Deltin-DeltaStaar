@@ -3,12 +3,25 @@ include('../../controllers/includes/common.php');
 include('../../controllers/employee_outing_controller.php');
 if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
 $isPrivilaged = 0;
+$isWarden = 0;
+$isSecurity = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_employee_outing'] > 0) {
     $isPrivilaged = $rights['rights_employee_outing'];
 }
 else
 die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+$sec=mysqli_query($conn,"select acc_id from security where emp_id='{$_SESSION['emp_id']}'");
+$ward=mysqli_query($conn,"select acc_id from accomodation where warden_emp_code='{$_SESSION['emp_code']}'");
+if(mysqli_num_rows($sec)>0){
+    $isSecurity=1;
+    $aid=mysqli_fetch_array($sec);
+} 
+if(mysqli_num_rows($ward)>0) {
+    $isWarden=1;
+    $aid=mysqli_fetch_array($ward);
+}
+if($_SESSION['is_superadmin']==1) $aid['acc_id']="rooms.acc_id";
 
 ?>
 
@@ -124,7 +137,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     </div>
     <?php
     $sort_condition = "";
-    $sql="SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_code = employee.emp_code WHERE 1=1";
+    $sql="SELECT * FROM employee_outing JOIN employee ON employee_outing.emp_code = employee.emp_code join rooms on rooms.id=employee.room_id WHERE rooms.acc_id={$aid['acc_id']}";
     if (isset($_GET['sort_alpha'])) 
     {
         if ($_GET['sort_alpha'] == "a-z") {
@@ -145,6 +158,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     }
     $sql .=" ORDER BY fname $sort_condition";
     $outing_qry=$sql;
+
+    // echo $sql;
     $result=mysqli_query($conn,$sql);
     ?>
     <?php

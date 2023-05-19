@@ -246,7 +246,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     $page=isset($_GET['page'])?$_GET['page']:1;
     $start=($page-1) * $limit;
     $sqli .=" LIMIT $start,$limit";
-    $result=mysqli_query($conn,$sqli);
+    $results=mysqli_query($conn,$sqli);
 
     $q1="SELECT * FROM accomodation";
     $result1=mysqli_query($conn,$q1);
@@ -306,7 +306,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     ?>
                     <?php
                     $accid = $row['acc_id'];
-                    $queryRoom = mysqli_query($conn, "SELECT * FROM rooms WHERE acc_id = '$accid'");
+                    $queryRoom = mysqli_query($conn, "SELECT acc_id,SUM(`current_room_occupancy`) AS tot_occ FROM rooms GROUP BY acc_id HAVING acc_id='$accid'");
                     $room_row = mysqli_fetch_assoc($queryRoom);
                     ?>
                         
@@ -326,10 +326,10 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         </td>
                         <td>
                             <?php 
-                            if(@$room_row['current_room_occupancy'] == NULL || @$room_row['current_room_occupancy'] < 0){
-                                @$room_row['current_room_occupancy'] = 0;
+                            if(@$room_row['tot_occ'] == NULL){
+                                $room_row['tot_occ'] = 0;
                             }
-                            echo @$room_row['current_room_occupancy']; ?>/<?php echo $row['tot_capacity'] ; ?>
+                            echo @$room_row['tot_occ']; ?>/<?php echo $row['tot_capacity'] ; ?>
                         </td>
                         <td>
                             <?php echo $row['no_of_rooms']; ?>

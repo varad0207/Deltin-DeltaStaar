@@ -205,7 +205,7 @@ if (mysqli_num_rows($check) > 0)
     else{
         $empc=$_SESSION['emp_code'];
     }
-    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_code) where accomodation.warden_emp_code='$empc' and 1=1 ";
+    $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_code) where accomodation.warden_emp_code=$empc and 1=1 ";
     $sort_condition = "";
     if (isset($_GET['sort_alpha'])) {
         if ($_GET['sort_alpha'] == "a-z") {
@@ -320,7 +320,8 @@ if (mysqli_num_rows($check) > 0)
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = mysqli_fetch_array($result)) { 
+                        <?php 
+                        while ($row = mysqli_fetch_array($result)) { 
                             $emp_code = $row['emp_code'];
                             $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='$emp_code'"));
                             $EmployeeRoom_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM rooms WHERE id = '{$EmpName_row['room_id']}'"));
@@ -329,7 +330,7 @@ if (mysqli_num_rows($check) > 0)
                             $complaintType_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM complaint_type where type_id='{$row['type']}'"));
                     
                             $query = mysqli_query($conn, "SELECT * FROM jobs WHERE complaint_id = '{$row['id']}'");
-
+                            
                             ?>
                             <tr class="live">
                                 <td>

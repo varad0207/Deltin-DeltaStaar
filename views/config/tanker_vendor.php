@@ -61,27 +61,32 @@ if(isset($_GET['edit']))
                     <form class="f3 lh-copy" action="../../controllers/tanker_vendor_controller.php" method="post" id="myForm">
                         <div class="col-md-12 pa2">
                             <label for="vname">Vendor Name</label> 
-                            <input class="form-control" type="text" name="vname" placeholder="Vendor Name" value = "<?= $vname; ?>">
+                            <input class="form-control" type="text" name="vname" id="vname" placeholder="Vendor Name" value = "<?= $vname; ?>">
+                            <small></small>
                        </div>
 
                         <div class="col-md-12 pa2">
                             <label for="cname">Company Name</label> 
-                            <input class="form-control" type="text" name="cname" placeholder="Company Name" value = "<?= $cname; ?>">
+                            <input class="form-control" type="text" name="cname" id="cname" placeholder="Company Name" value = "<?= $cname; ?>">
+                            <small></small>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="number">Contact Number</label>
-                            <input class="form-control" type="number" name="num" placeholder="Contact Number" value = "<?= $num; ?>">
+                            <input class="form-control" type="number" name="num" id="num" placeholder="Contact Number" value = "<?= $num; ?>">
+                            <small></small>
                         </div>
 
                         <div class="col-md-12 pa2">
                             <label for="address">Vendor Address</label> 
-                            <input class="form-control" type="text" name="add" placeholder="Vendor Address" value = "<?= $add; ?>">
+                            <input class="form-control" type="text" name="add" id="add" placeholder="Vendor Address" value = "<?= $add; ?>">
+                            <small></small>
                         </div>
                        
                         <div class="col-md-12 pa2">
                             <label for="price">Price</label>
                             <input class="form-control" type="number" name="price" id="price" placeholder="Annual Price" value="<?= $price; ?>">
+                            <small></small>
                         </div>
 
                         <div class="form-button mt-3 tc">  

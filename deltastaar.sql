@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2023 at 02:40 PM
+-- Generation Time: May 24, 2023 at 04:14 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -264,7 +264,8 @@ INSERT INTO `change_tracking_employee` (`id`, `user`, `timestamp`, `type`, `emp_
 (10, 'Varad Kelkar', '2023-05-21 13:45:42', 'Insert', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', 0, 0, '2', NULL),
 (11, 'Varad Kelkar', '2023-05-21 13:46:57', 'Insert', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '1970-01-01', 0, 0, '', NULL),
 (12, 'Varad Kelkar', '2023-05-21 13:47:33', 'Update', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '2022-08-24', 0, 0, 'nullif(8,)', ''),
-(13, 'Varad Kelkar', '2023-05-21 13:48:01', 'Update', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', 0, 0, 'nullif(2,)', '');
+(13, 'Varad Kelkar', '2023-05-21 13:48:01', 'Update', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', 0, 0, 'nullif(2,)', ''),
+(14, 'Varad Kelkar', '2023-05-24 14:06:52', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', 2147483647, 80000, 'nullif(5,)', '1');
 
 -- --------------------------------------------------------
 
@@ -541,14 +542,14 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
-(1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', '456678901234', 80000, NULL, 1),
+(1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', '456678901234', 80000, 5, 1),
 (2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 2, 'B+', NULL, '', 0, NULL, 3),
 (3, 'EMP03', 'Ted', 'J', 'Mosby', 3, '2000-10-16', '1234567890', 'Manhattan', 'NYC', 'USA', 123456, 'mosby@ted.in', 2, 'AB+', NULL, '', 0, NULL, 4),
 (4, 'EMP04', 'Emma', 'M', 'Brown', 4, '2004-12-06', '1234567890', 'Browning Street', 'London', 'England', 334421, 'brown@emma.com', 2, 'O+', NULL, '', 0, NULL, 2),
 (5, 'EMP05', 'Anna', 'I', 'Dunphy', 3, '2004-01-19', '1234567890', 'LA', 'California', 'USA', 445321, 'anna@dun.com', 2, 'B-', NULL, '', 0, NULL, 4),
-(6, 'EMP06', 'Liam', 'J', 'Miller', 2, '2001-06-12', '1234567890', 'Malibu', 'California', 'USA', 112233, 'miller@liam.com', 2, 'B+', NULL, '', 0, NULL, NULL),
-(7, 'EMP07', 'Mike', 'A', 'Adams', 2, '2004-08-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'adams@mike.com', 2, 'A-', NULL, '', 0, NULL, NULL),
-(8, 'EMP08', 'Charlie', 'Louisa', 'Williams', 2, '2004-12-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'louisa@charlie.com', 2, 'B+', NULL, '', 0, NULL, NULL),
+(6, 'EMP06', 'Liam', 'J', 'Miller', 2, '2001-06-12', '1234567890', 'Malibu', 'California', 'USA', 112233, 'miller@liam.com', 2, 'B+', NULL, '', 0, NULL, 3),
+(7, 'EMP07', 'Mike', 'A', 'Adams', 2, '2004-08-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'adams@mike.com', 2, 'A-', NULL, '', 0, NULL, 3),
+(8, 'EMP08', 'Charlie', 'Louisa', 'Williams', 2, '2004-12-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'louisa@charlie.com', 2, 'B+', NULL, '', 0, NULL, 3),
 (9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '2022-11-24', '', 0, 2, NULL),
 (10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '2022-08-24', '', 0, 8, NULL);
 
@@ -665,7 +666,10 @@ INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
 (2, '5f4dcc3b5aa765d61d8327deb882cf99'),
 (4, '5f4dcc3b5aa765d61d8327deb882cf99'),
 (3, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(5, '5f4dcc3b5aa765d61d8327deb882cf99');
+(5, '5f4dcc3b5aa765d61d8327deb882cf99'),
+(6, '5f4dcc3b5aa765d61d8327deb882cf99'),
+(7, '5f4dcc3b5aa765d61d8327deb882cf99'),
+(8, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -691,7 +695,8 @@ INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`
 (1, 'Varad Kelkar', '2023-05-23 16:47:09', '2023-05-23 16:55:24', 3),
 (1, 'Varad Kelkar', '2023-05-23 17:00:04', '2023-05-23 17:00:51', 4),
 (1, 'Varad Kelkar', '2023-05-23 17:01:48', '2023-05-23 17:02:23', 5),
-(1, 'Varad Kelkar', '2023-05-23 17:02:52', '2023-05-23 17:22:54', 6);
+(1, 'Varad Kelkar', '2023-05-23 17:02:52', '2023-05-23 17:22:54', 6),
+(1, 'Varad Kelkar', '2023-05-24 13:21:48', '2023-05-24 14:13:45', 7);
 
 -- --------------------------------------------------------
 
@@ -781,7 +786,7 @@ INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `curr
 (1, 2, '104', 4, NULL, 1),
 (1, 3, '106', 4, NULL, NULL),
 (1, 4, '108', 4, NULL, NULL),
-(2, 5, '202', 6, NULL, NULL),
+(2, 5, '202', 6, NULL, 1),
 (2, 6, '204', 6, NULL, NULL),
 (3, 7, '302', 5, NULL, NULL),
 (3, 8, '304', 5, NULL, 1),
@@ -842,6 +847,13 @@ CREATE TABLE `tanker_vendors` (
   `price` int(11) DEFAULT NULL,
   `time_stamp` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tanker_vendors`
+--
+
+INSERT INTO `tanker_vendors` (`id`, `vname`, `company_name`, `number`, `address`, `price`, `time_stamp`) VALUES
+(2, 'Vendor1', 'Company1', '1234567890', 'Ponda', 15000, '2023-05-24 13:41:55');
 
 -- --------------------------------------------------------
 
@@ -1213,7 +1225,7 @@ ALTER TABLE `change_tracking_complaint_type`
 -- AUTO_INCREMENT for table `change_tracking_employee`
 --
 ALTER TABLE `change_tracking_employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee_dept`
@@ -1303,7 +1315,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `outing_type`
@@ -1339,7 +1351,7 @@ ALTER TABLE `tankers`
 -- AUTO_INCREMENT for table `tanker_vendors`
 --
 ALTER TABLE `tanker_vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `technician`

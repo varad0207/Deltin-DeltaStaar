@@ -37,7 +37,7 @@ try {
 unset($pdo);
 ?>
 
-<style>
+<!--<style>
     .chart-container {
         display: flex;
         flex-wrap: wrap;
@@ -48,14 +48,15 @@ unset($pdo);
         width: 48%;
 
     }
-</style>
+</style>-->
 
-<div class="chart-container">
+<!-- <div class="chart-container"> -->
+    <!-- Ignore Comments for now, only this div below is included + scripting -->
     <div class="chartBox">
         <h4 class="text-center p-2">Accommodation Status</h4>
         <canvas id="myChart"></canvas>
     </div>
-</div>
+<!-- </div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

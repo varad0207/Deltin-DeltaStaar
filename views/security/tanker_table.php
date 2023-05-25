@@ -23,7 +23,7 @@
     <title>DELTA@STAAR | Tankers</title>
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+    <link rel="stylesheet" href="../../css/overlay.css">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -33,8 +33,6 @@
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/table.css">
-    <link rel="stylesheet" href="../../css/overlay.css">
-    
     <!-- Live Search -->
     <script type="text/javascript">
 		function search() {
@@ -67,18 +65,16 @@
 
     
     <div class="table-header">
-        <h1 class="tc f1 lh-title spr">Tanker Details</h1>
-        <div class="fl w-75 form-outline srch">
-            <input type="search" id="form1" class="form-control" placeholderort="Live Search" aria-label="Search" oninput="search()" />
-            <h4 id="demo"></h4>
-        </div>
-        <div class="fl w-25 tr pa1">
-            <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <!-- <span class="navbar-toggler-icon"></span> -->
-                <i class="bi bi-filter-circle"> Sort</i> 
-            </button>
-        
-        </div>
+    <h1 class="tc f1 lh-title spr">Tanker Details</h1>
+    <div class="fl w-75 form-outline srch">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
+        <h4 id="demo"></h4>
+    </div>
+    <div class="fl w-25 tr pa1">
+    <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    <i class="bi bi-filter-circle"> Sort By</i> </button>
+    
+    </div>
     </div>
 
     
@@ -334,7 +330,7 @@
     </div>
 
     <nav aria-label="Page navigation example">
-        <ul class="pagination pagination justify-content-center pt-2">
+        <ul class="pagination pagination justify-content-center">
             <li class="page-item"><a class="page-link" href="tanker_table.php?page=<?=$Previous;?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
             <?php for($i=1;$i<=$pages;$i++) :?>
     <li class="page-item"><a class="page-link" href="tanker_table.php?page=<?=$i?>">
@@ -353,10 +349,9 @@
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
         <div class="fl w-25 tr">
-            <!-- <button class="btn btn-light">
+            <button class="btn btn-light">
                 <h4><a href="tanker.php">Add Tanker</a></h4>
-            </button>    -->
-            <h2><a href="tanker.php" class="btn btn-light">Add Tanker</a></h2>
+            </button>   
         </div>
         <?php } ?>
     </div>

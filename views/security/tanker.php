@@ -1,6 +1,7 @@
 <?php include('../../controllers/includes/common.php'); ?>
 <?php include('../../controllers/tanker_controller.php'); 
-    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (!isset($_SESSION["emp_id"]))
+    header("location:../../index.php");
     $isPrivilaged = 0;
     $rights = unserialize($_SESSION['rights']);
     if ($rights['rights_tankers'] > 1) {

@@ -1,7 +1,8 @@
 <?php 
     include('../../controllers/includes/common.php'); 
     include('../../controllers/tanker_controller.php'); 
-    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (!isset($_SESSION["emp_id"]))
+    header("location:../../index.php");
     $isPrivilaged = 0;
     $isWarden = 0;
 $isSecurity = 0;

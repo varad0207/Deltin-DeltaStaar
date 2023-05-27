@@ -1,7 +1,8 @@
 <?php 
 include('../../controllers/includes/common.php');
 include('../../controllers/visitor_log_controller.php');
-if (!isset($_SESSION["emp_id"])) header("location:../../views/login.php");
+if (!isset($_SESSION["emp_id"])) 
+header("location:../../index.php");
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_visitor_log'] > 1) {

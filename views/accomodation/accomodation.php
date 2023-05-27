@@ -3,7 +3,7 @@ include('../../controllers/accomodation_controller.php');
 
 
 if (!isset($_SESSION["emp_id"]))
-    header("location:../../views/login.php");
+header("location:../../index.php");
 
 // check rights
 $isPrivilaged = 0;

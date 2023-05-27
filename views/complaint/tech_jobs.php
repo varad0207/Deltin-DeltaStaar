@@ -2,7 +2,7 @@
 include('../../controllers/includes/common.php');
 
 if (!isset($_SESSION["emp_id"]))
-    header("location:../../views/login.php");
+header("location:../../index.php");
 // check rights
 
 if ($_SESSION['is_superadmin']) {

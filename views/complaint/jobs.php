@@ -4,7 +4,7 @@ require '../../controllers/jobs_controller.php';
 require '../../controllers/complaint_controller.php';
 
 if (!isset($_SESSION["emp_id"]))
-    header("location:../../views/login.php");
+header("location:../../index.php");
 // check rights
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);

@@ -7,6 +7,7 @@ $isPrivilaged = 0;
 $isWarden = 0;
 $isSecurity = 0;
 $rights = unserialize($_SESSION['rights']);
+
 if ($rights['rights_visitor_log'] > 0) {
     $isPrivilaged = $rights['rights_visitor_log'];
 } else
@@ -38,16 +39,19 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
     <title>DELTA@STAAR | Visitors</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/overlay.css">
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <!-- Tachyons -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/overlay.css">
+
     <!-- Live Search -->
     <script type="text/javascript">
         function search() {
@@ -79,17 +83,19 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
     include '../../controllers/includes/navbar.php';
     ?>
 
-
     <div class="table-header">
         <h1 class="tc f1 lh-title spr">Visitor Details</h1>
         <div class="fl w-75 form-outline srch">
-            <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-            <h4 id="demo"></h4>
+            <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search"
+                oninput="search()" />
         </div>
-        <div class="fl w-25 tr pa1">
-            <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
-                <i class="bi bi-filter-circle"> Sort By</i> </button>
-
+        <div class="sortBy fl w-25 tr pa1">
+            <button class="btn btn-dark" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="bi bi-filter-circle"> Sort</i>
+            </button>
         </div>
     </div>
     <!-- APPLYING FILTERS -->
@@ -135,6 +141,7 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
             </form>
         </div>
     </div>
+
     <!-- Displaying Database Table -->
     <?php
     $sql = "SELECT * FROM visitor_log WHERE acc_code={$aid['acc_id']}";
@@ -176,7 +183,7 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
     ?>
 
     <div class="table-div">
-        <?php if (isset($_SESSION['message'])) : ?>
+        <?php if (isset($_SESSION['message'])): ?>
             <div class="msg">
                 <?php
                 echo $_SESSION['message'];
@@ -204,7 +211,9 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
                     <?php $i = 1;
                     while ($row = mysqli_fetch_array($result)) { ?>
                         <tr>
-                            <th scope="row"><?php echo $i; ?></th>
+                            <th scope="row">
+                                <?php echo $i; ?>
+                            </th>
                             <td>
                                 <?php echo $row['visitor_name']; ?>
                             </td>
@@ -234,10 +243,12 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
                                 <?php if ($isPrivilaged > 1 && $isPrivilaged != 5 && $isPrivilaged != 4) { ?>
                                     <?php
                                     $checkout = $row['check_out'];
-                                    if ($checkout == "") {   ?>
-                                        <a href="../../controllers/visitor_log_controller.php?chtime=<?php echo $row['id']; ?>" class="del_btn"><button type="button" class="btn btn-danger" value="chtime" name="chtime">Checkout</button>
+                                    if ($checkout == "") { ?>
+                                        <a href="../../controllers/visitor_log_controller.php?chtime=<?php echo $row['id']; ?>"
+                                            class="del_btn"><button type="button" class="btn btn-danger" value="chtime"
+                                                name="chtime">Checkout</button>
                                         </a>
-                                    <?php
+                                        <?php
                                     } else {
 
                                         $co = strtotime($row['check_out']);
@@ -251,7 +262,8 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
                             </td>
                             <td>
                                 <?php if ($isPrivilaged >= 4) { ?>
-                                    <a class="del_btn" onclick="myfunc('<?php echo $row['id']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                                    <a class="del_btn" onclick="myfunc('<?php echo $row['id']; ?>')"><i class="bi bi-trash"
+                                            style="font-size: 1.2rem; color: black;"></i></a>
                                     <form id="del_response" action="../../controllers/visitor_log_controller.php" method="get">
                                         <input type="hidden" id="hidden-del" name="del" value="" />
                                     </form>
@@ -267,13 +279,15 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
 
     <nav aria-label="Page navigation example">
         <ul class="pagination pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
-            <?php for ($i = 1; $i <= $pages; $i++) : ?>
+            <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?= $Previous; ?>"
+                    aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for ($i = 1; $i <= $pages; $i++): ?>
                 <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?= $i ?>">
                         <?php echo $i; ?>
                     </a></li>
             <?php endfor; ?>
-            <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+            <li class="page-item"><a class="page-link" href="visitor_log_table.php?page=<?= $Next; ?>"
+                    aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
         </ul>
     </nav>
     <div class="table-footer pa4">

@@ -251,7 +251,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="form-field col-md-12 pa2">
                                 <label for="joiningdate">Joining Date</label>
-                                <input class="form-control" type="date" name="joining_date" value="<?php echo $joining_date; ?>">
+                                <input class="form-control" type="date" name="joining_date" max="<?= date('Y-m-d'); ?>" value="<?php echo $joining_date; ?>">
                             </div>
 
                             <div class="form-field col-md-12 pa2">

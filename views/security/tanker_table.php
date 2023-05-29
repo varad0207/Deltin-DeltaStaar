@@ -1,14 +1,29 @@
 <?php 
     include('../../controllers/includes/common.php'); 
     include('../../controllers/tanker_controller.php'); 
-    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (!isset($_SESSION["emp_id"]))
+    header("location:../../index.php");
     $isPrivilaged = 0;
+    $isWarden = 0;
+$isSecurity = 0;
     $rights = unserialize($_SESSION['rights']);
     if ($rights['rights_tankers'] > 0) {
         $isPrivilaged = $rights['rights_tankers'];
     }
     else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
+    $sec = mysqli_query($conn, "select acc_id from security where emp_id='{$_SESSION['emp_id']}'");
+$ward = mysqli_query($conn, "select acc_id from accomodation where warden_emp_code='{$_SESSION['emp_code']}'");
+if (mysqli_num_rows($sec) > 0) {
+    $isSecurity = 1;
+    $aid = mysqli_fetch_array($sec);
+}
+if (mysqli_num_rows($ward) > 0) {
+    $isWarden = 1;
+    $aid = mysqli_fetch_array($ward);
+}
+if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
+
     ?> 
 
 <!DOCTYPE html>
@@ -96,7 +111,8 @@
                 <thead>
                     <th>Accomodation Name : </th>
                     <th>Vendor :</th>
-                    <th>Sort By :</th>
+                    <!-- <th>Sort By :</th> -->
+                    <th>Date : </th>
                 </thead>
                 <tbody>
                     <tr>
@@ -163,7 +179,7 @@
                         </td>
                         
                        
-                        <td>
+                        <!-- <td>
                         <div class="input-group mb-3">
                             <select name="sort_alpha" class="form-control">
                                 <option value="">--Select Option--</option>
@@ -171,7 +187,17 @@
                                 <option value="z-a" <?php if (isset($_POST['sort_alpha']) && $_POST['sort_alpha'] == "z-a") echo "selected"; ?>>Z-A(Descending Order)</option>
                             </select>
                         </div>
-                        </td>
+                        </td> -->
+                        <td>
+                                <label>From : </label>
+                                <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
+                                echo $_POST['start_date']; ?>">
+                                <br>
+                                <br>
+                                <label>To : </label>
+                                <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
+                                echo $_POST['end_date']; ?>"><br>
+                            </td>
                     </tr>
                 </tbody>
             </table>
@@ -188,37 +214,69 @@
         }
     }
 
-    $sql="SELECT tanker_vendors.*,t.id entry_id,t.acc_id,t.security_emp_id security_emp_id,t.quality_check quality_check,t.qty qty,t.bill_no bill_no,t.vendor_id vendor_id,t.timestamp as timestamp FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = vendor_id where 1=1";
+    $sql="SELECT
+    tanker_vendors.*,
+    t.id entry_id,
+    t.acc_id,
+    t.security_emp_id security_emp_id,
+    t.quality_check quality_check,
+    t.qty qty,
+    t.bill_no bill_no,
+    t.amount amount,
+    t.vendor_id vendor_id,
+    t.timestamp as timestamp,
+    COUNT(t.amount) AS total_entries,
+    SUM(t.amount) AS total_amount
+  FROM
+    tankers t
+  JOIN
+    tanker_vendors ON tanker_vendors.id = vendor_id
+  WHERE
+    t.acc_id={$aid['acc_id']}";
     if(isset($_GET['accomodation']))
     {
         $accomodation_checked = [];
         $accomodation_checked = $_GET['accomodation'];
-        $sql.=" and ( ";
+        $sql .= " AND (";
         foreach ($accomodation_checked as $row_acc) {
-            $sql .= " t.acc_id=$row_acc or";
+            $sql .= " t.acc_id = $row_acc OR";
         }
-        $sql=substr($sql,0,strripos($sql,"or"));  
-        $sql.=" ) ";
-        // echo $sql;
+        $sql = substr($sql, 0, strripos($sql, "OR"));
+        $sql .= ")";
     }
-    if(isset($_GET['vendor']))
-    {
-        $vendor_checked=[];
-        $vendor_checked=$_GET['vendor'];
-        $sql .=" and ( ";
-        foreach($vendor_checked as $row_vendor)
-        {
-            $sql .=" t.vendor_id=$row_vendor or";
+    
+    if (isset($_GET['vendor'])) {
+        $vendor_checked = $_GET['vendor'];
+        $sql .= " AND (";
+        foreach ($vendor_checked as $row_vendor) {
+            $sql .= " t.vendor_id = $row_vendor OR";
         }
-        $sql=substr($sql,0,strripos($sql,"or"));
-        $sql.=" ) ";
-        //echo $sql;
-
+        $sql = substr($sql, 0, strripos($sql, "OR"));
+        $sql .= ")";
     }
-   // $sql .=" ORDER BY accomodation.acc_name $sort_condition";
-   $tanker_qry=$sql;
-   
-   $result=mysqli_query($conn,$sql);
+    // 
+    // if (isset($_GET['start_date'])) {
+    //     $start_date = $_GET['start_date'];
+    //     $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+    
+    //     // Convert start_date and end_date to MySQL date format
+    //     $start_date = date("Y-m-d", strtotime($start_date));
+    //     $end_date = date("Y-m-d", strtotime($end_date));
+    
+    //     $sql .= " AND (DATE(t.timestamp) BETWEEN '$start_date' AND '$end_date')";
+    // }
+    if (isset($_GET['start_date'])) {
+    
+        $_GET['start_date']!=""?$sql .= " and DATE(timestamp)>='{$_GET['start_date']}' ":$a=0;
+    }
+    if (isset($_GET['end_date'])) {
+        
+        $_GET['end_date']!=""?$sql .= " and DATE(timestamp)<='{$_GET['end_date']}' ":$a=0;
+    }
+    // echo $sql;
+    $tanker_qry = $sql;
+    $result = mysqli_query($conn, $sql);
+    
 ?>
 
 <?php
@@ -271,6 +329,7 @@
                     <th scope="col">Vendor</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
+                    <th scope="col">Amount (In Thousand Rs.)</th>
                     <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -298,10 +357,22 @@
                             <?php echo $row['qty']; ?>
                         </td>
                         <td>
-                            <?php echo $acc['acc_name']; ?>
+                        <?php
+                                    if (isset($acc['acc_name']) && !empty($acc['acc_name'])) {
+                                        echo $acc['acc_name'];
+                                    } else {
+                                        echo $acc['acc_name'] = 'N/A';
+                                    }
+                                ?>
                         </td>
                         <td>
-                            <?php echo $vendor['vname']; ?>
+                        <?php
+                                    if (isset($vendor['vname']) && !empty($vendor['vname'])) {
+                                        echo $vendor['vname'];
+                                    } else {
+                                        echo $vendor['vname'] = 'N/A';
+                                    }
+                                ?>
                         </td>
                         <td>
                             <?php 
@@ -313,12 +384,16 @@
                             <?php $time = date('H:i:s', $timestamp); echo $time; ?>
                         </td>
                         <td>
+                            <?php echo $row['amount']; ?>
+                        </td>
+                        <td>
                         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
                             <a href="./tanker.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             <?php } ?>
-                            &nbsp;
+                        </td>
+                        <td>
                             <?php if($isPrivilaged>=4){ ?>
                             <a class="del_btn" onclick="myfunc('<?php echo $row['entry_id']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                             <form id="del_response" action="../../controllers/tanker_controller.php" method="get">
@@ -328,6 +403,18 @@
                         </td>
                     </tr>
                     <?php } ?>
+                    <?php while ($roww = mysqli_fetch_array($result)){?>
+                    <tr>
+                        <td colspan="8">Total Amount</td>
+                        <td colspan="2"><?php
+                                    if (isset($roww['total_amount']) && !empty($roww['total_amount'])) {
+                                        echo $roww['total_amount'];
+                                    } else {
+                                        echo $roww['total_amount'] = 'N/A';
+                                    }
+                                ?></td>
+                    </tr>
+                    <?php }?>
                 </tbody>
             </table>
         </div>

@@ -2,7 +2,8 @@
     include('../../controllers/includes/common.php');
     include('../../controllers/vaccination_controller.php'); 
 
-    if (!isset($_SESSION["emp_id"]))header("location:../../views/login.php");
+    if (!isset($_SESSION["emp_id"]))
+    header("location:../../index.php");
     // check rights
     $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);

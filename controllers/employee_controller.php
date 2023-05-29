@@ -164,7 +164,8 @@ if (isset($_POST['update'])) {
 
 if (isset($_GET['del'])) {
     $emp_code = $_GET['del'];
-        //change tracking code
+    echo $emp_code;
+        // change tracking code
         if($AllowTrackingChanges){
         $row_affected=mysqli_fetch_array(mysqli_query($conn,"select * FROM employee WHERE emp_code='$emp_code'"));
         mysqli_query($conn,"insert into change_tracking_employee(user,type,emp_id,emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id,role)
@@ -200,14 +201,18 @@ if (isset($_GET['del'])) {
             }
         }
     }
-
-    $sql1 = mysqli_query($conn,"SELECT * FROM rooms JOIN employee ON rooms.id = employee.room_id");
+    $new_room_occ = 0;
+    // echo $new_room_occ;
+    $sql1 = mysqli_query($conn,"SELECT * FROM rooms JOIN employee ON rooms.id = employee.room_id WHERE employee.emp_code='$emp_code'");
     $row1 = mysqli_fetch_array($sql1);
     $curr_room_occ = $row1['current_room_occupancy'];
     $room_id = $row1['id'];
+    // echo $curr_room_occ;
     $new_room_occ = $curr_room_occ - 1;
+    // echo $new_room_occ;
     mysqli_query($conn,"UPDATE rooms SET current_room_occupancy='$new_room_occ' WHERE id='$room_id'");
     mysqli_query($conn, "DELETE FROM employee WHERE emp_code='$emp_code'");
+    mysqli_query($conn,"UPDATE rooms SET status = '' WHERE id='$room_id'");
     $_SESSION['message'] = "Employee Deleted!";
     header('location: ../views/hrm/employee_table.php');
 }

@@ -2,18 +2,18 @@
 include('../../controllers/includes/common.php');
 
 if (!isset($_SESSION["emp_id"]))
-    header("location:../../views/login.php");
+header("location:../../index.php");
 // check rights
 
-if($_SESSION['is_superadmin']){
-    
+if ($_SESSION['is_superadmin']) {
+
 }
 
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
 if ($rights['rights_jobs'] > 0) {
     $isPrivilaged = $rights['rights_jobs'];
-} 
+}
 // else
 //     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 // $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
@@ -21,10 +21,10 @@ if ($rights['rights_jobs'] > 0) {
 //     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
 
-if(!$isPrivilaged)
+if (!$isPrivilaged)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
-if(mysqli_num_rows($sql)>0) 
+if (mysqli_num_rows($sql) > 0)
     $technician_id = mysqli_fetch_array($sql);
 else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
@@ -170,17 +170,17 @@ else
                                 <?php echo $row1['raised_by'] . "(" . $row1['emp_code'] . ")"; ?>
                             </td>
                             <td>
-                                <?php echo $row['job_raise_time']; ?>
+                                <?php echo date('d-m-Y', strtotime($row['job_raise_time'])); ?>
                             </td>
                             <td>
                                 <?php echo $row['description'] . "\n" . $row['job_desc']; ?>
                             </td>
                             <td>
-                                <?php echo $row['job_comp_time']; ?>
+                                <?php echo date('d-m-Y', strtotime($row['job_comp_time'])); ?>
                             </td>
 
                             <td style="text-align:center;">
-                                <?php if(isset($row['tech_pending_timestamp']) || isset($row['tech_closure_timestamp'])) { ?>
+                                <?php if (isset($row['tech_pending_timestamp']) || isset($row['tech_closure_timestamp'])) { ?>
                                     <p class="del_btn"
                                         style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; margin-bottom: 0px; text-align: center; display: inline-block;"
                                         disabled>Closed</p><br>
@@ -201,9 +201,9 @@ else
                                 <?php } ?>
                             </td>
 
-                           
 
-                            
+
+
                         </tr>
                     <?php } ?>
                 </tbody>

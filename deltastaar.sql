@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2023 at 04:14 PM
+-- Generation Time: May 31, 2023 at 04:31 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -241,7 +241,7 @@ CREATE TABLE `change_tracking_employee` (
   `department` int(11) DEFAULT NULL,
   `blood_group` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
-  `aadhaar_number` int(11) DEFAULT NULL,
+  `aadhaar_number` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `salary` float DEFAULT NULL,
   `room_id` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -252,20 +252,20 @@ CREATE TABLE `change_tracking_employee` (
 --
 
 INSERT INTO `change_tracking_employee` (`id`, `user`, `timestamp`, `type`, `emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:16:49', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, '', '0000-00-00', 0, 0, 'nullif(,)', '1'),
-(2, 'Varad Kelkar', '2023-05-21 13:19:26', 'Insert', 2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 1, 'B+', '1970-01-01', 0, 0, '', NULL),
-(3, 'Varad Kelkar', '2023-05-21 13:20:43', 'Update', 2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 1, 'B+', '1970-01-01', 0, 0, 'nullif(,)', ''),
-(4, 'Varad Kelkar', '2023-05-21 13:21:55', 'Insert', 3, 'EMP03', 'Ted', 'J', 'Mosby', 3, '2000-10-16', '1234567890', 'Manhattan', 'NYC', 'USA', 123456, 'mosby@ted.in', 2, 'AB+', '1970-01-01', 0, 0, '', NULL),
-(5, 'Varad Kelkar', '2023-05-21 13:23:31', 'Insert', 4, 'EMP04', 'Emma', 'M', 'Brown', 4, '2004-12-06', '1234567890', 'Browning Street', 'London', 'England', 334421, 'brown@emma.com', 2, 'O+', '1970-01-01', 0, 0, '', NULL),
-(6, 'Varad Kelkar', '2023-05-21 13:30:48', 'Insert', 5, 'EMP05', 'Anna', 'I', 'Dunphy', 3, '2004-01-19', '1234567890', 'LA', 'California', 'USA', 445321, 'anna@dun.com', 2, 'B-', '1970-01-01', 0, 0, '', NULL),
-(7, 'Varad Kelkar', '2023-05-21 13:36:22', 'Insert', 6, 'EMP06', 'Liam', 'J', 'Miller', 2, '2001-06-12', '1234567890', 'Malibu', 'California', 'USA', 112233, 'miller@liam.com', 2, 'B+', '1970-01-01', 0, 0, '', NULL),
-(8, 'Varad Kelkar', '2023-05-21 13:37:46', 'Insert', 7, 'EMP07', 'Mike', 'A', 'Adams', 2, '2004-08-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'adams@mike.com', 2, 'A-', '1970-01-01', 0, 0, '', NULL),
-(9, 'Varad Kelkar', '2023-05-21 13:39:47', 'Insert', 8, 'EMP08', 'Charlie', 'Louisa', 'Williams', 2, '2004-12-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'louisa@charlie.com', 2, 'B+', '1970-01-01', 0, 0, '', NULL),
-(10, 'Varad Kelkar', '2023-05-21 13:45:42', 'Insert', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', 0, 0, '2', NULL),
-(11, 'Varad Kelkar', '2023-05-21 13:46:57', 'Insert', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '1970-01-01', 0, 0, '', NULL),
-(12, 'Varad Kelkar', '2023-05-21 13:47:33', 'Update', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '2022-08-24', 0, 0, 'nullif(8,)', ''),
-(13, 'Varad Kelkar', '2023-05-21 13:48:01', 'Update', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', 0, 0, 'nullif(2,)', ''),
-(14, 'Varad Kelkar', '2023-05-24 14:06:52', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', 2147483647, 80000, 'nullif(5,)', '1');
+(1, 'Varad Kelkar', '2023-05-21 13:16:49', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, '', '0000-00-00', '0', 0, 'nullif(,)', '1'),
+(2, 'Varad Kelkar', '2023-05-21 13:19:26', 'Insert', 2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 1, 'B+', '1970-01-01', '0', 0, '', NULL),
+(3, 'Varad Kelkar', '2023-05-21 13:20:43', 'Update', 2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 1, 'B+', '1970-01-01', '0', 0, 'nullif(,)', ''),
+(4, 'Varad Kelkar', '2023-05-21 13:21:55', 'Insert', 3, 'EMP03', 'Ted', 'J', 'Mosby', 3, '2000-10-16', '1234567890', 'Manhattan', 'NYC', 'USA', 123456, 'mosby@ted.in', 2, 'AB+', '1970-01-01', '0', 0, '', NULL),
+(5, 'Varad Kelkar', '2023-05-21 13:23:31', 'Insert', 4, 'EMP04', 'Emma', 'M', 'Brown', 4, '2004-12-06', '1234567890', 'Browning Street', 'London', 'England', 334421, 'brown@emma.com', 2, 'O+', '1970-01-01', '0', 0, '', NULL),
+(6, 'Varad Kelkar', '2023-05-21 13:30:48', 'Insert', 5, 'EMP05', 'Anna', 'I', 'Dunphy', 3, '2004-01-19', '1234567890', 'LA', 'California', 'USA', 445321, 'anna@dun.com', 2, 'B-', '1970-01-01', '0', 0, '', NULL),
+(7, 'Varad Kelkar', '2023-05-21 13:36:22', 'Insert', 6, 'EMP06', 'Liam', 'J', 'Miller', 2, '2001-06-12', '1234567890', 'Malibu', 'California', 'USA', 112233, 'miller@liam.com', 2, 'B+', '1970-01-01', '0', 0, '', NULL),
+(8, 'Varad Kelkar', '2023-05-21 13:37:46', 'Insert', 7, 'EMP07', 'Mike', 'A', 'Adams', 2, '2004-08-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'adams@mike.com', 2, 'A-', '1970-01-01', '0', 0, '', NULL),
+(9, 'Varad Kelkar', '2023-05-21 13:39:47', 'Insert', 8, 'EMP08', 'Charlie', 'Louisa', 'Williams', 2, '2004-12-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'louisa@charlie.com', 2, 'B+', '1970-01-01', '0', 0, '', NULL),
+(10, 'Varad Kelkar', '2023-05-21 13:45:42', 'Insert', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', '0', 0, '2', NULL),
+(11, 'Varad Kelkar', '2023-05-21 13:46:57', 'Insert', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '1970-01-01', '0', 0, '', NULL),
+(12, 'Varad Kelkar', '2023-05-21 13:47:33', 'Update', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '2022-08-24', '0', 0, 'nullif(8,)', ''),
+(13, 'Varad Kelkar', '2023-05-21 13:48:01', 'Update', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', '0', 0, 'nullif(2,)', ''),
+(14, 'Varad Kelkar', '2023-05-24 14:06:52', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', '2147483647', 80000, 'nullif(5,)', '1');
 
 -- --------------------------------------------------------
 
@@ -362,6 +362,17 @@ CREATE TABLE `change_tracking_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `change_tracking_living_history`
+--
+
+CREATE TABLE `change_tracking_living_history` (
+  `emp_code` varchar(10) NOT NULL,
+  `history` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`history`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `change_tracking_rooms`
 --
 
@@ -415,6 +426,14 @@ CREATE TABLE `change_tracking_tankers` (
   `vendor_id` int(11) NOT NULL,
   `tanker_timestamp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `change_tracking_tankers`
+--
+
+INSERT INTO `change_tracking_tankers` (`id`, `user`, `timestamp`, `type`, `tanker_id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `amount`, `vendor_id`, `tanker_timestamp`) VALUES
+(1, 'Varad Kelkar', '2023-05-30 02:06:20', 'Insert', 1, 1, 8, 'Yes', 7000, 'AB-1234', 15000, 2, '2023-05-30 07:36:20'),
+(2, 'Varad Kelkar', '2023-05-30 02:07:14', 'Insert', 2, 1, 8, 'Yes', 10000, 'AB-0912', 21000, 2, '2023-05-30 07:37:14');
 
 -- --------------------------------------------------------
 
@@ -696,7 +715,12 @@ INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`
 (1, 'Varad Kelkar', '2023-05-23 17:00:04', '2023-05-23 17:00:51', 4),
 (1, 'Varad Kelkar', '2023-05-23 17:01:48', '2023-05-23 17:02:23', 5),
 (1, 'Varad Kelkar', '2023-05-23 17:02:52', '2023-05-23 17:22:54', 6),
-(1, 'Varad Kelkar', '2023-05-24 13:21:48', '2023-05-24 14:13:45', 7);
+(1, 'Varad Kelkar', '2023-05-24 13:21:48', '2023-05-24 14:13:45', 7),
+(1, 'Varad Kelkar', '2023-05-27 05:49:24', '2023-05-27 05:52:32', 8),
+(1, 'Varad Kelkar', '2023-05-28 04:12:24', '2023-05-28 05:10:40', 9),
+(1, 'Varad Kelkar', '2023-05-28 12:02:02', '2023-05-28 13:43:18', 10),
+(1, 'Varad Kelkar', '2023-05-30 02:04:00', '2023-05-30 02:08:46', 11),
+(1, 'Varad Kelkar', '2023-05-30 10:14:37', '2023-05-30 10:15:18', 12);
 
 -- --------------------------------------------------------
 
@@ -831,6 +855,14 @@ CREATE TABLE `tankers` (
   `vendor_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tankers`
+--
+
+INSERT INTO `tankers` (`id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `amount`, `vendor_id`, `timestamp`) VALUES
+(1, 1, 8, 'Yes', 7000, 'AB-1234', 15000, 2, '2023-05-30 02:06:20'),
+(2, 1, 8, 'Yes', 10000, 'AB-0912', 21000, 2, '2023-05-30 02:07:14');
 
 -- --------------------------------------------------------
 
@@ -1012,6 +1044,12 @@ ALTER TABLE `change_tracking_employee_outing`
 --
 ALTER TABLE `change_tracking_jobs`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `change_tracking_living_history`
+--
+ALTER TABLE `change_tracking_living_history`
+  ADD PRIMARY KEY (`emp_code`);
 
 --
 -- Indexes for table `change_tracking_rooms`
@@ -1261,7 +1299,7 @@ ALTER TABLE `change_tracking_rooms`
 -- AUTO_INCREMENT for table `change_tracking_tankers`
 --
 ALTER TABLE `change_tracking_tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_vaccination`
@@ -1315,7 +1353,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `outing_type`
@@ -1345,7 +1383,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `tankers`
 --
 ALTER TABLE `tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tanker_vendors`

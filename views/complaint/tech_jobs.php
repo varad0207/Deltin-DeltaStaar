@@ -153,7 +153,8 @@ else
                         <th>Expected Completion Date </th>
                         <!-- <th>Status </th> -->
                         <!-- <th>Remarks </th> -->
-                        <th colspan="2">Actions</th>
+                        <th>Material</th>
+                        <th>Job</th>
                     </tr>
                 </thead>
                 <tbody>

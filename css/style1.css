@@ -71,7 +71,7 @@ a:link {
     color: #FEBE10 !important;
 }*/
 
-.bi:hover {
+.a > .bi:hover {
     color: #fff !important;
 }
 

@@ -108,6 +108,11 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                             <a class="nav-link active1" id="adminlogin"
                                 href="../<?php echo $link; ?>controllers/logout.php">Log Out</a>
                         </li>
+                        <li class="nav-item" style="display:flex; flex-direction:column;">
+                        <?php  $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='{$_SESSION['emp_code']}'")); ?>
+                            <p class="" style="font-size:10px; margin-bottom:0px; align-items: center; justify-content:center; display:flex; margin-top:25%"><b>Welcome</b></p>
+                            <p class="" style="font-size:10px; margin-bottom:0px; align-items: center; justify-content:center; display:flex;"><?= $EmpName_row['fname'] ?></p>
+                        </li>
                     </ul>
                 </div>
             <?php } ?>

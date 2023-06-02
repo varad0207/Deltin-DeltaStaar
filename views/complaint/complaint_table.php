@@ -245,7 +245,7 @@ else{
     }
     $sqli.=$part;
     $sqli .=" ORDER BY complaint_type $sort_condition";
-    echo $sqli;
+    // echo $sqli;
     $complaint_qry=$sqli;
    // $results = mysqli_query($conn, $sqli);
     ?>

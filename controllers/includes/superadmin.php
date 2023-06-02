@@ -4,11 +4,9 @@
        
         <?php       
         include '../charts/accommodationStatus_Bar.php';
-        include '../charts/complaintStatus_Pie.php'; ?>
-        <br>
-        <?php
-        include '../charts/complaintTypes_Doughnut.php';
+        include '../charts/complaintStatus_Pie.php'; 
         include '../charts/waterTankers_Line.php';
+        include '../charts/complaintTypes_Doughnut.php';
         // include '../charts/waterTankers_Line.php';
 
         ?>

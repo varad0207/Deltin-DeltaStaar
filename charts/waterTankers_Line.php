@@ -137,8 +137,8 @@ catch(PDOException $e) {
                 label: "Number of Trips",
                 fill: false,
                 lineTension: 0,
-                backgroundColor: getRandomColor(),
-                borderColor: getRandomColor(),
+                backgroundColor: 'rgb(54, 162, 235)',
+                borderColor: 'rgba(153, 102, 255, 0.5)',
                 data: yValues
             }]
         },

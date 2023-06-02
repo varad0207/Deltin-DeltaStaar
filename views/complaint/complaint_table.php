@@ -410,7 +410,7 @@ if (mysqli_num_rows($check) > 0)
                                             <!-- <b style="color: green;">Job Raised</b> -->
                                             <?php
                                         } else {
-                                            if ($isWarden) {
+                                            if ($isWarden || $_SESSION['is_superadmin']) {
                                                 if ($rights['rights_jobs'] > 1 && $rights['rights_jobs'] != 5 && $rights['rights_jobs'] != 4) { ?>
                                                     <a href="jobs.php?raise=<?php echo $row['id']; ?>" class="edit_btn"
                                                         style="color: red;">Raise Job</a>

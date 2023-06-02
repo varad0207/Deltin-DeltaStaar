@@ -97,14 +97,16 @@ if (isset($_GET['tech'])) {
     $id = $_GET['tech'];
     mysqli_query($conn, "UPDATE complaints SET tech_closure_timestamp=now() WHERE id=$id");
     $_SESSION['message'] = "Complaint Info Updated!";
-    header('location: ../views/complaint/tech_jobs.php');
+    if($_SESSION['is_superadmin'])header('location: ../views/complaint/jobs_table.php');
+    else header('location: ../views/complaint/tech_jobs.php');
 }
 
 if (isset($_GET['sec'])) {
     $id = $_GET['sec'];
     mysqli_query($conn, "UPDATE complaints SET sec_closure_timestamp=now() WHERE id=$id");
     $_SESSION['message'] = "Complaint Info Updated!";
-    header('location: ../views/complaint/security_jobs.php');
+    if($_SESSION['is_superadmin'])header('location: ../views/complaint/jobs_table.php');
+    else header('location: ../views/complaint/security_jobs.php');
 }
 
 if (isset($_GET['warden'])) {

@@ -202,7 +202,7 @@ if (mysqli_num_rows($check) > 0)
     $part="";
     
     if($isWarden){
-        $empc=$_SESSION['emp_code'];
+        $empc="'{$_SESSION['emp_code']}'";
     }
     else if($_SESSION['is_superadmin']) {       
         $empc="accomodation.warden_emp_code";
@@ -245,7 +245,7 @@ else{
     }
     $sqli.=$part;
     $sqli .=" ORDER BY complaint_type $sort_condition";
-    // echo $sqli;
+    echo $sqli;
     $complaint_qry=$sqli;
    // $results = mysqli_query($conn, $sqli);
     ?>

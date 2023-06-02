@@ -36,8 +36,10 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     if ($AllowTrackingChanges && isset($_SESSION['emp_id'])){
        mysqli_query($conn, "insert into change_tracking_complaints(user,type,emp_code,complaint_id,complaint_type, description,acc_id,acc_code) values ('{$_SESSION['user']}','Insert','$emp_code','$last_insert_id','$category','$description',NULLIF('{$row_emp['acc_id']}',''),'$acc_code')");
     }
-    if(isset($_SESSION['emp_id']))
-    header("location: ../views/complaint/complaint_table.php");
+    if(isset($_SESSION['emp_id']) ){
+        $rights = unserialize($_SESSION['rights']);
+        if ($rights['rights_complaints'] > 0)header("location: ../views/complaint/complaint_table.php");
+    }
     else 
     header("location: ../index.php");
 }
@@ -97,14 +99,16 @@ if (isset($_GET['tech'])) {
     $id = $_GET['tech'];
     mysqli_query($conn, "UPDATE complaints SET tech_closure_timestamp=now() WHERE id=$id");
     $_SESSION['message'] = "Complaint Info Updated!";
-    header('location: ../views/complaint/tech_jobs.php');
+    if($_SESSION['is_superadmin'])header('location: ../views/complaint/jobs_table.php');
+    else header('location: ../views/complaint/tech_jobs.php');
 }
 
 if (isset($_GET['sec'])) {
     $id = $_GET['sec'];
     mysqli_query($conn, "UPDATE complaints SET sec_closure_timestamp=now() WHERE id=$id");
     $_SESSION['message'] = "Complaint Info Updated!";
-    header('location: ../views/complaint/security_jobs.php');
+    if($_SESSION['is_superadmin'])header('location: ../views/complaint/jobs_table.php');
+    else header('location: ../views/complaint/security_jobs.php');
 }
 
 if (isset($_GET['warden'])) {

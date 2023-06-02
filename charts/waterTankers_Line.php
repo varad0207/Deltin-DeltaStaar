@@ -1,69 +1,148 @@
 <!-- <div class="chart-container"> -->
-    <!-- Ignore Comments for now, only this div below is included + scripting -->
-    <!-- Refer accommodationStatus_Bar.php if needed -->
+<!-- Ignore Comments for now, only this div below is included + scripting -->
+<!-- Refer accommodationStatus_Bar.php if needed -->
 <div class="chartBox">
-    <h4 class="text-center p-2">Water Tankers Lines</h4>
+    <h4 class="text-center p-2">Water Tankers</h4>
     <canvas id="myLineChart"></canvas>
 </div>
 <!-- </div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<?php include('../controllers/includes/common.php');
+try{
+$tanker_detail = "SELECT
+                  MONTH(t.timestamp) AS 'month',
+                  YEAR(t.timestamp) AS 'year',
+                  tv.id AS vendor_id,
+                  tv.vname AS 'vendor_name',
+                  COUNT(*) AS 'count_per_month'
+                  FROM
+                      tankers t
+                  JOIN
+                      tanker_vendors tv ON tv.id = t.vendor_id
+                  GROUP BY
+                      MONTH(t.timestamp),
+                      YEAR(t.timestamp),
+                      tv.id,
+                      tv.vname
+                  ORDER BY
+                      YEAR(t.timestamp),
+                      MONTH(t.timestamp),
+                      tv.id;
+                  ";
+                   $result=mysqli_query($conn,$tanker_detail);
+                   
+                   $res=array();
+                   while ($row = $result->fetch_assoc()) 
+                   {
+                       $entry = array(
+                           'month' => $row['month'],
+                           'year' => $row['year'],
+                           'vendor_id' => $row['vendor_id'],
+                           'vendor_name' => $row['vendor_name'],
+                           'count_per_month' => $row['count_per_month']
+                       );
+                       $res[]=$entry;
+                   }
+                   
+                       //Different arrays storing data of tankers of respective month.
+                       $jan = array();
+                       $feb = array();
+                       $mar = array();
+                       $apr = array();
+                       $may = array();
+                       $jun = array();
+                       $jul = array();
+                       $aug = array();
+                       $sep = array();
+                       $oct = array();
+                       $nov = array();
+                       $dec = array();
 
-<!-- Nos of trips by each vendor in every month -->
-<!-- 
-    For Example: 3 vendors are there and data is to plotted for last 12 months
-    So there will be 3 lines on the line chart, each line representing one vendor
+                        for ($i = 0; $i < 12; $i++) {
+                            foreach ($res as $entry) {
+                                if ($i + 1 == $entry['month']) {
+                                    switch ($i + 1) {
+                                        case 1:
+                                            $jan[] = $entry;
+                                            break;
+                                        case 2:
+                                            $feb[] = $entry;
+                                            break;
+                                        case 3:
+                                            $mar[] = $entry;
+                                            break;
+                                        case 4:
+                                            $apr[] = $entry;
+                                            break;
+                                        case 5:
+                                            $may[] = $entry;
+                                            break;
+                                        case 6:
+                                            $jun[] = $entry;
+                                            break;
+                                        case 7:
+                                            $jul[] = $entry;
+                                            break;
+                                        case 8:
+                                            $aug[] = $entry;
+                                            break;
+                                        case 9:
+                                            $sep[] = $entry;
+                                            break;
+                                        case 10:
+                                            $oct[] = $entry;
+                                            break;
+                                        case 11:
+                                            $nov[] = $entry;
+                                            break;
+                                        case 12:
+                                            $dec[] = $entry;
+                                            break;
+                                    }
+                                }
+                            }
+                        }
 
-    X-axis: Months
-    Y-axis: Nos of Trips
--->
+}
+catch(PDOException $e) {
+    die("ERROR: Could not able to execute. " . $e->getMessage());
+}
+
+?>
+
 <script>
     //Dummy data, Write SQL queries here
-    const xValues = [50,60,70,80,90,100,110,120,130,140,150];
-    const yValues = [7,8,8,9,9,9,10,11,14,14,15];
-    const zValues = [17,18,18,19,19,19,120,11,142,14,125];
-
+    var xValues = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    var yValues = [
+        <?php echo count($jan); ?>,
+        <?php echo count($feb); ?>,
+        <?php echo count($mar); ?>,
+        <?php echo count($apr); ?>,
+        <?php echo count($may); ?>,
+        <?php echo count($jun); ?>,
+        <?php echo count($jul); ?>,
+        <?php echo count($aug); ?>,
+        <?php echo count($sep); ?>,
+        <?php echo count($oct); ?>,
+        <?php echo count($nov); ?>,
+        <?php echo count($dec); ?>
+    ];
+    console.log(yValues);
     new Chart("myLineChart", {
-        type: "line",
+        type: "bar",
         data: {
-            //and pass here the labels on X axis
-            //last 12 months
             labels: xValues,
-            
             datasets: [{
-                //softcode name of first vendor
-                label: "Varad",    
+                label: "Number of Trips",
                 fill: false,
                 lineTension: 0,
-                backgroundColor: "rgba(0,0,255,1.0)",
-                borderColor: "rgba(255,255,255,1.0)",
-
-                //pass variable for data to be plotted
+                backgroundColor: 'rgb(54, 162, 235)',
+                borderColor: 'rgba(153, 102, 255, 0.5)',
                 data: yValues
-            },{
-                //softcode name of second vendor and so on
-                label: "Ivan",    
-                fill: false,
-                lineTension: 0,
-                backgroundColor: "rgba(0,255,255,1.0)",
-                borderColor: "rgba(255,0,255,1.0)",
-
-                //pass variable for data to be plotted
-                data: xValues
-            },
-            {
-                label: "Vadiraj",    
-                fill: false,
-                lineTension: 0,
-                backgroundColor: "rgba(0,0,255,1.0)",
-                borderColor: "rgba(255,255,255,1.0)",
-
-                //pass variable for data to be plotted
-                data: zValues
             }]
         },
         options: {
-            //aspectRatio: 1.2,
             scales: {
                 y: {
                     beginAtZero: true
@@ -72,39 +151,12 @@
         }
     });
 
-</script>
-
-<!-- Old Script Code -->
-<!-- <script>
-    //Setup Block
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        }]
-    };
-
-    //Config Block
-    const configLine = {
-        type: 'line',
-        data: data,
-        options: {
-            //aspectRatio: 1.2,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+     function getRandomColor() {
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
         }
-    };
-
-    //Render Block
-    const myLineChart = new Chart(
-        document.getElementById('myLineChart'), configLine
-    );
-</script> -->
+        return color;
+    }
+</script>

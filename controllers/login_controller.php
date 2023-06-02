@@ -20,20 +20,52 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             die('<script>alert("Incorrect Password, Please try again");window.location = history.back();</script>');
             // echo '<script>alert("Incorrect Password, Please try again");//window.location = history.back();</script>';   
         }
+        session_set_cookie_params(0);
         session_start();
         $row = mysqli_fetch_array($check);
         $emp_id = $row['emp_id'];
         $user = $row['user'];
 
+        // Check if a session exists and retrieve the last activity time
+        if (isset($_SESSION['last_activity'])) {
+            $session_lifetime = ini_get('session.gc_maxlifetime');
+            $current_time = time();
+
+            // Calculate the time difference between the current time and the last activity time
+            $last_activity_time = $_SESSION['last_activity'];
+            $time_difference = $current_time - $last_activity_time;
+
+            // Check if the time difference exceeds the session timeout period
+            if ($time_difference > $session_lifetime) {
+                // Close the session
+                // Remove the active session from the active_sessions table
+                if (isset($_SESSION["emp_id"])) {
+                    $emp_id = $_SESSION["emp_id"];
+                    $removeSessionQuery = mysqli_query($conn, "DELETE FROM active_sessions WHERE emp_id = '$emp_id'") or die(mysqli_error($conn));
+                }
+                session_unset();
+                session_destroy();
+                header("location: ../index.php"); // Redirect the user to the login page or any appropriate page
+                exit(); // Terminate the script execution
+            }
+        }
+
+        // Update the last activity time
+        $_SESSION['last_activity'] = time();
+
+
+
+
+
         // Check if the user is already logged in from another device
-        $activeSessionQuery = mysqli_query($conn, "SELECT emp_id FROM active_sessions WHERE emp_id = '$emp_id'") or die(mysqli_error($conn));
-        if (mysqli_num_rows($activeSessionQuery) > 0) {
-            // Terminate the previous session or handle the multiple login attempt
-            echo '<script>alert("You are already logged in from another device. Please log out from the previous session to continue.");window.location = history.back();</script>';
-        } else {
+        // $activeSessionQuery = mysqli_query($conn, "SELECT emp_id FROM active_sessions WHERE emp_id = '$emp_id'") or die(mysqli_error($conn));
+        // if (mysqli_num_rows($activeSessionQuery) > 0) {
+        //     // Terminate the previous session or handle the multiple login attempt
+        //     echo '<script>alert("You are already logged in from another device. Please log out from the previous session to continue.");window.location = history.back();</script>';
+        // } else {
             // Insert the new session into the active_sessions table
-            $insert = "INSERT INTO active_sessions (emp_id) VALUES ('$emp_id')";
-            $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
+            // $insert = "INSERT INTO active_sessions (emp_id) VALUES ('$emp_id')";
+            // $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
 
             $insert = "insert into login_history(emp_id,user) values ('{$row['emp_id']}','{$row['user']}')";
             $submit = mysqli_query($conn, $insert) or die(mysqli_error($conn));
@@ -81,6 +113,6 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
                 // }
                 header("location:../views/dashboard.php");
             }
-        }
+        // }
     }
 }

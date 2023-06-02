@@ -24,9 +24,9 @@ $solved = json_encode($count_array);
             </div>
             <div class="complaint-statistics">
 
-                <div class="statistics-item">Solved jobs: <?= $complaint_count['count']?></div>
+                <div class="statistics-item">Assigned to you: <?= $complaint_count['count']?></div>
                 <div class="statistics-item">Pending jobs: <?= $pending['pending_count']?></div>
-                <div class="statistics-item">Assigned to you: <?=$complaint_count['count']+ $pending['pending_count']?></div>
+                <div class="statistics-item">Solved jobs: <?=$complaint_count['count']- $pending['pending_count']?></div>
             </div>
         </div>
 
@@ -58,9 +58,9 @@ var solved = <?php echo $solved; ?>;
     //Setup Block
     const dataDoughnut = {
         labels: [
-            'Solved jobs',
+            'Assigned jobs',
             'Pending jobs ',
-            'Assigned jobs'
+            'Solved jobs'
         ],
         datasets: [{
             label: '',

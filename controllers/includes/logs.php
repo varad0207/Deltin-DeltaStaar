@@ -56,9 +56,9 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#collapsed5" role="button" aria-expanded="false" aria-controls="collapsed5">Jobs</a>        
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#collapsed6" role="button" aria-expanded="false" aria-controls="collapsed6">Visitor Log</a>        
-        </li> -->
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#collapsed6" role="button" aria-expanded="false" aria-controls="collapsed6">Employee Living History</a>        
+        </li>
     </ul>
 
     <div class="collapse" id="collapsed1">
@@ -232,6 +232,31 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 </table>
             </div>
         </div>
+    </div>
+    <div class="collapse" id="collapsed6">
+        <table class="table table-bordered tc">
+            <thead>
+                <tr>
+                    <th scope="col">Employee Code</th>
+                    <th scope="col">History</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $result = mysqli_query($conn, "SELECT * FROM change_tracking_jobs");
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) { ?>
+                            <tr class="live">
+                                <td><?php echo $row['emp_code'] ?></td>
+                                <td><?php echo $row['history'] ?></td>
+                            </tr>
+                        <?php }
+                    } else { ?>
+                        <label style="color:white;">No entries found</label>
+                    <?php
+                } ?>
+            </tbody>
+        </table>
     </div>
     
 </body>

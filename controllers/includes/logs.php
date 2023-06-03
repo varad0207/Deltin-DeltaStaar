@@ -31,8 +31,52 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+    <!-- Live Search -->
+    <script type="text/javascript">
+		function search() {
+            // Declare variables
+            var input, filter, tableBody, rows, i, txtValue;
+            input = document.getElementById("form1");
+            filter = input.value.toUpperCase();
+            tableBody = document.getElementById("tableBody");
+            rows = tableBody.getElementsByTagName("tr");
+
+            // Show all rows initially
+            for (i = 0; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+
+            // Loop through all table rows and hide those that don't match the search query
+            for (i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+                var matchFound = false;
+                for (var j = 0; j < cells.length; j++) {
+                txtValue = cells[j].textContent || cells[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    matchFound = true;
+                    break;
+                }
+                }
+                if (!matchFound && rows[i].style.display !== "none") {
+                rows[i].style.display = "none";
+                }
+            }
+
+            // Update the rowspan attribute of emp_code column
+            var empCodeCells = document.querySelectorAll("#tableBody td:first-child");
+            for (i = 0; i < empCodeCells.length; i++) {
+                var rowspan = empCodeCells[i].parentNode.childElementCount;
+                empCodeCells[i].setAttribute("rowspan", rowspan);
+            }
+        }
+	</script>
 </head>
 <body class="b ma2">
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+    </style>
     <!-- Sidebar and Navbar -->
     <?php
     include '../../controllers/includes/sidebar.php';
@@ -234,30 +278,62 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         </div>
     </div>
     <div class="collapse" id="collapsed6">
-        <table class="table table-bordered tc">
+    <!-- <div class="fl w-100 form-outline srch">
+        <input type="search" id="form1" class="form-control" placeholder="Live Search" aria-label="Search" oninput="search()" />
+        <h4 id="demo"></h4>
+    </div> -->
+        <table class="table table-bordered table-responsive tc">
             <thead>
                 <tr>
-                    <th scope="col">Employee Code</th>
-                    <th scope="col">History</th>
+                    <th scope="col" rowspan="2">Employee Code</th>
+                    <th scope="col" colspan="3">History</th>
+                </tr>
+                <tr>
+                    <th scope="col">Accommodation</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Start Date</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tableBody">
                 <?php
-                    $result = mysqli_query($conn, "SELECT * FROM change_tracking_jobs");
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_array($result)) { ?>
-                            <tr class="live">
-                                <td><?php echo $row['emp_code'] ?></td>
-                                <td><?php echo $row['history'] ?></td>
-                            </tr>
-                        <?php }
-                    } else { ?>
+                    $result = mysqli_query($conn, "SELECT emp_code, history FROM change_tracking_living_history");
+                    if ($result) {
+                        $prevEmpCode = null;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $jsonObjects = json_decode($row['history'], true);
+                    
+                            $rowCount = count($jsonObjects); 
+                    
+                            if ($row['emp_code'] !== $prevEmpCode) {
+                                echo '<tr class="live">';
+                                echo '<td rowspan="' . $rowCount . '">' . $row['emp_code'] . '</td>';
+                                $prevEmpCode = $row['emp_code'];
+                            }
+                            $latestIndex = $rowCount - 1; 
+                            foreach ($jsonObjects as $index => $jsonObject) {
+                                $key1 = $jsonObject['accomodation'];
+                                $key2 = $jsonObject['room'];
+                                $key3 = $jsonObject['start_date'];
+                    
+                                $boldClass = ($index === $latestIndex) ? 'bold' : '';
+                    
+                                echo '<td class="' . $boldClass . '">' . $key1 . '</td>';
+                                echo '<td class="' . $boldClass . '">' . $key2 . '</td>';
+                                echo '<td class="' . $boldClass . '">' . $key3 . '</td>';
+                                echo '</tr>';
+                            }
+                        }
+                        mysqli_free_result($result);
+                    }
+                    
+                     else { ?>
                         <label style="color:white;">No entries found</label>
                     <?php
                 } ?>
             </tbody>
         </table>
     </div>
+</div>
     
 </body>
 </html>

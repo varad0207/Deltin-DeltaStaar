@@ -57,11 +57,11 @@ if (isset($_POST['submit'])) {
             mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
             $last_insert_id = mysqli_insert_id($conn);
             $_SESSION['message'] = "Employee Details Saved";
-            // add this employee to histroy table
-            $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"));
-            $arrayOfObjects[] = $newObject;
-            $jsonArray = json_encode($arrayOfObjects);
-            mysqli_query($conn, "INSERT INTO change_tracking_living_history (emp_code, history) VALUES ('$emp_code', '$jsonArray')");
+                // add this employee to histroy table
+                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"));
+                $arrayOfObjects[] = $newObject;
+                $jsonArray = json_encode($arrayOfObjects);
+                mysqli_query($conn, "INSERT INTO change_tracking_living_history (emp_code, history) VALUES ('$emp_code', '$jsonArray')");
         } else {
             $_SESSION['message'] = "Room Limit Reached";
         }
@@ -101,6 +101,8 @@ if (isset($_POST['update'])) {
     $room_id = NULL;
 
     if (isset($_POST['room_id'])) {
+        $existing_room=$_POST['existing_room'];
+
         $room_id = $_POST['room_id'];
         $sql1 = mysqli_query($conn, "SELECT * FROM rooms WHERE id='$room_id'");
         $row1 = mysqli_fetch_array($sql1);
@@ -140,22 +142,24 @@ if (isset($_POST['update'])) {
 
             mysqli_query($conn, "UPDATE employee SET emp_code='$emp_code',fname='$fname',mname='$mname',lname='$lname',designation='$designation',dob='$dob',contact='$contact',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',department='$department',blood_group='$blood_group',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',room_id=nullif('$room_id',' ') where emp_code='$emp_code'");
             // $last_insert_id = mysqli_insert_id($conn);
+            if($room_id!=$existing_room){
 
-            $sqlh = mysqli_query($conn, "SELECT history FROM change_tracking_living_history where emp_code='$emp_code'");
-            if (mysqli_num_rows($sqlh) > 0) {
-                $res = mysqli_fetch_array($sqlh);
-                $jsonArray = $res['history'];
-                $arrayOfObjects = json_decode($jsonArray, true);
-                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"), 'end_date' => date('d-m-Y'));
-                $arrayOfObjects[] = $newObject;
-                $jsonArray = json_encode($arrayOfObjects);
-                mysqli_query($conn, "UPDATE change_tracking_living_history SET history='$jsonArray' where emp_code='$emp_code'");
-            } else {
-                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"), 'end_date' => date('d-m-Y'));
-                $arrayOfObjects[] = $newObject;
-                $jsonArray = json_encode($arrayOfObjects);
-                mysqli_query($conn, "INSERT INTO change_tracking_living_history (emp_code, history) VALUES ('$emp_code', '$jsonArray')");
-            }
+                $sqlh = mysqli_query($conn, "SELECT history FROM change_tracking_living_history where emp_code='$emp_code'");
+                if (mysqli_num_rows($sqlh) > 0) {
+                    $res = mysqli_fetch_array($sqlh);
+                    $jsonArray = $res['history'];
+                    $arrayOfObjects = json_decode($jsonArray, true);
+                    $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"), 'end_date' => date('d-m-Y'));
+                    $arrayOfObjects[] = $newObject;
+                    $jsonArray = json_encode($arrayOfObjects);
+                    mysqli_query($conn, "UPDATE change_tracking_living_history SET history='$jsonArray' where emp_code='$emp_code'");
+                } else {
+                    $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"), 'end_date' => date('d-m-Y'));
+                    $arrayOfObjects[] = $newObject;
+                    $jsonArray = json_encode($arrayOfObjects);
+                    mysqli_query($conn, "INSERT INTO change_tracking_living_history (emp_code, history) VALUES ('$emp_code', '$jsonArray')");
+                }
+        }
             $_SESSION['message'] = "Employee Details Saved";
         } else {
             $_SESSION['message'] = "Room Limit Reached";

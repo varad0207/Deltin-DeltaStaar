@@ -10,7 +10,7 @@ $pending=mysqli_fetch_assoc(mysqli_query($conn, "select count(*) as pending_coun
 // $count_array = $complaint_count['count'];
 array_push($count_array,$complaint_count['count']);
 array_push($count_array,$pending['pending_count']);
-array_push($count_array,$complaint_count['count']+ $pending['pending_count']);                           
+array_push($count_array,$complaint_count['count']- $pending['pending_count']);                           
 $solved = json_encode($count_array);
 ?>
 

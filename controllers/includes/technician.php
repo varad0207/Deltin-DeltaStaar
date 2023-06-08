@@ -8,7 +8,7 @@ $count_array = array();
 $pending=mysqli_fetch_assoc(mysqli_query($conn, "select count(*) as pending_count from complaints join jobs on complaints.id=jobs.complaint_id join technician on jobs.technician_id=technician.id where complaints.tech_closure_timestamp is NULL and jobs.technician_id='{$tech_id['id']}'"));
 
 // $count_array = $complaint_count['count'];
-array_push($count_array,$complaint_count['count']);
+// array_push($count_array,$complaint_count['count']);
 array_push($count_array,$pending['pending_count']);
 array_push($count_array,$complaint_count['count']- $pending['pending_count']);                           
 $solved = json_encode($count_array);
@@ -24,7 +24,7 @@ $solved = json_encode($count_array);
             </div>
             <div class="complaint-statistics">
 
-                <div class="statistics-item">Assigned to you: <?= $complaint_count['count']?></div>
+                <!-- <div class="statistics-item">Assigned to you: <?php // $complaint_count['count']?></div> -->
                 <div class="statistics-item">Pending jobs: <?= $pending['pending_count']?></div>
                 <div class="statistics-item">Solved jobs: <?=$complaint_count['count']- $pending['pending_count']?></div>
             </div>
@@ -58,7 +58,7 @@ var solved = <?php echo $solved; ?>;
     //Setup Block
     const dataDoughnut = {
         labels: [
-            'Assigned jobs',
+            // 'Assigned jobs',
             'Pending jobs ',
             'Solved jobs'
         ],
@@ -66,7 +66,7 @@ var solved = <?php echo $solved; ?>;
             label: '',
             data: solved,
             backgroundColor: [
-                'rgb(255, 99, 132)',
+                // 'rgb(255, 99, 132)',
                 'rgb(38,166,254)',
                 'rgb(255, 205, 86)'
             ],

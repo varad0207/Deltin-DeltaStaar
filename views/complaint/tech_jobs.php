@@ -108,16 +108,13 @@ else
           j.warden_emp_code as warden_emp_code
           FROM jobs j
           JOIN complaints ON complaint_id = complaints.id
-          WHERE technician_id ='{$technician_id['id']}' and1=1";
-
+          WHERE technician_id ='{$technician_id['id']}' and 1=1";
+    $q1 = $sql;
     /* ***************** PAGINATION ***************** */
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
-    $sql .= " LIMIT $start,$limit";
-    $result = mysqli_query($conn, $sql);
-
-    $q1 = "SELECT * FROM jobs";
+    
     $result1 = mysqli_query($conn, $q1);
     $total = mysqli_num_rows($result1);
     $pages = ceil($total / $limit);
@@ -130,11 +127,15 @@ else
     if($page<=1)
     {
         $Previous=1;
+        $start=0;
     }
     if($page>=$pages)
     {
         $Next=$pages;
     }
+    $sql .= " LIMIT $start,$limit";
+    echo $sql;
+    $result = mysqli_query($conn, $sql);
     /* ************************************************ */
 
     ?>
@@ -148,17 +149,6 @@ else
             </div>
         <?php endif ?>
 
-        <?php
-        $results = mysqli_query($conn, "SELECT complaints.*,
-        j.id as job_id,
-        j.complaint_id as complaint_id,
-        j.technician_id as technician_id,
-        j.raise_timestamp as job_raise_time,
-        j.description as job_desc,
-        j.completion_date as job_comp_time,
-        j.warden_emp_code as warden_emp_code
-         FROM jobs j join complaints on complaint_id=complaints.id where technician_id='{$technician_id['id']}' ");
-        ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>
@@ -177,7 +167,7 @@ else
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_array($results)) {
+                    <?php while ($row = mysqli_fetch_array($result)) {
                         $emp_det = mysqli_query($conn, "SELECT concat(fname,' ',lname) raised_by,emp_code FROM employee where emp_code='{$row['warden_emp_code']}'");
                         $row1 = mysqli_fetch_array($emp_det);
 
@@ -230,7 +220,7 @@ else
     <!-- Pagination numbers -->
     <nav aria-label="Page navigation example">
         <ul class="pagination pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="test.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <li class="page-item"><a class="page-link" href="tech_jobs.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
             <?php for ($i = 1; $i <= $pages; $i++) : ?>
                 <li class="page-item"><a class="page-link" href="tech_jobs.php?page=<?= $i ?>">
                         <?php echo $i; ?>

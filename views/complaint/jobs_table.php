@@ -138,8 +138,6 @@
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
-    $sql .= " LIMIT $start,$limit";
-    $result = mysqli_query($conn, $sql);
 
     $q1 = "SELECT * FROM jobs";
     $result1 = mysqli_query($conn, $q1);
@@ -154,11 +152,16 @@
     if($page<=1)
     {
         $Previous=1;
+        $start=0;
     }
     if($page>=$pages)
     {
         $Next=$pages;
     }
+   
+    $sql .= " LIMIT $start,$limit";
+    echo $sql;
+    $result = mysqli_query($conn, $sql);
     /* ************************************************ */
 
     ?>
@@ -318,7 +321,7 @@
     <!-- Pagination numbers -->
     <nav aria-label="Page navigation example">
         <ul class="pagination pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="test.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <li class="page-item"><a class="page-link" href="jobs_table.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
             <?php for ($i = 1; $i <= $pages; $i++) : ?>
                 <li class="page-item"><a class="page-link" href="jobs_table.php?page=<?= $i ?>">
                         <?php echo $i; ?>

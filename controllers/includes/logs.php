@@ -252,12 +252,12 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         </div>
     </div>
     <div class="collapse" id="collapsed6">
-        <div class="fl w-100 form-outline srch">
+        <!-- <div class="fl w-100 form-outline srch">
             <div class="input-group">
                 <input type="search" id="searchInput" class="form-control" placeholder="Search by Employee Code" aria-label="Search" onkeydown="handleSearch(event)">
                 <button type="button" onclick="searchTable()" class="btn btn-primary">Search</button>
             </div>
-        </div>
+        </div> -->
         <div class="pl1 pr1 table-responsive">
             <table class="table table-bordered tc">
                 <thead>

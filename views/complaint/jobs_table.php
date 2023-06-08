@@ -320,11 +320,11 @@
         <ul class="pagination pagination justify-content-center">
             <li class="page-item"><a class="page-link" href="test.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
             <?php for ($i = 1; $i <= $pages; $i++) : ?>
-                <li class="page-item"><a class="page-link" href="test.php?page=<?= $i ?>">
+                <li class="page-item"><a class="page-link" href="jobs_table.php?page=<?= $i ?>">
                         <?php echo $i; ?>
                     </a></li>
             <?php endfor; ?>
-            <li class="page-item"><a class="page-link" href="test.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+            <li class="page-item"><a class="page-link" href="jobs_table.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
         </ul>
     </nav>
 

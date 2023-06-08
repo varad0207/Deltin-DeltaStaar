@@ -96,27 +96,46 @@ else
     </div> -->
     </div>
 
-    <?php //Entries per-page
-    $results_per_page = 5;
+    <?php 
+    // PAGINATION
+    $sql="SELECT complaints.*,
+          j.id as job_id,
+          j.complaint_id as complaint_id,
+          j.technician_id as technician_id,
+          j.raise_timestamp as job_raise_time,
+          j.description as job_desc,
+          j.completion_date as job_comp_time,
+          j.warden_emp_code as warden_emp_code
+          FROM jobs j
+          JOIN complaints ON complaint_id = complaints.id
+          WHERE technician_id ='{$technician_id['id']}' and1=1";
 
-    //Number of results in the DB
-    $sql = "SELECT * FROM jobs";
+    /* ***************** PAGINATION ***************** */
+    $limit = 10;
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $start = ($page - 1) * $limit;
+    $sql .= " LIMIT $start,$limit";
     $result = mysqli_query($conn, $sql);
-    $number_of_results = mysqli_num_rows($result);
-    //number of pages
-    $number_of_pages = ceil($number_of_results / $results_per_page);
 
-    // on which is the user
-    if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
-
-    // retrieve the selected results
-    $sqli = "SELECT * FROM jobs LIMIT " . $this_page_first_result . ',' . $results_per_page;
-    $results = mysqli_query($conn, $sqli);
+    $q1 = "SELECT * FROM jobs";
+    $result1 = mysqli_query($conn, $q1);
+    $total = mysqli_num_rows($result1);
+    $pages = ceil($total / $limit);
+    //check if current page is less then or equal 1
+    if(($page>1)||($page<$pages))
+    {
+        $Previous=$page-1;
+        $Next=$page+1;
+    }
+    if($page<=1)
+    {
+        $Previous=1;
+    }
+    if($page>=$pages)
+    {
+        $Next=$pages;
+    }
+    /* ************************************************ */
 
     ?>
     <div class="table-div">
@@ -201,35 +220,25 @@ else
                                         disabled>Closed</p><br>
                                 <?php } ?>
                             </td>
-
-
-
-
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-            <?php
-
-            //display the links to the pages
-            for ($page = 1; $page <= $number_of_pages; $page++)
-                echo '<a href="jobs_table.php?page=' . $page . '">' . $page . '</a>';
-            ?>
         </div>
     </div>
 
-    <!-- <div class="table-footer pa4">
-        <div class="fl w-75 tl">
-            <button class="btn btn-warning">
-                <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
-            </button>
-        </div>
-        <div class="fl w-25 tr">
-            <button class="btn btn-light">
-                <h4><a href="tanker.php">Add Tanker</a></h4>
-            </button>   
-        </div>
-    </div> -->
+    <!-- Pagination numbers -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="test.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                <li class="page-item"><a class="page-link" href="tech_jobs.php?page=<?= $i ?>">
+                        <?php echo $i; ?>
+                    </a></li>
+            <?php endfor; ?>
+            <li class="page-item"><a class="page-link" href="tech_jobs.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>

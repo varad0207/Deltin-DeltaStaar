@@ -6,7 +6,7 @@ $complaint_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT count(*) as co
 $count_array = array();
 $pending = mysqli_fetch_assoc(mysqli_query($conn, "select count(*) as pending_count from complaints where complaints.tech_closure_timestamp is NULL"));
 // $count_array = $complaint_count['count'];
-array_push($count_array, $complaint_count['count']);
+// array_push($count_array, $complaint_count['count']);
 array_push($count_array, $pending['pending_count']);
 array_push($count_array, $complaint_count['count'] - $pending['pending_count']);
 $solved = json_encode($count_array);
@@ -29,7 +29,7 @@ var solved = <?php echo $solved; ?>;
     //Setup Block
     const dataPie = {
         labels: [
-            'Total jobs',
+            
             'Pending jobs ',
             'Solved jobs'
         ],
@@ -37,7 +37,7 @@ var solved = <?php echo $solved; ?>;
             label: 'Count',
             data: solved,
             backgroundColor: [
-                'rgb(255, 99, 132)',
+                
                 'rgb(54, 162, 235)',
                 'rgb(255, 205, 86)'
             ],

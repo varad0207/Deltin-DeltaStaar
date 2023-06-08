@@ -57,7 +57,11 @@ if (isset($_GET['edit'])) {
 
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
-    <title>Delta@STAAR | Add Employees</title>
+    <?php if (isset($_GET['edit'])) : ?>
+        <title>Delta@STAAR | Edit Employees</title>
+    <?php else : ?>
+        <title>Delta@STAAR | Add Employees</title>
+    <?php endif ?>    
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
@@ -80,7 +84,11 @@ if (isset($_GET['edit'])) {
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h1 class="f2 lh-copy tc" style="color: white;">Enter Employee Details</h1>
+                    <?php if (isset($_GET['edit'])) : ?>
+                        <h1 class="f2 lh-copy tc" style="color: white;">Edit Employee Details</h1>
+                        <?php else : ?>
+                            <h1 class="f2 lh-copy tc" style="color: white;">Enter Employee Details</h1>
+                            <?php endif ?> 
                         <form class="f3 lh-copy" action="../../controllers/employee_controller.php" method="post" id="myForm">
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
                             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">

@@ -107,12 +107,12 @@
                             <td>
                                 <label>From : </label>
                                 <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                                                                echo $_POST['start_date']; ?>">
+                                echo $_POST['start_date']; ?>">
                                 <br>
                                 <br>
                                 <label>To : </label>
                                 <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
-                                                                                echo $_POST['end_date']; ?>"><br>
+                                echo $_POST['end_date']; ?>"><br>
 
                             </td>
                         </tr>

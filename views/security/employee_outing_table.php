@@ -168,8 +168,7 @@ if($_SESSION['is_superadmin']==1) $aid['acc_id']="rooms.acc_id";
     $limit=10;
     $page=isset($_GET['page'])?$_GET['page']:1;
     $start=($page-1) * $limit;
-    $sql .=" LIMIT $start,$limit";
-    $result=mysqli_query($conn,$sql);
+    
 
     $q1="SELECT * FROM employee_outing";
     $result1=mysqli_query($conn,$q1);
@@ -184,11 +183,14 @@ if($_SESSION['is_superadmin']==1) $aid['acc_id']="rooms.acc_id";
     if($page<=1)
     {
         $Previous=1;
+        $Next=0;
     }
     if($page>=$pages)
     {
         $Next=$pages;
     }
+    $sql .=" LIMIT $start,$limit";
+    $result=mysqli_query($conn,$sql);
     /* ************************************************ */
     ?>
 

@@ -269,7 +269,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         <th scope="col">Accommodation</th>
                         <th scope="col">Room</th>
                         <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -294,14 +293,12 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                                 $key1 = $jsonObject['accomodation'];
                                 $key2 = $jsonObject['room'];
                                 $key3 = $jsonObject['start_date'];
-                                @$key4 = $jsonObject['end_date'];
 
                                 $boldClass = ($index === $latestIndex) ? 'bold' : '';
 
                                 echo '<td class="' . $boldClass . '">' . $key1 . '</td>';
                                 echo '<td class="' . $boldClass . '">' . $key2 . '</td>';
                                 echo '<td class="' . $boldClass . '">' . $key3 . '</td>';
-                                echo '<td class="' . $boldClass . '">' . $key4 . '</td>';
                                 echo '</tr>';
                             }
                         }

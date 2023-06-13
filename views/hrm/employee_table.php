@@ -18,6 +18,14 @@ if (mysqli_num_rows($check) > 0)
     $isWarden = 1;
     $fetch = mysqli_fetch_array(mysqli_query($conn, "select rooms.id as id from rooms join accomodation using(acc_id) where  accomodation.warden_emp_code='{$_SESSION['emp_code']}' "));
 }
+
+$isSecurity = 0;
+$c = mysqli_query($conn,"SELECT emp_id,emp_code FROM employee WHERE emp_id IN(SELECT emp_id FROM security)");
+if(mysqli_num_rows($c) > 0)
+{
+    $isSecurity = 1;
+    $fetch1 = mysqli_fetch_array(mysqli_query($conn, "SELECT rooms.id as id from rooms join accomodation using(acc_id) join security using(acc_id) where  security.emp_id='{$_SESSION['emp_id']}' "));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -234,7 +242,8 @@ if (mysqli_num_rows($check) > 0)
         }
     }
 $room="room_id";
-if($isWarden) $room=$fetch['id'];
+    if($isWarden) $room=$fetch['id'];
+    elseif($isSecurity) $room=$fetch1['id'];
     $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where room_id=$room and 1=1 "; //
     if (isset($_GET['designation'])) {
         $designation_checked = [];

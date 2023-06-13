@@ -11,7 +11,13 @@ if ($rights['rights_employee_details'] > 0) {
     $isPrivilaged = $rights['rights_employee_details'];
 } else
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-
+$isWarden = 0;
+$check = mysqli_query($conn, "select emp_id,emp_code from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}' and emp_code in (select warden_emp_code from accomodation)");
+if (mysqli_num_rows($check) > 0)
+{
+    $isWarden = 1;
+    $fetch = mysqli_fetch_array(mysqli_query($conn, "select rooms.id as id from rooms join accomodation using(acc_id) where  accomodation.warden_emp_code='{$_SESSION['emp_code']}' "));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -227,8 +233,9 @@ if ($rights['rights_employee_details'] > 0) {
             $sort_condition = "DESC";
         }
     }
-
-    $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1";
+$room="room_id";
+if($isWarden) $room=$fetch['id'];
+    $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where room_id=$room and 1=1 "; //
     if (isset($_GET['designation'])) {
         $designation_checked = [];
         $designation_checked = $_GET['designation'];
@@ -281,7 +288,7 @@ if ($rights['rights_employee_details'] > 0) {
     $sql .= " ORDER BY fname $sort_condition";
     $emp_qry = $sql;
 
-
+// echo $sql;
     /* ***************** PAGINATION ***************** */
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;

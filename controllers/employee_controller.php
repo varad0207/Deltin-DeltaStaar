@@ -148,12 +148,12 @@ if (isset($_POST['update'])) {
                 $res = mysqli_fetch_array($sqlh);
                 $jsonArray = $res['history'];
                 $arrayOfObjects = json_decode($jsonArray, true);
-                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"), 'end_date' => date('d-m-Y'));
+                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"));
                 $arrayOfObjects[] = $newObject;
                 $jsonArray = json_encode($arrayOfObjects);
                 mysqli_query($conn, "UPDATE change_tracking_living_history SET history='$jsonArray' where emp_code='$emp_code'");
             } else {
-                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"), 'end_date' => date('d-m-Y'));
+                $newObject = array('accomodation' => $row2['acc_name'], 'room' => $row1['room_no'], 'start_date' => date("d-m-Y"));
                 $arrayOfObjects[] = $newObject;
                 $jsonArray = json_encode($arrayOfObjects);
                 mysqli_query($conn, "INSERT INTO change_tracking_living_history (emp_code, history) VALUES ('$emp_code', '$jsonArray')");

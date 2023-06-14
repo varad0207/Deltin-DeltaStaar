@@ -135,17 +135,19 @@ $all = '<span class="material-icons">done_all</span>';
     $limit=10;
     $pages = 0;
     $page=isset($_GET['page'])?$_GET['page']:1;
+    $start=($page-1) * $limit;
     //check if current page is less then or equal 1
     if(($page>=1)||($page<$pages))
     {
-        $start=($page-1) * $limit;
+        
         $Previous=$page-1;
         $Next=$page+1;
     }
-    if($page<1)
+    if($page<=1)
     {
         $Previous=1;
-        $start = 1;
+        $Next=1;
+        $start=0;
     }
     if($page>=$pages)
     {

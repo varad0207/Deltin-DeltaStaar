@@ -96,15 +96,16 @@ else
         <?php endif ?>
 
         <?php
-        $sql="SELECT complaints.*,
-        j.id as job_id,
-        j.complaint_id as complaint_id,
-        j.security_id as security_id,
-        j.raise_timestamp as job_raise_time,
-        j.description as job_desc,
-        j.completion_date as job_comp_time,
-        j.warden_emp_code as warden_emp_code
-         FROM jobs j join complaints on complaint_id=complaints.id where security_id='{$security_id['id']}' ";
+         $sql = "SELECT complaints.*,
+         j.id as job_id,
+         j.complaint_id as complaint_id,
+         j.raise_timestamp as job_raise_time,
+         j.description as job_desc,
+         j.completion_date as job_comp_time,
+         j.warden_emp_code as warden_emp_code
+                  FROM jobs j join complaints on complaint_id=complaints.id 
+          join accomodation on accomodation.acc_id=complaints.acc_id 
+          join security on security.acc_id=accomodation.acc_id where security.emp_id='{$_SESSION['emp_id']}' and 1=1 ";
         /* ***************** PAGINATION ***************** */
         $limit = 10;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -129,9 +130,10 @@ else
         {
             $Next=$pages;
         }
-    
+        
+
         $sql .= " LIMIT $start,$limit";
-        echo $sql;
+        // echo $sql;
         $results = mysqli_query($conn, $sql);
         /* ************************************************ */
        

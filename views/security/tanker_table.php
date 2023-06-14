@@ -274,8 +274,9 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
         $Next = $page + 1;
     }
     if ($page <= 1) {
-        $Previous = 1;
-        $Next=0;
+        $Previous=1;
+        $Next=1;
+        $start=0;
     }
     if ($page >= $pages) {
         $Next = $pages;

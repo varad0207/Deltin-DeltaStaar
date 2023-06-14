@@ -179,7 +179,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     $limit=10;
     $page=isset($_GET['page'])?$_GET['page']:1;
     $start=($page-1) * $limit;
-    
     $q1="SELECT * FROM rooms";
     $result1=mysqli_query($conn,$q1);
     $total=mysqli_num_rows($result1);

@@ -194,8 +194,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     $pages = 0;
     $page=isset($_GET['page'])?$_GET['page']:1;
     $start = ($page - 1) * $limit;
-    
-
     $q1 = "SELECT * FROM vaccination";
     $result1 = mysqli_query($conn, $q1);
     $total = mysqli_num_rows($result1);
@@ -214,7 +212,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     {
         $Next=$pages;
     }
-
     $sql .= " LIMIT $start,$limit";
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */

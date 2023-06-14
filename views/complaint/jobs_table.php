@@ -138,7 +138,6 @@
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
-
     $q1 = "SELECT * FROM jobs";
     $result1 = mysqli_query($conn, $q1);
     $total = mysqli_num_rows($result1);

@@ -213,8 +213,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     {
         $Next=$pages;
     }
-   
-    
     $sql .= " LIMIT $start,$limit";
     echo $sql;
     $result = mysqli_query($conn, $sql);

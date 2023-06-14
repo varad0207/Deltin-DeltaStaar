@@ -134,7 +134,7 @@ else
         $Next=$pages;
     }
     $sql .= " LIMIT $start,$limit";
-    echo $sql;
+    // echo $sql;
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */
 

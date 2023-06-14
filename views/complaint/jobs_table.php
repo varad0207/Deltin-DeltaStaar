@@ -160,7 +160,7 @@
     }
    
     $sql .= " LIMIT $start,$limit";
-    echo $sql;
+    // echo $sql;
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */
 
@@ -212,7 +212,7 @@
                         if (!$is_closed && time() > strtotime($row['completion_date'])) {
                             $progress = min(90, $progress);
                             if ($progress == 90) {
-                                $progress_text = 'over-dew';
+                                $progress_text = 'overdue';
                             } else {
                                 $progress_text = round($progress) . '%';
                             }

@@ -243,7 +243,7 @@ if(mysqli_num_rows($c) > 0)
     }
 $room="room_id";
     if($isWarden) $room=$fetch['id'];
-    elseif($isSecurity) $room=$fetch1['id'];
+    elseif($isSecurity) @$room=@$fetch1['id'];
     if($_SESSION['is_superadmin']){
         $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1 ";
     }

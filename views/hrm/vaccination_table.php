@@ -206,13 +206,17 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     if($page<=1)
     {
         $Previous=1;
-        $Next=0;
+        $Next=1;
+        $start=0;
     }
     if($page>=$pages)
     {
         $Next=$pages;
     }
+   
+    
     $sql .= " LIMIT $start,$limit";
+    echo $sql;
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */
     ?>

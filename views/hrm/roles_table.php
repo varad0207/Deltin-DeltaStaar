@@ -142,10 +142,11 @@ $all = '<span class="material-icons">done_all</span>';
         $Previous=$page-1;
         $Next=$page+1;
     }
-    if($page<1)
+    if($page<=1)
     {
         $Previous=1;
-        $start = 1;
+        $Next=1;
+        $start=0;
     }
     if($page>=$pages)
     {

@@ -244,7 +244,10 @@ if(mysqli_num_rows($c) > 0)
 $room="room_id";
     if($isWarden) $room=$fetch['id'];
     elseif($isSecurity) $room=$fetch1['id'];
-    $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where room_id=$room and 1=1 "; //
+    if($_SESSION['is_superadmin']){
+        $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1 ";
+    }
+   else $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where room_id=$room and 1=1 "; //
     if (isset($_GET['designation'])) {
         $designation_checked = [];
         $designation_checked = $_GET['designation'];

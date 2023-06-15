@@ -200,18 +200,19 @@ if (mysqli_num_rows($check) > 0)
 
     <?php
     $part="";
-    
-    if($isWarden){
-        $empc="'{$_SESSION['emp_code']}'";
-    }
-    else if($_SESSION['is_superadmin']) {       
-        $empc="accomodation.warden_emp_code";
-    }
-else{
     $empc="accomodation.warden_emp_code";
 
-    $part=" and emp_code='{$_SESSION['emp_code']}'";
-}
+//     if($isWarden){
+//         $empc="'{$_SESSION['emp_code']}'";
+//     }
+//     else if($_SESSION['is_superadmin']) {       
+//         $empc="accomodation.warden_emp_code";
+//     }
+// else{
+//     $empc="accomodation.warden_emp_code";
+
+    // $part=" and emp_code='{$_SESSION['emp_code']}'";
+// }
     $sqli = "SELECT * FROM complaint_type join complaints ON type=type_id join accomodation USING(acc_code) where accomodation.warden_emp_code=$empc and 1=1 ";
     $sort_condition = "";
     if (isset($_GET['sort_alpha'])) {

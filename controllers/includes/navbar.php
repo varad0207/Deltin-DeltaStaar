@@ -21,7 +21,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #fff;">Delta@STAAR</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
+                <button style="color: #fff;" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
                 </button>
             </div>
 
@@ -115,7 +115,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                                              
                         </li> -->
                        
-                        <li class="nav-item px-4">
+                        <li class="nav-item">
                             
                             <div class="dropdown">
                                 <a class="nav-link active" id="dropdownMenuButton" aria-haspopup="true"

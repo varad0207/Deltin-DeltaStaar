@@ -8,7 +8,7 @@
 
     // check rights
 
-    $none = '<span class="material-icons">block</span>';
+$none = '<span class="material-icons">block</span>';
 $read = '<span class="material-icons">menu_book</span>';
 $write = '<span class="material-icons">edit</span>';
 $delete = '<span class="material-icons">delete</span>';
@@ -133,9 +133,9 @@ $all = '<span class="material-icons">done_all</span>';
                 <thead>
                     <tr>
                         <th>Employee</th>
-                    <th scope="col" rowspan="2">Role Name</th>
-                    <th scope="col" colspan="8">Rights</th>
-                    <th scope="col" colspan="2">Un-assign</th>
+                        <th scope="col" rowspan="2">Role Name</th>
+                        <th scope="col" colspan="8">Rights</th>
+                        <th scope="col" colspan="2">Un-assign</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,7 +160,7 @@ $all = '<span class="material-icons">done_all</span>';
                     $row = mysqli_fetch_array($results);
                         ?>
                     <tr>
-                        <td><?php echo $emp_row['emp_code']; ?></td>
+                        <td><?php echo $emp_row['fname']." ".$emp_row['lname']." - ".$emp_row['emp_code']; ?></td>
                         <td>
                             <?php echo $row['role_name']; ?>
                         </td>

@@ -246,9 +246,6 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     $limit=10;
     $page=isset($_GET['page'])?$_GET['page']:1;
     $start=($page-1) * $limit;
-    $sqli .=" LIMIT $start,$limit";
-    $results=mysqli_query($conn,$sqli);
-
     $q1="SELECT * FROM accomodation";
     $result1=mysqli_query($conn,$q1);
     $total=mysqli_num_rows($result1);
@@ -262,11 +259,15 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     if($page<=1)
     {
         $Previous=1;
+        $Next=1;
+        $start=0;
     }
     if($page>=$pages)
     {
         $Next=$pages;
     }
+    $sqli .=" LIMIT $start,$limit";
+    $results=mysqli_query($conn,$sqli);
     /* ************************************************ */
     ?>
 

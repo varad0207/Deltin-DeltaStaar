@@ -128,12 +128,12 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
                             <td>
                                 <label>From : </label>
                                 <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                                                                echo $_POST['start_date']; ?>">
+                                 echo $_POST['start_date']; ?>">
                                 <br>
                                 <br>
                                 <label>To : </label>
                                 <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
-                                                                                echo $_POST['end_date']; ?>"><br>
+                                 echo $_POST['end_date']; ?>"><br>
                             </td>
                         </tr>
                     </tbody>
@@ -160,9 +160,7 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
     $limit = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
-    $sql .= " LIMIT $start,$limit";
-    $visitor_log_qry = $sql;
-    $result = mysqli_query($conn, $sql);
+    
 
     $q1 = "SELECT * FROM visitor_log where 1=1";
     $result1 = mysqli_query($conn, $q1);
@@ -173,12 +171,18 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "acc_code";
         $Previous = $page - 1;
         $Next = $page + 1;
     }
-    if ($page <= 1) {
-        $Previous = 1;
+    if ($page <= 1) 
+    {
+        $Previous=1;
+        $Next=1;
+        $start=0;
     }
     if ($page >= $pages) {
         $Next = $pages;
     }
+    $sql .= " LIMIT $start,$limit";
+    $visitor_log_qry = $sql;
+    $result = mysqli_query($conn, $sql);
     /* ************************************************ */
     ?>
 

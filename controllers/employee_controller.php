@@ -116,13 +116,15 @@ if (isset($_POST['update'])) {
         $old_curr_occ = $row5['current_room_occupancy'];
         $old_room_id = $row5['id'];
 
-        if ($curr_room_occ < $room_cap) {
+        if ($old_room_id != $room_id && $curr_room_occ < $room_cap) {
             $curr_room_occ += 1;
+            $old_curr_occ -= 1;
+            mysqli_query($conn, "UPDATE rooms set current_room_occupancy='$old_curr_occ' WHERE id='$old_room_id'");
 
-            if ($old_room_id != $room_id) {
-                $old_curr_occ -= 1;
-                mysqli_query($conn, "UPDATE rooms set current_room_occupancy='$old_curr_occ' WHERE id='$old_room_id'");
-            }
+            // if ($old_room_id != $room_id) {
+            //     $old_curr_occ -= 1;
+            //     mysqli_query($conn, "UPDATE rooms set current_room_occupancy='$old_curr_occ' WHERE id='$old_room_id'");
+            // }
             $sql2 = mysqli_query($conn, "SELECT * FROM accomodation WHERE acc_id='$acc_id'");
             $row2 = mysqli_fetch_array($sql2);
             if ($curr_room_occ == $room_cap) {

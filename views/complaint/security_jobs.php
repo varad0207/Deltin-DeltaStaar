@@ -84,41 +84,7 @@ else
 
     <div class="table-header">
         <h1 class="tc f1 lh-title spr">Raised Jobs</h1>
-        <!-- <div class="fl w-75 form-outline srch">
-        <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" oninput="search()" />
-        <h4 id="demo"></h4>
-    </div> -->
-        <!-- Displaying Database Table -->
-        <!-- <div class="tr">
-        <button class="btn btn-dark">
-            <h5><i class="bi bi-filter-circle"> Sort By</i></h5>
-        </button>
-    </div> -->
     </div>
-
-    <?php //Entries per-page
-    $results_per_page = 5;
-
-    //Number of results in the DB
-    $sql = "SELECT * FROM jobs";
-    $result = mysqli_query($conn, $sql);
-    $number_of_results = mysqli_num_rows($result);
-    //number of pages
-    $number_of_pages = ceil($number_of_results / $results_per_page);
-
-    // on which is the user
-    if (!isset($_GET['page']))
-        $page = 1;
-    else
-        $page = $_GET['page'];
-    //starting limit number for the results
-    $this_page_first_result = ($page - 1) * $results_per_page;
-
-    // retrieve the selected results
-    $sqli = "SELECT * FROM jobs LIMIT " . $this_page_first_result . ',' . $results_per_page;
-    $results = mysqli_query($conn, $sqli);
-
-    ?>
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
             <div class="msg">
@@ -130,15 +96,48 @@ else
         <?php endif ?>
 
         <?php
-        $results = mysqli_query($conn, "SELECT complaints.*,
-        j.id as job_id,
-        j.complaint_id as complaint_id,
-        j.security_id as security_id,
-        j.raise_timestamp as job_raise_time,
-        j.description as job_desc,
-        j.completion_date as job_comp_time,
-        j.warden_emp_code as warden_emp_code
-         FROM jobs j join complaints on complaint_id=complaints.id where security_id='{$security_id['id']}' ");
+         $sql = "SELECT complaints.*,
+         j.id as job_id,
+         j.complaint_id as complaint_id,
+         j.raise_timestamp as job_raise_time,
+         j.description as job_desc,
+         j.completion_date as job_comp_time,
+         j.warden_emp_code as warden_emp_code
+                  FROM jobs j join complaints on complaint_id=complaints.id 
+          join accomodation on accomodation.acc_id=complaints.acc_id 
+          join security on security.acc_id=accomodation.acc_id where security.emp_id='{$_SESSION['emp_id']}' and 1=1 ";
+        /* ***************** PAGINATION ***************** */
+        $limit = 10;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $start = ($page - 1) * $limit;
+            
+        $q1 = "SELECT * FROM complaints";
+        $result1 = mysqli_query($conn, $q1);
+        $total = mysqli_num_rows($result1);
+        $pages = ceil($total / $limit);
+        //check if current page is less then or equal 1
+        if(($page>1)||($page<$pages))
+        {
+            $Previous=$page-1;
+            $Next=$page+1;
+        }
+        if($page<=1)
+        {
+            $Previous=1;
+            $Next=1;
+            $start=0;
+        }
+        if($page>=$pages)
+        {
+            $Next=$pages;
+        }
+        
+
+        $sql .= " LIMIT $start,$limit";
+        // echo $sql;
+        $results = mysqli_query($conn, $sql);
+        /* ************************************************ */
+       
         ?>
         <div class="pa1 table-responsive">
             <table class="table table-bordered tc">
@@ -208,12 +207,19 @@ else
                     <?php } ?>
                 </tbody>
             </table>
-            <?php
+            <!-- Pagination numbers -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+            <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $i ?>">
+                        <?php echo $i; ?>
+                    </a></li>
+            <?php endfor; ?>
+            <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+        </ul>
+    </nav>
 
-            //display the links to the pages
-            for ($page = 1; $page <= $number_of_pages; $page++)
-                echo '<a href="jobs_table.php?page=' . $page . '">' . $page . '</a>';
-            ?>
         </div>
     </div>
 

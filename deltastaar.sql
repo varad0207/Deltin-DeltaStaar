@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2023 at 04:31 AM
+-- Generation Time: Jul 22, 2023 at 12:43 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -48,10 +48,10 @@ CREATE TABLE `accomodation` (
 --
 
 INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `warden_emp_code`, `owner`, `remark`) VALUES
-(1, 'A01', 'Madhuban', 'Active', 2, 'Unisex', 16, 30, NULL, NULL, 'EMP03', 'Deltastaar', 'Accommodation for all staff'),
-(2, 'A02', 'Kings', 'Active', 2, 'Male', 12, 20, NULL, NULL, 'EMP03', 'Deltastaar', 'Accommodation for male staff'),
-(3, 'A03', 'Queens', 'Active', 2, 'Female', 15, 15, NULL, NULL, 'EMP03', 'Deltastaar', 'Accommodation for female staff\r\n'),
-(4, 'A04', 'Rosa Maria', 'Active', 5, 'Female', 3, 22, NULL, NULL, 'EMP05', 'Deltastaar', 'Accommodation for female staff');
+(1, 'ACC01', 'Madhuban', 'Active', 1, 'Unisex', 16, 50, 15, 35, 'EMP02', 'Deltastaar', 'Accommodation for all staff\r\n'),
+(2, 'ACC02', 'Kings', 'Active', 2, 'Male', 9, 30, 22, 8, 'EMP02', 'Deltastaar', 'Accommodation for male staff'),
+(3, 'ACC03', 'Queens', 'Active', 4, 'Female', 9, 20, 15, 5, 'EMP02', 'Deltastaar', 'Accommodation for female staff'),
+(4, 'ACC04', 'Rosa Maria', 'Active', 2, 'Male', 10, 35, 6, 29, 'EMP02', 'Deltastaar', 'Accommodation for male staff');
 
 -- --------------------------------------------------------
 
@@ -69,11 +69,10 @@ CREATE TABLE `acc_locations` (
 --
 
 INSERT INTO `acc_locations` (`loc_id`, `location`) VALUES
-(1, 'Panaji'),
-(2, 'Taleigao'),
-(3, 'Mapusa'),
-(4, 'Merces'),
-(5, 'Porvorim');
+(1, 'Taleigao'),
+(2, 'Panaji'),
+(3, 'Porvorim'),
+(4, 'Mapusa');
 
 --
 -- Triggers `acc_locations`
@@ -128,10 +127,12 @@ CREATE TABLE `change_tracking_accomodation` (
 --
 
 INSERT INTO `change_tracking_accomodation` (`id`, `user`, `timestamp`, `type`, `acc_id`, `acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `occupied_rooms`, `available_rooms`, `warden_emp_code`, `owner`, `remark`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:27:33', 'Insert', 1, 'A01', 'Madhuban', 'Active', 2, 'Unisex', NULL, 30, NULL, NULL, 'EMP03', 'Deltastaar', 'Accommodation for all staff'),
-(2, 'Varad Kelkar', '2023-05-21 13:28:12', 'Insert', 2, 'A02', 'Kings', 'Active', 2, 'Male', NULL, 20, NULL, NULL, 'EMP03', 'Deltastaar', 'Accommodation for male staff'),
-(3, 'Varad Kelkar', '2023-05-21 13:28:46', 'Insert', 3, 'A03', 'Queens', 'Active', 2, 'Female', NULL, 15, NULL, NULL, 'EMP03', 'Deltastaar', 'Accommodation for female staff\r\n'),
-(4, 'Varad Kelkar', '2023-05-21 13:31:51', 'Insert', 4, 'A04', 'Rosa Maria', 'Active', 5, 'Female', NULL, 22, NULL, NULL, 'EMP05', 'Deltastaar', 'Accommodation for female staff');
+(1, 'Varad Kelkar', '2023-07-22 10:18:17', 'Insert', 1, 'ACC01', 'Madhuban', 'Active', 1, 'Male', NULL, 50, NULL, NULL, 'EMP02', 'Deltastaar', 'Accommodation for all staff'),
+(2, 'Varad Kelkar', '2023-07-22 10:18:55', 'Insert', 2, 'ACC02', 'Kings', 'Active', 2, 'Male', NULL, 30, NULL, NULL, 'EMP02', 'Deltastaar', 'Accommodation for male staff'),
+(3, 'Varad Kelkar', '2023-07-22 10:19:29', 'Insert', 3, 'ACC03', 'Queens', 'Active', 4, 'Female', NULL, 20, NULL, NULL, 'EMP02', 'Deltastaar', 'Accommodation for female staff'),
+(4, 'Varad Kelkar', '2023-07-22 10:19:46', 'Update', 1, 'ACC01', 'Madhuban', 'Active', 1, 'Male', NULL, 50, NULL, NULL, 'EMP02', 'Deltastaar', 'Accommodation for all staff'),
+(5, 'Varad Kelkar', '2023-07-22 10:20:01', 'Update', 1, 'ACC01', 'Madhuban', 'Active', 1, 'Unisex', NULL, 50, NULL, NULL, 'EMP02', 'Deltastaar', ''),
+(6, 'Varad Kelkar', '2023-07-22 10:20:52', 'Insert', 4, 'ACC04', 'Rosa Maria', 'Active', 2, 'Male', NULL, 35, NULL, NULL, 'EMP02', 'Deltastaar', 'Accommodation for male staff');
 
 -- --------------------------------------------------------
 
@@ -153,11 +154,10 @@ CREATE TABLE `change_tracking_acc_locations` (
 --
 
 INSERT INTO `change_tracking_acc_locations` (`id`, `user`, `type`, `timestamp`, `loc_id`, `location`) VALUES
-(1, 'Varad Kelkar', 'Insert', '2023-05-21 13:24:18', 1, 'Panaji'),
-(2, 'Varad Kelkar', 'Insert', '2023-05-21 13:24:25', 2, 'Taleigao'),
-(3, 'Varad Kelkar', 'Insert', '2023-05-21 13:24:31', 3, 'Mapusa'),
-(4, 'Varad Kelkar', 'Insert', '2023-05-21 13:24:35', 4, 'Merces'),
-(5, 'Varad Kelkar', 'Insert', '2023-05-21 13:24:41', 5, 'Porvorim');
+(1, 'Varad Kelkar', 'Insert', '2023-07-22 10:14:31', 1, 'Taleigao'),
+(2, 'Varad Kelkar', 'Insert', '2023-07-22 10:14:35', 2, 'Panaji'),
+(3, 'Varad Kelkar', 'Insert', '2023-07-22 10:14:38', 3, 'Porvorim'),
+(4, 'Varad Kelkar', 'Insert', '2023-07-22 10:14:42', 4, 'Mapusa');
 
 -- --------------------------------------------------------
 
@@ -189,7 +189,11 @@ CREATE TABLE `change_tracking_complaints` (
 --
 
 INSERT INTO `change_tracking_complaints` (`id`, `user`, `timestamp`, `type`, `complaint_id`, `raise_timestamp`, `complaint_type`, `description`, `tech_pending_timestamp`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`, `acc_id`, `acc_code`) VALUES
-(1, 'Varad Kelkar', '2023-05-23 16:49:54', 'Insert', 1, NULL, 1, 'AC not working', NULL, NULL, NULL, NULL, NULL, 'EMP01', NULL, 'A02');
+(1, 'Varad Kelkar', '2023-07-22 10:40:34', 'Insert', 1, NULL, 1, 'Fan broken', NULL, NULL, NULL, NULL, NULL, 'EMP01', NULL, 'ACC01'),
+(2, 'Varad Kelkar', '2023-07-22 10:40:51', 'Insert', 2, NULL, 1, 'AC not working', NULL, NULL, NULL, NULL, NULL, 'EMP01', NULL, 'ACC01'),
+(3, 'Varad Kelkar', '2023-07-22 10:41:09', 'Insert', 3, NULL, 1, 'Fan broken', NULL, NULL, NULL, NULL, NULL, 'EMP01', NULL, 'ACC02'),
+(4, 'Varad Kelkar', '2023-07-22 10:41:23', 'Insert', 4, NULL, 2, 'Pipe leaking', NULL, NULL, NULL, NULL, NULL, 'EMP01', NULL, 'ACC02'),
+(5, 'Varad Kelkar', '2023-07-22 10:41:38', 'Insert', 5, NULL, 2, 'Pipe leaking', NULL, NULL, NULL, NULL, NULL, 'EMP01', NULL, 'ACC04');
 
 -- --------------------------------------------------------
 
@@ -212,7 +216,8 @@ CREATE TABLE `change_tracking_complaint_type` (
 --
 
 INSERT INTO `change_tracking_complaint_type` (`id`, `user`, `timestamp`, `type`, `type_id`, `complaint_type`, `type_description`) VALUES
-(1, 'Varad Kelkar', '2023-05-23 16:49:11', 'Insert', 1, 'Electrical', '');
+(1, 'Varad Kelkar', '2023-07-22 10:40:09', 'Insert', 1, 'Electrical', ''),
+(2, 'Varad Kelkar', '2023-07-22 10:40:21', 'Insert', 2, 'Plumbing', '');
 
 -- --------------------------------------------------------
 
@@ -252,20 +257,8 @@ CREATE TABLE `change_tracking_employee` (
 --
 
 INSERT INTO `change_tracking_employee` (`id`, `user`, `timestamp`, `type`, `emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:16:49', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, '', '0000-00-00', '0', 0, 'nullif(,)', '1'),
-(2, 'Varad Kelkar', '2023-05-21 13:19:26', 'Insert', 2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 1, 'B+', '1970-01-01', '0', 0, '', NULL),
-(3, 'Varad Kelkar', '2023-05-21 13:20:43', 'Update', 2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 1, 'B+', '1970-01-01', '0', 0, 'nullif(,)', ''),
-(4, 'Varad Kelkar', '2023-05-21 13:21:55', 'Insert', 3, 'EMP03', 'Ted', 'J', 'Mosby', 3, '2000-10-16', '1234567890', 'Manhattan', 'NYC', 'USA', 123456, 'mosby@ted.in', 2, 'AB+', '1970-01-01', '0', 0, '', NULL),
-(5, 'Varad Kelkar', '2023-05-21 13:23:31', 'Insert', 4, 'EMP04', 'Emma', 'M', 'Brown', 4, '2004-12-06', '1234567890', 'Browning Street', 'London', 'England', 334421, 'brown@emma.com', 2, 'O+', '1970-01-01', '0', 0, '', NULL),
-(6, 'Varad Kelkar', '2023-05-21 13:30:48', 'Insert', 5, 'EMP05', 'Anna', 'I', 'Dunphy', 3, '2004-01-19', '1234567890', 'LA', 'California', 'USA', 445321, 'anna@dun.com', 2, 'B-', '1970-01-01', '0', 0, '', NULL),
-(7, 'Varad Kelkar', '2023-05-21 13:36:22', 'Insert', 6, 'EMP06', 'Liam', 'J', 'Miller', 2, '2001-06-12', '1234567890', 'Malibu', 'California', 'USA', 112233, 'miller@liam.com', 2, 'B+', '1970-01-01', '0', 0, '', NULL),
-(8, 'Varad Kelkar', '2023-05-21 13:37:46', 'Insert', 7, 'EMP07', 'Mike', 'A', 'Adams', 2, '2004-08-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'adams@mike.com', 2, 'A-', '1970-01-01', '0', 0, '', NULL),
-(9, 'Varad Kelkar', '2023-05-21 13:39:47', 'Insert', 8, 'EMP08', 'Charlie', 'Louisa', 'Williams', 2, '2004-12-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'louisa@charlie.com', 2, 'B+', '1970-01-01', '0', 0, '', NULL),
-(10, 'Varad Kelkar', '2023-05-21 13:45:42', 'Insert', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', '0', 0, '2', NULL),
-(11, 'Varad Kelkar', '2023-05-21 13:46:57', 'Insert', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '1970-01-01', '0', 0, '', NULL),
-(12, 'Varad Kelkar', '2023-05-21 13:47:33', 'Update', 10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '2022-08-24', '0', 0, 'nullif(8,)', ''),
-(13, 'Varad Kelkar', '2023-05-21 13:48:01', 'Update', 9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '1970-01-01', '0', 0, 'nullif(2,)', ''),
-(14, 'Varad Kelkar', '2023-05-24 14:06:52', 'Update', 1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', '2147483647', 80000, 'nullif(5,)', '1');
+(1, 'Varad Kelkar', '2023-07-22 10:17:39', 'Insert', 4, 'EMP02', 'Charlie', 'J', 'Harper', 2, '1998-02-02', '1234567890', 'Malibu', 'California', 'USA', 0, 'charlie@harper.in', 2, '', '1970-01-01', '', 0, '', NULL),
+(2, 'Varad Kelkar', '2023-07-22 10:33:19', 'Insert', 5, 'EMP03', 'Ted', 'B', 'Mosby', 3, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 0, 'mosby@ted.in', 2, '', '1970-01-01', '', 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -287,8 +280,9 @@ CREATE TABLE `change_tracking_employee_dept` (
 --
 
 INSERT INTO `change_tracking_employee_dept` (`id`, `user`, `timestamp`, `type`, `dept_id`, `dept_name`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:20:14', 'Insert', 2, 'Operations'),
-(2, 'Varad Kelkar', '2023-05-21 13:20:22', 'Insert', 3, 'Management');
+(1, 'Varad Kelkar', '2023-07-22 10:12:46', 'Insert', 1, 'HR'),
+(2, 'Varad Kelkar', '2023-07-22 10:12:51', 'Insert', 2, 'Operations'),
+(3, 'Varad Kelkar', '2023-07-22 10:13:03', 'Insert', 3, 'Technical');
 
 -- --------------------------------------------------------
 
@@ -304,20 +298,6 @@ CREATE TABLE `change_tracking_employee_designation` (
   `desig_id` int(11) NOT NULL,
   `designation` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `change_tracking_employee_designation`
---
-
-INSERT INTO `change_tracking_employee_designation` (`id`, `user`, `timestamp`, `type`, `desig_id`, `designation`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:17:29', 'Insert', 2, 'Security'),
-(2, 'Varad Kelkar', '2023-05-21 13:17:36', 'Insert', 3, 'Warden'),
-(3, 'Varad Kelkar', '2023-05-21 13:17:46', 'Insert', 4, 'Technicain'),
-(4, 'Varad Kelkar', '2023-05-21 13:17:54', 'Update', 4, 'Technicain'),
-(5, 'Varad Kelkar', '2023-05-21 13:18:09', 'Insert', 5, 'HR'),
-(6, 'Varad Kelkar', '2023-05-21 13:42:21', 'Insert', 6, 'Jr Developer'),
-(7, 'Varad Kelkar', '2023-05-21 13:42:27', 'Insert', 7, 'Sr Developer'),
-(8, 'Varad Kelkar', '2023-05-21 13:44:05', 'Insert', 8, 'Front Desk Manager');
 
 -- --------------------------------------------------------
 
@@ -359,6 +339,14 @@ CREATE TABLE `change_tracking_jobs` (
   `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `change_tracking_jobs`
+--
+
+INSERT INTO `change_tracking_jobs` (`id`, `user`, `timestamp`, `type`, `jobs_id`, `complaint_id`, `technician_id`, `raise_timestamp`, `description`, `completion_date`, `remarks`, `warden_emp_code`) VALUES
+(1, 'Varad Kelkar', '2023-07-22 10:42:37', 'Insert', 1, 1, 1, '2023-07-22', 'Fan broken', '2023-07-27', '', 'EMP01'),
+(2, 'Varad Kelkar', '2023-07-22 10:43:02', 'Insert', 2, 5, 2, '2023-07-22', 'Pipe leaking', '2023-08-02', '', 'EMP01');
+
 -- --------------------------------------------------------
 
 --
@@ -367,7 +355,7 @@ CREATE TABLE `change_tracking_jobs` (
 
 CREATE TABLE `change_tracking_living_history` (
   `emp_code` varchar(10) NOT NULL,
-  `history` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`history`))
+  `history` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`history`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -394,16 +382,18 @@ CREATE TABLE `change_tracking_rooms` (
 --
 
 INSERT INTO `change_tracking_rooms` (`id`, `user`, `timestamp`, `type`, `acc_id`, `room_id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:32:16', 'Insert', 0, 0, '102', 4, NULL, NULL),
-(2, 'Varad Kelkar', '2023-05-21 13:32:25', 'Insert', 0, 0, '104', 4, NULL, NULL),
-(3, 'Varad Kelkar', '2023-05-21 13:32:34', 'Insert', 0, 0, '106', 4, NULL, NULL),
-(4, 'Varad Kelkar', '2023-05-21 13:32:45', 'Insert', 0, 0, '108', 4, NULL, NULL),
-(5, 'Varad Kelkar', '2023-05-21 13:32:56', 'Insert', 0, 0, '202', 6, NULL, NULL),
-(6, 'Varad Kelkar', '2023-05-21 13:33:05', 'Insert', 0, 0, '204', 6, NULL, NULL),
-(7, 'Varad Kelkar', '2023-05-21 13:33:17', 'Insert', 0, 0, '302', 5, NULL, NULL),
-(8, 'Varad Kelkar', '2023-05-21 13:33:27', 'Insert', 0, 0, '304', 5, NULL, NULL),
-(9, 'Varad Kelkar', '2023-05-21 13:33:36', 'Insert', 0, 0, '306', 5, NULL, NULL),
-(10, 'Varad Kelkar', '2023-05-21 13:33:45', 'Insert', 0, 0, '402', 3, NULL, NULL);
+(1, 'Varad Kelkar', '2023-07-22 10:21:11', 'Insert', 1, 1, '102', 4, NULL, NULL),
+(2, 'Varad Kelkar', '2023-07-22 10:21:24', 'Insert', 1, 2, '104', 4, NULL, NULL),
+(3, 'Varad Kelkar', '2023-07-22 10:21:33', 'Insert', 1, 3, '106', 4, NULL, NULL),
+(4, 'Varad Kelkar', '2023-07-22 10:21:41', 'Insert', 1, 4, '108', 4, NULL, NULL),
+(5, 'Varad Kelkar', '2023-07-22 10:21:55', 'Insert', 2, 5, '202', 3, NULL, NULL),
+(6, 'Varad Kelkar', '2023-07-22 10:22:05', 'Insert', 2, 6, '204', 3, NULL, NULL),
+(7, 'Varad Kelkar', '2023-07-22 10:22:14', 'Insert', 2, 7, '206', 3, NULL, NULL),
+(8, 'Varad Kelkar', '2023-07-22 10:22:23', 'Insert', 4, 8, '1102', 5, NULL, NULL),
+(9, 'Varad Kelkar', '2023-07-22 10:22:32', 'Insert', 4, 9, '1104', 5, NULL, NULL),
+(10, 'Varad Kelkar', '2023-07-22 10:22:41', 'Insert', 3, 10, '302', 3, NULL, NULL),
+(11, 'Varad Kelkar', '2023-07-22 10:22:50', 'Insert', 3, 11, '304', 3, NULL, NULL),
+(12, 'Varad Kelkar', '2023-07-22 10:22:59', 'Insert', 3, 12, '306', 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -432,8 +422,9 @@ CREATE TABLE `change_tracking_tankers` (
 --
 
 INSERT INTO `change_tracking_tankers` (`id`, `user`, `timestamp`, `type`, `tanker_id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `amount`, `vendor_id`, `tanker_timestamp`) VALUES
-(1, 'Varad Kelkar', '2023-05-30 02:06:20', 'Insert', 1, 1, 8, 'Yes', 7000, 'AB-1234', 15000, 2, '2023-05-30 07:36:20'),
-(2, 'Varad Kelkar', '2023-05-30 02:07:14', 'Insert', 2, 1, 8, 'Yes', 10000, 'AB-0912', 21000, 2, '2023-05-30 07:37:14');
+(1, 'Varad Kelkar', '2023-07-22 10:36:46', 'Insert', 1, 1, 5, 'Yes', 2500, 'AB-1234', 15000, 1, '2023-07-22 16:06:46'),
+(2, 'Varad Kelkar', '2023-07-22 10:37:23', 'Insert', 2, 2, 5, 'Yes', 5000, 'AB-0912', 25000, 2, '2023-07-22 16:07:23'),
+(3, 'Varad Kelkar', '2023-07-22 10:38:16', 'Insert', 3, 1, 5, 'Yes', 7000, 'AB-1235', 15000, 3, '2023-07-22 16:08:16');
 
 -- --------------------------------------------------------
 
@@ -505,8 +496,11 @@ CREATE TABLE `complaints` (
 --
 
 INSERT INTO `complaints` (`id`, `raise_timestamp`, `type`, `description`, `tech_pending_timestamp`, `tech_closure_timestamp`, `sec_closure_timestamp`, `warden_closure_timestamp`, `remarks`, `emp_code`, `acc_id`, `acc_code`) VALUES
-(1, '2023-05-23 16:49:54', 1, 'AC not working', NULL, NULL, NULL, NULL, NULL, 'EMP01', 2, 'A02'),
-(2, '2023-05-23 17:01:38', 1, 'Life is screwed\r\n', NULL, NULL, NULL, NULL, NULL, 'EMP01', 1, 'A01');
+(1, '2023-07-22 10:40:34', 1, 'Fan broken', NULL, '2023-07-22 10:42:39', '2023-07-22 10:42:41', NULL, NULL, 'EMP01', 1, 'ACC01'),
+(2, '2023-07-22 10:40:51', 1, 'AC not working', NULL, NULL, NULL, NULL, NULL, 'EMP01', 1, 'ACC01'),
+(3, '2023-07-22 10:41:09', 1, 'Fan broken', NULL, NULL, NULL, NULL, NULL, 'EMP01', 2, 'ACC02'),
+(4, '2023-07-22 10:41:23', 2, 'Pipe leaking', NULL, NULL, NULL, NULL, NULL, 'EMP01', 2, 'ACC02'),
+(5, '2023-07-22 10:41:38', 2, 'Pipe leaking', NULL, '2023-07-22 10:43:04', '2023-07-22 10:43:06', NULL, NULL, 'EMP01', 4, 'ACC04');
 
 -- --------------------------------------------------------
 
@@ -525,7 +519,8 @@ CREATE TABLE `complaint_type` (
 --
 
 INSERT INTO `complaint_type` (`type_id`, `complaint_type`, `type_description`) VALUES
-(1, 'Electrical', '');
+(1, 'Electrical', ''),
+(2, 'Plumbing', '');
 
 -- --------------------------------------------------------
 
@@ -561,16 +556,9 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
-(1, 'EMP01', 'Varad', 'Milind', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, 'varadk22@gmail.com', 1, 'A-', '2022-06-15', '456678901234', 80000, 5, 1),
-(2, 'EMP02', 'Charlie', 'H', 'Harper', 2, '1998-08-07', '1234567890', 'Malibu', 'California', 'USA', 112233, 'charlie@harper.in', 2, 'B+', NULL, '', 0, NULL, 3),
-(3, 'EMP03', 'Ted', 'J', 'Mosby', 3, '2000-10-16', '1234567890', 'Manhattan', 'NYC', 'USA', 123456, 'mosby@ted.in', 2, 'AB+', NULL, '', 0, NULL, 4),
-(4, 'EMP04', 'Emma', 'M', 'Brown', 4, '2004-12-06', '1234567890', 'Browning Street', 'London', 'England', 334421, 'brown@emma.com', 2, 'O+', NULL, '', 0, NULL, 2),
-(5, 'EMP05', 'Anna', 'I', 'Dunphy', 3, '2004-01-19', '1234567890', 'LA', 'California', 'USA', 445321, 'anna@dun.com', 2, 'B-', NULL, '', 0, NULL, 4),
-(6, 'EMP06', 'Liam', 'J', 'Miller', 2, '2001-06-12', '1234567890', 'Malibu', 'California', 'USA', 112233, 'miller@liam.com', 2, 'B+', NULL, '', 0, NULL, 3),
-(7, 'EMP07', 'Mike', 'A', 'Adams', 2, '2004-08-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'adams@mike.com', 2, 'A-', NULL, '', 0, NULL, 3),
-(8, 'EMP08', 'Charlie', 'Louisa', 'Williams', 2, '2004-12-05', '1234567890', 'Malibu', 'California', 'USA', 112233, 'louisa@charlie.com', 2, 'B+', NULL, '', 0, NULL, 3),
-(9, 'EMP09', 'Gary', 'Anna', 'Holmes', 6, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'holmes@gary.in', 1, 'O-', '2022-11-24', '', 0, 2, NULL),
-(10, 'EMP10', 'Maria', 'Alex', 'Sharapova', 6, '2002-06-18', '1234567890', 'Manhattan', 'NYC', 'USA', 223311, 'shara@maria.in', 1, 'O+', '2022-08-24', '', 0, 8, NULL);
+(1, 'EMP01', 'Varad', 'M', 'Kelkar', 1, '2002-07-02', '8806607659', 'Fatorda', 'Goa', 'India', 403602, NULL, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4, 'EMP02', 'Charlie', 'J', 'Harper', 2, '1998-02-02', '1234567890', 'Malibu', 'California', 'USA', 0, 'charlie@harper.in', 2, '', '1970-01-01', '', 0, NULL, NULL),
+(5, 'EMP03', 'Ted', 'B', 'Mosby', 3, '2004-11-30', '1234567890', 'Manhattan', 'NYC', 'USA', 0, 'mosby@ted.in', 2, '', '1970-01-01', '', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -588,9 +576,9 @@ CREATE TABLE `employee_dept` (
 --
 
 INSERT INTO `employee_dept` (`dept_id`, `dept_name`) VALUES
-(1, 'IT'),
+(1, 'HR'),
 (2, 'Operations'),
-(3, 'Management');
+(3, 'Technical');
 
 -- --------------------------------------------------------
 
@@ -609,13 +597,8 @@ CREATE TABLE `employee_designation` (
 
 INSERT INTO `employee_designation` (`id`, `designation`) VALUES
 (1, 'Super-Admin'),
-(2, 'Security'),
-(3, 'Warden'),
-(4, 'Technician'),
-(5, 'HR'),
-(6, 'Jr Developer'),
-(7, 'Sr Developer'),
-(8, 'Front Desk Manager');
+(2, 'Warden'),
+(3, 'Security');
 
 -- --------------------------------------------------------
 
@@ -650,6 +633,14 @@ CREATE TABLE `jobs` (
   `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `complaint_id`, `technician_id`, `raise_timestamp`, `description`, `tentative_date`, `completion_date`, `remarks`, `warden_emp_code`) VALUES
+(1, 1, 1, '2023-07-22', 'Fan broken', '2023-07-29', '2023-07-27', '', 'EMP01'),
+(2, 5, 2, '2023-07-22', 'Pipe leaking', '2023-08-01', '2023-08-02', '', 'EMP01');
+
 -- --------------------------------------------------------
 
 --
@@ -681,14 +672,7 @@ CREATE TABLE `login_credentials` (
 --
 
 INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
-(1, '0444c32ebf0b36d55d38afd22ad00ecd'),
-(2, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(4, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(3, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(5, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(6, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(7, '5f4dcc3b5aa765d61d8327deb882cf99'),
-(8, '5f4dcc3b5aa765d61d8327deb882cf99');
+(1, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -709,18 +693,8 @@ CREATE TABLE `login_history` (
 --
 
 INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`) VALUES
-(1, 'Varad Kelkar', '2023-05-21 13:09:29', '2023-05-21 13:10:47', 1),
-(1, 'Varad Kelkar', '2023-05-21 13:11:41', '2023-05-21 13:52:03', 2),
-(1, 'Varad Kelkar', '2023-05-23 16:47:09', '2023-05-23 16:55:24', 3),
-(1, 'Varad Kelkar', '2023-05-23 17:00:04', '2023-05-23 17:00:51', 4),
-(1, 'Varad Kelkar', '2023-05-23 17:01:48', '2023-05-23 17:02:23', 5),
-(1, 'Varad Kelkar', '2023-05-23 17:02:52', '2023-05-23 17:22:54', 6),
-(1, 'Varad Kelkar', '2023-05-24 13:21:48', '2023-05-24 14:13:45', 7),
-(1, 'Varad Kelkar', '2023-05-27 05:49:24', '2023-05-27 05:52:32', 8),
-(1, 'Varad Kelkar', '2023-05-28 04:12:24', '2023-05-28 05:10:40', 9),
-(1, 'Varad Kelkar', '2023-05-28 12:02:02', '2023-05-28 13:43:18', 10),
-(1, 'Varad Kelkar', '2023-05-30 02:04:00', '2023-05-30 02:08:46', 11),
-(1, 'Varad Kelkar', '2023-05-30 10:14:37', '2023-05-30 10:15:18', 12);
+(1, 'Varad Kelkar', '2023-07-22 10:11:39', '2023-07-22 10:39:14', 1),
+(1, 'Varad Kelkar', '2023-07-22 10:39:47', '2023-07-22 10:39:47', 2);
 
 -- --------------------------------------------------------
 
@@ -760,9 +734,8 @@ CREATE TABLE `rights` (
 
 INSERT INTO `rights` (`id`, `accomodation`, `complaints`, `employee_details`, `employee_outing`, `roles`, `rooms`, `tankers`, `jobs`, `vaccination`, `vaccination_category`, `visitor_log`) VALUES
 (1, '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7'),
-(2, '1', '3', '0', '0', '0', '1', '0', '3', '0', '0', '0'),
-(3, '1', '3', '1', '3', '0', '1', '3', '3', '1', '0', '3'),
-(4, '1', '3', '1', '7', '0', '1', '7', '3', '1', '0', '7');
+(2, '1', '1', '1', '7', '0', '1', '7', '3', '1', '0', '6'),
+(3, '7', '1', '1', '1', '0', '7', '1', '3', '1', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -781,10 +754,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`, `rights`) VALUES
-(1, 'Super-Admin', 1),
-(2, 'Technician', 2),
-(3, 'Security', 3),
-(4, 'Warden', 4);
+(1, 'Super Admin', 1),
+(2, 'Security', 2),
+(3, 'Warden', 3);
 
 -- --------------------------------------------------------
 
@@ -806,16 +778,18 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `current_room_occupancy`) VALUES
-(1, 1, '102', 4, NULL, NULL),
-(1, 2, '104', 4, NULL, 1),
-(1, 3, '106', 4, NULL, NULL),
-(1, 4, '108', 4, NULL, NULL),
-(2, 5, '202', 6, NULL, 1),
-(2, 6, '204', 6, NULL, NULL),
-(3, 7, '302', 5, NULL, NULL),
-(3, 8, '304', 5, NULL, 1),
-(3, 9, '306', 5, NULL, NULL),
-(4, 10, '402', 3, NULL, NULL);
+(1, 1, '102', 4, NULL, 4),
+(1, 2, '104', 4, NULL, 4),
+(1, 3, '106', 4, NULL, 2),
+(1, 4, '108', 4, NULL, 4),
+(2, 5, '202', 3, NULL, 1),
+(2, 6, '204', 3, NULL, NULL),
+(2, 7, '206', 3, NULL, 3),
+(4, 8, '1102', 5, NULL, 5),
+(4, 9, '1104', 5, NULL, 2),
+(3, 10, '302', 3, NULL, 3),
+(3, 11, '304', 3, NULL, 3),
+(3, 12, '306', 3, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -833,10 +807,10 @@ CREATE TABLE `security` (
 --
 
 INSERT INTO `security` (`emp_id`, `acc_id`) VALUES
-(2, 1),
-(6, 2),
-(7, 3),
-(8, 4);
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4);
 
 -- --------------------------------------------------------
 
@@ -861,8 +835,9 @@ CREATE TABLE `tankers` (
 --
 
 INSERT INTO `tankers` (`id`, `acc_id`, `security_emp_id`, `quality_check`, `qty`, `bill_no`, `amount`, `vendor_id`, `timestamp`) VALUES
-(1, 1, 8, 'Yes', 7000, 'AB-1234', 15000, 2, '2023-05-30 02:06:20'),
-(2, 1, 8, 'Yes', 10000, 'AB-0912', 21000, 2, '2023-05-30 02:07:14');
+(1, 1, 5, 'Yes', 2500, 'AB-1234', 15000, 1, '2023-07-22 10:36:46'),
+(2, 2, 5, 'Yes', 5000, 'AB-0912', 25000, 2, '2023-01-22 10:37:23'),
+(3, 1, 5, 'Yes', 7000, 'AB-1235', 15000, 3, '2023-05-22 10:38:16');
 
 -- --------------------------------------------------------
 
@@ -885,7 +860,9 @@ CREATE TABLE `tanker_vendors` (
 --
 
 INSERT INTO `tanker_vendors` (`id`, `vname`, `company_name`, `number`, `address`, `price`, `time_stamp`) VALUES
-(2, 'Vendor1', 'Company1', '1234567890', 'Ponda', 15000, '2023-05-24 13:41:55');
+(1, 'Vendor1', 'Company1', '1234567890', 'Ponda', 15000, '2023-07-22 10:31:22'),
+(2, 'Vendor2', 'Company2', '1234567890', 'Marmogoa', 25000, '2023-07-22 10:31:43'),
+(3, 'Vendor3', 'Company3', '1234567890', 'Sanguem', 20000, '2023-07-22 10:32:09');
 
 -- --------------------------------------------------------
 
@@ -904,7 +881,8 @@ CREATE TABLE `technician` (
 --
 
 INSERT INTO `technician` (`id`, `emp_id`, `role`) VALUES
-(1, 4, 'Electrician');
+(1, 4, 'Plumber'),
+(2, 4, 'Electrician');
 
 -- --------------------------------------------------------
 
@@ -1233,49 +1211,49 @@ ALTER TABLE `accomodation`
 -- AUTO_INCREMENT for table `acc_locations`
 --
 ALTER TABLE `acc_locations`
-  MODIFY `loc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `loc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_accomodation`
 --
 ALTER TABLE `change_tracking_accomodation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_acc_locations`
 --
 ALTER TABLE `change_tracking_acc_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_complaints`
 --
 ALTER TABLE `change_tracking_complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_complaint_type`
 --
 ALTER TABLE `change_tracking_complaint_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee`
 --
 ALTER TABLE `change_tracking_employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee_dept`
 --
 ALTER TABLE `change_tracking_employee_dept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee_designation`
 --
 ALTER TABLE `change_tracking_employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_employee_outing`
@@ -1287,19 +1265,19 @@ ALTER TABLE `change_tracking_employee_outing`
 -- AUTO_INCREMENT for table `change_tracking_jobs`
 --
 ALTER TABLE `change_tracking_jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_rooms`
 --
 ALTER TABLE `change_tracking_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_tankers`
 --
 ALTER TABLE `change_tracking_tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_vaccination`
@@ -1317,19 +1295,19 @@ ALTER TABLE `change_tracking_visitor_log`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
 --
 ALTER TABLE `complaint_type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `employee_dept`
@@ -1341,19 +1319,19 @@ ALTER TABLE `employee_dept`
 -- AUTO_INCREMENT for table `employee_designation`
 --
 ALTER TABLE `employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `outing_type`
@@ -1365,37 +1343,37 @@ ALTER TABLE `outing_type`
 -- AUTO_INCREMENT for table `rights`
 --
 ALTER TABLE `rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tankers`
 --
 ALTER TABLE `tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tanker_vendors`
 --
 ALTER TABLE `tanker_vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `technician`
 --
 ALTER TABLE `technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vaccination`

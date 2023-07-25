@@ -3,9 +3,8 @@
     <!-- Refer accommodationStatus_Bar.php if needed -->
     <div class="chartBox">
         <h4 class="text-center p-2">Water Tankers</h4>
-        <!-- <canvas id="myLineChart"></canvas> -->
+        <!-- <canvas id="myBarChart" style="width:25%;"></canvas> -->
     </div>
-    <!-- </div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <?php include('../controllers/includes/common.php');

@@ -65,9 +65,9 @@ if ($_SESSION['is_superadmin'] == 0)
                             <table class="table table-bordered tc">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Employee Code</th>
+                                        <th scope="col">Employee</th>
                                         
-                                        <th scope="col" colspan="2">Action</th>
+                                        <th scope="col" colspan="2">Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,13 +79,13 @@ if ($_SESSION['is_superadmin'] == 0)
                                             ?>
                                             <select id="emp-code-dropdown" name="emp_code" oninput="">
 
-                                                <option name="emp_code" selected disabled value="">select </option>
+                                                <option name="emp_code" selected disabled value="">Select employee </option>
                                                 <?php $employees = mysqli_query($conn, "SELECT * FROM employee where role is null");
                                                 foreach ($employees as $row) {
                                                     $name = $row['fname'] . " " . $row['lname'];
                                                     ?>
                                                     <option name="emp_code" value="<?= $row["emp_id"] ?>" title="<?= $name ?>">
-                                                        <?= $row["emp_code"]; ?>
+                                                        <?php echo("".$name." - ".$row["emp_code"]); ?>
                                                     </option>
                                                 <?php } ?>
 

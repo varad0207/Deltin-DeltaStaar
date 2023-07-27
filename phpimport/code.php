@@ -116,9 +116,10 @@ if (isset($_POST['accomodation'])) {
             $tot_capacity=$row['5'];
             $no_of_rooms=$row['6'];
             $owner=$row['7'];
+            $remark=$row['8'];
 
             $res=mysqli_query($conn,"SELECT `loc_id` FROM `acc_locations` WHERE `location`='$location'");
-            $row = mysqli_fetch_assoc($result);
+            $row = mysqli_fetch_assoc($res);
             $location_id = $row['loc_id'];
             echo $location_id;
             

@@ -1,6 +1,7 @@
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'deltastaar');
 require 'vendor/autoload.php';
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -57,8 +58,7 @@ if (isset($_POST['employee'])) {
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
-        foreach ($data as $row) 
-        {
+        foreach ($data as $row) {
             $emp_code = $row['0'];
             $fname = $row['1'];
             $mname = $row['2'];
@@ -105,40 +105,58 @@ if (isset($_POST['accomodation'])) {
         $inputFileName = $_FILES['accomodation_import']['tmp_name'];
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
         $data = $spreadsheet->getActiveSheet()->toArray();
-
-        foreach ($data as $row) 
-        {
-            $acc_code=$row['0'];
-            $acc_name=$row['1'];
-            $bldg_status=$row['2'];
-            $location=$row['3'];
-            $gender=$row['4'];
-            $tot_capacity=$row['5'];
-            $no_of_rooms=$row['6'];
-            $owner=$row['7'];
-            $remark=$row['8'];
-
-            $res=mysqli_query($conn,"SELECT `loc_id` FROM `acc_locations` WHERE `location`='$location'");
-            $row = mysqli_fetch_assoc($res);
-            $location_id = $row['loc_id'];
-            echo $location_id;
-            
-            // mysqli_query($conn,"INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`,`owner`) VALUES ('$acc_code','$acc_name','$bldg_status','$location','$gender','$tot_capacity','$no_of_rooms','$owner')");
-            // // insertion code
-            // $msg = true;
+        // Before the loop
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
         }
+        // Prepare the INSERT statement
+        $insert_stmt = mysqli_prepare($conn, "INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `owner`, `remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        if (!$insert_stmt) {
+            die("Error in preparing the INSERT statement: " . mysqli_error($conn));
+        }
+        foreach ($data as $row) {
+            $acc_code = $row['0'];
+            $acc_name = $row['1'];
+            $bldg_status = $row['2'];
+            $location = $row['3'];
+            $gender = ucfirst(strtolower($row['4']));
+            $tot_capacity = $row['5'];
+            $no_of_rooms = $row['6'];
+            $owner = $row['7'];
+            $remark = $row['8'];
+
+            $res = mysqli_query($conn, "SELECT `loc_id` FROM `acc_locations` WHERE `location`='$location'");
+            $r = mysqli_fetch_assoc($res);
+            $location_id = (int)$r['loc_id'];
+
+            // Bind the parameters to the prepared statement
+            mysqli_stmt_bind_param($insert_stmt, "sssisiiis", $acc_code, $acc_name, $bldg_status, $location_id, $gender, $tot_capacity, $no_of_rooms, $owner, $remark);
+
+            // Execute the prepared statement
+            $insert_result = mysqli_stmt_execute($insert_stmt);
+
+            if (!$insert_result) {
+                die("Error in insertion: " . mysqli_error($conn));
+            }
+            else 
+            $msg=true;
+        }
+        // Close the prepared statement
+        mysqli_stmt_close($insert_stmt);
+
         if (isset($msg)) {
-            // $_SESSION['message'] = "Succesfully Imported";
-            // header('Location:excel_import.php');
-            // exit(0);
+            $_SESSION['message'] = "Succesfully Imported";
+            header('Location:excel_import.php');
+            exit(0);
         } else {
-            // $_SESSION['message'] = " ! Succesfully Imported";
-            // header('Location:excel_import.php');
-            // exit(0);
+            $_SESSION['message'] = " ! Succesfully Imported";
+            header('Location:excel_import.php');
+            exit(0);
         }
     } else {
-        // $_SESSION['message'] = "Invalid File";
-        // header('Location:excel_import.php');
+        $_SESSION['message'] = "Invalid File";
+        header('Location:excel_import.php');
     }
 }
 
@@ -153,13 +171,12 @@ if (isset($_POST['vaccination'])) {
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
-        foreach ($data as $row) 
-        {
-            $emp_id=$row[0];
-            $emp_code=$row[1];
-            $category_id=$row[2];
-            $date_of_administration=$row[3];
-            $location=$row[4];
+        foreach ($data as $row) {
+            $emp_id = $row[0];
+            $emp_code = $row[1];
+            $category_id = $row[2];
+            $date_of_administration = $row[3];
+            $location = $row[4];
 
             echo $emp_id;
             echo $emp_code;
@@ -167,7 +184,7 @@ if (isset($_POST['vaccination'])) {
             echo $date_of_administration;
             echo $location;
 
-            mysqli_query($conn,"INSERT INTO `vaccination`(`emp_id`, `emp_code`, `category_id`, `date_of_administration`, `location`) VALUES ('$emp_id','$emp_code','$category_id','$date_of_administration','$location')");
+            mysqli_query($conn, "INSERT INTO `vaccination`(`emp_id`, `emp_code`, `category_id`, `date_of_administration`, `location`) VALUES ('$emp_id','$emp_code','$category_id','$date_of_administration','$location')");
         }
         if (isset($msg)) {
             $_SESSION['message'] = "Succesfully Imported";
@@ -183,7 +200,7 @@ if (isset($_POST['vaccination'])) {
     } else {
         $_SESSION['message'] = "Invalid File";
         header('Location:excel_import.php');
-     }
+    }
 }
 
 
@@ -198,15 +215,14 @@ if (isset($_POST['rooms'])) {
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
-        foreach ($data as $row) 
-        {
-            $acc_id=$row['0'];
-            $room_no=$row['1'];
-            $room_capacity=$row['2'];
-            
-            
+        foreach ($data as $row) {
+            $acc_id = $row['0'];
+            $room_no = $row['1'];
+            $room_capacity = $row['2'];
+
+
             // Insert Query
-            mysqli_query($conn,"INSERT INTO `rooms`(`acc_id`,`room_no`,`room_capacity`) VALUES ('$acc_id','$room_no','$room_capacity')");
+            mysqli_query($conn, "INSERT INTO `rooms`(`acc_id`,`room_no`,`room_capacity`) VALUES ('$acc_id','$room_no','$room_capacity')");
             $msg = true;
         }
         if (isset($msg)) {

@@ -116,10 +116,15 @@ if (isset($_POST['accomodation'])) {
             $tot_capacity=$row['5'];
             $no_of_rooms=$row['6'];
             $owner=$row['7'];
+
+            $res=mysqli_query($conn,"SELECT `loc_id` FROM `acc_locations` WHERE `location`='$location'");
+            $row = mysqli_fetch_assoc($result);
+            $location_id = $row['loc_id'];
+            echo $location_id;
             
-            mysqli_query($conn,"INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`,`owner`) VALUES ('$acc_code','$acc_name','$bldg_status','$location','$gender','$tot_capacity','$no_of_rooms','$owner')");
-            // insertion code
-            $msg = true;
+            // mysqli_query($conn,"INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`,`owner`) VALUES ('$acc_code','$acc_name','$bldg_status','$location','$gender','$tot_capacity','$no_of_rooms','$owner')");
+            // // insertion code
+            // $msg = true;
         }
         if (isset($msg)) {
             // $_SESSION['message'] = "Succesfully Imported";

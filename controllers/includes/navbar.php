@@ -68,7 +68,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                                         </svg>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="../views/config/reset_password.php">Change Password</a>
+                                        <!-- <a class="dropdown-item" href="../views/config/reset_password.php">Change Password</a> -->
                                         <?php if ($_SESSION['is_superadmin']) { ?>
 
                                         <a class="dropdown-item" href="../views/config/vaccination_category.php">Add Vaccination

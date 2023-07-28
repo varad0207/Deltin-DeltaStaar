@@ -4,7 +4,6 @@ $rights = unserialize($_SESSION['rights']);
 $link = "";
 if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
     $link = "../";
-
 ?>
 
 <!DOCTYPE html>

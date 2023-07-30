@@ -2,8 +2,21 @@
 require 'common.php';
 $rights = unserialize($_SESSION['rights']);
 $link = "";
+$isTechnician = 0;
+$isSecurity = 0;
 if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
     $link = "../";
+
+    $sec=mysqli_query($conn,"select acc_id from security where emp_id='{$_SESSION['emp_id']}'");
+$tech=mysqli_query($conn,"select id from technician where emp_id='{$_SESSION['emp_id']}'");
+if(mysqli_num_rows($sec)>0){
+    $isSecurity=1;
+    $aid=mysqli_fetch_array($sec);
+} 
+if(mysqli_num_rows($tech)>0) {
+    $isTechnician=1;
+    $aid=mysqli_fetch_array($tech);
+}
 ?>
 
 <!DOCTYPE html>

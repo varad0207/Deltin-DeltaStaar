@@ -110,16 +110,17 @@ if (isset($_POST['accomodation'])) {
             die("Connection failed: " . mysqli_connect_error());
         }
         // Prepare the INSERT statement
-        $insert_stmt = mysqli_prepare($conn, "INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `owner`, `remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        // $insert_stmt = mysqli_prepare($conn, "INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `owner`, `remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        if (!$insert_stmt) {
-            die("Error in preparing the INSERT statement: " . mysqli_error($conn));
-        }
+        // if (!$insert_stmt) {
+        //     die("Error in preparing the INSERT statement: " . mysqli_error($conn));
+        // }
         foreach ($data as $row) {
             $acc_code = $row['0'];
             $acc_name = $row['1'];
             $bldg_status = $row['2'];
             $location = $row['3'];
+            // $gender = $row['4'];
             $gender = ucfirst(strtolower($row['4']));
             $tot_capacity = $row['5'];
             $no_of_rooms = $row['6'];
@@ -130,20 +131,26 @@ if (isset($_POST['accomodation'])) {
             $r = mysqli_fetch_assoc($res);
             $location_id = (int)$r['loc_id'];
 
+
+            $submit = mysqli_query($conn, "insert into accomodation (`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `owner`, `remark`) VALUES ('$acc_code', '$acc_name', '$bldg_status', '$location_id', '$gender', '$tot_capacity', '$no_of_rooms', '$owner', '$remark')");
+
+            // $insert_stmt = mysqli_prepare($conn, "INSERT INTO `accomodation`(`acc_code`, `acc_name`, `bldg_status`, `location`, `gender`, `tot_capacity`, `no_of_rooms`, `owner`, `remark`) VALUES ('$acc_code', '$acc_name', '$bldg_status', '$location', '$gender', '$tot_capacity', '$no_of_rooms', '$owner', '$remark'");
+
+
             // Bind the parameters to the prepared statement
-            mysqli_stmt_bind_param($insert_stmt, "sssisiiis", $acc_code, $acc_name, $bldg_status, $location_id, $gender, $tot_capacity, $no_of_rooms, $owner, $remark);
+            // mysqli_stmt_bind_param($insert_stmt, "sssisiiis", $acc_code, $acc_name, $bldg_status, $location_id, $gender, $tot_capacity, $no_of_rooms, $owner, $remark);
 
             // Execute the prepared statement
-            $insert_result = mysqli_stmt_execute($insert_stmt);
+            // $insert_result = mysqli_stmt_execute($insert_stmt);
 
-            if (!$insert_result) {
+            if (!$submit) {
                 die("Error in insertion: " . mysqli_error($conn));
             }
             else 
             $msg=true;
         }
         // Close the prepared statement
-        mysqli_stmt_close($insert_stmt);
+        // mysqli_stmt_close($insert_stmt);
 
         if (isset($msg)) {
             $_SESSION['message'] = "Succesfully Imported";

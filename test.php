@@ -2,20 +2,11 @@
 <html>
 <head>
 <title>Run Python code with PyScript</title>
-<!-- <script src="https://cdn.jsdelivr.net/npm/pyscript@1.18.0/dist/pyscript.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/pyscript@1.18.0/dist/pyscript.min.js"></script>
 <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
 <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-
-
-<py-env>
-- pandas
-- mysql-connector-python
-</py-env>
 </head>
 <body>
-<py-config>
-    packages = ["mysql"]
-</py-config>
 <py-script>
 import pandas as pd
 import mysql.connector
@@ -23,10 +14,10 @@ import mysql.connector
 # Connect to your MySQL database
 # Replace 'your_host', 'your_username', 'your_password', and 'your_database' with the actual connection details
 conn = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='',
-    database='deltastaar'
+    host='your_host',
+    user='your_username',
+    password='your_password',
+    database='your_database'
 )
 
 # Replace 'accommodation' with the actual name of your table
@@ -41,14 +32,6 @@ df.to_excel('accommodation_data.xlsx', index=False)
 
 # Close the database connection
 conn.close()
-
-import pandas as pd
-l=["a","b","c"]
-df=pd.DataFrame(l)
-print(df)
-
-
-
 </py-script>
 </body>
 </html>

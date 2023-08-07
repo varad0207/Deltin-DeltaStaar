@@ -69,11 +69,7 @@ if(mysqli_num_rows($tech)>0) {
                                     Accommodation Table
                                 </a>
                             </li>
-                            <li>
-                                <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/acc_loc_table.php">
-                                    Accommodation Location Table
-                                </a>
-                            </li>
+                            
                         <?php }
                         if ($rights['rights_rooms'] > 0) { ?>
                             <li>

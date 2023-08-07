@@ -97,36 +97,14 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
             <br>
             <table class="table">
                 <thead>
-                    <th>Location : </th>
+                    <!-- <th>Location : </th> -->
                     <th>Building Status : </th>
                     <th>Gender : </th>
                     <th>Sort By : </th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <?php
-                            $fetch_loc = "SELECT * FROM acc_locations";
-                            $fetch_loc_run = mysqli_query($conn, $fetch_loc);
-                            if (mysqli_num_rows($fetch_loc_run) > 0) {
-                                foreach ($fetch_loc_run as $loc) {
-                                    $checked1 = [];
-                                    if (isset($_GET['location'])) {
-                                        $checked1 = $_GET['location'];
-                                    }
-                            ?>
-                                    <div>
-                                        <input type="checkbox" name="location[]" value="<?= $loc['loc_id']; ?>" <?php if (in_array($loc['loc_id'], $checked1)) 
-                                        {echo "checked";}?>>
-                                        <label><?= $loc['location']; ?></label>
-                                    </div>
-                            <?php
-                                }
-                            } else {
-                                echo "No location available";
-                            }
-                            ?>
-                        </td>
+                        
                         <td>
                         <?php
                             $fetch_stat = "SELECT DISTINCT(bldg_status) FROM accomodation";
@@ -194,7 +172,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
 
     <!-- Displaying Database Table -->
         <?php 
-        $sqli = "SELECT * FROM accomodation t1 JOIN acc_locations t2 ON t1.location=t2.loc_id JOIN employee t3 ON t1.warden_emp_code=t3.emp_code WHERE 1=1";
+        $sqli = "SELECT * FROM accomodation t1 JOIN employee t3 ON t1.warden_emp_code=t3.emp_code WHERE 1=1";
         $sort_condition = "";
         if (isset($_GET['sort_alpha'])) {
             if ($_GET['sort_alpha'] == "a-z") {
@@ -203,17 +181,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                 $sort_condition = "DESC";
             }
         }
-        if(isset($_GET['location'])){
-            $location_checked = [];
-            $location_checked = $_GET['location'];
-            $sqli .= " AND ( ";
-            foreach($location_checked as $row_loc){
-                $sqli .= " t1.location=$row_loc OR"; 
-            }
-            $sqli =substr($sqli,0,strripos($sqli,"OR"));  
-            $sqli .=" ) ";
-            
-        }
+        
         if(isset($_GET['bldg_status'])){
             $stat_checked = [];
             $stat_checked = $_GET['bldg_status'];
@@ -287,7 +255,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                     <th scope="col">Accomodation Code</th>
                     <th scope="col">Accomodation Name</th>
                     <th scope="col">Building Status</th>
-                    <th scope="col">Location</th>
+                    <!-- <th scope="col">Location</th> -->
                     <th scope="col">Gender</th>
                     <th scope="col">Current Occupancy/Total Capacity</th>
                     <th scope="col">Max Number of Rooms</th>
@@ -320,9 +288,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         <td>
                             <?php echo $row['bldg_status']; ?>
                         </td>
-                        <td>
-                            <?php echo $row['location']; ?>
-                        </td>
+                        
                         <td>
                             <?php echo $row['gender']; ?>
                         </td>

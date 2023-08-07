@@ -425,3 +425,61 @@ if (isset($_GET['edit'])) {
 </body>
 
 </html>
+
+
+
+************ accomodation ************
+<!-- <div class="form-field col-md-12 pa2">
+                                <label for="location">Location</label>
+                                <select class="form-select mt-3" name="loc" id="loc">
+                                    <option name="acc_loc" selected disabled value="">Select Location</option>
+                                    <?php
+                                    $acc_loc = mysqli_query($conn, "SELECT * FROM acc_locations");
+
+                                    foreach ($acc_loc as $row) { ?>
+                                        <option name="acc_loc" value="<?= $row["loc_id"] ?>"
+                                        <?php if($location == $row['loc_id']) { ?>
+                                            selected
+                                        <?php } ?>>
+                                            <?= $row["location"]; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <small></small>
+                            </div> -->
+
+
+************* accomodation table ******************
+
+<td>
+                            <?php
+                            $fetch_loc = "SELECT * FROM acc_locations";
+                            $fetch_loc_run = mysqli_query($conn, $fetch_loc);
+                            if (mysqli_num_rows($fetch_loc_run) > 0) {
+                                foreach ($fetch_loc_run as $loc) {
+                                    $checked1 = [];
+                                    if (isset($_GET['location'])) {
+                                        $checked1 = $_GET['location'];
+                                    }
+                            ?>
+                                    <div>
+                                        <input type="checkbox" name="location[]" value="<?= $loc['loc_id']; ?>" <?php if (in_array($loc['loc_id'], $checked1)) 
+                                        {echo "checked";}?>>
+                                        <label><?= $loc['location']; ?></label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No location available";
+                            }
+                            ?>
+                        </td>
+
+******* sidebar *******
+<!-- <li>
+                                <a class="nav-link border-dark border-bottom" href="../<?php echo $link; ?>views/config/acc_loc_table.php">
+                                    Accommodation Location Table
+                                </a>
+                            </li> -->

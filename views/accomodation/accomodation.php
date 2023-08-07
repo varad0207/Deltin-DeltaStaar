@@ -15,7 +15,7 @@ if ($rights['rights_accomodation'] > 1) {
 if ($isPrivilaged == 5 || $isPrivilaged == 4)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 
-$acc_code = $acc_name = $bldg_status = $location = $gender = $tot_capacity = $no_of_rooms = $occupied_rooms = $available_rooms = $owner = $remark = $warden_emp_code = "";
+$acc_code = $acc_name = $bldg_status = $gender = $tot_capacity = $no_of_rooms = $occupied_rooms = $available_rooms = $owner = $remark = $warden_emp_code = "";
 if (isset($_GET['edit'])) {
     $acc_code = $_GET['edit'];
     $update = true;
@@ -26,7 +26,7 @@ if (isset($_GET['edit'])) {
     $acc_code = $n['acc_code'];
     $acc_name = $n['acc_name'];
     $bldg_status = $n['bldg_status'];
-    $location = $n['location'];
+    
     $gender = $n['gender'];
     $tot_capacity = $n['tot_capacity'];
     $no_of_rooms = $n['no_of_rooms'];
@@ -111,27 +111,7 @@ if (isset($_GET['edit'])) {
                                 <small></small>
                             </div>
 
-                            <div class="form-field col-md-12 pa2">
-                                <label for="location">Location</label>
-                                <select class="form-select mt-3" name="loc" id="loc">
-                                    <option name="acc_loc" selected disabled value="">Select Location</option>
-                                    <?php
-                                    $acc_loc = mysqli_query($conn, "SELECT * FROM acc_locations");
-
-                                    foreach ($acc_loc as $row) { ?>
-                                        <option name="acc_loc" value="<?= $row["loc_id"] ?>"
-                                        <?php if($location == $row['loc_id']) { ?>
-                                            selected
-                                        <?php } ?>>
-                                            <?= $row["location"]; ?>
-                                        </option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                                <small></small>
-                            </div>
-
+                            
                             <div class="form-field col-md-12 pa2">
                                 <label for="gender">Gender (Accommodation for which gender)</label>
                                 <select class="form-select mt-3" name="gender" id="gender" value="<?php echo $gender ?>">

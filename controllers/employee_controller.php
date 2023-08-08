@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
                 mysqli_query($conn, "UPDATE accomodation SET occupied_rooms = '$new_occ_rooms', available_rooms = '$new_avail_rooms' WHERE acc_id='$acc_id'");
             }
             mysqli_query($conn, "UPDATE rooms SET current_room_occupancy = '$curr_room_occ' WHERE id='$room_id'");
-            mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
+            mysqli_query($conn, "INSERT INTO employee (emp_code, fname, designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname', '$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
             $last_insert_id = mysqli_insert_id($conn);
             $_SESSION['message'] = "Employee Details Saved";
             // add this employee to histroy table
@@ -66,13 +66,13 @@ if (isset($_POST['submit'])) {
             $_SESSION['message'] = "Room Limit Reached";
         }
     } else {
-        mysqli_query($conn, "INSERT INTO employee (emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
+        mysqli_query($conn, "INSERT INTO employee (emp_code, fname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) VALUES ('$emp_code', '$fname', '$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary',nullif('$room_id',' '))");
         $last_insert_id = mysqli_insert_id($conn);
     }
 
 
     if ($AllowTrackingChanges)
-        mysqli_query($conn, "insert into change_tracking_employee(user,type,emp_id,emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) values ('{$_SESSION['user']}','Insert','$last_insert_id','$emp_code', '$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary','$room_id')");
+        mysqli_query($conn, "insert into change_tracking_employee(user,type,emp_id,emp_code, fname, designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) values ('{$_SESSION['user']}','Insert','$last_insert_id','$emp_code', '$fname', '$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary','$room_id')");
 
     header('location: ../views/hrm/employee_table.php');
 }
@@ -140,7 +140,7 @@ if (isset($_POST['update'])) {
             }
             mysqli_query($conn, "UPDATE rooms SET current_room_occupancy = '$curr_room_occ' WHERE id='$room_id'");
 
-            mysqli_query($conn, "UPDATE employee SET emp_code='$emp_code',fname='$fname',mname='$mname',lname='$lname',designation='$designation',dob='$dob',contact='$contact',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',department='$department',blood_group='$blood_group',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',room_id=nullif('$room_id',' ') where emp_code='$emp_code'");
+            mysqli_query($conn, "UPDATE employee SET emp_code='$emp_code',fname='$fname',designation='$designation',dob='$dob',contact='$contact',address='$address',state='$state',country='$country',pincode='$pincode',email='$email',department='$department',blood_group='$blood_group',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary',room_id=nullif('$room_id',' ') where emp_code='$emp_code'");
             // $last_insert_id = mysqli_insert_id($conn);
 
             $sqlh = mysqli_query($conn, "SELECT history FROM change_tracking_living_history where emp_code='$emp_code'");
@@ -169,14 +169,14 @@ if (isset($_POST['update'])) {
         $row_affected = mysqli_fetch_array(mysqli_query($conn, "select * FROM employee WHERE emp_code='$emp_code'"));
 
         mysqli_query($conn, "insert into change_tracking_employee(
-            user,type,emp_id,emp_code, fname,mname,lname,designation,dob,
+            user,type,emp_id,emp_code, fname, designation,dob,
             contact,address,state,country,pincode,email,department,blood_group,
             joining_date,aadhaar_number,salary,room_id,role
             )
         values (
             '{$_SESSION['user']}','Update','{$row_affected['emp_id']}', 
             '{$row_affected['emp_code']}','{$row_affected['fname']}',
-            '{$row_affected['mname']}','{$row_affected['lname']}',
+            
             '{$row_affected['designation']}','{$row_affected['dob']}',
             '{$row_affected['contact']}','{$row_affected['address']}',
             '{$row_affected['state']}','{$row_affected['country']}',
@@ -186,7 +186,7 @@ if (isset($_POST['update'])) {
             '{$row_affected['salary']}','nullif({$row_affected['room_id']},' ')','{$row_affected['role']}')");
     }
 
-    mysqli_query($conn, "UPDATE employee SET fname='$fname', mname='$mname',lname='$lname',designation='$designation',dob='$dob',contact='$contact',address='$address',
+    mysqli_query($conn, "UPDATE employee SET fname='$fname', designation='$designation',dob='$dob',contact='$contact',address='$address',
                                             state='$state',country='$country',pincode='$pincode',email='$email',blood_group='$blood_group',
                                             department='$department',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary' WHERE emp_code='$emp_code'");
 
@@ -200,8 +200,8 @@ if (isset($_GET['del'])) {
     // change tracking code
     if ($AllowTrackingChanges) {
         $row_affected = mysqli_fetch_array(mysqli_query($conn, "select * FROM employee WHERE emp_code='$emp_code'"));
-        mysqli_query($conn, "insert into change_tracking_employee(user,type,emp_id,emp_code, fname,mname,lname,designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id,role)
-        values ('{$_SESSION['user']}','Delete','{$row_affected['emp_id']}', '{$row_affected['emp_code']}','{$row_affected['fname']}','{$row_affected['mname']}','{$row_affected['lname']}','{$row_affected['designation']}',
+        mysqli_query($conn, "insert into change_tracking_employee(user,type,emp_id,emp_code, fname, designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id,role)
+        values ('{$_SESSION['user']}','Delete','{$row_affected['emp_id']}', '{$row_affected['emp_code']}','{$row_affected['fname']}','{$row_affected['designation']}',
         '{$row_affected['dob']}','{$row_affected['contact']}','{$row_affected['address']}','{$row_affected['state']}','{$row_affected['country']}','{$row_affected['pincode']}','{$row_affected['email']}','{$row_affected['department']}','{$row_affected['blood_group']}',
         nullif({$row_affected['joining_date']},''),'{$row_affected['aadhaar_number']}','{$row_affected['salary']}','{$row_affected['room_id']}','{$row_affected['role']}')");
 

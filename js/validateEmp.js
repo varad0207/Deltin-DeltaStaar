@@ -35,9 +35,10 @@ const checkFname = () => {
 const checkMname = () => {
     const Mname = mname.value.trim();
     let valid = false;
-    if (Mname === '') {
-        showError(mname, "Name cannot be blank");
-    } else if (!/^[a-zA-Z\s]+$/.test(Mname)) {
+    // if (Mname === '') {
+    //     showError(mname, "Name cannot be blank");
+    // } 
+    if (!/^[a-zA-Z\s]+$/.test(Mname)) {
         showError(mname, "Name is invalid");
     } else {
         showSuccess(mname);
@@ -48,9 +49,10 @@ const checkMname = () => {
 const checkLname = () => {
     const Lname = lname.value.trim();
     let valid = false;
-    if (Lname === '') {
-        showError(lname, "Name cannot be blank");
-    } else if (!/^[a-zA-Z\s]+$/.test(Lname)) {
+    // if (Lname === '') {
+    //     showError(lname, "Name cannot be blank");
+    // } 
+    if (!/^[a-zA-Z\s]+$/.test(Lname)) {
         showError(lname, "Name is invalid");
     } else {
         showSuccess(lname);
@@ -61,9 +63,10 @@ const checkLname = () => {
 const checkEmail = () => {
     const Email = email.value.trim();
     let valid = false;
-    if (Email === '') {
-        showError(email, "Email cannot be blank");
-    } else if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+\.(com|in)$/.test(Email)) {
+    // if (Email === '') {
+    //     showError(email, "Email cannot be blank");
+    // } 
+    if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+\.(com|in)$/.test(Email)) {
         showError(email, "Email is invalid(must contain @ and .in/.com)");
     } else {
         showSuccess(email);

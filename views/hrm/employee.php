@@ -111,22 +111,12 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="form-field col-md-12 pa2">
-                                <label for="fname">First Name</label>
+                                <label for="fname">Full Name</label>
                                 <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" value="<?php echo $fname; ?>">
                                 <small></small>
                             </div>
 
-                            <div class="form-field col-md-12 pa2">
-                                <label for="mname">Middle Name</label>
-                                <input class="form-control" type="text" name="mname" id="mname" placeholder="Middle Name" value="<?php echo $mname; ?>">
-                                <small></small>
-                            </div>
-
-                            <div class="form-field col-md-12 pa2">
-                                <label for="lname">Last Name</label>
-                                <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name" value="<?php echo $lname; ?>">
-                                <small></small>
-                            </div>
+                            
 
                             <div class="form-field col-md-12 pa2">
                                 <label for="designation">Designation</label>

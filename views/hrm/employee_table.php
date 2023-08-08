@@ -346,9 +346,9 @@ $room="room_id";
                 <thead>
                     <tr>
                         <th scope="col">Employee Code</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Middle Name</th>
-                        <th scope="col">Last Name</th>
+                        <th scope="col" colspan="3">Full Name</th>
+                        <!-- <th scope="col">Middle Name</th>
+                        <th scope="col">Last Name</th> -->
                         <th scope="col">Designation</th>
                         <th scope="col">Department</th>
                         <!-- <th scope="col">Joining Date</th> -->
@@ -363,9 +363,8 @@ $room="room_id";
                         while ($row = mysqli_fetch_array($result)) { ?>
                             <tr class="live">
                                 <td><?php echo $row['emp_code'] ?></td>
-                                <td><?php echo $row['fname'] ?></td>
-                                <td><?php echo $row['mname'] ?></td>
-                                <td><?php echo $row['lname'] ?></td>
+                                <td colspan="3"><?php echo $row['fname'].' '.$row['mname'].' '.$row['lname'] ?></td>
+                                
                                 <td><?php echo $row['designation'] ?></td>
                                 <td><?php echo $row['dept_name'] ?></td>
                                 <!-- <td><?php //echo $row['joining_date'] ?></td> -->

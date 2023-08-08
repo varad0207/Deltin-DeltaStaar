@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'deltastaar');
+require '../controllers/includes/common.php';
 require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -59,27 +59,44 @@ if (isset($_POST['employee'])) {
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         foreach ($data as $row) {
-            $emp_code = $row['0'];
-            $fname = $row['1'];
-            $mname = $row['2'];
-            $lname = $row['3'];
-            $designation = $row['4'];
-            $dob = $row['5'];
-            $contact = $row['6'];
-            $address = $row['7'];
-            $state = $row['8'];
-            $country = $row['9'];
-            $pincode = $row['10'];
-            $email = $row['11'];
-            $department = $row['12'];
-            $blood_group = $row['13'];
-            $joining_date = $row['14'];
-            $aadhar_number = $row['15'];
-            $salary = $row['16'];
+            $emp_id = $row['0'];
+            $emp_code = $row['1'];
+            $fname = $row['2'];
+            $mname = $row['3'];
+            $lname = $row['4'];
+            $designation = $row['5'];
+            $dob = $row['6'];
+            $contact = $row['7'];
+            $address = $row['8'];
+            $state = $row['9'];
+            $country = $row['10'];
+            $pincode = $row['11'];
+            $email = $row['12'];
+            $department = $row['13'];
+            $blood_group = $row['14'];
+            $joining_date = $row['15'];
+            $aadhar_number = $row['16'];
+            $salary = $row['17'];
+            $room_id = $row['18'];
+           
+            // FINDING DEPARTMENT ID FROM DEPARTMENT NAME
+            $dept_id_fetch = mysqli_query($conn,"SELECT `dept_id` FROM `employee_dept` WHERE `dept_name`='$department'") or die(mysqli_error($conn));
+            $r = mysqli_fetch_assoc($dept_id_fetch);
+            $dept_id = $r['dept_id'];
+            echo $dept_id;
+            // FINDING DESIGNATION ID FROM DESIGNATION NAME
+            $desig_id_fetch = mysqli_query($conn, "SELECT `id` FROM `employee_designation` WHERE `designation`='$designation';");
+            $r = mysqli_fetch_assoc($desig_id_fetch);
+            $desig_id = $r['id'];
+            echo $desig_id;
+
             // insertion code
-            mysqli_query($conn, "INSERT INTO `employee`(`emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`) VALUES ('$emp_code','$fname','$mname','$lname','$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhar_number','$salary')");
+            mysqli_query($conn, "INSERT INTO `employee`(`emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`,`room_id`) VALUES ('$emp_code','$fname','$mname','$lname','$desig_id','$dob','$contact','$address','$state','$country','$pincode','$email','$dept_id','$blood_group','$joining_date','$aadhar_number','$salary','$room_id')") or die(mysqli_error($conn));
             $msg = true;
+
+            echo $emp_id . '      ' . $emp_code . '        ' . $dept_id . '      ' . $desig_id;
         }
+        die;
         if (isset($msg)) {
             $_SESSION['message'] = "Succesfully Imported";
             header('Location:excel_import.php');
@@ -145,9 +162,8 @@ if (isset($_POST['accomodation'])) {
 
             if (!$submit) {
                 die("Error in insertion: " . mysqli_error($conn));
-            }
-            else 
-            $msg=true;
+            } else
+                $msg = true;
         }
         // Close the prepared statement
         // mysqli_stmt_close($insert_stmt);

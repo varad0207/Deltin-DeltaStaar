@@ -4,7 +4,7 @@ include('includes/common.php');
 date_default_timezone_set('Asia/Kolkata');
 
 // initialize variables
-$emp_code = $fname = $mname = $lname = $designation = $dob = $address = $state = $country = $pincode = $contact = $email = $blood_group = $department = $joining_date = $aadhaar_number = $salary = $room_id = $curr_room_occ = "";
+$emp_code = $fname = $designation = $dob = $address = $state = $country = $pincode = $contact = $email = $blood_group = $department = $joining_date = $aadhaar_number = $salary = $room_id = $curr_room_occ = "";
 
 $update = false;
 $updateAcc = $updateRoom = "";
@@ -12,8 +12,8 @@ if (isset($_POST['submit'])) {
     $emp_code = $_POST['emp_code'];
 
     $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
+    // $mname = $_POST['mname'];
+    // $lname = $_POST['lname'];
     $designation = $_POST['designation'];
     $dob = date('Y-m-d', strtotime($_POST['dob']));
     $address = $_POST['address'];
@@ -82,8 +82,8 @@ if (isset($_POST['update'])) {
     $emp_code = $_POST['emp_code'];
     $emp_id = $_POST['emp_id'];
     $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
+    // $mname = $_POST['mname'];
+    // $lname = $_POST['lname'];
     $designation = $_POST['designation'];
     $dob = date('Y-m-d', strtotime($_POST['dob']));
     $address = $_POST['address'];

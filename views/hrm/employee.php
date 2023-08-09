@@ -23,8 +23,8 @@ if (isset($_GET['edit'])) {
     $emp_id = $n['emp_id'];
     $emp_code = $n['emp_code'];
     $fname = $n['fname'];
-    $mname = $n['mname'];
-    $lname = $n['lname'];
+    // $mname = $n['mname'];
+    // $lname = $n['lname'];
     $designation = $n['designation'];
     $dob = $n['dob'];
     $address = $n['address'];
@@ -112,7 +112,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="form-field col-md-12 pa2">
                                 <label for="fname">Full Name</label>
-                                <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" value="<?php echo $fname; ?>">
+                                <input class="form-control" type="text" name="fname" id="fname" placeholder="Full Name" value="<?php echo $fname; ?>">
                                 <small></small>
                             </div>
 
@@ -186,6 +186,7 @@ if (isset($_GET['edit'])) {
                                     <option value="A-" <?php if ($blood_group == 'A-') { ?> selected <?php } ?>>A-</option>
                                     <option value="B+" <?php if ($blood_group == 'B+') { ?> selected <?php } ?>>B+</option>
                                     <option value="B-" <?php if ($blood_group == 'B-') { ?> selected <?php } ?>>B-</option>
+                                    <option value="O" <?php if ($blood_group == 'O') { ?> selected <?php } ?>>O</option>
                                     <option value="O+" <?php if ($blood_group == 'O+') { ?> selected <?php } ?>>O+</option>
                                     <option value="O-" <?php if ($blood_group == 'O-') { ?> selected <?php } ?>>O-</option>
                                     <option value="AB+" <?php if ($blood_group == 'AB+') { ?> selected <?php } ?>>AB+</option>

@@ -335,8 +335,9 @@ $room="room_id";
     <div class="table-div" style="margin-top:100px">
         <?php if (isset($_SESSION['message'])) : ?>
             <div class="msg">
+            <script>alert("<?php echo $_SESSION['message'];?>");</script>
                 <?php
-                echo $_SESSION['message'];
+                // echo $_SESSION['message'];
                 unset($_SESSION['message']);
                 ?>
             </div>

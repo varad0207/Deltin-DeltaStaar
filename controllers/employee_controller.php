@@ -71,8 +71,8 @@ if (isset($_POST['submit'])) {
     }
 
 
-    if ($AllowTrackingChanges)
-        mysqli_query($conn, "insert into change_tracking_employee(user,type,emp_id,emp_code, fname, designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) values ('{$_SESSION['user']}','Insert','$last_insert_id','$emp_code', '$fname', '$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary','$room_id')");
+    // if ($AllowTrackingChanges)
+    //     mysqli_query($conn, "insert into change_tracking_employee(user,type,emp_id,emp_code, fname, designation,dob,contact,address,state,country,pincode,email,department,blood_group,joining_date,aadhaar_number,salary,room_id) values ('{$_SESSION['user']}','Insert','$last_insert_id','$emp_code', '$fname', '$designation','$dob','$contact','$address','$state','$country','$pincode','$email','$department','$blood_group','$joining_date','$aadhaar_number','$salary','$room_id')");
 
     header('location: ../views/hrm/employee_table.php');
 }

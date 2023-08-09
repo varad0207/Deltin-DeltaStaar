@@ -88,8 +88,9 @@ else
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
             <div class="msg">
+            <script>alert("<?php echo $_SESSION['message'];?>");</script>
                 <?php
-                echo $_SESSION['message'];
+                // echo $_SESSION['message'];
                 unset($_SESSION['message']);
                 ?>
             </div>

@@ -198,10 +198,11 @@ if($_SESSION['is_superadmin']==1) $aid['acc_id']="rooms.acc_id";
     <div class="table-div">
         <?php if (isset($_SESSION['message'])): ?>
                 <div class="msg">
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                    ?>
+                <script>alert("<?php echo $_SESSION['message'];?>");</script>
+                <?php
+                // echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
                 </div>
         <?php endif ?>
         <div class="pa1 table-responsive">

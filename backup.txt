@@ -4283,3 +4283,16 @@ if (isset($_GET['edit'])) {
                                $emp_name=$row['fname']." ".$row['lname']."-".$row['emp_code'];
                                echo $emp_name;
                                ?>
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$mname = "";
+    $lname = "";
+    if (isset($_POST['mname'])) {
+        $mname = $_POST['mname'];
+
+    }
+    if (isset($_POST['lname'])) {
+        $mname = $_POST['lname'];
+
+    }

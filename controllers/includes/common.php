@@ -3,7 +3,7 @@
     $conn=mysqli_connect("localhost","root","","deltastaar-final")or die(mysqli_error($conn));
 
     //fail safe for change tracking
-    $AllowTrackingChanges=false;
+    $AllowTrackingChanges=true;
     
     if(!isset($_SESSION)){
         session_set_cookie_params(0);

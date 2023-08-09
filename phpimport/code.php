@@ -99,10 +99,12 @@ if (isset($_POST['employee'])) {
         die;
         if (isset($msg)) {
             $_SESSION['message'] = "Succesfully Imported";
+            unset( $_SESSION['message']);
             header('Location:excel_import.php');
             exit(0);
         } else {
             $_SESSION['message'] = " ! Succesfully Imported";
+            unset( $_SESSION['message']);
             header('Location:excel_import.php');
             exit(0);
         }
@@ -170,15 +172,18 @@ if (isset($_POST['accomodation'])) {
 
         if (isset($msg)) {
             $_SESSION['message'] = "Succesfully Imported";
+            unset( $_SESSION['message']);
             header('Location:excel_import.php');
             exit(0);
         } else {
             $_SESSION['message'] = " ! Succesfully Imported";
+            unset( $_SESSION['message']);
             header('Location:excel_import.php');
             exit(0);
         }
     } else {
         $_SESSION['message'] = "Invalid File";
+        unset( $_SESSION['message']);
         header('Location:excel_import.php');
     }
 }
@@ -189,39 +194,51 @@ if (isset($_POST['vaccination'])) {
     $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
 
     $allowed_ext = ['xls', 'csv', 'xlsx'];
-    if (in_array($file_ext, $allowed_ext)) {
+    if (in_array($file_ext, $allowed_ext)) 
+    {
         $inputFileName = $_FILES['vaccination_import']['tmp_name'];
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         foreach ($data as $row) {
-            $emp_id = $row[0];
-            $emp_code = $row[1];
-            $category_id = $row[2];
-            $date_of_administration = $row[3];
-            $location = $row[4];
+            $v_id = $row['0'];
+            $emp_id = $row['1'];
+            $emp_code = $row['2'];
+            $category_id = $row['3'];
+            $date_of_administration = $row['4'];
+            $location = $row['5'];
 
-            echo $emp_id;
-            echo $emp_code;
-            echo $category_id;
-            echo $date_of_administration;
-            echo $location;
+            echo $v_id.' ';
+            echo $emp_id.' ';
+            echo $emp_code.' ';
+            echo $category_id.' ';
+            echo $date_of_administration.' ';
+            echo $location.' ';
 
-            mysqli_query($conn, "INSERT INTO `vaccination`(`emp_id`, `emp_code`, `category_id`, `date_of_administration`, `location`) VALUES ('$emp_id','$emp_code','$category_id','$date_of_administration','$location')");
+            ?>
+            <br>
+            <?php
+            mysqli_query($conn, "INSERT INTO `vaccination`(`vaccination_id`,`emp_id`, `emp_code`, `category_id`, `date_of_administration`, `location`) VALUES ('$v_id','$emp_id','$emp_code','$category_id','$date_of_administration','$location')") or die(mysqli_error($conn));
+            $msg=true;
         }
-        if (isset($msg)) {
+        
+        if (isset($msg)) 
+        {
             $_SESSION['message'] = "Succesfully Imported";
-
             echo $_SESSION['message'];
+            unset( $_SESSION['message']);
             header('Location:excel_import.php');
             exit(0);
         } else {
             $_SESSION['message'] = " ! Succesfully Imported";
+            unset( $_SESSION['message']);
             header('Location:excel_import.php');
             exit(0);
         }
-    } else {
+    } 
+    else {
         $_SESSION['message'] = "Invalid File";
+        unset( $_SESSION['message']);
         header('Location:excel_import.php');
     }
 }
@@ -249,16 +266,20 @@ if (isset($_POST['rooms'])) {
             $msg = true;
         }
         if (isset($msg)) {
-            // $_SESSION['message'] = "Succesfully Imported";
-            // header('Location:excel_import.php');
-            // exit(0);
+            $_SESSION['message'] = "Succesfully Imported";
+            unset( $_SESSION['message']);
+            header('Location:excel_import.php');
+            // unset( $_SESSION['message']);
+            exit(0);
         } else {
-            // $_SESSION['message'] = " ! Succesfully Imported";
-            // header('Location:excel_import.php');
-            // exit(0);
+            $_SESSION['message'] = " ! Succesfully Imported";
+            header('Location:excel_import.php');
+            // unset( $_SESSION['message']);
+            exit(0);
         }
     } else {
-        // $_SESSION['message'] = "Invalid File";
-        // header('Location:excel_import.php');
+        $_SESSION['message'] = "Invalid File";
+        unset( $_SESSION['message']);
+        header('Location:excel_import.php');
     }
 }

@@ -302,7 +302,7 @@ $room="room_id";
 
 // echo $sql;
     /* ***************** PAGINATION ***************** */
-    $limit = 10;
+    $limit = 30;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
     $q1 = "SELECT * FROM employee";

@@ -3,7 +3,7 @@ include('../../controllers/includes/common.php');
 include('../../controllers/employee_controller.php');
 
 if (!isset($_SESSION["emp_id"]))
-header("location:../../index.php");
+    header("location:../../index.php");
 // check rights
 $isPrivilaged = 0;
 $rights = unserialize($_SESSION['rights']);
@@ -13,16 +13,14 @@ if ($rights['rights_employee_details'] > 0) {
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
 $isWarden = 0;
 $check = mysqli_query($conn, "select emp_id,emp_code from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}' and emp_code in (select warden_emp_code from accomodation)");
-if (mysqli_num_rows($check) > 0)
-{
+if (mysqli_num_rows($check) > 0) {
     $isWarden = 1;
     $fetch = mysqli_fetch_array(mysqli_query($conn, "select rooms.id as id from rooms join accomodation using(acc_id) where  accomodation.warden_emp_code='{$_SESSION['emp_code']}' "));
 }
 
 $isSecurity = 0;
-$c = mysqli_query($conn,"SELECT emp_id,emp_code FROM employee WHERE emp_id IN(SELECT emp_id FROM security)");
-if(mysqli_num_rows($c) > 0)
-{
+$c = mysqli_query($conn, "SELECT emp_id,emp_code FROM employee WHERE emp_id IN(SELECT emp_id FROM security)");
+if (mysqli_num_rows($c) > 0) {
     $isSecurity = 1;
     $fetch1 = mysqli_fetch_array(mysqli_query($conn, "SELECT rooms.id as id from rooms join accomodation using(acc_id) join security using(acc_id) where  security.emp_id='{$_SESSION['emp_id']}' "));
 }
@@ -37,7 +35,7 @@ if(mysqli_num_rows($c) > 0)
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../../css/overlay.css">
-    
+
     <!--Favicon link-->
     <link rel="icon" type="image/x-icon" href="../../images/logo-no-name-circle.png">
     <title>DELTA@STAAR | Employee Details</title>
@@ -51,7 +49,7 @@ if(mysqli_num_rows($c) > 0)
     <!-- CSS files -->
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/table.css">
-      <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="../../css/form.css">
     <!-- Live Search -->
 
     <script type="text/javascript">
@@ -166,8 +164,9 @@ if(mysqli_num_rows($c) > 0)
                                         }
                                 ?>
                                         <div>
-                                            <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) 
-                                            {   echo "checked"; } ?>>
+                                            <input type="checkbox" name="designation[]" value="<?= $desig['id']; ?>" <?php if (in_array($desig['id'], $checked1)) {
+                                                                                                                            echo "checked";
+                                                                                                                        } ?>>
                                             <label><?= $desig['designation']; ?></label>
                                         </div>
                                 <?php
@@ -189,8 +188,9 @@ if(mysqli_num_rows($c) > 0)
                                         }
                                 ?>
                                         <div>
-                                            <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) 
-                                            {   echo "checked"; } ?>>
+                                            <input type="checkbox" name="department[]" value="<?= $dept['dept_id']; ?>" <?php if (in_array($dept['dept_id'], $checked2)) {
+                                                                                                                            echo "checked";
+                                                                                                                        } ?>>
                                             <label><?= $dept['dept_name']; ?></label>
                                         </div>
                                 <?php
@@ -208,12 +208,12 @@ if(mysqli_num_rows($c) > 0)
                             <td>
                                 <label>From : </label>
                                 <input type="date" name="start_date" value="<?php if (isset($_POST['start_date']))
-                                echo $_POST['start_date']; ?>">
+                                                                                echo $_POST['start_date']; ?>">
                                 <br>
                                 <br>
                                 <label>To : </label>
                                 <input type="date" name="end_date" value="<?php if (isset($_POST['end_date']))
-                                echo $_POST['end_date']; ?>"><br>
+                                                                                echo $_POST['end_date']; ?>"><br>
 
                             </td>
                             <td>
@@ -241,13 +241,12 @@ if(mysqli_num_rows($c) > 0)
             $sort_condition = "DESC";
         }
     }
-$room="room_id";
-    if($isWarden) $room=$fetch['id'];
-    elseif($isSecurity) @$room=@$fetch1['id'];
-    if($_SESSION['is_superadmin']){
+    $room = "room_id";
+    if ($isWarden) $room = $fetch['id'];
+    elseif ($isSecurity) @$room = @$fetch1['id'];
+    if ($_SESSION['is_superadmin']) {
         $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where 1=1 ";
-    }
-   else $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where room_id=$room and 1=1 "; //
+    } else $sql = "SELECT * from employee JOIN employee_designation on employee_designation.id = employee.designation join employee_dept on employee.department=employee_dept.dept_id where room_id=$room and 1=1 "; //
     if (isset($_GET['designation'])) {
         $designation_checked = [];
         $designation_checked = $_GET['designation'];
@@ -270,21 +269,19 @@ $room="room_id";
         $sql .= " ) ";
         // echo $sql;
     }
-    if(isset($_GET['acc_stays']))
-    {
-        $sql .=" and (room_id !='NULL' or";
+    if (isset($_GET['acc_stays'])) {
+        $sql .= " and (room_id !='NULL' or";
         $sql = substr($sql, 0, strripos($sql, "or"));
         $sql .= " ) ";
         // echo $sql;
     }
-    if(isset($_GET['acc_not_stays']))
-    {
-        $sql .=" and (`room_id` is NULL or";
+    if (isset($_GET['acc_not_stays'])) {
+        $sql .= " and (`room_id` is NULL or";
         $sql = substr($sql, 0, strripos($sql, "or"));
         $sql .= " ) ";
         // echo $sql;
     }
-    
+
     if (isset($_GET['start_date'])) {
         // $start_date=date("Y-m-d",($_GET['start_date'])); 
         // echo $start_date;
@@ -292,55 +289,41 @@ $room="room_id";
         // echo $sql;
 
     }
-    
+
     if (isset($_GET['end_date'])) {
         // $end_date=date("Y-m-d",($_GET['end_date'])); 
         $_GET['end_date'] != "" ? $sql .= " and joining_date<='{$_GET['end_date']}' " : $a = 0;
     }
     $sql .= " ORDER BY fname $sort_condition";
     $emp_qry = $sql;
-
-// echo $sql;
     /* ***************** PAGINATION ***************** */
-   
-    if (!isset($page)) $_SESSION['query']=$sql;
-    $limit =100;
-    // echo $page;
+    if (!isset($_GET['page'])) {
+        $_SESSION['query'] = $sql;
+    }
+    $limit = 100;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
-    // $q1 = "SELECT * FROM employee";
-    $result1 = mysqli_query($conn, $sql);
-    $total = mysqli_num_rows($result1);
+    // Calculate total records based on filters
+    $rowcount=mysqli_num_rows(mysqli_query($conn,$_SESSION['query']));
+    $total = $rowcount;
     $pages = ceil($total / $limit);
-    //check if current page is less then or equal 1
-    if(($page>1)||($page<$pages))
-    {
-        $Previous=$page-1;
-        $Next=$page+1;
-    }
-    if($page<=1)
-    {
-        $Previous=1;
-        $Next=1;
-        $start=0;
-    }
-    if($page>=$pages)
-    {
-        $Next=$pages;
-    }
-    $sql=$_SESSION['query'];
-    $sql .= " LIMIT $start,$limit";
-    echo $sql;
-    
+    // Adjust page numbers to prevent out-of-range values
+    $page = max(1, min($page, $pages));
+    $Previous = ($page > 1) ? $page - 1 : 1;
+    $Next = ($page < $pages) ? $page + 1 : $pages;
+    $sql = $_SESSION['query'];
+    $sql .= " LIMIT $start, $limit";
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */
-
     ?>
+
     <!-- Displaying Database Table -->
     <div class="table-div" style="margin-top:100px">
         <?php if (isset($_SESSION['message'])) : ?>
             <div class="msg">
-            <script>alert("<?php echo $_SESSION['message'];?>");</script>
+                <script>
+                    alert("<?php echo $_SESSION['message']; ?>");
+                </script>
                 <?php
                 // echo $_SESSION['message'];
                 unset($_SESSION['message']);
@@ -369,11 +352,12 @@ $room="room_id";
                         while ($row = mysqli_fetch_array($result)) { ?>
                             <tr class="live">
                                 <td><?php echo $row['emp_code'] ?></td>
-                                <td colspan="3"><?php echo $row['fname'].' '.$row['mname'].' '.$row['lname'] ?></td>
-                                
+                                <td colspan="3"><?php echo $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname'] ?></td>
+
                                 <td><?php echo $row['designation'] ?></td>
                                 <td><?php echo $row['dept_name'] ?></td>
-                                <!-- <td><?php //echo $row['joining_date'] ?></td> -->
+                                <!-- <td><?php //echo $row['joining_date'] 
+                                            ?></td> -->
                                 <td><?php echo $row['state'] ?></td>
                                 <td><?php echo $row['contact'] ?></td>
                                 <td style="text-align: center;">
@@ -385,7 +369,7 @@ $room="room_id";
                                     <?php }
                                     if ($isPrivilaged >= 4) {  ?>
 
-                                        <a class="del_btn" onclick="myfunc('<?php echo $row['emp_code']; ?>')"><i class="bi bi-trash" style="font-size: 1rem;    color: black;" ></i></a>
+                                        <a class="del_btn" onclick="myfunc('<?php echo $row['emp_code']; ?>')"><i class="bi bi-trash" style="font-size: 1rem;    color: black;"></i></a>
                                         <form id="del_response" action="../../controllers/employee_controller.php" method="get">
                                             <input type="hidden" id="hidden-del" name="del" value="" />
                                         </form>
@@ -435,11 +419,11 @@ $room="room_id";
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
     <span class="viewmore_ovelay"></span>
     <span class="delete_ovelay">
-        <?php 
-        include '../../controllers/overlays/deleteOverlay.php'; 
+        <?php
+        include '../../controllers/overlays/deleteOverlay.php';
         ?>
     </span>
-   
+
 
     <script>
         function myfunc(code) {
@@ -451,16 +435,17 @@ $room="room_id";
             document.getElementById("hidden-del").value = code;
             overlay_del.style.display = 'flex';
         }
+
         function view(str) {
             console.log(str);
             var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
+            xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var myObj = this.responseText;
-                    if(myObj){
+                    if (myObj) {
                         console.log(myObj);
                         const viewmore_overlay_span = document.querySelector('.viewmore_ovelay');
-                        viewmore_overlay_span.innerHTML=myObj;
+                        viewmore_overlay_span.innerHTML = myObj;
                         const overlay_viewmore = viewmore_overlay_span.querySelector('.overlay');
                         overlay_viewmore.style.display = 'flex';
                         const del_overlay_span = document.querySelector('.delete_ovelay');
@@ -471,12 +456,11 @@ $room="room_id";
             };
             xmlhttp.open("GET", "../../controllers/overlays/employeeViewMore.php?employeecode=" + str, true);
             xmlhttp.send();
-            
 
-            
-            
-    }
-       
+
+
+
+        }
     </script>
 
     <!-- Script Files -->

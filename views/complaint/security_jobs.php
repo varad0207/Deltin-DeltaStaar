@@ -107,37 +107,26 @@ else
                   FROM jobs j join complaints on complaint_id=complaints.id 
           join accomodation on accomodation.acc_id=complaints.acc_id 
           join security on security.acc_id=accomodation.acc_id where security.emp_id='{$_SESSION['emp_id']}' and 1=1 ";
-        /* ***************** PAGINATION ***************** */
-        $limit = 10;
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $start = ($page - 1) * $limit;
-            
-        $q1 = "SELECT * FROM complaints";
-        $result1 = mysqli_query($conn, $q1);
-        $total = mysqli_num_rows($result1);
-        $pages = ceil($total / $limit);
-        //check if current page is less then or equal 1
-        if(($page>1)||($page<$pages))
-        {
-            $Previous=$page-1;
-            $Next=$page+1;
-        }
-        if($page<=1)
-        {
-            $Previous=1;
-            $Next=1;
-            $start=0;
-        }
-        if($page>=$pages)
-        {
-            $Next=$pages;
-        }
-        
-
-        $sql .= " LIMIT $start,$limit";
-        // echo $sql;
-        $results = mysqli_query($conn, $sql);
-        /* ************************************************ */
+    /* ***************** PAGINATION ***************** */      
+    if (!isset($_GET['page'])) {
+        $_SESSION['query'] = $sql;
+    }
+    $limit = 100;
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $start = ($page - 1) * $limit;
+    // Calculate total records based on filters
+    $rowcount=mysqli_num_rows(mysqli_query($conn,$_SESSION['query']));
+    $total = $rowcount;
+    $pages = ceil($total / $limit);
+    // Adjust page numbers to prevent out-of-range values
+    $page = max(1, min($page, $pages));
+    $Previous = ($page > 1) ? $page - 1 : 1;
+    $Next = ($page < $pages) ? $page + 1 : $pages;
+    $sql = $_SESSION['query'];
+    $sql .= " LIMIT $start, $limit";
+    $results = mysqli_query($conn, $sql);
+    /* ************************************************ */
+     
        
         ?>
         <div class="pa1 table-responsive">

@@ -211,31 +211,48 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
         
     <?php
     /* ***************** PAGINATION ***************** */
-    $limit=10;
-    $page=isset($_GET['page'])?$_GET['page']:1;
-    $start=($page-1) * $limit;
-    $q1="SELECT * FROM accomodation";
-    $result1=mysqli_query($conn,$q1);
-    $total=mysqli_num_rows($result1);
-    $pages=ceil($total/$limit);
-    //check if current page is less then or equal 1
-    if(($page>1)||($page<$pages))
-    {
-        $Previous=$page-1;
-        $Next=$page+1;
+    // $limit=10;
+    // $page=isset($_GET['page'])?$_GET['page']:1;
+    // $start=($page-1) * $limit;
+    // $q1="SELECT * FROM accomodation";
+    // $result1=mysqli_query($conn,$q1);
+    // $total=mysqli_num_rows($result1);
+    // $pages=ceil($total/$limit);
+    // //check if current page is less then or equal 1
+    // if(($page>1)||($page<$pages))
+    // {
+    //     $Previous=$page-1;
+    //     $Next=$page+1;
+    // }
+    // if($page<=1)
+    // {
+    //     $Previous=1;
+    //     $Next=1;
+    //     $start=0;
+    // }
+    // if($page>=$pages)
+    // {
+    //     $Next=$pages;
+    // }
+    // $sqli .=" LIMIT $start,$limit";
+    /* ***************** PAGINATION ***************** */
+    if (!isset($_GET['page'])) {
+        $_SESSION['query'] = $sqli;
     }
-    if($page<=1)
-    {
-        $Previous=1;
-        $Next=1;
-        $start=0;
-    }
-    if($page>=$pages)
-    {
-        $Next=$pages;
-    }
-    $sqli .=" LIMIT $start,$limit";
-    $results=mysqli_query($conn,$sqli);
+    $limit = 5;
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $start = ($page - 1) * $limit;
+    // Calculate total records based on filters
+    $rowcount=mysqli_num_rows(mysqli_query($conn,$_SESSION['query']));
+    $total = $rowcount;
+    $pages = ceil($total / $limit);
+    // Adjust page numbers to prevent out-of-range values
+    $page = max(1, min($page, $pages));
+    $Previous = ($page > 1) ? $page - 1 : 1;
+    $Next = ($page < $pages) ? $page + 1 : $pages;
+    $sqli = $_SESSION['query'];
+    $sqli .= " LIMIT $start, $limit";
+    $results = mysqli_query($conn, $sqli);
     /* ************************************************ */
     ?>
 

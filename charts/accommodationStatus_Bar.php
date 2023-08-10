@@ -15,7 +15,7 @@ include('../controllers/includes/common.php');
 
 // Attempt select query execution
 try {
-    $sql = "SELECT no_of_rooms,occupied_rooms,available_rooms,acc_name FROM accomodation";
+    $sql = "SELECT accomodation.acc_name,sum(rooms.current_room_occupancy)as occupancy,sum(rooms.room_capacity)as capacity,    (SUM(rooms.room_capacity)-SUM(rooms.current_room_occupancy)) AS available FROM accomodation join rooms using(acc_id) group by rooms.acc_id";
     $res = mysqli_query($conn,$sql);
     $data = array();
     $data1 = array();
@@ -23,9 +23,9 @@ try {
     $data3 = array();
 
     while($row = mysqli_fetch_assoc($res)){
-        array_push($data,$row['no_of_rooms']);
-        array_push($data1,$row['occupied_rooms']);
-        array_push($data2,$row['available_rooms']);
+        array_push($data,$row['capacity']);
+        array_push($data1,$row['occupancy']);
+        array_push($data2,$row['available']);
         array_push($data3,$row['acc_name']);
     }
 

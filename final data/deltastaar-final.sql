@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2023 at 06:25 PM
+-- Generation Time: Aug 10, 2023 at 09:10 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -84,7 +84,7 @@ CREATE TABLE `change_tracking_accomodation` (
   `type` enum('Delete','Update','Insert') DEFAULT NULL,
   `acc_id` int(11) NOT NULL,
   `acc_code` varchar(10) NOT NULL,
-  `acc_name` varchar(20) NOT NULL,
+  `acc_name` varchar(255) NOT NULL,
   `bldg_status` varchar(20) NOT NULL,
   `location` int(11) DEFAULT NULL,
   `gender` enum('Male','Female','Unisex') NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `change_tracking_accomodation` (
   `occupied_rooms` int(11) DEFAULT NULL,
   `available_rooms` int(11) DEFAULT NULL,
   `warden_emp_code` varchar(10) DEFAULT NULL,
-  `owner` varchar(20) NOT NULL,
+  `owner` varchar(30) NOT NULL,
   `remark` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -164,22 +164,22 @@ CREATE TABLE `change_tracking_employee` (
   `user` varchar(255) DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `type` enum('Delete','Update','Insert') DEFAULT NULL,
-  `emp_id` int(11) NOT NULL,
-  `emp_code` varchar(10) NOT NULL,
-  `fname` varchar(50) NOT NULL,
-  `mname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `designation` int(11) NOT NULL,
-  `dob` date NOT NULL,
-  `contact` varchar(13) DEFAULT NULL,
-  `address` varchar(100) NOT NULL,
-  `state` varchar(10) NOT NULL,
-  `country` varchar(10) NOT NULL,
-  `pincode` int(11) NOT NULL,
+  `emp_id` int(11) DEFAULT NULL,
+  `emp_code` varchar(10) DEFAULT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `mname` varchar(50) DEFAULT NULL,
+  `lname` varchar(50) DEFAULT NULL,
+  `designation` int(11) DEFAULT NULL,
+  `dob` varchar(15) DEFAULT NULL,
+  `contact` varchar(15) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `state` varchar(20) DEFAULT NULL,
+  `country` varchar(20) DEFAULT NULL,
+  `pincode` varchar(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `department` int(11) DEFAULT NULL,
   `blood_group` varchar(4) DEFAULT NULL,
-  `joining_date` date DEFAULT NULL,
+  `joining_date` varchar(15) DEFAULT NULL,
   `aadhaar_number` varchar(16) DEFAULT NULL,
   `salary` float DEFAULT NULL,
   `room_id` tinytext DEFAULT NULL,
@@ -198,7 +198,7 @@ CREATE TABLE `change_tracking_employee_dept` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `type` enum('Delete','Update','Insert') DEFAULT NULL,
   `dept_id` int(11) NOT NULL,
-  `dept_name` varchar(25) DEFAULT NULL
+  `dept_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -213,7 +213,7 @@ CREATE TABLE `change_tracking_employee_designation` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `type` enum('Delete','Update','Insert') DEFAULT NULL,
   `desig_id` int(11) NOT NULL,
-  `designation` varchar(50) DEFAULT NULL
+  `designation` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -328,15 +328,6 @@ CREATE TABLE `change_tracking_vaccination` (
   `date_of_next_dose` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `change_tracking_vaccination`
---
-
-INSERT INTO `change_tracking_vaccination` (`id`, `user`, `timestamp`, `type`, `vaccination_id`, `emp_id`, `emp_code`, `category_id`, `date_of_administration`, `location`, `date_of_next_dose`) VALUES
-(1, 'Vadiraj Inamdar', '2023-08-08 18:12:10', 'Insert', 1, 1, 'EMP001', 1, '2023-08-03', 'Ponda', NULL),
-(2, 'Vadiraj Inamdar', '2023-08-08 18:12:27', 'Insert', 2, 1, 'EMP001', 2, '2023-08-26', 'Ponda', NULL),
-(3, 'Vadiraj Inamdar', '2023-08-08 18:14:07', 'Update', 0, 1, '', 3, '2023-08-26', 'Ponda', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -414,7 +405,7 @@ CREATE TABLE `employee` (
   `country` varchar(20) NOT NULL,
   `pincode` varchar(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `department` int(11) DEFAULT NULL,
+  `department` int(11) NOT NULL,
   `blood_group` varchar(4) DEFAULT NULL,
   `joining_date` varchar(15) DEFAULT NULL,
   `aadhaar_number` varchar(16) DEFAULT NULL,
@@ -1301,7 +1292,8 @@ CREATE TABLE `login_history` (
 INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`) VALUES
 (2, 'VADIRAJ INAMDAR', '2023-08-08 11:16:24', '2023-08-08 11:54:03', 1),
 (1, 'Vadiraj Inamdar', '2023-08-08 11:54:14', '2023-08-09 03:42:40', 2),
-(1, 'Vadiraj Inamdar', '2023-08-09 15:05:40', '2023-08-09 15:05:40', 3);
+(1, 'Vadiraj Inamdar', '2023-08-09 15:05:40', '2023-08-09 15:05:40', 3),
+(1, 'Vadiraj Inamdar', '2023-08-10 04:45:48', '2023-08-10 04:45:48', 4);
 
 -- --------------------------------------------------------
 
@@ -3292,7 +3284,7 @@ ALTER TABLE `change_tracking_tankers`
 -- AUTO_INCREMENT for table `change_tracking_vaccination`
 --
 ALTER TABLE `change_tracking_vaccination`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `change_tracking_visitor_log`
@@ -3340,7 +3332,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `outing_type`

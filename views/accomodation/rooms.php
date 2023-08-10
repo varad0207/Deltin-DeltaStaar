@@ -105,7 +105,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="col-md-12 pa2">
                                 <label for="room_no">Room Number</label>
-                                <input class="form-control" type="number" name="room_no" id="rommno" value="<?php echo $room_no ?>" placeholder="Room Number">
+                                <input class="form-control" type="text" name="room_no" id="rommno" value="<?php echo $room_no ?>" placeholder="Room Number">
                                 <small></small>
                             </div>
 

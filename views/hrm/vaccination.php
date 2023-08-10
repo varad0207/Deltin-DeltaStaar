@@ -26,7 +26,6 @@ if (isset($_GET['edit'])) {
     $dateofadministration = date('Y-m-d', strtotime($n['date_of_administration']));
     $location = $n['location'];
     $nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
-
 }
 ?>
 <!DOCTYPE html>
@@ -78,7 +77,7 @@ if (isset($_GET['edit'])) {
                                         $emp_code = mysqli_query($conn, "SELECT * FROM employee");
 
                                         foreach ($emp_code as $row) {?>
-                                        <option name="employee_code" value="<?= $row["emp_id"] ?>"><?= $row["emp_code"]; ?>
+                                        <option name="employee_code" value="<?= $row["emp_id"] ?>"><?php echo $row["emp_code"]." - ".$row["fname"]." ".$row["lname"]; ?>
                                         </option>
                                         <?php
                                         }
@@ -111,7 +110,7 @@ if (isset($_GET['edit'])) {
 
                                     <label for="empcode">Employee Code</label>
 
-                                    <input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code ?>" readonly>
+                                    <input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code.' - '.$name ?>" readonly>
                                     <small></small>
                                 </div>
 

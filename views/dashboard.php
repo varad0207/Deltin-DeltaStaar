@@ -83,7 +83,10 @@ if ($_SESSION['is_superadmin']) {
         <div class="tc f1 lh-title txt7">
             Welcome back, 
             <span class="spr">
-                <?php echo $emp_details['fname']; ?>
+                <?php 
+                $nameParts = explode(" ", $emp_details['fname']); // Split the name by spaces
+                echo $nameParts[0] 
+                ?>
             </span>!
         </div>
         <?php

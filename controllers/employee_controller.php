@@ -190,7 +190,7 @@ if (isset($_POST['update'])) {
                                             state='$state',country='$country',pincode='$pincode',email='$email',blood_group='$blood_group',
                                             department='$department',joining_date='$joining_date',aadhaar_number='$aadhaar_number',salary='$salary' WHERE emp_code='$emp_code'");
 
-    $_SESSION['message'] = "Employee Info Updated!";
+    // $_SESSION['message'] = "Employee Info Updated!";
     header('location: ../views/hrm/employee_table.php');
 }
 
@@ -205,33 +205,33 @@ if (isset($_GET['del'])) {
         '{$row_affected['dob']}','{$row_affected['contact']}','{$row_affected['address']}','{$row_affected['state']}','{$row_affected['country']}','{$row_affected['pincode']}','{$row_affected['email']}','{$row_affected['department']}','{$row_affected['blood_group']}',
         nullif({$row_affected['joining_date']},''),'{$row_affected['aadhaar_number']}','{$row_affected['salary']}','{$row_affected['room_id']}','{$row_affected['role']}')");
 
-        $outing_record = mysqli_query($conn, "select * FROM employee_outing WHERE emp_code='$emp_code'");
-        if (mysqli_num_rows($outing_record) > 0) {
-            while ($record = mysqli_fetch_array($outing_record)) {
-                mysqli_query($conn, "insert into change_tracking_employee_outing(user,type,emp_code, approval,outing_date,arrival_date,category)
-                values ('{$_SESSION['user']}','Delete','{$record['emp_code']}', '{$record['approval']}','{$record['outing_date']}','{$record['arrival_date']}','{$record['category']}')");
-            }
-            mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_code='$emp_code'");
-        }
+        // $outing_record = mysqli_query($conn, "select * FROM employee_outing WHERE emp_code='$emp_code'");
+        // if (mysqli_num_rows($outing_record) > 0) {
+        //     while ($record = mysqli_fetch_array($outing_record)) {
+        //         mysqli_query($conn, "insert into change_tracking_employee_outing(user,type,emp_code, approval,outing_date,arrival_date,category)
+        //         values ('{$_SESSION['user']}','Delete','{$record['emp_code']}', '{$record['approval']}','{$record['outing_date']}','{$record['arrival_date']}','{$record['category']}')");
+        //     }
+        //     mysqli_query($conn, "DELETE FROM employee_outing WHERE emp_code='$emp_code'");
+        // }
 
-        $vaccination_record = mysqli_query($conn, "select * FROM vaccination WHERE emp_code='$emp_code'");
-        if (mysqli_num_rows($vaccination_record) > 0) {
-            while ($record = mysqli_fetch_array($vaccination_record)) {
-                mysqli_query($conn, "insert into change_tracking_vaccination (user,type,vaccination_id,emp_id,emp_code,category_id,date_of_administration,location,date_of_next_dose)
-                values ('{$_SESSION['user']}','Delete','{$record['vaccination_id']}', '{$record['emp_id']}', '{$record['emp_code']}', '{$record['category_id']}', '{$record['date_of_administration']}', '{$record['location']}', '{$record['date_of_next_dose']}')");
-            }
-            mysqli_query($conn, "DELETE FROM vaccination WHERE security_emp_id='$emp_code'");
-        }
+        // $vaccination_record = mysqli_query($conn, "select * FROM vaccination WHERE emp_code='$emp_code'");
+        // if (mysqli_num_rows($vaccination_record) > 0) {
+        //     while ($record = mysqli_fetch_array($vaccination_record)) {
+        //         mysqli_query($conn, "insert into change_tracking_vaccination (user,type,vaccination_id,emp_id,emp_code,category_id,date_of_administration,location)
+        //         values ('{$_SESSION['user']}','Delete','{$record['vaccination_id']}', '{$record['emp_id']}', '{$record['emp_code']}', '{$record['category_id']}', '{$record['date_of_administration']}', '{$record['location']}')");
+        //     }
+        //     mysqli_query($conn, "DELETE FROM vaccination WHERE emp_code='$emp_code'");
+        // }
 
         // $visitor_record=mysqli_query($conn,"SELECT * FROM visitor_log join employee on employee.emp_id=visitor.security_emp_id WHERE employee.emp_code='$emp_code'");
-        if (mysqli_num_rows($vaccination_record) > 0) {
-            while ($record = mysqli_fetch_array($visito_record)) {
-                mysqli_query($conn, "insert into change_tracking_visitor_log(user,type,log_id,acc_code,emp_id,security_emp_id,visitor_name,vehicle_no,visit_type,check_in,check_out,purpose,phone_no)
-                values ('{$_SESSION['user']}','Delete','{$record['id']}', '{$record['acc_code']}','{$record['emp_id']}','{$record['security_emp_id']}','{$record['visitor_name']}','{$record['vehicle_no']}',
-                '{$record['type']}','{$record['check_in']}','{$record['check_out']}','{$record['purpose']}','{$record['phone_no']}')");
-                mysqli_query($conn, "DELETE FROM visitor_log WHERE security_emp_id={$record['security_emp_id']}");
-            }
-        }
+        // if (mysqli_num_rows($vaccination_record) > 0) {
+        //     while ($record = mysqli_fetch_array($visitor_record)) {
+        //         mysqli_query($conn, "insert into change_tracking_visitor_log(user,type,log_id,acc_code,emp_id,security_emp_id,visitor_name,vehicle_no,visit_type,check_in,check_out,purpose,phone_no)
+        //         values ('{$_SESSION['user']}','Delete','{$record['id']}', '{$record['acc_code']}','{$record['emp_id']}','{$record['security_emp_id']}','{$record['visitor_name']}','{$record['vehicle_no']}',
+        //         '{$record['type']}','{$record['check_in']}','{$record['check_out']}','{$record['purpose']}','{$record['phone_no']}')");
+        //         mysqli_query($conn, "DELETE FROM visitor_log WHERE security_emp_id={$record['security_emp_id']}");
+        //     }
+        // }
     }
     $new_room_occ = 0;
     // echo $new_room_occ;

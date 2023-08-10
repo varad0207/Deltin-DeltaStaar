@@ -50,7 +50,7 @@ if (isset($_POST['update'])) {
     // $nextdose=date('Y-m-d',strtotime($_POST['dond']));
     $location=$_POST['loc'];
     // echo $location;
-    mysqli_query($conn, "INSERT INTO vaccination(emp_id,emp_code,category_id,date_of_administration,location) VALUES ('$emp_id','$category','$dateofadministration','$location')");
+    mysqli_query($conn, "INSERT INTO vaccination(emp_id,emp_code,category_id,date_of_administration,location) VALUES ('$emp_id','$emp_code','$category','$dateofadministration','$location')")or die(mysqli_error($conn));
     $last_insert_id = mysqli_insert_id($conn);
     $_SESSION['message'] = "Vaccnation Info updated!";
 

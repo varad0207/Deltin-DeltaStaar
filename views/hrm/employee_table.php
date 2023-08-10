@@ -294,7 +294,8 @@ if (mysqli_num_rows($c) > 0) {
         // $end_date=date("Y-m-d",($_GET['end_date'])); 
         $_GET['end_date'] != "" ? $sql .= " and joining_date<='{$_GET['end_date']}' " : $a = 0;
     }
-    $sql .= " ORDER BY fname $sort_condition";
+    $sql .= " ORDER BY concat(fname,mname,lname) $sort_condition";
+    // echo $sql;
     $emp_qry = $sql;
     /* ***************** PAGINATION ***************** */
     if (!isset($_GET['page'])) {
@@ -330,7 +331,7 @@ if (mysqli_num_rows($c) > 0) {
                 ?>
             </div>
         <?php endif ?>
-        <div class="pl1 pr1 table-responsive">
+        <div class="pl1 pr1 table-responsive" style="font-size:smaller;">
             <table class="table table-bordered tc">
                 <thead>
                     <tr>

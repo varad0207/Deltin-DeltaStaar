@@ -167,8 +167,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="form-field col-md-12 pa2">
                                 <label for="description">Remark</label>
-                                <textarea name="remark" value="<?php echo $remark ?>" placeholder="Enter remark if any"
-                                cols="30" rows="10"></textarea>
+                                <input  type=text name="remark" value="<?php echo $remark ?>" placeholder="Enter remark if any"></input>
                             </div>
 
 

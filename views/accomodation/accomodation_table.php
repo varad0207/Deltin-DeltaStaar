@@ -336,14 +336,14 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                             </a>
                             <?php } ?>
                         </td>
-                        <td>
-                            <?php if($isPrivilaged>=4){ ?>
-                            <a class="del_btn" onclick="myfunc('<?php echo $row['acc_code']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
+                        <!-- <td>
+                            <?php //if($isPrivilaged>=4){ ?>
+                            <a class="del_btn" onclick="myfunc('<?php //echo $row['acc_code']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>
                             <form id="del_response" action="../../controllers/accomodation_controller.php" method="get">
                                             <input type="hidden" id="hidden-del" name="del" value="" />
                                     </form>
-                            <?php } ?>
-                        </td>
+                            <?php //} ?>
+                        </td>  -->
                     </tr>
                     <?php } 
                     }

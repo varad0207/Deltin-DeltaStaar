@@ -1,4 +1,4 @@
-<div class="portal">
+<div class="portal" >
 
     <div class="charts-container px-4">
        
@@ -15,7 +15,7 @@
 
     <h1 class="tc f-subheadline lh-title spr">Super Admin Portal</h1>
 
-    <div class="containeer ma4">
+    <div class="containeer ma4" id="portal-btns">
         <!-- FIRST ELEMENT -->
         <div class="containeer-items tc">
             <a>

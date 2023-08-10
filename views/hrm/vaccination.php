@@ -16,16 +16,17 @@ $isPrivilaged = 0;
 if (isset($_GET['edit'])) {
     $vaccination_id = $_GET['edit'];
     $update = true;
-    $record = mysqli_query($conn, "select last_dose.emp_id,employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id where last_dose.vaccination_id=$vaccination_id");
+    $record = mysqli_query($conn, "select employee.fname,last_dose.emp_id,employee.emp_code emp_code,vaccination_category.category_name category_name,last_dose.date_of_administration date_of_administration,last_dose.category_id category_id,last_dose.vaccination_id vaccination_id,last_dose.location location,last_dose.date_of_next_dose date_of_next_dose from employee join last_dose on employee.emp_id=last_dose.emp_id join vaccination_category on vaccination_category.category_id=last_dose.category_id where last_dose.vaccination_id=$vaccination_id");
 
     $n = mysqli_fetch_array($record);
     $emp_code = $n['emp_code'];
+    $name=$n['fname'];
     $vaccination_id = $n['vaccination_id'];
     $emp_id = $n['emp_id'];
     $category = $n['category_id'];
     $dateofadministration = date('Y-m-d', strtotime($n['date_of_administration']));
     $location = $n['location'];
-    $nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
+    // $nextdose = date('Y-m-d', strtotime($n['date_of_next_dose']));
 }
 ?>
 <!DOCTYPE html>
@@ -77,7 +78,7 @@ if (isset($_GET['edit'])) {
                                         $emp_code = mysqli_query($conn, "SELECT * FROM employee");
 
                                         foreach ($emp_code as $row) {?>
-                                        <option name="employee_code" value="<?= $row["emp_id"] ?>"><?php echo $row["emp_code"]." - ".$row["fname"]." ".$row["lname"]; ?>
+                                        <option name="employee_code" value="<?= $row["emp_id"] ?>"><?php echo $row["emp_code"]." - ".$row["fname"]; ?>
                                         </option>
                                         <?php
                                         }
@@ -107,10 +108,12 @@ if (isset($_GET['edit'])) {
                             <?php } else { ?>
                                 <div class="form-field col-md-12 pa2">
                                     <input class="form-control" type="hidden" name="emp_id" class="empcode" value="<?php echo $emp_id ?>">
+                                    <input class="form-control" type="hidden" name="vaccination_id" value="<?php echo $vaccination_id ?>">
+                                    <input class="form-control" type="hidden" name="emp_code" value="<?php echo $emp_code ?>">
 
                                     <label for="empcode">Employee Code</label>
 
-                                    <input class="form-control" type="text" name="emp_code" value="<?php echo $emp_code.' - '.$name ?>" readonly>
+                                    <input class="form-control" type="text" readonly value="<?php echo $emp_code." - ".$name ?>">
                                     <small></small>
                                 </div>
 

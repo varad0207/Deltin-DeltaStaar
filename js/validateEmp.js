@@ -65,8 +65,8 @@ const checkEmail = () => {
     let valid = false;
     if (Email === '') {
         showError(email, "Email cannot be blank");
-    } else if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+\.(com|in)$/.test(Email)) {
-        showError(email, "Email is invalid(must contain @ and .in/.com)");
+    } else if (!/^NA|^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+\.(com|in)$/.test(Email)) {
+        showError(email, "Email is invalid(must contain @ and .in/.com)or should be NA");
     } else {
         showSuccess(email);
         valid = true;

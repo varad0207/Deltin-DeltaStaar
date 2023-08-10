@@ -22,7 +22,7 @@ if (isset($_GET['edit'])) {
     $n = mysqli_fetch_array($record);
     $emp_id = $n['emp_id'];
     $emp_code = $n['emp_code'];
-    $fname = $n['fname'];
+    $fname = $n['fname'] . " " . $n['mname'] . " " . $n['lname'];
     // $mname = $n['mname'];
     // $lname = $n['lname'];
     $designation = $n['designation'];
@@ -61,7 +61,7 @@ if (isset($_GET['edit'])) {
         <title>Delta@STAAR | Edit Employees</title>
     <?php else : ?>
         <title>Delta@STAAR | Add Employees</title>
-    <?php endif ?>    
+    <?php endif ?>
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/form.css">
     <link rel="stylesheet" href="../../css/style1.css">
@@ -84,21 +84,29 @@ if (isset($_GET['edit'])) {
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                    <?php if (isset($_GET['edit'])) : ?>
-                        <h1 class="f2 lh-copy tc" style="color: white;">Edit Employee Details</h1>
+                        <?php if (isset($_GET['edit'])) : ?>
+                            <h1 class="f2 lh-copy tc" style="color: white;">Edit Employee Details</h1>
                         <?php else : ?>
                             <h1 class="f2 lh-copy tc" style="color: white;">Enter Employee Details</h1>
-                            <?php endif ?> 
+                        <?php endif ?>
                         <form class="f3 lh-copy" action="../../controllers/employee_controller.php" method="post" id="myForm">
                             <input type="hidden" name="emp_code" value="<?php echo $emp_code; ?>">
                             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
 
+                            <?php if (isset($_GET['edit'])) : ?>
+                                <div class="col-md-12 pa2">
+                                    <label for="emp_code">Employee Code</label>
+                                    <input readonly class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>">
+                                    <small></small>
+                                </div>
+                            <?php else : ?>
+                                <div class="col-md-12 pa2">
+                                    <label for="emp_code">Employee Code</label>
+                                    <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>">
+                                    <small></small>
+                                </div>
+                            <?php endif ?>
 
-                            <div class="col-md-12 pa2">
-                                <label for="emp_code">Employee Code</label>
-                                <input class="form-control" type="text" name="emp_code" id="empcode" placeholder="Employee Code" value="<?php echo $emp_code; ?>">
-                                <small></small>
-                            </div>
                             <div id="phpJS">
                                 <?php
                                 $sql1 = mysqli_query($conn, "SELECT * FROM employee");
@@ -116,7 +124,7 @@ if (isset($_GET['edit'])) {
                                 <small></small>
                             </div>
 
-                            
+
 
                             <div class="form-field col-md-12 pa2">
                                 <label for="designation">Designation</label>
@@ -174,7 +182,7 @@ if (isset($_GET['edit'])) {
 
                             <div class="form-field col-md-12 pa2">
                                 <label for="email">Email</label>
-                                <input class="form-control" type="email" name="email" id="email" placeholder="Email" value="<?php echo $email; ?>">
+                                <input class="form-control" type="text" name="email" id="email" pattern="^NA$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" placeholder="Email" value="<?php echo $email; ?>">
                                 <small></small>
                             </div>
 

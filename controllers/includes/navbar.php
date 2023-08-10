@@ -117,11 +117,15 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
 
                             <div class="dropdown">
                                 <a class="nav-link active" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" aria-current="page" href="#" data-toggle="dropdown" data-placement="bottom" title="Configure">
+                                    <?php
+                                    $nameParts = explode(" ", $EmpName_row['fname']); // Split the name by spaces
 
+                                    $firstName = $nameParts[0];
+                                    ?>
 
                                     <p style="color: #FFFF8C; font-size:1.5rem; margin-bottom: 0;">
                                         <i class="bi bi-person-circle" style="font-size: 1.8rem; color: #FFFF8C; padding:0;"></i>
-                                        <?= $EmpName_row['fname'] ?>
+                                        <?= $firstName ?>
                                     </p>
 
                                 </a>
@@ -138,7 +142,8 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                                     <i class="bi bi-person-circle" style="font-size: 1.8rem; color: #FFFF8C; padding:0;"></i>
                                     
                                     <p style="color: #FFFF8C; font-size:1.5rem; margin-bottom:0px; align-items: center; justify-content:center; display:flex;">
-                                        <?= $EmpName_row['fname'] ?>
+                                        <?php //$EmpName_row['fname'] 
+                                        ?>
                                     </p>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-lg-end">

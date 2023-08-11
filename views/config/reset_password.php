@@ -2,10 +2,10 @@
     include('../../controllers/includes/common.php'); 
     if (!isset($_SESSION["emp_id"]))
     header("location:../../index.php");
-    $n = mysqli_fetch_array(mysqli_query($conn, "SELECT concat(fname,' ',mname,' ',lname) name,emp_code,emp_id FROM employee WHERE emp_code='{$_SESSION['emp_code']}'"));
+    $n = mysqli_fetch_array(mysqli_query($conn, "SELECT fname,emp_code,emp_id FROM employee WHERE emp_code='{$_SESSION['emp_code']}'"));
     $emp_id = $n['emp_id'];
     $emp_code = $n['emp_code'];
-    $name = $n['name'];
+    $name = $n['fname'];
 
     if(isset($_POST['submit']))
     {

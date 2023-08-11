@@ -55,8 +55,10 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                         if (basename($_SERVER['PHP_SELF'], '.php') == "dashboard") {
                             if ($_SESSION['is_superadmin']) { ?>
                                 <li class="nav-item" style="align-items: center;display: flex;margin-right:auto;">
-                                    <a class="nav-link active" href="#portal-btns" style="border:0.5px solid white;border-radius:8px;padding:0;font-size: smaller;padding-left: 5px;padding-right: 5px;">SuperPortal</a>
-                                </li>
+                                <a class="nav-link active" href="#portal-btns" style="border:0.5px solid white;border-radius:8px;padding:0;font-size: smaller;padding-left: 5px;padding-right: 5px;">SuperPortal</a>
+                                <a class="nav-link active" href="../views/config/change_password.php" style="margin-left:10px;border:0.5px solid white;border-radius:8px;padding:0;font-size: smaller;padding-left: 5px;padding-right: 5px;">Reset Password</a>
+
+                            </li>
                             <?php } ?>
                             <li class="nav-item">
                                 <div class="dropdown">

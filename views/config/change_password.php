@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {   //Fetching employee code
             //Go to login credentials & reset password for that employee
             mysqli_query($conn, "UPDATE `login_credentials` SET `pass`='5f4dcc3b5aa765d61d8327deb882cf99' WHERE `emp_id`='$emp_id'");
 ?><script>
-                alert("Password Reset Succesful");
+                alert("Password Reset Successful");
             </script>
         <?php
         } else {
@@ -99,61 +99,7 @@ if (isset($_POST['submit'])) {   //Fetching employee code
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
-
-    <script>
-        function GetDetail(str, id) {
-            // console.log(CryptoJS.MD5(str).toString());
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var myObj = JSON.parse(this.responseText);
-                    //console.log(myObj[0]);
-                    if (CryptoJS.MD5(str).toString() == myObj[0]) {
-                        document.getElementById('oldpassword').style.color = "green";
-                        document.getElementById('newpassword').disabled = false;
-                    } else {
-                        document.getElementById('oldpassword').style.color = "red";
-                        document.getElementById('newpassword').disabled = true;
-                        document.getElementById('confirmpassword').disabled = true;
-                    }
-
-                }
-            };
-            xmlhttp.open("GET", "../../controllers/validation.php?id=" + id, true);
-            xmlhttp.send();
-        }
-
-        function newPass(str) {
-            document.getElementById('confirmpassword').disabled = false;
-            var message = document.getElementById("message");
-            if (str == "password") {
-                document.getElementById('confirmpassword').disabled = true;
-                document.getElementById('newpassword').style.color = "red";
-                message.innerHTML = "Your new password cannot be same as old password!";
-                message.style.color = "red";
-                message.style.fontSize = "10px";
-                message.style.marginTop = "5px";
-            } else {
-                message.innerHTML = "&nbsp";
-                message.style.marginTop = "5px";
-                document.getElementById('confirmpassword').disabled = false;
-                document.getElementById('newpassword').style.color = "grey";
-            }
-        }
-
-        function confirmPass(str) {
-            if (str == document.getElementById('newpassword').value) {
-                document.getElementById('confirmpassword').style.color = "green";
-                document.getElementById('submit').disabled = false;
-
-            } else {
-                document.getElementById('submit').disabled = true;
-                document.getElementById('confirmpassword').style.color = "red";
-            }
-        }
-    </script>
+    
     <script src="../../js/form.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

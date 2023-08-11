@@ -19,14 +19,18 @@
             {
                 $row = mysqli_fetch_assoc($emp_id_qry);
                 $emp_id = $row['emp_id'];
-                echo $emp_id;
                 //Go to login credentials & reset password for that employee
                 mysqli_query($conn, "UPDATE `login_credentials` SET `pass`='5f4dcc3b5aa765d61d8327deb882cf99' WHERE `emp_id`='$emp_id'");
                 ?><script>alert("Password Reset Succesful");</script> 
             <?php 
             }
+            else
+            {
+            ?>
+            <script>alert("Invalid Employee Code. Try again!");</script>
+            <?php 
+            }
         }
-        else{?><script>alert("Invalid Employee Code. Try again!");</script><?php }
     } 
 
 

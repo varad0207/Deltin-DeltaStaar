@@ -1,3 +1,85 @@
+<div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <!-- <div class="form-content"> -->
+                <div class="form-items">
+                    <h1 class="f2 lh-copy tc" style="color: white;">Assign Role</h1>
+                    <form class=" f3 lh-copy" novalidate action="../../controllers/role_assign_controller.php" method="post">
+                        <?php $results = mysqli_query($conn, "SELECT * FROM employee JOIN employee_designation ON employee_designation.id = employee.designation and employee.role is null"); ?>
+                        <div class="pa1 table-responsive">
+                            <table class="table table-bordered tc">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Employee</th>
+                                        
+                                        <th scope="col" colspan="2">Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <?php
+                                            $req_id = '';
+                                            ?>
+                                            <select id="emp-code-dropdown" name="emp_code" oninput="">
+                                                <option name="emp_code" selected disabled value="">Select employee </option>
+                                                <?php $employees = mysqli_query($conn, "SELECT * FROM employee where role is null");
+                                                foreach ($employees as $row) {
+                                                    $name = $row['fname'] . " " . $row['lname'];
+                                                    ?>
+                                                    <option name="emp_code" value="<?= $row["emp_id"] ?>" title="<?= $name ?>">
+                                                        <?php echo("".$name." - ".$row["emp_code"]); ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </td>
+                                        
+                                        
+                                        <td>
+                                            <select name="role_id">
+                                                <option name="role_id" selected disabled value="">Assign Role </option>
+                                                <?php
+                                                $roles = mysqli_query($conn, "SELECT * FROM roles");
+
+                                                foreach ($roles as $row) {
+                                                    // $sql = mysqli_query($conn, "SELECT rights.* FROM rights join roles on rights.id=roles.rights and roles.role_id='{$row['role_id']}'");
+                                                    // $rights = mysqli_fetch_array($sql);
+
+
+
+                                                ?>
+                                                    <option name="role_id" value="<?= $row["role_id"] ?>" title="">
+                                                        <?= $row["role_name"]; ?>
+                                                    </option>
+                                                <?php
+                                                }
+
+                                                ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                            </table>
+                        </div>
+                        <div class="form-button mt-3 tc">
+                            <?php if ($update == true) : ?>
+                                <button id="submit" name="update" value="update" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Update</button>
+                            <?php else : ?>
+                                <button id="submit" name="submit" value="sumbit" type="submit" class="btn btn-warning f3 lh-copy" style="color: white;">Submit</button>
+                            <?php endif ?>
+
+                        </div>
+                    </form>
+                    <button class="btn btn-warning f3 lh-copy" style="color: white; margin-top:10px;" onclick="location.href='roles.php'">
+                        Add New Role
+                    </button>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+
 <div class="fl w-100 form-outline srch">
         <input type="search" id="searchInput" class="form-control" placeholder="Live Search" aria-label="Search" />
         <h4 id="demo"></h4>

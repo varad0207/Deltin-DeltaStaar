@@ -315,7 +315,10 @@ if(mysqli_num_rows($sql)>0)
                             </td>
 
                             <td style="text-align:center;">
-                                <?php if (!isset($row['tech_closure_timestamp'])) { ?>
+                                <?php if (!isset($row['tech_closure_timestamp']) && $isSecurity) { ?>
+                                    <a href="../../controllers/complaint_controller.php?tech=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>" class="btn btn-secondary" style="pointer-events: none;">Close</a><br>
+                                        <span class="closure-label">Technician</span>
+                                <?php }elseif (!isset($row['tech_closure_timestamp'])) { ?>
                                     <a href="../../controllers/complaint_controller.php?tech=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>" class="del_btn">Close</a><br>
                                     <span class="closure-label">Technician</span>
                                 <?php } else { ?>
@@ -348,7 +351,10 @@ if(mysqli_num_rows($sql)>0)
                                     <span class="closure-label">Warden</span>
 
                                 <?php } else if (!isset($row['warden_closure_timestamp'])) { ?>
-                                    <?php if (!isset($row['tech_closure_timestamp'])) { ?>
+                                    <?php if (!isset($row['tech_closure_timestamp']) && $isSecurity) { ?>
+                                        <a href="../../controllers/complaint_controller.php?warden=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>" class="btn btn-secondary" style="pointer-events: none;">Close</a><br>
+                                        <span class="closure-label">Warden</span>
+                                    <?php } elseif (!isset($row['tech_closure_timestamp'])) { ?>
                                         <a href="../../controllers/complaint_controller.php?warden=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>" class="btn btn-secondary" style="pointer-events: none;">Close</a><br>
                                         <span class="closure-label">Warden</span>
                                     <?php } else { ?>

@@ -24,13 +24,31 @@ if ($rights['rights_jobs'] > 0) {
 
 if(!$isPrivilaged)
     die('<script>alert("You dont have access to this page, Please contact admin");window.location = history.back();</script>');
-$sql = mysqli_query($conn, "SELECT * FROM security where emp_id='{$_SESSION['emp_id']}' ");
-if(mysqli_num_rows($sql)>0) 
-    header("location:security_jobs.php");
+// $sql = mysqli_query($conn, "SELECT * FROM security where emp_id='{$_SESSION['emp_id']}' ");
+// if(mysqli_num_rows($sql)>0) 
+//     header("location:security_jobs.php");
 
 $sql = mysqli_query($conn, "SELECT * FROM technician where emp_id='{$_SESSION['emp_id']}' ");
 if(mysqli_num_rows($sql)>0) 
-    header("location:tech_jobs.php")
+    header("location:tech_jobs.php");
+
+
+
+    $isWarden = 0;
+    $isSecurity = 0;
+    $c = mysqli_query($conn,"SELECT emp_id,emp_code FROM employee WHERE emp_id IN(SELECT emp_id FROM security)");
+        if(mysqli_num_rows($c) > 0)
+        {
+            $isSecurity = 1;
+            $fetch1 = mysqli_fetch_array(mysqli_query($conn, "SELECT distinct acc_id as id from rooms join accomodation using(acc_id) join security using(acc_id) where  security.emp_id='{$_SESSION['emp_id']}' "));
+        }
+    $check = mysqli_query($conn, "select emp_id,emp_code from employee where emp_id not in(select emp_id from technician) and emp_id not in (select emp_id from security) and emp_id='{$_SESSION['emp_id']}' and emp_code in (select warden_emp_code from accomodation)");
+    if (mysqli_num_rows($check) > 0){
+        $isWarden = 1;
+    
+        $isSecurity = 0;
+    }
+        
 
 ?>
 
@@ -297,7 +315,7 @@ if(mysqli_num_rows($sql)>0)
                             </td>
 
                             <td style="text-align:center;">
-                                <?php if (!isset($row['tech_closure_timestamp'])) { ?>
+                                <?php if (!isset($row['tech_closure_timestamp']) && !$isSecurity) { ?>
                                     <a href="../../controllers/complaint_controller.php?tech=<?php echo '%27' ?><?php echo $row['complaint_id']; ?><?php echo '%27' ?>" class="del_btn">Close</a><br>
                                     <span class="closure-label">Technician</span>
                                 <?php } else { ?>

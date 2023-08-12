@@ -24,7 +24,7 @@ const checkFname = () => {
     let valid = false;
     if (name === '') {
         showError(fname, "Name cannot be blank");
-    } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+    } else if (!/^[a-zA-Z\s ]+$/.test(name)) {
         showError(fname, "Name is invalid");
     } else {
         showSuccess(fname);

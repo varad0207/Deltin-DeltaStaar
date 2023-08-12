@@ -104,8 +104,7 @@ if ($_SESSION['is_superadmin'] == 0)
                             <?php echo $row['type_description']; ?>
                         </td>
                         <td>
-                            <a href="complaint_type.php?edit=<?php echo '%27' ?><?php echo $row['type_id']; ?><?php echo '%27' ?>"
-                                class="edit_btn">Edit</a>
+                            <a href="complaint_type.php?edit=<?php echo $row['type_id']; ?>" class="edit_btn"><i class="bi bi-pencil-square" style="font-size: 1rem; color: black;"></i></a>
                         </td>
                         <td>
                             <a class="del_btn" onclick="myfunc('<?php echo $row['type_id']; ?>')"><i class="bi bi-trash" style="font-size: 1.2rem; color: black;"></i></a>

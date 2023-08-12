@@ -49,20 +49,18 @@ if (isset($_GET['edit'])) {
                         <h1 class="f2 lh-copy tc" style="color: white;">Add Technician</h1>
                         <form class="requires-validation f3 lh-copy" novalidate
                             action="../../controllers/technician_controller.php" method="post">
-                            <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <div class="col-md-12 pa2">
-                                <label class="d-block mb-4">Employee Code</label>
-								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="emp_id">
-								<option name="employee_code" selected>Choose...</option>
-								<?php
-								$emp_det = mysqli_query($conn, "SELECT * FROM employee");
-								foreach ($emp_det as $row) { ?>
-								<option name="employee_code" value="<?= $row["emp_id"] ?>"><?= $row["emp_code"]; ?>
-									</option>
-								<?php
-								}
-								?>
-								</select>
+                                <select id="emp-code-dropdown" name="emp_code" oninput="">
+                                    <option name="emp_code" selected disabled value="">Select employee </option>
+                                    <?php $employees = mysqli_query($conn, "SELECT * FROM employee where role is null");
+                                    foreach ($employees as $row) {
+                                        $name = $row['fname'] . " " . $row['lname'];
+                                        ?>
+                                        <option name="emp_code" value="<?= $row["emp_id"] ?>" title="<?= $name ?>">
+                                            <?php echo("".$name." - ".$row["emp_code"]); ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
 								
                                 <div class="valid-feedback">field is valid!</div>
                                 <div class="invalid-feedback">field cannot be blank!</div>

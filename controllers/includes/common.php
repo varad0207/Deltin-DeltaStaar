@@ -1,4 +1,6 @@
 <?php
+// ob_start();
+
     // connection variable ->mysqli_connect(host,username,password,dbname);
     $conn=mysqli_connect("localhost","root","","deltastaar-final")or die(mysqli_error($conn));
 

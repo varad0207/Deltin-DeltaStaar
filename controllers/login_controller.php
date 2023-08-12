@@ -1,4 +1,6 @@
 <?php
+// ob_start();
+
 require 'includes/common.php';
 if (isset($_SESSION["emp_id"])) {
     session_unset();
@@ -114,6 +116,8 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
                 //     setcookie('new_user', 'true', time() + (86400 * 30), '/'); // set the cookie to expire in 30 days
                 // }
                 header("location:../views/dashboard.php");
+                // ob_end_flush();
+
             }
         // }
     }

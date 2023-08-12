@@ -138,7 +138,7 @@ if (isset($_GET['edit'])) {
                             <div class="col-md-12 pa2">
                                 <label for="empcode">Employee Name</label>
                                 <?php
-                                $empdet = "select emp_code,concat(fname,' ',lname,' - ',emp_code) as name from employee";
+                                $empdet = "select emp_code,concat(fname,' - ',emp_code) as name from employee";
                                 $detresult = mysqli_query($conn, $empdet);
                                 $detdata = array();
                                 while ($detrow = mysqli_fetch_assoc($detresult)) {
@@ -325,7 +325,7 @@ if (isset($_GET['edit'])) {
                     },
                     success: function(response) {
                         // Handle the response from the PHP file
-                        // console.log("Response:", response);
+                        console.log("Response:", response);
                         var accCode = document.querySelector("#acccode");
                         if (response == "  !") {
                             accCode.readOnly = false;

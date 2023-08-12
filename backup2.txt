@@ -529,3 +529,18 @@ if (isset($_GET['edit'])) {
     /* ************************************************ */
     ?>
 *************************
+
+
+//Navbar logic comments (Navin)
+
+<!-- <li class="nav-item">
+                            <a class="nav-link active1" id="adminlogin"
+                                href="../<?php echo $link; ?>controllers/logout.php">Log Out</a>
+                        </li> -->
+
+                        <!-- <li class="nav-item p-1 ps-3" style="align-items: center; justify-content:center; display:flex;">
+                        <?php $EmpName_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM employee where emp_code='{$_SESSION['emp_code']}'")); ?>                         
+                            <i class="bi bi-person-circle" style="font-size: 1.8rem; color: #FFFF8C; padding:0;"></i>
+                                             
+                        </li> -->
+

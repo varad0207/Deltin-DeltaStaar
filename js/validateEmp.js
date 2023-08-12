@@ -24,7 +24,7 @@ const checkFname = () => {
     let valid = false;
     if (name === '') {
         showError(fname, "Name cannot be blank");
-    } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+    } else if (!/^[a-zA-Z0-9_\-()[\] ]+$/.test(name)) {
         showError(fname, "Name is invalid");
     } else {
         showSuccess(fname);
@@ -38,7 +38,7 @@ const checkMname = () => {
     // if (Mname === '') {
     //     showError(mname, "Name cannot be blank");
     // } 
-    if (!/^[a-zA-Z\s]+$/.test(Mname)) {
+    if (!/^[a-zA-Z0-9_\-()[\] ]+$/.test(Mname)) {
         showError(mname, "Name is invalid");
     } else {
         showSuccess(mname);
@@ -52,7 +52,7 @@ const checkLname = () => {
     // if (Lname === '') {
     //     showError(lname, "Name cannot be blank");
     // } 
-    if (!/^[a-zA-Z\s]+$/.test(Lname)) {
+    if (!/^[a-zA-Z0-9_\-()[\] ]+$/.test(Lname)) {
         showError(lname, "Name is invalid");
     } else {
         showSuccess(lname);
@@ -92,7 +92,7 @@ const checkState = () => {
     const min = 3, max = 20;
     if (State === '') {
         showError(state, "State cannot be blank");
-    } else if (!/^[a-zA-Z]+$/.test(State)) {
+    } else if (!/^[a-zA-Z0-9_\-()[\] ]+$/.test(State)) {
         showError(state, "State is invalid");
     } else if(!isBetween(State.length,min,max)) {
         showError(state, "Min 3, Max 20 letters")

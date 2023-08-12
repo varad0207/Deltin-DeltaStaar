@@ -434,6 +434,12 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
         }
     </script>
     <script src="../../js/Overlay.js"></script>
+
+    <!-- For dropdown function in User Profile / Config button -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

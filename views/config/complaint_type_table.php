@@ -11,7 +11,7 @@ if ($_SESSION['is_superadmin'] == 0)
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -123,13 +123,19 @@ if ($_SESSION['is_superadmin'] == 0)
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
     <?php include '../../controllers/overlays/deleteOverlay.php'; ?>
 
-<script>
-    function myfunc(code) {
-        console.log(code);
-        document.getElementById("hidden-del").value = code;
-        document.getElementById('overlay').style.display = 'flex';
-    }
-</script>
+    <script>
+        function myfunc(code) {
+            console.log(code);
+            document.getElementById("hidden-del").value = code;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+    </script>
     <script src="../../js/Overlay.js"></script>
+
+    <!-- For dropdown function in User Profile / Config button -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous">
+    </script>
 </body>
 </html>

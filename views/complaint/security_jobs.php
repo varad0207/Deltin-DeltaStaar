@@ -198,17 +198,17 @@ else
                 </tbody>
             </table>
             <!-- Pagination numbers -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
-            <?php for ($i = 1; $i <= $pages; $i++) : ?>
-                <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $i ?>">
-                        <?php echo $i; ?>
-                    </a></li>
-            <?php endfor; ?>
-            <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
-        </ul>
-    </nav>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $Previous; ?>" aria-label="Previous"><span aria-hidden="true">&laquo; Previous</span></a></li>
+                    <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                        <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $i ?>">
+                                <?php echo $i; ?>
+                            </a></li>
+                    <?php endfor; ?>
+                    <li class="page-item"><a class="page-link" href="security_jobs.php?page=<?= $Next; ?>" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+                </ul>
+            </nav>
 
         </div>
     </div>
@@ -228,6 +228,12 @@ else
 
     <!-- Footer -->
     <footer class="tc f3 lh-copy mt4">Copyright &copy; 2022 Delta@STAAR. All Rights Reserved</footer>
+
+    <!-- For dropdown function in User Profile / Config button -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

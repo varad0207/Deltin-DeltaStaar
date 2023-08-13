@@ -242,7 +242,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
                         <td>
                         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>
 
-                            <a href="rooms.php?edit=<?php echo '%27' ?><?php echo $row['id']; ?><?php echo '%27' ?>"
+                            <a href="rooms.php?edit=<?php echo $row['id']; ?>"
                                 class="edit_btn"> <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: black;"></i>
                             </a>
                             <?php } ?>

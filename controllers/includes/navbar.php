@@ -105,7 +105,7 @@ if (basename($_SERVER['PHP_SELF'], '.php') != "dashboard")
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="../../views/dashboard.php">Home</a>
                             </li>
-                            <li class="nav-item pl-4" style="cursor: pointer;">
+                            <li class="nav-item" style="cursor: pointer;">
                                 <a class="nav-link active" aria-current="page" onclick="window.history.back()">Back</a>
                             </li>
                         <?php } ?>

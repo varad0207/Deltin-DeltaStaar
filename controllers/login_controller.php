@@ -115,6 +115,19 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
                 // if (!isset($_COOKIE['new_user'])) {
                 //     setcookie('new_user', 'true', time() + (86400 * 30), '/'); // set the cookie to expire in 30 days
                 // }
+
+                // delete tmp files
+                $files=mysqli_query($conn,"select file_path from tmp_files");
+                if(mysqli_num_rows($files)>0){
+                   while($row=mysqli_fetch_array($files)){
+                        $tempFilePath="../temp/".$row['file_name'];
+                        if (file_exists($tempFilePath)) {                           
+                            unlink($tempFilePath);
+                        }
+                    }
+                    mysqli_query($conn,"truncate table tmp_files");
+                }
+
                 header("location:../views/dashboard.php");
                 // ob_end_flush();
 

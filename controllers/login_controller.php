@@ -121,7 +121,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
                 $files=mysqli_query($conn,"select file_path from tmp_files");
                 if(mysqli_num_rows($files)>0){
                    while($row=mysqli_fetch_array($files)){
-                        $tempFilePath = "../Phpspreadsheet/".$row['file_name'];
+                        $tempFilePath = "../Phpspreadsheet/".$row['file_path'];
                         if (file_exists($tempFilePath)) {                           
                             unlink($tempFilePath);
                         }

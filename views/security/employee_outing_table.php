@@ -183,6 +183,7 @@ if($_SESSION['is_superadmin']==1) $aid['acc_id']="rooms.acc_id";
     $sql .= " LIMIT $start, $limit";
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */
+    echo $sql;
     ?>
 
     <div class="table-div">
@@ -271,7 +272,7 @@ if($_SESSION['is_superadmin']==1) $aid['acc_id']="rooms.acc_id";
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-        <form action="../EXCEL_export.php" method="post">
+        <form action="../../Phpspreadsheet/export.php" method="post">
                 <button class="btn btn-warning" name="outing_export" value="<?php echo  $outing_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
         </form>
         </div>

@@ -165,7 +165,7 @@ if($_SESSION['is_superadmin'] == 1){
     $sql .= " LIMIT $start, $limit";
     $result = mysqli_query($conn, $sql);
     /* ************************************************ */
-
+    $visitor_log_qry = $sql;
     ?>
 
     <div class="table-div">
@@ -279,9 +279,10 @@ if($_SESSION['is_superadmin'] == 1){
     </nav>
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <form action="../EXCEL_export.php" method="post">
+            <form action="../../Phpspreadsheet/export.php" method="post">
                 <button class="btn btn-warning" name="visitor_log_export" value="<?php echo $visitor_log_qry; ?>">
                     <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
+                    
                 </button>
             </form>
         </div>

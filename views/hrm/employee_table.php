@@ -401,7 +401,7 @@ if (mysqli_num_rows($c) > 0) {
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <form action="../EXCEL_export.php" method="post">
+            <form action="../../Phpspreadsheet/export.php" method="post">
                 <button class="btn btn-warning" name="emp_export" value="<?php echo $emp_qry; ?>">
                     <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
                 </button>

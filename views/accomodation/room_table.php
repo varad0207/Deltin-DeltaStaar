@@ -274,7 +274,7 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     </nav>
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-        <form action="../EXCEL_export.php" method="post">
+        <form action="../../Phpspreadsheet/export.php" method="post">
                 <button class="btn btn-warning" name="room_export" value="<?php echo $room_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
             </form>
         </div>

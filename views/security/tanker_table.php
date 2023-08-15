@@ -202,26 +202,6 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
             $sort_condition = "DESC";
         }
     }
-
-    //     $sql="SELECT
-    //     tanker_vendors.*,
-    //     t.id entry_id,
-    //     t.acc_id,
-    //     t.security_emp_id security_emp_id,
-    //     t.quality_check quality_check,
-    //     t.qty qty,
-    //     t.bill_no bill_no,
-    //     t.amount amount,
-    //     t.vendor_id vendor_id,
-    //     t.timestamp as timestamp,
-    //     COUNT(t.amount) AS total_entries,
-    //     SUM(t.amount) AS total_amount
-    //   FROM
-    //     tankers t
-    //   JOIN
-    //     tanker_vendors ON tanker_vendors.id = vendor_id
-    //   WHERE
-    //    1=1";
     $sql = "SELECT tanker_vendors.*, t.id entry_id, t.acc_id, t.security_emp_id security_emp_id, t.quality_check quality_check, t.qty qty, t.bill_no bill_no, t.amount amount, t.vendor_id vendor_id, t.timestamp as timestamp
    FROM tankers t JOIN tanker_vendors ON tanker_vendors.id = t.vendor_id where 1=1";
     //     t.acc_id={$aid['acc_id']}
@@ -406,7 +386,7 @@ if ($_SESSION['is_superadmin'] == 1) $aid['acc_id'] = "t.acc_id";
 
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <form action="../EXCEL_export.php" method="post">
+            <form action="../../Phpspreadsheet/export.php" method="post">
                 <button class="btn btn-warning" name="tanker_export" value="<?php echo $tanker_qry; ?>">
                     <h4><i class="bi bi-file-earmark-pdf"> Export</i></h4>
                 </button>

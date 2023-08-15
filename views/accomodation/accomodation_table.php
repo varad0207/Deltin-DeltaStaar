@@ -366,8 +366,8 @@ die('<script>alert("You dont have access to this page, Please contact admin");wi
     </nav>
     <div class="table-footer pa4">
         <div class="fl w-75 tl">
-            <form action="excel.php" method="post">
-                <button class="btn btn-warning" name="excel" value="<?php echo $temp_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
+            <form action="../../Phpspreadsheet/export.php" method="post">
+                <button class="btn btn-warning" name="acc_export" value="<?php echo $temp_qry;?>"><h4><i class="bi bi-file-earmark-pdf"> Export</i></h4></button>
             </form>
         </div>
         <?php if($isPrivilaged>1 && $isPrivilaged!=5 && $isPrivilaged!=4){ ?>

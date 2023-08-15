@@ -12,7 +12,7 @@ $solved = json_encode($count_array);
 
 <!-- Only this div below is included + scripting -->
 <div class="chartBox">
-    <h4 class="text-center p-2">Complaint Summary</h4>
+    <h5 class="text-center">Complaint Summary</h5>
     <canvas id="myPieChart"></canvas>
 </div>
 

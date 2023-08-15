@@ -34,7 +34,7 @@ unset($pdo);
 
 <!-- Only this div below is included + scripting -->
 <div class="chartBox">
-    <h4 class="text-center p-2">Accommodation Status</h4>
+    <h5 class="text-center">Accommodation Status</h5>
     <canvas id="myChart"></canvas>
 </div>
 
@@ -53,7 +53,9 @@ unset($pdo);
 
     const data = {
         labels: solved3,
+        //labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'Jan'],
         datasets: [{
+            axis: 'y',
             //Total Capacity dataset of each Accommodation
             label: 'Capacity',
             data: solved,
@@ -62,12 +64,14 @@ unset($pdo);
             borderWidth: 1
         }, {
             //Total Occupied dataset of each Accommodation
+            axis: 'y',
             label: 'Occupied',
             data: solved1,
             backgroundColor: 'rgb(54, 162, 235)',
             borderColor: 'rgb(255, 255, 255)',
             borderWidth: 1
         }, {
+            axis: 'y',
             label: 'Available',
             data: solved2,
             backgroundColor: 'rgb(255, 205, 86)',
@@ -81,8 +85,10 @@ unset($pdo);
         type: 'bar',
         data: data,
         options: {
+            aspectRatio: 1.1,
+            indexAxis: 'y',
             scales: {
-                y: {
+                x: {
                     beginAtZero: true
                 }
             }

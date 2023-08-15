@@ -2,13 +2,21 @@
 
     <div class="charts-container px-4">
        
-        <?php       
-        include '../charts/accommodationStatus_Bar.php';
-        include '../charts/complaintStatus_Pie.php';
-        // include '../charts/complaintTypes_Doughnut.php';
-        include '../charts/waterTankers_Line.php';
+        <div class="left-container">
+            <?php       
+            include '../charts/accommodationStatus_Bar.php';?>
+        </div>
 
-        ?>
+        <div class="seperator-div"></div>
+        
+        <div class="right-container">
+            <?php       
+                include '../charts/complaintStatus_Pie.php';
+                include '../charts/waterTankers_Line.php';
+
+            ?>
+        </div>
+        
         
         
     </div>

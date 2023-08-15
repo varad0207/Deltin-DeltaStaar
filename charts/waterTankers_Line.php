@@ -1,6 +1,6 @@
 <!-- Only this div below is included + scripting -->
 <div class="chartBox">
-    <h4 class="text-center p-2">Water Tankers</h4>
+    <h5 class="text-center">Water Tankers</h5>
     <canvas id="myBarChart"></canvas>
 </div>
 
@@ -45,6 +45,7 @@ try {
 }
 ?>
 <script>
+    //var xValues = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP'];
     var xValues = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     var yValues = [
         <?php echo $months[1]; ?>,
@@ -70,9 +71,10 @@ try {
                 backgroundColor: 'rgb(54, 162, 235)',
                 borderColor: 'rgba(153, 102, 255, 0.5)',
                 data: yValues
+                //data: [65, 59, 80, 81, 56, 55, 40, 150]
             }]
         },
-        options: {
+        options: {           
             scales: {
                 y: {
                     beginAtZero: true

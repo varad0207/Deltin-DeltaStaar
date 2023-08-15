@@ -81,11 +81,12 @@ unset($pdo);
     };
 
     //Config Block
+
     const config = {
         type: 'bar',
         data: data,
         options: {
-            aspectRatio: 1.1,
+            aspectRatio: 1.1, // Default aspect ratio
             indexAxis: 'y',
             scales: {
                 x: {
@@ -93,10 +94,33 @@ unset($pdo);
                 }
             }
         }
-    };
+    };   
 
     //Render Block
     const myChart = new Chart(
         document.getElementById('myChart'), config
     );
+
+    // Function to create or update chart instance with modified aspect ratio
+    function createOrUpdateChart() {
+        const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+        if (screenWidth <= 768) { // Adjust this value as needed for your mobile breakpoint
+            config.options.aspectRatio = 0.8; // Update the aspect ratio for mobile screens
+        } else {
+            config.options.aspectRatio = 1.1; // Reset aspect ratio for larger screens
+        }
+
+        if (myChart) {
+            myChart.destroy(); // Destroy the existing chart instance
+        }
+
+        myChart = new Chart(
+            document.getElementById('myChart'),config
+        ); // Create a new chart instance with the updated options
+    }
+
+    // Call the function initially
+    createOrUpdateChart();
+
 </script>

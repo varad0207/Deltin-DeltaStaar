@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Aug 13, 2023 at 03:44 PM
--- Server version: 5.7.39
--- PHP Version: 8.2.0
+-- Host: 127.0.0.1:3306
+-- Generation Time: Aug 15, 2023 at 07:43 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,20 +27,24 @@ SET time_zone = "+00:00";
 -- Table structure for table `accomodation`
 --
 
-CREATE TABLE `accomodation` (
-  `acc_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `accomodation`;
+CREATE TABLE IF NOT EXISTS `accomodation` (
+  `acc_id` int NOT NULL AUTO_INCREMENT,
   `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `acc_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bldg_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender` enum('Male','Female','Unisex') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tot_capacity` int(11) DEFAULT NULL,
-  `no_of_rooms` int(11) DEFAULT NULL,
-  `occupied_rooms` int(11) DEFAULT NULL,
-  `available_rooms` int(11) DEFAULT NULL,
+  `tot_capacity` int DEFAULT NULL,
+  `no_of_rooms` int DEFAULT NULL,
+  `occupied_rooms` int DEFAULT NULL,
+  `available_rooms` int DEFAULT NULL,
   `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `owner` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `remark` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`acc_id`),
+  UNIQUE KEY `acc_code` (`acc_code`),
+  KEY `accomodation_ibfk_1` (`warden_emp_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `accomodation`
@@ -67,9 +71,11 @@ INSERT INTO `accomodation` (`acc_id`, `acc_code`, `acc_name`, `bldg_status`, `ge
 -- Table structure for table `active_sessions`
 --
 
-CREATE TABLE `active_sessions` (
-  `emp_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `active_sessions`;
+CREATE TABLE IF NOT EXISTS `active_sessions` (
+  `emp_id` int NOT NULL,
+  PRIMARY KEY (`emp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -77,24 +83,27 @@ CREATE TABLE `active_sessions` (
 -- Table structure for table `change_tracking_accomodation`
 --
 
-CREATE TABLE `change_tracking_accomodation` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_accomodation`;
+CREATE TABLE IF NOT EXISTS `change_tracking_accomodation` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `acc_id` int(11) NOT NULL,
+  `acc_id` int NOT NULL,
   `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `acc_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bldg_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` int(11) DEFAULT NULL,
+  `location` int DEFAULT NULL,
   `gender` enum('Male','Female','Unisex') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tot_capacity` int(11) DEFAULT NULL,
-  `no_of_rooms` int(11) NOT NULL,
-  `occupied_rooms` int(11) DEFAULT NULL,
-  `available_rooms` int(11) DEFAULT NULL,
+  `tot_capacity` int DEFAULT NULL,
+  `no_of_rooms` int NOT NULL,
+  `occupied_rooms` int DEFAULT NULL,
+  `available_rooms` int DEFAULT NULL,
   `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `owner` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci
+  `remark` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `login` (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -103,14 +112,17 @@ CREATE TABLE `change_tracking_accomodation` (
 -- Table structure for table `change_tracking_acc_locations`
 --
 
-CREATE TABLE `change_tracking_acc_locations` (
-  `id` int(11) NOT NULL,
-  `user` varchar(255) DEFAULT NULL,
-  `type` enum('Delete','Update','Insert') DEFAULT NULL,
+DROP TABLE IF EXISTS `change_tracking_acc_locations`;
+CREATE TABLE IF NOT EXISTS `change_tracking_acc_locations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type` enum('Delete','Update','Insert') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `loc_id` int(11) NOT NULL,
-  `location` varchar(55) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `loc_id` int NOT NULL,
+  `location` varchar(55) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -118,14 +130,15 @@ CREATE TABLE `change_tracking_acc_locations` (
 -- Table structure for table `change_tracking_complaints`
 --
 
-CREATE TABLE `change_tracking_complaints` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_complaints`;
+CREATE TABLE IF NOT EXISTS `change_tracking_complaints` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `complaint_id` int(11) NOT NULL,
+  `complaint_id` int NOT NULL,
   `raise_timestamp` timestamp NULL DEFAULT NULL,
-  `complaint_type` int(11) DEFAULT NULL,
+  `complaint_type` int DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `tech_pending_timestamp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tech_closure_timestamp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -133,8 +146,10 @@ CREATE TABLE `change_tracking_complaints` (
   `warden_closure_timestamp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remarks` text COLLATE utf8mb4_unicode_ci,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `acc_id` int(11) DEFAULT NULL,
-  `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `acc_id` int DEFAULT NULL,
+  `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login` (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -143,15 +158,18 @@ CREATE TABLE `change_tracking_complaints` (
 -- Table structure for table `change_tracking_complaint_type`
 --
 
-CREATE TABLE `change_tracking_complaint_type` (
-  `id` int(11) NOT NULL,
-  `user` varchar(255) DEFAULT NULL,
+DROP TABLE IF EXISTS `change_tracking_complaint_type`;
+CREATE TABLE IF NOT EXISTS `change_tracking_complaint_type` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` enum('Delete','Update','Insert') DEFAULT NULL,
-  `type_id` int(11) NOT NULL,
-  `complaint_type` varchar(20) DEFAULT NULL,
-  `type_description` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `type` enum('Delete','Update','Insert') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type_id` int NOT NULL,
+  `complaint_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type_description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -159,17 +177,18 @@ CREATE TABLE `change_tracking_complaint_type` (
 -- Table structure for table `change_tracking_employee`
 --
 
-CREATE TABLE `change_tracking_employee` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_employee`;
+CREATE TABLE IF NOT EXISTS `change_tracking_employee` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `emp_id` int(11) DEFAULT NULL,
+  `emp_id` int DEFAULT NULL,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `mname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation` int(11) DEFAULT NULL,
+  `designation` int DEFAULT NULL,
   `dob` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contact` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -177,13 +196,14 @@ CREATE TABLE `change_tracking_employee` (
   `country` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pincode` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department` int(11) DEFAULT NULL,
+  `department` int DEFAULT NULL,
   `blood_group` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `aadhaar_number` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `salary` float DEFAULT NULL,
   `room_id` tinytext COLLATE utf8mb4_unicode_ci,
-  `role` tinytext COLLATE utf8mb4_unicode_ci
+  `role` tinytext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -192,14 +212,16 @@ CREATE TABLE `change_tracking_employee` (
 -- Table structure for table `change_tracking_employee_dept`
 --
 
-CREATE TABLE `change_tracking_employee_dept` (
-  `id` int(11) NOT NULL,
-  `user` varchar(255) DEFAULT NULL,
+DROP TABLE IF EXISTS `change_tracking_employee_dept`;
+CREATE TABLE IF NOT EXISTS `change_tracking_employee_dept` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` enum('Delete','Update','Insert') DEFAULT NULL,
-  `dept_id` int(11) NOT NULL,
-  `dept_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `type` enum('Delete','Update','Insert') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `dept_id` int NOT NULL,
+  `dept_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -207,14 +229,16 @@ CREATE TABLE `change_tracking_employee_dept` (
 -- Table structure for table `change_tracking_employee_designation`
 --
 
-CREATE TABLE `change_tracking_employee_designation` (
-  `id` int(11) NOT NULL,
-  `user` varchar(255) DEFAULT NULL,
+DROP TABLE IF EXISTS `change_tracking_employee_designation`;
+CREATE TABLE IF NOT EXISTS `change_tracking_employee_designation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` enum('Delete','Update','Insert') DEFAULT NULL,
-  `desig_id` int(11) NOT NULL,
-  `designation` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `type` enum('Delete','Update','Insert') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `desig_id` int NOT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -222,8 +246,9 @@ CREATE TABLE `change_tracking_employee_designation` (
 -- Table structure for table `change_tracking_employee_outing`
 --
 
-CREATE TABLE `change_tracking_employee_outing` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_employee_outing`;
+CREATE TABLE IF NOT EXISTS `change_tracking_employee_outing` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -232,7 +257,8 @@ CREATE TABLE `change_tracking_employee_outing` (
   `outing_date` date NOT NULL,
   `arrival_date` date DEFAULT NULL,
   `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `outing_type` int(11) NOT NULL
+  `outing_type` int NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -241,19 +267,21 @@ CREATE TABLE `change_tracking_employee_outing` (
 -- Table structure for table `change_tracking_jobs`
 --
 
-CREATE TABLE `change_tracking_jobs` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_jobs`;
+CREATE TABLE IF NOT EXISTS `change_tracking_jobs` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `jobs_id` int(11) NOT NULL,
-  `complaint_id` int(11) NOT NULL,
-  `technician_id` int(11) NOT NULL,
+  `jobs_id` int NOT NULL,
+  `complaint_id` int NOT NULL,
+  `technician_id` int NOT NULL,
   `raise_timestamp` date NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `completion_date` date DEFAULT NULL,
   `remarks` text COLLATE utf8mb4_unicode_ci,
-  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -262,10 +290,12 @@ CREATE TABLE `change_tracking_jobs` (
 -- Table structure for table `change_tracking_living_history`
 --
 
-CREATE TABLE `change_tracking_living_history` (
+DROP TABLE IF EXISTS `change_tracking_living_history`;
+CREATE TABLE IF NOT EXISTS `change_tracking_living_history` (
   `emp_code` varchar(10) NOT NULL,
-  `history` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `history` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`emp_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -273,17 +303,19 @@ CREATE TABLE `change_tracking_living_history` (
 -- Table structure for table `change_tracking_rooms`
 --
 
-CREATE TABLE `change_tracking_rooms` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_rooms`;
+CREATE TABLE IF NOT EXISTS `change_tracking_rooms` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `acc_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
+  `acc_id` int NOT NULL,
+  `room_id` int NOT NULL,
   `room_no` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `room_capacity` int(11) NOT NULL,
+  `room_capacity` int NOT NULL,
   `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `current_room_occupancy` int(11) DEFAULT NULL
+  `current_room_occupancy` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -292,20 +324,22 @@ CREATE TABLE `change_tracking_rooms` (
 -- Table structure for table `change_tracking_tankers`
 --
 
-CREATE TABLE `change_tracking_tankers` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_tankers`;
+CREATE TABLE IF NOT EXISTS `change_tracking_tankers` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tanker_id` int(11) NOT NULL,
-  `acc_id` int(11) NOT NULL,
-  `security_emp_id` int(11) NOT NULL,
+  `tanker_id` int NOT NULL,
+  `acc_id` int NOT NULL,
+  `security_emp_id` int NOT NULL,
   `quality_check` enum('Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qty` int(11) NOT NULL,
+  `qty` int NOT NULL,
   `bill_no` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` float NOT NULL,
-  `vendor_id` int(11) NOT NULL,
-  `tanker_timestamp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `vendor_id` int NOT NULL,
+  `tanker_timestamp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -314,18 +348,20 @@ CREATE TABLE `change_tracking_tankers` (
 -- Table structure for table `change_tracking_vaccination`
 --
 
-CREATE TABLE `change_tracking_vaccination` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_vaccination`;
+CREATE TABLE IF NOT EXISTS `change_tracking_vaccination` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vaccination_id` int(11) NOT NULL,
-  `emp_id` int(11) NOT NULL,
+  `vaccination_id` int NOT NULL,
+  `emp_id` int NOT NULL,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `category_id` int DEFAULT NULL,
   `date_of_administration` date DEFAULT NULL,
   `location` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_of_next_dose` date DEFAULT NULL
+  `date_of_next_dose` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -334,14 +370,15 @@ CREATE TABLE `change_tracking_vaccination` (
 -- Table structure for table `change_tracking_visitor_log`
 --
 
-CREATE TABLE `change_tracking_visitor_log` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `change_tracking_visitor_log`;
+CREATE TABLE IF NOT EXISTS `change_tracking_visitor_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` enum('Delete','Update','Insert') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `log_id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `security_emp_id` int(11) NOT NULL,
+  `log_id` int NOT NULL,
+  `emp_id` int DEFAULT NULL,
+  `security_emp_id` int NOT NULL,
   `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `visitor_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vehicle_no` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -349,7 +386,8 @@ CREATE TABLE `change_tracking_visitor_log` (
   `check_in` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `check_out` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `purpose` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
+  `phone_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -358,10 +396,11 @@ CREATE TABLE `change_tracking_visitor_log` (
 -- Table structure for table `complaints`
 --
 
-CREATE TABLE `complaints` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `complaints`;
+CREATE TABLE IF NOT EXISTS `complaints` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `raise_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` int(11) DEFAULT NULL,
+  `type` int DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `tech_pending_timestamp` timestamp NULL DEFAULT NULL,
   `tech_closure_timestamp` timestamp NULL DEFAULT NULL,
@@ -369,8 +408,12 @@ CREATE TABLE `complaints` (
   `warden_closure_timestamp` timestamp NULL DEFAULT NULL,
   `remarks` text COLLATE utf8mb4_unicode_ci,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `acc_id` int(11) DEFAULT NULL,
-  `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `acc_id` int DEFAULT NULL,
+  `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `emp_code` (`emp_code`),
+  KEY `acc_id` (`acc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -379,11 +422,13 @@ CREATE TABLE `complaints` (
 -- Table structure for table `complaint_type`
 --
 
-CREATE TABLE `complaint_type` (
-  `type_id` int(11) NOT NULL,
-  `complaint_type` varchar(20) DEFAULT NULL,
-  `type_description` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `complaint_type`;
+CREATE TABLE IF NOT EXISTS `complaint_type` (
+  `type_id` int NOT NULL AUTO_INCREMENT,
+  `complaint_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type_description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -391,13 +436,14 @@ CREATE TABLE `complaint_type` (
 -- Table structure for table `employee`
 --
 
-CREATE TABLE `employee` (
-  `emp_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `employee`;
+CREATE TABLE IF NOT EXISTS `employee` (
+  `emp_id` int NOT NULL AUTO_INCREMENT,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation` int(11) NOT NULL,
+  `designation` int NOT NULL,
   `dob` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contact` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -405,14 +451,20 @@ CREATE TABLE `employee` (
   `country` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pincode` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `department` int(11) NOT NULL,
+  `department` int NOT NULL,
   `blood_group` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `aadhaar_number` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `salary` float DEFAULT NULL,
-  `room_id` int(11) DEFAULT NULL,
-  `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `room_id` int DEFAULT NULL,
+  `role` int DEFAULT NULL,
+  PRIMARY KEY (`emp_id`),
+  UNIQUE KEY `emp_code` (`emp_code`),
+  KEY `role` (`role`),
+  KEY `designation` (`designation`),
+  KEY `room_id` (`room_id`),
+  KEY `fk_emp_dept` (`department`)
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `employee`
@@ -420,7 +472,7 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `designation`, `dob`, `contact`, `address`, `state`, `country`, `pincode`, `email`, `department`, `blood_group`, `joining_date`, `aadhaar_number`, `salary`, `room_id`, `role`) VALUES
 (1, 'EMP001', 'Vadiraj Gururaj Inamdar', NULL, NULL, 62, '2002-04-23', '7083491368', 'Dhavali, Ponda, Goa', 'Goa', 'India', '403401', 'vadirajinamdar6@gmail.com', 18, 'A+', '2023-01-03', '496376636809', 98346, NULL, 5),
-(2, 'D01000', 'RUBI CHOWHAI', NULL, NULL, 5, '2004-09-02', '6909422853', 'MUDOI BI .I & II, CHANGLANG, DIYUN, ARUNANCHAL PRADESH-792103     INDIA ARUNANCHAL PRADESH ', 'ARUNACHAL PRADESH', 'INDIA', 'NA', 'chowhair09@gmail.com', 2, 'A+', '2023-04-10', '283408719717', 0, 158, NULL),
+(2, 'D01000', 'RUBI CHOWHAI', NULL, NULL, 5, '2004-09-02', '6909422853', 'MUDOI BI .I & II, CHANGLANG, DIYUN, ARUNANCHAL PRADESH-792103     INDIA ARUNANCHAL PRADESH ', 'ARUNACHAL PRADESH', 'INDIA', 'NA', 'chowhair09@gmail.com', 2, 'A+', '2023-04-10', '283408719717', 0, 158, 6),
 (3, 'D01003', 'PHOIBI ENGTIPI', NULL, NULL, 2, '2002-09-09', '8011237676', 'CHANDMARI, LUMDING ROAD, DIPHU, KARBI ANGLONG ASSAM 782460     INDIA ASSAM ', 'ASSAM', 'INDIA', 'NA', 'phoibiengtipi@gmail.com', 1, 'O+', '2023-04-10', '509073267717', 0, 158, NULL),
 (4, 'H03113', 'PREMIKA MOCHAHARY', NULL, NULL, 2, '2002-04-17', '7099109507', 'VILL BHAIRAGURI, NALKHAMARA, UDALGURI ASSAM 784509     INDIA ASSAM ', 'ASSAM', 'INDIA', 'NA', 'premimchri5@gmail.com', 1, 'A+', '2023-04-10', '245321161535', 0, 158, NULL),
 (5, 'H03110', 'BANDANA GOGOI', NULL, NULL, 2, '2001-05-06', '9365454243', 'VILL BETONIBAM, GHINAI GAON, DIBRUGARH ASSAM 786621     INDIA ASSAM  ', 'ASSAM', 'INDIA', 'NA', 'gogoibandana486@gmail.com', 1, 'O+', '2023-04-10', '927593652813', 0, 158, NULL),
@@ -1095,10 +1147,12 @@ INSERT INTO `employee` (`emp_id`, `emp_code`, `fname`, `mname`, `lname`, `design
 -- Table structure for table `employee_dept`
 --
 
-CREATE TABLE `employee_dept` (
-  `dept_id` int(11) NOT NULL,
-  `dept_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `employee_dept`;
+CREATE TABLE IF NOT EXISTS `employee_dept` (
+  `dept_id` int NOT NULL AUTO_INCREMENT,
+  `dept_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`dept_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_dept`
@@ -1131,10 +1185,12 @@ INSERT INTO `employee_dept` (`dept_id`, `dept_name`) VALUES
 -- Table structure for table `employee_designation`
 --
 
-CREATE TABLE `employee_designation` (
-  `id` int(11) NOT NULL,
-  `designation` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `employee_designation`;
+CREATE TABLE IF NOT EXISTS `employee_designation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `designation` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_designation`
@@ -1211,13 +1267,16 @@ INSERT INTO `employee_designation` (`id`, `designation`) VALUES
 -- Table structure for table `employee_outing`
 --
 
-CREATE TABLE `employee_outing` (
+DROP TABLE IF EXISTS `employee_outing`;
+CREATE TABLE IF NOT EXISTS `employee_outing` (
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `approval` enum('Yes','No') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `outing_date` date NOT NULL,
   `arrival_date` date DEFAULT NULL,
   `category` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` int(4) NOT NULL
+  `type` int NOT NULL,
+  KEY `emp_id` (`emp_code`),
+  KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1226,16 +1285,21 @@ CREATE TABLE `employee_outing` (
 -- Table structure for table `jobs`
 --
 
-CREATE TABLE `jobs` (
-  `id` int(11) NOT NULL,
-  `complaint_id` int(11) NOT NULL,
-  `technician_id` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `jobs`;
+CREATE TABLE IF NOT EXISTS `jobs` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `complaint_id` int NOT NULL,
+  `technician_id` int DEFAULT NULL,
   `raise_timestamp` date NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `tentative_date` date DEFAULT NULL,
   `completion_date` date DEFAULT NULL,
   `remarks` text COLLATE utf8mb4_unicode_ci,
-  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `warden_emp_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jobs_ibfk_1` (`complaint_id`),
+  KEY `technician_id` (`technician_id`),
+  KEY `warden_emp_code` (`warden_emp_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1244,10 +1308,11 @@ CREATE TABLE `jobs` (
 -- Stand-in structure for view `last_dose`
 -- (See below for the actual view)
 --
-CREATE TABLE `last_dose` (
-`vaccination_id` int(11)
-,`emp_id` int(11)
-,`category_id` int(11)
+DROP VIEW IF EXISTS `last_dose`;
+CREATE TABLE IF NOT EXISTS `last_dose` (
+`vaccination_id` int
+,`emp_id` int
+,`category_id` int
 ,`date_of_administration` date
 ,`location` varchar(50)
 ,`date_of_next_dose` date
@@ -1259,17 +1324,20 @@ CREATE TABLE `last_dose` (
 -- Table structure for table `login_credentials`
 --
 
-CREATE TABLE `login_credentials` (
-  `emp_id` int(11) NOT NULL,
-  `pass` varchar(255) NOT NULL DEFAULT '5f4dcc3b5aa765d61d8327deb882cf99'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `login_credentials`;
+CREATE TABLE IF NOT EXISTS `login_credentials` (
+  `emp_id` int NOT NULL,
+  `pass` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '5f4dcc3b5aa765d61d8327deb882cf99',
+  KEY `emp_id` (`emp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `login_credentials`
 --
 
 INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
-(1, '5f4dcc3b5aa765d61d8327deb882cf99');
+(1, '5f4dcc3b5aa765d61d8327deb882cf99'),
+(2, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -1277,13 +1345,16 @@ INSERT INTO `login_credentials` (`emp_id`, `pass`) VALUES
 -- Table structure for table `login_history`
 --
 
-CREATE TABLE `login_history` (
-  `emp_id` int(11) DEFAULT NULL,
-  `user` text,
+DROP TABLE IF EXISTS `login_history`;
+CREATE TABLE IF NOT EXISTS `login_history` (
+  `emp_id` int DEFAULT NULL,
+  `user` text COLLATE utf8mb4_general_ci,
   `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `logout_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `emp_id` (`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `login_history`
@@ -1300,8 +1371,23 @@ INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`
 (1, '', '2023-08-11 04:20:39', '2023-08-11 04:20:53', 8),
 (1, '', '2023-08-11 04:21:00', '2023-08-11 04:21:05', 9),
 (1, '', '2023-08-11 04:22:51', '2023-08-11 04:22:51', 10),
-(1, 'Vadiraj Gururaj Inamdar', '2023-08-12 16:54:10', '2023-08-12 16:54:10', 11),
-(1, 'Vadiraj Gururaj Inamdar', '2023-08-12 17:06:36', '2023-08-12 17:06:42', 12);
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-12 14:33:11', '2023-08-12 14:33:56', 11),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 09:29:12', '2023-08-13 09:29:12', 12),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 10:40:09', '2023-08-13 14:36:08', 13),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 14:36:24', '2023-08-13 14:39:49', 14),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 14:36:55', '2023-08-13 14:39:57', 15),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 14:40:09', '2023-08-13 14:40:09', 16),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 14:48:31', '2023-08-13 14:48:31', 17),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-13 14:50:02', '2023-08-13 14:50:02', 18),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-14 16:06:20', '2023-08-15 04:04:08', 19),
+(2, 'RUBI CHOWHAI', '2023-08-15 03:30:46', '2023-08-15 03:43:37', 20),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 04:04:19', '2023-08-15 04:28:05', 21),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 04:28:35', '2023-08-15 04:28:35', 22),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 04:29:33', '2023-08-15 04:29:33', 23),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 07:39:21', '2023-08-15 07:40:30', 24),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 07:40:35', '2023-08-15 07:40:35', 25),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 07:42:35', '2023-08-15 07:42:58', 26),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 07:43:13', '2023-08-15 07:43:13', 27);
 
 -- --------------------------------------------------------
 
@@ -1309,10 +1395,12 @@ INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`
 -- Table structure for table `outing_type`
 --
 
-CREATE TABLE `outing_type` (
-  `type_id` int(11) NOT NULL,
-  `type_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `outing_type`;
+CREATE TABLE IF NOT EXISTS `outing_type` (
+  `type_id` int NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1320,27 +1408,31 @@ CREATE TABLE `outing_type` (
 -- Table structure for table `rights`
 --
 
-CREATE TABLE `rights` (
-  `id` int(11) NOT NULL,
-  `accomodation` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `complaints` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `employee_details` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `employee_outing` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `roles` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `rooms` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `tankers` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `jobs` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `vaccination` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `vaccination_category` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0',
-  `visitor_log` enum('0','1','2','3','5','6','4','7') NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `rights`;
+CREATE TABLE IF NOT EXISTS `rights` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `accomodation` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `complaints` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `employee_details` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `employee_outing` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `roles` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `rooms` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `tankers` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `jobs` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `vaccination` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `vaccination_category` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `visitor_log` enum('0','1','2','3','5','6','4','7') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rights`
 --
 
 INSERT INTO `rights` (`id`, `accomodation`, `complaints`, `employee_details`, `employee_outing`, `roles`, `rooms`, `tankers`, `jobs`, `vaccination`, `vaccination_category`, `visitor_log`) VALUES
-(5, '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7');
+(5, '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7'),
+(6, '1', '3', '1', '3', '0', '1', '3', '0', '0', '0', '3'),
+(7, '1', '3', '1', '3', '0', '1', '3', '0', '0', '0', '3');
 
 -- --------------------------------------------------------
 
@@ -1348,18 +1440,23 @@ INSERT INTO `rights` (`id`, `accomodation`, `complaints`, `employee_details`, `e
 -- Table structure for table `roles`
 --
 
-CREATE TABLE `roles` (
-  `role_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `role_id` int NOT NULL AUTO_INCREMENT,
   `role_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rights` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `rights` int NOT NULL,
+  PRIMARY KEY (`role_id`),
+  KEY `rights` (`rights`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`, `rights`) VALUES
-(5, 'SUPER ADMIN', 5);
+(5, 'SUPER ADMIN', 5),
+(6, 'Security', 6),
+(7, 'Security', 7);
 
 -- --------------------------------------------------------
 
@@ -1367,14 +1464,17 @@ INSERT INTO `roles` (`role_id`, `role_name`, `rights`) VALUES
 -- Table structure for table `rooms`
 --
 
-CREATE TABLE `rooms` (
-  `acc_id` int(11) NOT NULL,
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `rooms`;
+CREATE TABLE IF NOT EXISTS `rooms` (
+  `acc_id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `room_no` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `room_capacity` int(11) NOT NULL,
-  `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'ACTIVE',
-  `current_room_occupancy` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `room_capacity` int NOT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `current_room_occupancy` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `acc_id` (`acc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rooms`
@@ -1561,10 +1661,20 @@ INSERT INTO `rooms` (`acc_id`, `id`, `room_no`, `room_capacity`, `status`, `curr
 -- Table structure for table `security`
 --
 
-CREATE TABLE `security` (
-  `emp_id` int(11) NOT NULL,
-  `acc_id` int(11) NOT NULL
+DROP TABLE IF EXISTS `security`;
+CREATE TABLE IF NOT EXISTS `security` (
+  `emp_id` int NOT NULL,
+  `acc_id` int NOT NULL,
+  KEY `acc_id` (`acc_id`),
+  KEY `emp_id` (`emp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `security`
+--
+
+INSERT INTO `security` (`emp_id`, `acc_id`) VALUES
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -1572,16 +1682,21 @@ CREATE TABLE `security` (
 -- Table structure for table `tankers`
 --
 
-CREATE TABLE `tankers` (
-  `id` int(11) NOT NULL,
-  `acc_id` int(11) NOT NULL,
-  `security_emp_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tankers`;
+CREATE TABLE IF NOT EXISTS `tankers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `acc_id` int NOT NULL,
+  `security_emp_id` int NOT NULL,
   `quality_check` enum('Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qty` int(11) NOT NULL,
+  `qty` int NOT NULL,
   `bill_no` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` float NOT NULL,
-  `vendor_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `vendor_id` int NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `security_emp_id` (`security_emp_id`),
+  KEY `acc_id` (`acc_id`),
+  KEY `vendor_id` (`vendor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1590,15 +1705,17 @@ CREATE TABLE `tankers` (
 -- Table structure for table `tanker_vendors`
 --
 
-CREATE TABLE `tanker_vendors` (
-  `id` int(11) NOT NULL,
-  `vname` varchar(255) DEFAULT NULL,
-  `company_name` varchar(255) DEFAULT NULL,
-  `number` varchar(13) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `time_stamp` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `tanker_vendors`;
+CREATE TABLE IF NOT EXISTS `tanker_vendors` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vname` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `company_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `number` varchar(13) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `price` int DEFAULT NULL,
+  `time_stamp` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1606,11 +1723,25 @@ CREATE TABLE `tanker_vendors` (
 -- Table structure for table `technician`
 --
 
-CREATE TABLE `technician` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) NOT NULL,
-  `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
+DROP TABLE IF EXISTS `technician`;
+CREATE TABLE IF NOT EXISTS `technician` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `emp_id` int NOT NULL,
+  `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `emp_id` (`emp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tmp_files`
+--
+
+DROP TABLE IF EXISTS `tmp_files`;
+CREATE TABLE IF NOT EXISTS `tmp_files` (
+  `file_path` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1618,15 +1749,19 @@ CREATE TABLE `technician` (
 -- Table structure for table `vaccination`
 --
 
-CREATE TABLE `vaccination` (
-  `vaccination_id` int(11) NOT NULL,
-  `emp_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `vaccination`;
+CREATE TABLE IF NOT EXISTS `vaccination` (
+  `vaccination_id` int NOT NULL AUTO_INCREMENT,
+  `emp_id` int NOT NULL,
   `emp_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `category_id` int DEFAULT NULL,
   `date_of_administration` date DEFAULT NULL,
   `location` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_of_next_dose` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `date_of_next_dose` date DEFAULT NULL,
+  PRIMARY KEY (`vaccination_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1279 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vaccination`
@@ -2919,10 +3054,12 @@ INSERT INTO `vaccination` (`vaccination_id`, `emp_id`, `emp_code`, `category_id`
 -- Table structure for table `vaccination_category`
 --
 
-CREATE TABLE `vaccination_category` (
+DROP TABLE IF EXISTS `vaccination_category`;
+CREATE TABLE IF NOT EXISTS `vaccination_category` (
   `category_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `category_id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vaccination_category`
@@ -2939,10 +3076,11 @@ INSERT INTO `vaccination_category` (`category_name`, `category_id`) VALUES
 -- Table structure for table `visitor_log`
 --
 
-CREATE TABLE `visitor_log` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `security_emp_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `visitor_log`;
+CREATE TABLE IF NOT EXISTS `visitor_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `emp_id` int DEFAULT NULL,
+  `security_emp_id` int NOT NULL,
   `acc_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `visitor_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vehicle_no` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2950,7 +3088,10 @@ CREATE TABLE `visitor_log` (
   `check_in` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `check_out` timestamp NULL DEFAULT NULL,
   `purpose` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
+  `phone_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `security_emp_id` (`security_emp_id`),
+  KEY `emp_id` (`emp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2960,447 +3101,8 @@ CREATE TABLE `visitor_log` (
 --
 DROP TABLE IF EXISTS `last_dose`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `last_dose`  AS   (select `v1`.`vaccination_id` AS `vaccination_id`,`v1`.`emp_id` AS `emp_id`,`v1`.`category_id` AS `category_id`,`v1`.`date_of_administration` AS `date_of_administration`,`v1`.`location` AS `location`,`v1`.`date_of_next_dose` AS `date_of_next_dose` from (`vaccination` `v1` left join `vaccination` `v2` on(((`v1`.`emp_id` = `v2`.`emp_id`) and (`v1`.`date_of_administration` < `v2`.`date_of_administration`)))) where isnull(`v2`.`emp_id`))  ;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `accomodation`
---
-ALTER TABLE `accomodation`
-  ADD PRIMARY KEY (`acc_id`),
-  ADD UNIQUE KEY `acc_code` (`acc_code`),
-  ADD KEY `accomodation_ibfk_1` (`warden_emp_code`);
-
---
--- Indexes for table `active_sessions`
---
-ALTER TABLE `active_sessions`
-  ADD PRIMARY KEY (`emp_id`);
-
---
--- Indexes for table `change_tracking_accomodation`
---
-ALTER TABLE `change_tracking_accomodation`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `login` (`user`);
-
---
--- Indexes for table `change_tracking_acc_locations`
---
-ALTER TABLE `change_tracking_acc_locations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `login` (`user`);
-
---
--- Indexes for table `change_tracking_complaints`
---
-ALTER TABLE `change_tracking_complaints`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `login` (`user`);
-
---
--- Indexes for table `change_tracking_complaint_type`
---
-ALTER TABLE `change_tracking_complaint_type`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `login` (`user`);
-
---
--- Indexes for table `change_tracking_employee`
---
-ALTER TABLE `change_tracking_employee`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_employee_dept`
---
-ALTER TABLE `change_tracking_employee_dept`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_employee_designation`
---
-ALTER TABLE `change_tracking_employee_designation`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_employee_outing`
---
-ALTER TABLE `change_tracking_employee_outing`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_jobs`
---
-ALTER TABLE `change_tracking_jobs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_living_history`
---
-ALTER TABLE `change_tracking_living_history`
-  ADD PRIMARY KEY (`emp_code`);
-
---
--- Indexes for table `change_tracking_rooms`
---
-ALTER TABLE `change_tracking_rooms`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_tankers`
---
-ALTER TABLE `change_tracking_tankers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_vaccination`
---
-ALTER TABLE `change_tracking_vaccination`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `change_tracking_visitor_log`
---
-ALTER TABLE `change_tracking_visitor_log`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `complaints`
---
-ALTER TABLE `complaints`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `type` (`type`),
-  ADD KEY `emp_code` (`emp_code`),
-  ADD KEY `acc_id` (`acc_id`);
-
---
--- Indexes for table `complaint_type`
---
-ALTER TABLE `complaint_type`
-  ADD PRIMARY KEY (`type_id`);
-
---
--- Indexes for table `employee`
---
-ALTER TABLE `employee`
-  ADD PRIMARY KEY (`emp_id`),
-  ADD UNIQUE KEY `emp_code` (`emp_code`),
-  ADD KEY `role` (`role`),
-  ADD KEY `designation` (`designation`),
-  ADD KEY `room_id` (`room_id`),
-  ADD KEY `fk_emp_dept` (`department`);
-
---
--- Indexes for table `employee_dept`
---
-ALTER TABLE `employee_dept`
-  ADD PRIMARY KEY (`dept_id`);
-
---
--- Indexes for table `employee_designation`
---
-ALTER TABLE `employee_designation`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `employee_outing`
---
-ALTER TABLE `employee_outing`
-  ADD KEY `emp_id` (`emp_code`),
-  ADD KEY `type` (`type`);
-
---
--- Indexes for table `jobs`
---
-ALTER TABLE `jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `jobs_ibfk_1` (`complaint_id`),
-  ADD KEY `technician_id` (`technician_id`),
-  ADD KEY `warden_emp_code` (`warden_emp_code`);
-
---
--- Indexes for table `login_credentials`
---
-ALTER TABLE `login_credentials`
-  ADD KEY `emp_id` (`emp_id`);
-
---
--- Indexes for table `login_history`
---
-ALTER TABLE `login_history`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `emp_id` (`emp_id`);
-
---
--- Indexes for table `outing_type`
---
-ALTER TABLE `outing_type`
-  ADD PRIMARY KEY (`type_id`);
-
---
--- Indexes for table `rights`
---
-ALTER TABLE `rights`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`role_id`),
-  ADD KEY `rights` (`rights`);
-
---
--- Indexes for table `rooms`
---
-ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `acc_id` (`acc_id`);
-
---
--- Indexes for table `security`
---
-ALTER TABLE `security`
-  ADD KEY `acc_id` (`acc_id`),
-  ADD KEY `emp_id` (`emp_id`);
-
---
--- Indexes for table `tankers`
---
-ALTER TABLE `tankers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `security_emp_id` (`security_emp_id`),
-  ADD KEY `acc_id` (`acc_id`),
-  ADD KEY `vendor_id` (`vendor_id`);
-
---
--- Indexes for table `tanker_vendors`
---
-ALTER TABLE `tanker_vendors`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `technician`
---
-ALTER TABLE `technician`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `emp_id` (`emp_id`);
-
---
--- Indexes for table `vaccination`
---
-ALTER TABLE `vaccination`
-  ADD PRIMARY KEY (`vaccination_id`),
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `vaccination_category`
---
-ALTER TABLE `vaccination_category`
-  ADD PRIMARY KEY (`category_id`);
-
---
--- Indexes for table `visitor_log`
---
-ALTER TABLE `visitor_log`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `security_emp_id` (`security_emp_id`),
-  ADD KEY `emp_id` (`emp_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `accomodation`
---
-ALTER TABLE `accomodation`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `change_tracking_accomodation`
---
-ALTER TABLE `change_tracking_accomodation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_acc_locations`
---
-ALTER TABLE `change_tracking_acc_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_complaints`
---
-ALTER TABLE `change_tracking_complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_complaint_type`
---
-ALTER TABLE `change_tracking_complaint_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_employee`
---
-ALTER TABLE `change_tracking_employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_employee_dept`
---
-ALTER TABLE `change_tracking_employee_dept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_employee_designation`
---
-ALTER TABLE `change_tracking_employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_employee_outing`
---
-ALTER TABLE `change_tracking_employee_outing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_jobs`
---
-ALTER TABLE `change_tracking_jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_rooms`
---
-ALTER TABLE `change_tracking_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_tankers`
---
-ALTER TABLE `change_tracking_tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_vaccination`
---
-ALTER TABLE `change_tracking_vaccination`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `change_tracking_visitor_log`
---
-ALTER TABLE `change_tracking_visitor_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `complaints`
---
-ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `complaint_type`
---
-ALTER TABLE `complaint_type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `employee`
---
-ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=667;
-
---
--- AUTO_INCREMENT for table `employee_dept`
---
-ALTER TABLE `employee_dept`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `employee_designation`
---
-ALTER TABLE `employee_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
-
---
--- AUTO_INCREMENT for table `jobs`
---
-ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `login_history`
---
-ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `outing_type`
---
-ALTER TABLE `outing_type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `rights`
---
-ALTER TABLE `rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `roles`
---
-ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
-
---
--- AUTO_INCREMENT for table `tankers`
---
-ALTER TABLE `tankers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tanker_vendors`
---
-ALTER TABLE `tanker_vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `technician`
---
-ALTER TABLE `technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `vaccination`
---
-ALTER TABLE `vaccination`
-  MODIFY `vaccination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1279;
-
---
--- AUTO_INCREMENT for table `vaccination_category`
---
-ALTER TABLE `vaccination_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `visitor_log`
---
-ALTER TABLE `visitor_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+DROP VIEW IF EXISTS `last_dose`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `last_dose`  AS SELECT `v1`.`vaccination_id` AS `vaccination_id`, `v1`.`emp_id` AS `emp_id`, `v1`.`category_id` AS `category_id`, `v1`.`date_of_administration` AS `date_of_administration`, `v1`.`location` AS `location`, `v1`.`date_of_next_dose` AS `date_of_next_dose` FROM (`vaccination` `v1` left join `vaccination` `v2` on(((`v1`.`emp_id` = `v2`.`emp_id`) and (`v1`.`date_of_administration` < `v2`.`date_of_administration`)))) WHERE (`v2`.`emp_id` is null)  ;
 
 --
 -- Constraints for dumped tables

@@ -3,16 +3,16 @@ const acc = document.querySelector('#acc');
 const rommno = document.querySelector('#roomno');
 const rommcap = document.querySelector('#roomcap');
 
-const checkAcc = () => {
-    let valid = false;
-    if(acc.selectedIndex > 0) {
-        valid = true;
-        showSuccess(acc);
-    } else{
-        showError(acc, "Please select a Accommodation");
-    }
-    return valid;
-};
+// const checkAcc = () => {
+//     let valid = false;
+//     if(acc.selectedIndex > 0) {
+//         valid = true;
+//         showSuccess(acc);
+//     } else{
+//         showError(acc, "Please select a Accommodation");
+//     }
+//     return valid;
+// };
 const checkNo = () => {
     const No = rommno.value.trim();
     let valid = false;

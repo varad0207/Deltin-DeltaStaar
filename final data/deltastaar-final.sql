@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 15, 2023 at 10:05 AM
+-- Generation Time: Aug 19, 2023 at 07:49 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -1304,7 +1304,10 @@ INSERT INTO `login_history` (`emp_id`, `user`, `login_time`, `logout_time`, `id`
 (1, 'Vadiraj Gururaj Inamdar', '2023-08-12 17:06:36', '2023-08-12 17:06:42', 12),
 (1, 'Vadiraj Gururaj Inamdar', '2023-08-14 05:52:37', '2023-08-14 05:52:37', 13),
 (1, 'Vadiraj Gururaj Inamdar', '2023-08-14 06:34:54', '2023-08-14 06:34:54', 14),
-(1, 'Vadiraj Gururaj Inamdar', '2023-08-14 08:38:36', '2023-08-14 08:38:36', 15);
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-14 08:38:36', '2023-08-14 08:38:36', 15),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-15 08:17:29', '2023-08-15 08:17:29', 16),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-16 16:04:10', '2023-08-16 16:04:10', 17),
+(1, 'Vadiraj Gururaj Inamdar', '2023-08-16 16:09:32', '2023-08-16 16:09:32', 18);
 
 -- --------------------------------------------------------
 
@@ -1624,6 +1627,13 @@ CREATE TABLE `technician` (
 CREATE TABLE `tmp_files` (
   `file_path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tmp_files`
+--
+
+INSERT INTO `tmp_files` (`file_path`) VALUES
+('temp/Employee_table2023-08-16.xlsx');
 
 -- --------------------------------------------------------
 
@@ -3353,7 +3363,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `outing_type`

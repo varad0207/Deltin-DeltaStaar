@@ -16,6 +16,8 @@
     display: block;
 }
 
+
+
 .order-tracking .is-complete {
     display: block;
     position: relative;
@@ -76,7 +78,7 @@
     color: #000;
 }
 
-.order-tracking::before {
+/* .order-tracking::before {
     content: '';
     display: block;
     height: 3px;
@@ -85,6 +87,18 @@
     top: 13px;
     position: absolute;
     left: calc(-50% + 20px);
+    z-index: 0;
+} */
+
+.order-tracking::before{
+    content: '';
+    display: block;
+    height: 3px;
+    width: 125px;
+    background-color: #f7be16;
+    top: 13px;
+    position: absolute;
+    left: -100px;
     z-index: 0;
 }
 

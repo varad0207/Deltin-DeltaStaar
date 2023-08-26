@@ -64,39 +64,30 @@ if (isset($_REQUEST['employeecode'])) {
                     <p class="card-text">Email : <b><?php echo $row12['email']; ?></b></p>
                     <?php if ($row12['room_id'] != "") {
                         $result = mysqli_query($conn, "SELECT emp_code, history FROM change_tracking_living_history");
+                        $flag=false;
                         while ($row = mysqli_fetch_assoc($result)) {
                             if ($row['emp_code'] == $row12['emp_code']) {
                                 $historyobj = $row['history'];
+                                $flag=true;
                                 break;
                             }
                         }
-                        $dataArray = json_decode($historyobj, true);
-                        $numItems = count($dataArray);
-                        if ($numItems > 1) {
-                    ?>
+                        if($flag){
+                            $dataArray = json_decode($historyobj, true);
+                            $numItems = count($dataArray);
+                            if ($numItems > 1) { ?>
                             <p>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 col-md-10 hh-grayBox pt45 pb20">
                                         <div class="row justify-content-between">
-                                            <?php for ($x = 1; $x<=$numItems; $x++) {
-                                                if ($x == 3) { ?>
-                                                    <div class="order-tracking">
-                                                        <span class="is-complete"></span>
-                                                        <p>Ordered<br><span><?php echo $numItems ?></span></p>
-                                                    </div>
-                                                <?php break;
-                                                } 
-                                                if ($x == $numItems) { ?>
-                                                    <div class="order-tracking">
-                                                        <span class="is-complete"></span>
-                                                        <p>Ordered<br><span><?php echo $numItems ?></span></p>
-                                                    </div>
-                                                <?php break;
+                                            <?php for ($x = 1; $x <= $numItems; $x++) {
+                                                if ($x == 4) {
+                                                    break;
                                                 } ?>
-                                                <div class="order-tracking completed">
+                                                <div class="order-tracking <?php if (($x != 3) && ($x != $numItems)) {echo "completed";} ?>">
                                                     <span class="is-complete"></span>
-                                                    <p>Ordered<br><span><?php echo $numItems ?></span></p>
+                                                    <p style="font-size:smaller;"><?php echo $dataArray[$x-1]['accomodation'] ?><br><span><?php echo $dataArray[$x-1]['room'] ?></span></p>
                                                 </div>
 
                                             <?php
@@ -108,7 +99,8 @@ if (isset($_REQUEST['employeecode'])) {
                             </div>
                             </p>
                     <?php }
-                    } ?>
+                    } 
+                }?>
                 </div>
 
                 <div class="right" style="display:block;text-align: left;">

@@ -26,7 +26,7 @@ if (isset($_REQUEST['employeecode'])) {
 ?>
 
 <head>
-    <link rel="stylesheet" href="../../css/tracking.css">
+    <link rel="stylesheet" href="../../css/tracking.css?v=1.1.3">
 </head>
 <style>
     @media only screen and (max-width: 695px) {
@@ -75,19 +75,22 @@ if (isset($_REQUEST['employeecode'])) {
                         if($flag){
                             $dataArray = json_decode($historyobj, true);
                             $numItems = count($dataArray);
-                            if ($numItems > 1) { ?>
+                            if ($numItems > 1) { 
+                                if ($numItems >= 3) {
+                                    $dataArray = array_slice($dataArray, -3, 3, true);
+                                }
+                                $lastKey = array_key_last($dataArray);
+                                $firstKey = array_key_first($dataArray);
+                                ?>
                             <p>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 col-md-10 hh-grayBox pt45 pb20">
                                         <div class="row justify-content-between">
-                                            <?php for ($x = 1; $x <= $numItems; $x++) {
-                                                if ($x == 4) {
-                                                    break;
-                                                } ?>
-                                                <div class="order-tracking <?php if (($x != 3) && ($x != $numItems)) {echo "completed";} ?>">
-                                                    <span class="is-complete"></span>
-                                                    <p style="font-size:smaller;"><?php echo $dataArray[$x-1]['accomodation'] ?><br><span><?php echo $dataArray[$x-1]['room'] ?></span></p>
+                                            <?php foreach ($dataArray as $key => $item) { ?>
+                                                <div class="order-tracking <?php if ($key !== $lastKey) {echo "completed";} ?>">
+                                                <span class="is-complete"></span>
+                                                    <p style="font-size:smaller;"><?php echo $item['accomodation'] ?><br><span><?php echo $item['room'] ?></span></p>
                                                 </div>
 
                                             <?php
@@ -115,7 +118,7 @@ if (isset($_REQUEST['employeecode'])) {
                     <p class="card-text">Room number : <b><?php echo $room_number; ?></b></p>
                 </div>
             </div>
-            <div class="overlay-window-footer" style="display:flex;justify-content:center;margin-top:50px;margin-bottom:10px;">
+            <div class="overlay-window-footer" style="display:flex;justify-content:center;margin-top:auto;margin-bottom:10px;">
                 <Button class="btn btn-secondary btn2" onclick="document.querySelectorAll('.overlay').forEach(a=>a.style.display = 'none');">Back</Button>
             </div>
         </div>

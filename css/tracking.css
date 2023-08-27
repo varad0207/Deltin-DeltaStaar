@@ -33,7 +33,7 @@
 }
 
 .order-tracking .is-complete:after {
-    display: block;
+    display: none;
     position: absolute;
     content: '';
     height: 14px;
@@ -63,7 +63,8 @@
 }
 
 .order-tracking p {
-    color: #A4A4A4;
+    color: #000;
+
     font-size: 16px;
     margin-top: 8px;
     margin-bottom: 0;
@@ -75,7 +76,7 @@
 }
 
 .order-tracking.completed p {
-    color: #000;
+    color: #A4A4A4;
 }
 
 /* .order-tracking::before {
@@ -106,6 +107,9 @@
     display: none;
 }
 
+
+
 .order-tracking.completed:before {
     background-color: #27aa80;
+    content:none;
 }
